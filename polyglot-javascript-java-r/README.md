@@ -24,7 +24,7 @@ Execute:
 
 Now you're all set to run the polyglot JavaScript, Java, R application.
 
-Export GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
+Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
 GRAALVM_VERSION=0.32
@@ -45,7 +45,7 @@ Open [localhost:3000](localhost:3000) and enjoy the output of the polyglot app. 
 
 ## Debugging polyglot applications
 
-GraalVM supports debugging polyglot applications too, add the `--inspect` parameter to the command line, open the url the application prints at the startup in Chrome browser and you can debug, set breakpoints, evaluate expressions in this app in the JavaScript and R code alike. 
+GraalVM supports debugging polyglot applications too, add the `--inspect` parameter to the command line, open the url the application prints at the startup in Chrome browser and you can debug, set breakpoints, evaluate expressions in this app in the JavaScript and R code alike.
 
 ## A note about the applicaiton
 
