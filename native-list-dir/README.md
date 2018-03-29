@@ -18,7 +18,7 @@ cd graalvm-demos/native-list-dir
 There are two Java classes we'll the `ListDir.java` for the purposes of this demo.
 First we need to build this class. You can manually execute `javac ListDir.java`, but there's also a `build.sh` script included for your convenience.
 
-Note that you can use any JDK for compiling the Java classes, but in the build script we refef to `javac` in the GraalVM to simplify the prerequisites and not depend on you having another JDK installed.
+Note that you can use any JDK for compiling the Java classes, but in the build script we refer to `javac` in the GraalVM to simplify the prerequisites and not depend on you having another JDK installed.
 
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
@@ -87,7 +87,7 @@ $GRAALVM_HOME/bin/javac -cp $GRAALVM_HOME/jre/lib/boot/graal-sdk.jar ExtListDir.
 ```
 
 Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--js` option.
-Note that it takes a bit more time because it needs to include the JavaScript support. 
+Note that it takes a bit more time because it needs to include the JavaScript support.
 
 ```
 $GRAALVM_HOME/bin/native-image --js ExtListDir
