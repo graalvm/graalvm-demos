@@ -1,6 +1,6 @@
 # GraalVM demos
 
-This repository contains several small applications and benchmarks written in Java, JavaScript, Kotlin. These programs are illustrating capabilities of [GraalVM](https://graalvm.org)
+This repository contains several small applications and benchmarks written in Java, JavaScript, Kotlin. These programs are illustrating capabilities of [GraalVM](http://graalvm.org)
 
 ## Running
 
