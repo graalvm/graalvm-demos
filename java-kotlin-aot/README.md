@@ -49,11 +49,10 @@ After executing the `native-image` command, check the directory, it should have 
 
 To run the application, you need to execute the fat jar file in the `target` dir. You can run it as a normal Java application using `java`. Or since we have a native image prepared, you can run that directly.
 
-The `run.sh` file, executes both, and times them with the `time` utility.
+The `run.sh` file, executes it both ways, and times them with the `time` utility.
 ```
-java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar
-./helloworld
-
+time java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
+time ./helloworld
 ```
 
 On my machine `run.sh` produces approximately the following output:
