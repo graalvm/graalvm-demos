@@ -34,7 +34,7 @@ Then execute:
 ./build.sh
 ```
 
-Let's look at the important line of the `build.sh` which creates a native image from our Java application. The `native-image` utility is a part of GraalVM. It is used to compile applications ahead-of-time for faster starup and lower general overhead at runtime.
+Let's look at the important line of the `build.sh` which creates a native image from our Java application. The `native-image` utility is a part of GraalVM. It is used to compile applications ahead-of-time for faster startup and lower general overhead at runtime.
 
 ```
 $GRAALVM_HOME/bin/native-image -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
