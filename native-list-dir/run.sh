@@ -2,4 +2,4 @@
 set -ex
 
 time java ListDir $1
-time ./listDir $1
+time ./listdir $1
