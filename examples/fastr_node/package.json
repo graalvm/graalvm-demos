@@ -1,0 +1,14 @@
+{
+  "name": "fastr_nodejs",
+  "version": "1.0.0",
+  "description": "GraalVM interoperability demo: copy of a Shiny example that scales!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GraalVM team",
+  "license": "Universal Permissive License (UPL)",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

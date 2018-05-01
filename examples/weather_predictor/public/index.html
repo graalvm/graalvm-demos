@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="GraalVM Weather Predictor Demo">
+    <meta name="author" content="Oracle Labs">
+    <title>GraalVM Weather Predictor Demo</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row text-center">
+        <h1><span style='color:red'>Oracle</span> Labs &nbsp; GraalVM <small>demo</small></h1>
+    </div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid" id="navfluid">
+            <div class="row">
+                <div class="collapse navbar-collapse navbar-inner">
+                    <ul class="nav navbar-nav ">
+                        <li class="active">
+                            <a href="#" data-page="database-page"><span class="glyphicon glyphicon-list"></span> Database</a>
+                        </li>
+                        <li>
+                            <a href="#" data-page="predict-page"><span class="glyphicon glyphicon-scale"></span> Predict Temperature</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container page" style="padding-top: 2em" id="database-page">
+        <div class="row">
+            <table id='cities-table' class='table table-condensed table-striped table-hover table-bordered'>
+                <thead>
+                    <tr>
+                        <th width="16%">Name</th>
+                        <th width="16%">Country</th>
+                        <th width="16%">Population</th>
+                        <th width="16%">Latitude</th>
+                        <th width="16%">Longitude</th>
+                        <th width="16%">Temperature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-xs-offset-3 col-xs-6">
+                <nav aria-label="...">
+                  <ul class="pager">
+                    <li class="previous"><a href="#" id="table-prev"><span aria-hidden="true">&larr;</span> previous</a></li>
+                    <li class="next"><a href="#" id="table-next">next <span aria-hidden="true">&rarr;</span></a></li>
+                  </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" style="padding-top: 2em; display: none" id="predict-page">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Visualization generated in R</div>
+                    <div class="panel-body">
+                        <div id='plot' class='viz'>
+                        </div>
+                        <div class="sk-circle viz-spinner" id='plot-spinner'>
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 text-center">
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Regenerate training set</div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                              <div class="form-group">
+                                  <label for="model-size">Training set size </label>
+                                  <select class="form-control" id="model-size">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="40">40</option>
+                                  </select>
+                              </div>
+                              <button type="submit" class="btn btn-default action-button" style='margin-left:1em' id='regenerate'>Regenerate!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Prediction</div>
+                        <div class="panel-body">
+                            <div>
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <input type="text" class="form-control" id="cityName" placeholder="Enter city name">
+                                  </div>
+                                  <button type="submit" class="btn btn-default action-button" style='margin-left:1em' id='predict'>Predict!</button>
+                                </form>
+                            </div>
+                            <div id='not-found' style="display:none" class='result'>
+                                <p>Either this city was not found or the server is down, try e.g. 'London'.</p>
+                            </div>
+                            <div id='prediction' style="display:none;" class='result'>
+                                <p><span width='10em'>Predicted: </span><span id='result-predicted'></span>°C</p>
+                                <p><span width='10em'>Real: </span><span id='result-real'></span>°C</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
