@@ -3,14 +3,14 @@ var bodyParser = require("body-parser");
 var app = express();
 var APP_PORT = 8088;
 
-Interop.eval("application/x-ruby", "eval(File.open(\"validator.rb\").read)");
-var Validator = Interop.import('validator');
-Interop.export('validate', function(expression) {
+Polyglot.eval("ruby", "eval(File.open(\"validator.rb\").read)");
+var Validator = Polyglot.import('validator');
+Polyglot.export('validate', function(expression) {
   return Validator.validate(expression);
 });
-var validate = Interop.import('validate');
-Interop.eval("application/x-r", "source(\"functionGraph.r\")");
-var plotFunction = Interop.import('plotFunction');
+var validate = Polyglot.import('validate');
+Polyglot.eval("R", "source(\"functionGraph.r\")");
+var plotFunction = Polyglot.import('plotFunction');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

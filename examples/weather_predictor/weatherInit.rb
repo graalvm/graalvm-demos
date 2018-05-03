@@ -14,4 +14,4 @@ module Weather
   end
 end
 
-Truffle::Interop.export :weather, Weather
+Polyglot.export :weather, Weather

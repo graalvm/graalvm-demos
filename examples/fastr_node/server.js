@@ -2,13 +2,13 @@ fs = require('fs');
 
 // Load the R module
 var modelScript = fs.readFileSync(__dirname + "/model.r", "utf8");
-Interop.eval("application/x-r", modelScript);
+Polyglot.eval("R", modelScript);
 
 // Import the function exported from the R module
-plotKMeans = Interop.import('plotkmeans');
-plotCars = Interop.import('plotcars');
-plotWeight = Interop.import('plotheightweight');
-predictWeight = Interop.import('predictweight');
+plotKMeans = Polyglot.import('plotkmeans');
+plotCars = Polyglot.import('plotcars');
+plotWeight = Polyglot.import('plotheightweight');
+predictWeight = Polyglot.import('predictweight');
 
 // Expressjs application:
 var express = require('express');
