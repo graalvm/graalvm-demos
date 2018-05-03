@@ -1,0 +1,12 @@
+{
+  "name": "FunctionGraphs",
+  "version": "1.0.0",
+  "description": "GraalVM interoperability demo",
+  "main": "server.js",
+  "author": "GraalVM team",
+  "license": "Universal Permissive License (UPL)",
+  "dependencies": {
+    "body-parser": "^1.8.1",
+    "express": "^4.16.3"
+  }
+}
