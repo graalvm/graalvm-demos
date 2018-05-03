@@ -3,21 +3,21 @@ fs = require('fs');
 const cityServiceType = Java.type('com.oracle.graalvm.demo.weather.CityService');
 var cityService = new cityServiceType();
 
-Weather = Interop.import('weather')
-Interop.export('tempInCity', function(name) {
+Weather = Polyglot.import('weather')
+Polyglot.export('tempInCity', function(name) {
 	return cityService.findByName(name).getTemperature();
 });
 
 // Load the R module
 console.log("Preparing weather model...");
 var weatherModelScript = fs.readFileSync(__dirname + "/weatherModel.r", "utf8");
-Interop.eval("application/x-r", weatherModelScript);
+Polyglot.eval("R", weatherModelScript);
 
 // Import the function exported from the R module
-createModel = Interop.import('createModel');
-predictTemp = Interop.import('do_predict');
-plotModel = Interop.import('plotModel');
-isCity = Interop.import('isCity');
+createModel = Polyglot.import('createModel');
+predictTemp = Polyglot.import('do_predict');
+plotModel = Polyglot.import('plotModel');
+isCity = Polyglot.import('isCity');
 
 var updateTemperatures = function() {
     let cities = cityService.getAll();

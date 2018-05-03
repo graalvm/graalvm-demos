@@ -53,11 +53,11 @@ app.get('/', function (req, res) {
           .add(BigInteger.valueOf(43)).toString() + '<br>'
 
   // Using R methods to return arrays
-  text += Interop.eval('R',
+  text += Polyglot.eval('R',
       'ifelse(1 > 2, "no", paste(1:42, c="|"))') + '<br>'
 
   // Using R interoperability to create graphs
-  text += Interop.eval('R',
+  text += Polyglot.eval('R',
     `svg();
      require(lattice);
      x <- 1:100

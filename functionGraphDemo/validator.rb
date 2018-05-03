@@ -16,4 +16,4 @@ module FunctionValidator
   end
 end
 
-Truffle::Interop.export :validator, FunctionValidator
+Polyglot.export :validator, FunctionValidator
