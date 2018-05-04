@@ -33,6 +33,6 @@ Install R dependencies. The following command will download the sources for the 
 Rscript -e "install.packages(\"ggplot2\")"
 ``` 
 
-Run `./mvnw spring-boot:run`
+Run `mvn spring-boot:run`
 
 When the application is ready, open `http://localhost:8080/load`.
