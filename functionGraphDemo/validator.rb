@@ -1,19 +1,19 @@
 module FunctionValidator
+  ALLOWED_FUNCTIONS = %w[sin cos log sqrt]
+
   def self.validate(expr)
-    allowedFunctions = ["sin", "cos", "log", "sqrt"]
-    expr.split(/x|\+|\-|\*|\/|\^|\(|\)/).each{ |elm|
-      if elm.length() > 0 then
-        is_number = true if Float(elm) rescue false
-        if !is_number then
-          allowed = allowedFunctions.include? elm
-          if !allowed then
-            return "Unknown expression: " + elm
+    expr.split(/x|[-+*\/()^]/).each do |term|
+      unless term.empty?
+        is_number = (Float(term) rescue false)
+        unless is_number
+          unless ALLOWED_FUNCTIONS.include? term
+            return "Unknown expression: #{term}"
           end
         end
       end
-    }
+    end
     ""
   end
 end
 
-Polyglot.export :validator, FunctionValidator
+Polyglot.export :Validator, FunctionValidator
