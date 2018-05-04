@@ -8,6 +8,8 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Preparation
 
+Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path.
+
 Download or clone the repository and navigate into the `functionGraphDemo` directory:
 
 ```
@@ -19,12 +21,11 @@ Build the application by running `npm install`.
 
 Now you're all set to run the polyglot JavaScript, Java, R application.
 
-Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path.
-
 
 ## Running the application
 
-To run the application, you need to execute the `server.js` file. You can run it with the following command (or run the `run.sh` script):
+To run the application, you need to execute the `server.js` file.
+You can run it with the following command:
 
 ```
 $GRAALVM_HOME/bin/node --jvm --polyglot server.js
