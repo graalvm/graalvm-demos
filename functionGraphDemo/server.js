@@ -3,13 +3,10 @@ var bodyParser = require("body-parser");
 var app = express();
 var APP_PORT = 8088;
 
-Polyglot.eval("ruby", "eval(File.open(\"validator.rb\").read)");
-var Validator = Polyglot.import('validator');
-Polyglot.export('validate', function(expression) {
-  return Validator.validate(expression);
-});
-var validate = Polyglot.import('validate');
-Polyglot.eval("R", "source(\"functionGraph.r\")");
+Polyglot.evalFile("ruby", "validator.rb");
+var Validator = Polyglot.import('Validator');
+
+Polyglot.evalFile("R", "functionGraph.r");
 var plotFunction = Polyglot.import('plotFunction');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,7 +20,7 @@ app.post('/graph', function (req, res) {
       x1 = -10;
       x2 = 10;
     }
-    let errorMsg = validate(expr);
+    let errorMsg = Validator.validate(expr);
     if (errorMsg.length() == 0) {
         res.send(plotFunction(expr, x1, x2));
     } else {
