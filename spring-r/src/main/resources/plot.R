@@ -1,12 +1,16 @@
 library(ggplot2)
 data <<- numeric(100)
 
-function(l) {
+function(dataHolder) {
     svg()
-    data <<- c(data[2:100], l)
+    data <<- c(data[2:100], dataHolder$value)
+
+    logHolder <- java.type("org.graalvm.demos.springr.LogHolder")
+    logHolder$log(dataHolder$value, data[90:100])
+
     plot <- ggplot(data = data.frame(systemLoad = data, time = -99:0),
                 aes(x=time, y=systemLoad, group=1)) +
-                geom_line(color="red") +
+                geom_line(color="orange") +
                 expand_limits(x=0, y=0)
     print(plot)
     grDevices:::svg.off()

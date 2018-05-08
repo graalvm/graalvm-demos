@@ -1,6 +1,7 @@
 package org.graalvm.demos.springr;
 
-import org.graalvm.polyglot.*;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -25,19 +26,13 @@ public class SpringRApplication {
   private Resource rSource;
 
   @Autowired
-  private Function<Double, String> plotFunction;
-
-  public static void main(String[] args) {
-    SpringApplication.run(SpringRApplication.class, args);
-  }
+  private Function<DataHolder, String> plotFunction;
 
   @Bean
-  public Context getGraalVMContext() {
-    return Context.newBuilder().allowAllAccess(true).build();
-  }
-
-  @Bean Function<Double, String> getPlot(@Autowired Context ctx) throws IOException {
-    Source source = Source.newBuilder("R", rSource.getURL()).build();
+  Function<DataHolder, String> getPlotFunction(@Autowired Context ctx)
+    throws IOException {
+    Source source =
+      Source.newBuilder("R", rSource.getURL()).build();
     return ctx.eval(source).as(Function.class);
   }
 
@@ -46,8 +41,20 @@ public class SpringRApplication {
     HttpHeaders responseHeaders = new HttpHeaders();
     responseHeaders.set("Refresh", "1");
     return new ResponseEntity<String>(
-      plotFunction.apply(ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage()),
+      plotFunction.apply(new DataHolder(ManagementFactory.getOperatingSystemMXBean()
+        .getSystemLoadAverage())
+      ),
       responseHeaders,
       HttpStatus.OK);
   }
+
+  @Bean
+  public Context getGraalVMContext() {
+    return Context.newBuilder().allowAllAccess(true).build();
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(SpringRApplication.class, args);
+  }
+
 }
