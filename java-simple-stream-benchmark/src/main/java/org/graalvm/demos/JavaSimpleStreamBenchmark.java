@@ -45,8 +45,8 @@ import org.openjdk.jmh.annotations.*;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 7)
-@Measurement(iterations = 10)
+@Warmup(iterations = 1)
+@Measurement(iterations = 3)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Fork(1)
