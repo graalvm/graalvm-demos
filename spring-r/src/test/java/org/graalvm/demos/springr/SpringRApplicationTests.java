@@ -11,6 +11,7 @@ public class SpringRApplicationTests {
 
   @Test
   public void contextLoads() {
+    // intentionally blank, test that all beans in the context can be loaded.
   }
 
 }

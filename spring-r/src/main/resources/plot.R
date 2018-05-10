@@ -13,5 +13,5 @@ function(dataHolder) {
                 geom_line(color="orange") +
                 expand_limits(x=0, y=0)
     print(plot)
-    grDevices:::svg.off()
+    svg.off()
 }

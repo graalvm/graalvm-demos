@@ -40,10 +40,15 @@ public class SpringRApplication {
   public ResponseEntity<String> load() {
     HttpHeaders responseHeaders = new HttpHeaders();
     responseHeaders.set("Refresh", "1");
-    return new ResponseEntity<String>(
-      plotFunction.apply(new DataHolder(ManagementFactory.getOperatingSystemMXBean()
+    String svg = "";
+    synchronized(plotFunction){
+      svg = plotFunction.apply(new DataHolder(ManagementFactory.getOperatingSystemMXBean()
         .getSystemLoadAverage())
-      ),
+      );
+    }
+
+    return new ResponseEntity<String>(
+      svg,
       responseHeaders,
       HttpStatus.OK);
   }
