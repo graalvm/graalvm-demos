@@ -1,0 +1,32 @@
+[
+  {
+    "annotatedClass": "scala.tools.nsc.substitutions.Target_scala_reflect_internal_util_StatisticsStatics",
+    "originalClass": "scala.reflect.internal.util.StatisticsStatics",
+    "methods": [
+      {
+        "annotatedName": "areSomeHotStatsEnabled",
+        "substitute": true
+      },
+      {
+        "annotatedName": "areSomeColdStatsEnabled",
+        "substitute": true
+      },
+      {
+        "annotatedName": "enableColdStats",
+        "substitute": true
+      },
+      {
+        "annotatedName": "disableColdStats",
+        "substitute": true
+      },
+      {
+        "annotatedName": "enableHotStats",
+        "substitute": true
+      },
+      {
+        "annotatedName": "disableHotStats",
+        "substitute": true
+      }
+    ]
+  }
+]
