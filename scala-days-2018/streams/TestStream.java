@@ -35,15 +35,6 @@ public class TestStream {
   System.out.println("TOTAL time: " + sum);
  }
 
- public static double getValue2() {
-  int[] a = array;
-  int i = 0;
-  do {
-   a[i] = 0;
-  } while (i++ < a.length);
-  return 1.0;
- }
-
  public enum Employment {
   EMPLOYED,
   UNEMPLOYED
