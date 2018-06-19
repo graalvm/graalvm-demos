@@ -1,0 +1,12 @@
+[
+   {
+     "name" : "GreetingMacros$",
+      "methods" : [
+        { "name" : "greetingMacro", "parameterTypes" : ["scala.reflect.macros.blackbox.Context"] }
+      ],
+      "fields" : [
+        { "name" : "MODULE$" }
+      ]
+   }
+]
+
