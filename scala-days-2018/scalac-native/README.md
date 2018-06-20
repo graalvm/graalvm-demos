@@ -23,13 +23,13 @@ $ time $SCALA_HOME/bin/scalac HelloWorld.scala
 
 real	0m2.315s
 user	0m5.868s
-sys	    0m0.248s
+sys	0m0.248s
 
 & time ./scalac-native HelloWorld.scala
 
 real	0m0.177s
 user	0m0.129s
-sys	    0m0.034s
+sys	0m0.034s
 ```
 
 When compiled with profile-guided optimization (PGO) the native `scalac` is as fast as the one running on the JVM (with the C2 compiler).
