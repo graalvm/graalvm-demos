@@ -1,78 +1,94 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class TestStream {
 
- static int[] array = new int[] {
-  1,
-  2,
-  3
- };
+	static final double EMPLOYMENT_RATIO = 0.5;
+	static final int MAX_AGE = 100;
+	static final int MAX_SALARY = 200_000;
 
- static final int N = 20;
- static final double EMPLOYMENT_RATIO = 0.5;
- static final int MAX_AGE = 100;
- static final int MAX_SALARY = 200_000;
- /**
-  * @param args the command line arguments
-  */
- public static void main(String[] args) {
+	public static void main(String[] args) {
 
-  // Create data set.
-  Person[] persons = new Person[N];
-  for (int k = 0; k < N; ++k) {
-   persons[k] = new Person(Math.random() > EMPLOYMENT_RATIO ? Employment.EMPLOYED : Employment.UNEMPLOYED, (int)(Math.random() * MAX_SALARY), (int)(Math.random() * MAX_AGE));
-  }
-  long sum = 0;
-  for (int j = 1; j < 21; j++) {
-   long time = System.currentTimeMillis();
-   for (int i = 0; i < 1000000; ++i) {
-    getValue(persons);
-   }
-   long currentTime = (System.currentTimeMillis() - time);
-   sum += currentTime;
-   System.out.println("Iteration " + j + " finished in " + currentTime + " milliseconds.");
-  }
-  System.out.println("TOTAL time: " + sum);
- }
+		int iterations;
+		int dataLength;
+		try {
+			iterations = Integer.valueOf(args[0]);
+			dataLength = Integer.valueOf(args[1]);
+		} catch (Throwable ex) {
+			System.out.println("expected 2 integer arguments: number of iterations, length of data array");
+			return;
+		}
 
- public enum Employment {
-  EMPLOYED,
-  UNEMPLOYED
- }
+		/* Create data set with a deterministic random seed. */
+		Random random = new Random(42);
+		Person[] persons = new Person[dataLength];
+		for (int i = 0; i < dataLength; i++) {
+			persons[i] = new Person(
+					random.nextDouble() >= EMPLOYMENT_RATIO ? Employment.EMPLOYED : Employment.UNEMPLOYED,
+					random.nextInt(MAX_SALARY), 
+					random.nextInt(MAX_AGE));
+		}
 
- public static class Person {
+		long totalTime = 0;
+		for (int i = 1; i <= 20; i++) {
+			long startTime = System.currentTimeMillis();
+			
+			long checksum = benchmark(iterations, persons);
+			
+			long iterationTime = System.currentTimeMillis() - startTime;
+			totalTime += iterationTime;
+			System.out.println("Iteration " + i + " finished in " + iterationTime + " milliseconds with checksum " + Long.toHexString(checksum));
+		}
+		System.out.println("TOTAL time: " + totalTime);
+	}
 
-  public Person(Employment employment, int height, int age) {
-   this.employment = employment;
-   this.salary = height;
-   this.age = age;
-  }
+	static long benchmark(int iterations, Person[] persons) {
+		long checksum = 1;
+		for (int i = 0; i < iterations; ++i) {
+			double result = getValue(persons);
+			
+			checksum = checksum * 31 + (long) result;
+		}
+		return checksum;
+	}
 
-  private Employment employment;
-  private int age;
-  private int salary;
+	/* 
+	 * The actual stream expression that we want to benchmark. 
+	 */
+	public static double getValue(Person[] persons) {
+		return Arrays.stream(persons)
+				.filter(p -> p.getEmployment() == Employment.EMPLOYED)
+				.filter(p -> p.getSalary() > 100_000)
+				.mapToInt(Person::getAge)
+				.filter(age -> age >= 40).average()
+				.getAsDouble();
+	}
+}
 
-  public int getSalary() {
-   return salary;
-  }
+enum Employment {
+	EMPLOYED, UNEMPLOYED
+}
 
-  public int getAge() {
-   return age;
-  }
+class Person {
+	private final Employment employment;
+	private final int age;
+	private final int salary;
 
-  public Employment getEmployment() {
-   return employment;
-  }
- }
+	public Person(Employment employment, int height, int age) {
+		this.employment = employment;
+		this.salary = height;
+		this.age = age;
+	}
 
+	public int getSalary() {
+		return salary;
+	}
 
- public static double getValue(Person[] persons) {
-  return Arrays.stream(persons)
-   .filter(p -> p.getEmployment() == Employment.EMPLOYED)
-   .filter(p -> p.getSalary() > 100_000)
-   .mapToInt(Person::getAge)
-   .filter(age -> age > 40)
-   .average()
-   .getAsDouble();
- }
+	public int getAge() {
+		return age;
+	}
+
+	public Employment getEmployment() {
+		return employment;
+	}
 }
