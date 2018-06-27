@@ -41,25 +41,50 @@
 package org.graalvm.demos;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 1)
-@Measurement(iterations = 3)
+@Warmup(iterations = 10, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Fork(1)
+@Fork
+@State(Scope.Benchmark)
 public class JavaSimpleStreamBenchmark {
 
-  static int[] values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    @Param({"0", "1", "10", "100", "1000", "10000"})
+    public int arrSz;
 
-  @Benchmark
-  public int testMethod() {
-    return Arrays.stream(values)
-      .map(x -> x + 1)
-      .map(x -> x * 2)
-      .map(x -> x + 2)
-      .reduce(0, Integer::sum);
-  }
+    int[] values;
+    private final Random random = new Random();
+
+    @Setup(Level.Iteration)
+    public void setup() {
+        values = new int[arrSz];
+        for (int i = 0; i < arrSz; i++) {
+            values[i] = random.nextInt();
+        }
+    }
+
+    @Benchmark
+    public void testMethod(Blackhole b) {
+        b.consume(Arrays.stream(values)
+                .map(x -> x + 1)
+                .map(x -> x * 2)
+                .map(x -> x + 2)
+                .reduce(0, Integer::sum));
+    }
+
+    @Benchmark
+    public void baseline(Blackhole b) {
+        int result = 0;
+        for (int i = 0; i < arrSz; i++) {
+            result += values[i] * 2 + 4;
+        }
+        b.consume(result);
+    }
+
 }
