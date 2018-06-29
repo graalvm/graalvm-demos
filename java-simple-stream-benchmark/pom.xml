@@ -41,8 +41,10 @@ questions.
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmh.version>1.21</jmh.version>
+        <jmh.generator>default</jmh.generator>
         <javac.target>1.8</javac.target>
         <uberjar.name>benchmarks</uberjar.name>
+        <kotlin.version>1.2.50</kotlin.version>
     </properties>
 
     <dependencies>
@@ -57,10 +59,112 @@ questions.
             <version>${jmh.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!--
+                1. Compile Kotlin sources first.
+            -->
+
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <!--
+                   Put an appropriate Kotlin compiler version here.
+                 -->
+                <version>${kotlin.version}</version>
+
+                <configuration>
+                    <args>
+                        <!--<arg>-Xno-inline</arg>-->
+                    </args>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>process-sources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+                2. Invoke JMH generators to produce benchmark code
+            -->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <mainClass>org.openjdk.jmh.generators.bytecode.JmhBytecodeGenerator</mainClass>
+                            <arguments>
+                                <argument>${project.basedir}/target/classes/</argument>
+                                <argument>${project.basedir}/target/generated-sources/jmh/</argument>
+                                <argument>${project.basedir}/target/classes/</argument>
+                                <argument>${jmh.generator}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openjdk.jmh</groupId>
+                        <artifactId>jmh-generator-bytecode</artifactId>
+                        <version>${jmh.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!--
+                3. Add JMH generated code to the compile session.
+            -->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/jmh</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+                4. Compile JMH generated code.
+             -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -69,8 +173,30 @@ questions.
                     <compilerVersion>${javac.target}</compilerVersion>
                     <source>${javac.target}</source>
                     <target>${javac.target}</target>
+                    <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>compile-sources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>compile-all</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
+            <!--
+                5. Package all the dependencies into the JAR
+             -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -84,69 +210,16 @@ questions.
                         <configuration>
                             <finalName>${uberjar.name}</finalName>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.openjdk.jmh.Main</mainClass>
                                 </transformer>
                             </transformers>
-                            <filters>
-                                <filter>
-                                    <!--
-                                        Shading signed JARs will fail without this.
-                                        http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
-                                    -->
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.3</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.17</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
+        </plugins>
+    </build>
 </project>

@@ -47,7 +47,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 10, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -70,12 +70,14 @@ public class JavaSimpleStreamBenchmark {
     }
 
     @Benchmark
-    public void testMethod(Blackhole b) {
-        b.consume(Arrays.stream(values)
-                .map(x -> x + 1)
-                .map(x -> x * 2)
-                .map(x -> x + 2)
-                .reduce(0, Integer::sum));
+    public void streamBenchmark(Blackhole b) {
+        b.consume(
+                Arrays.stream(values)
+                        .map(x -> x + 1)
+                        .map(x -> x * 2)
+                        .map(x -> x + 2)
+                        .reduce(0, Integer::sum)
+        );
     }
 
     @Benchmark
