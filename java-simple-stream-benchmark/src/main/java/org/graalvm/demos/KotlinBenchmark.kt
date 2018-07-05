@@ -4,6 +4,7 @@ import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.infra.Blackhole
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
 
 @Warmup(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
@@ -18,7 +19,7 @@ open class KotlinBemchmark {
 
     private lateinit var values: IntArray
     private val random = Random()
-
+    private var result: Int by Delegates.notNull()
     @Setup(Level.Iteration)
     fun setup() {
         values = IntArray(arrSz)
@@ -29,22 +30,31 @@ open class KotlinBemchmark {
 
     @Benchmark
     fun sequenceBenchmark(b: Blackhole) {
-        val result = values
+        result = values
                 .asSequence()
                 .map { it + 1 }
                 .map { it * 2 }
                 .map { it + 2 }
                 .sum()
-        b.consume(result)
     }
+
+    @TearDown(Level.Iteration)
+    fun check() {
+        var result = 0
+        for (i in 0 until arrSz) {
+            result += values[i] * 2 + 4
+        }
+        assert(this.result == result) { "result measured wrong" }
+    }
+
 
     @Benchmark
     fun noSequenceBenchmark(b: Blackhole) {
-        val result = values
-                .map { it + 1 }
-                .map { it * 2 }
-                .map { it + 2 }
-                .sum()
+            val result = values
+            .map { it + 1 }
+            .map { it * 2 }
+            .map { it + 2 }
+            .sum()
         b.consume(result)
     }
 
