@@ -6,7 +6,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
-@Warmup(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 40, time = 500, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -29,7 +29,7 @@ open class KotlinBemchmark {
     }
 
     @Benchmark
-    fun sequenceBenchmark(b: Blackhole) {
+    fun sequenceBenchmark() {
         result = values
                 .asSequence()
                 .map { it + 1 }
@@ -49,14 +49,11 @@ open class KotlinBemchmark {
 
 
     @Benchmark
-    fun noSequenceBenchmark(b: Blackhole) {
-            val result = values
+    fun noSequenceBenchmark() {
+        result = values
             .map { it + 1 }
             .map { it * 2 }
             .map { it + 2 }
             .sum()
-        b.consume(result)
     }
-
-
 }

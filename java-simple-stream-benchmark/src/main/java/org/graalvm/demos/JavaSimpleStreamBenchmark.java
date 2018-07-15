@@ -47,7 +47,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 40, time = 500, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 20, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
