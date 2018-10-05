@@ -86,16 +86,16 @@ To compile that class you need to add `graal-sdk.jar` on the classpath:
 $GRAALVM_HOME/bin/javac -cp $GRAALVM_HOME/jre/lib/boot/graal-sdk.jar ExtListDir.java
 ```
 
-Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--js` option.
+Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--language:js` option.
 Note that it takes a bit more time because it needs to include the JavaScript support.
 
 ```
-$GRAALVM_HOME/bin/native-image --js ExtListDir
+$GRAALVM_HOME/bin/native-image --language:js ExtListDir
 ```
 
-Executing it is the same as in the previous example:
+Executing it is similar as in the previous example:
 
 ```
-time java ExtListDir $1
-time ./extlistdir $1
+time java ExtListDir
+time ./extlistdir
 ```

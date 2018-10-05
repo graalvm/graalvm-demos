@@ -217,6 +217,8 @@ typings/
 # dotenv environment variables file
 .env
 
-
+# Output from native-list-dir module
+extlistdir
+listdir
 
 # End of https://www.gitignore.io/api/java,node,maven,eclipse,intellij+all
