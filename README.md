@@ -25,4 +25,5 @@ However, these were tested and are known to work with:
 
 ## License
 
-Unless specified otherwise all code in this repository is licensed under the [Universal Permissive License (UPL)](http://opensource.org/licenses/UPL).
+Unless specified otherwise all code in this repository is licensed under the [Universal Permissive License (UPL)](http://opensource.org/licenses/UPL). Note that the submodule `fastR-examples` which is a reference to the
+[graalvm/examples](https://github.com/graalvm/examples) repository has a separate license. 
