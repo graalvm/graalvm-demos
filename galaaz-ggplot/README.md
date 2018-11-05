@@ -6,7 +6,7 @@ Galaaz is a system for tightly coupling Ruby and R. Ruby is a powerful language,
 With Galaaz we do not intend to re-implement any of the scientific libraries in R, we allow for very tight coupling between the two languages to the point that the Ruby developer does not need to know that there is an R engine running. For this to happen we use new technologies provided by Oracle, with GraalVM, TruffleRuby and FastR:
 
      GraalVM is a universal virtual machine for running applications written in JavaScript,
-     Python 3, Ruby, R, JVM-based languages like Java, Scala, Kotlin, and LLVM-based languages
+     Python, Ruby, R, JVM-based languages like Java, Scala, Kotlin, and LLVM-based languages
      such as C and C++.
 
      GraalVM removes the isolation between programming languages and enables interoperability in a
@@ -21,14 +21,14 @@ With Galaaz we do not intend to re-implement any of the scientific libraries in 
      Often developers have to make uncomfortable compromises that require them to rewrite
      their software in other languages. For example:
 
-      * “That library is not available in my language. I need to rewrite it.” 
-      * “That language would be the perfect fit for my problem, but we cannot run it in our environment.” 
+      * “That library is not available in my language. I need to rewrite it.”
+      * “That language would be the perfect fit for my problem, but we cannot run it in our environment.”
       * “That problem is already solved in my language, but the language is too slow.”
 
     With GraalVM we aim to allow developers to freely choose the right language for the task at
     hand without making compromises.
 
-What does Galaaz mean
+What does Galaaz mean?
 ---------------------
 
 Galaaz is the Portuguese name for "Galahad". From Wikipedia:
@@ -40,7 +40,7 @@ Galaaz is the Portuguese name for "Galahad". From Wikipedia:
     Emerging quite late in the medieval Arthurian tradition, Sir Galahad first appears in the
     Lancelot–Grail cycle, and his story is taken up in later works such as the Post-Vulgate
     Cycle and Sir Thomas Malory's Le Morte d'Arthur. His name should not be mistaken with
-    Galehaut, a different knight from Arthurian legend. 
+    Galehaut, a different knight from Arthurian legend.
 
 Galaaz Demo
 ===========
@@ -57,7 +57,7 @@ The following R packages will be automatically installed when necessary, but cou
 -   ggplot2
 -   gridExtra
 
-Installation of R packages requires a development environment. In Linux, the gnu compiler and tools should be enough. I am not sure what is needed on the Mac.
+The installation of R packages requires a development environment. In Linux, the gnu compiler and tools should be enough. I am not sure what is needed on the Mac.
 
 In order to run the 'specs' the following Ruby package is necessary:
 
@@ -84,12 +84,12 @@ Doing on the console
 
     > galaaz -T
 
-will show a list with all available demos. To run any of the demos in the list, substitute the call to 'rake' to 'galaaz'. For instance, one of the examples in the list is 'rake sthda:bar'. In order to run this example just do 'galaaz sthda:bar'. Doing 'galaaz sthda:all' will run all demos in the sthda cathegory. Some of the examples require 'rspec' do be available. To install 'rspec' just do 'gem install rspec'.
+will show a list with all available demos. To run any of the demos in the list, substitute the call to 'rake' to 'galaaz'. For instance, one of the examples in the list is 'rake sthda:bar'. In order to run this example just do 'galaaz sthda:bar'. Doing 'galaaz sthda:all' will run all demos in the sthda category. Some of the examples require 'rspec' do be available. To install 'rspec' just do 'gem install rspec'.
 
 The demo code
 =============
 
-The following is the Ruby code and plot for the above example. There is a small difference between the code in the example and the code bellow. If the example is ran, the plot will appear on the screen, bellow, we generate an 'svg' image and then include it in this document. In order to generate and image, the R.svg device is used. To generate the plot on the screen, use the R.awt device, as commented on the code.
+The following is the Ruby code and plot for the above example. There is a small difference between the code in the example and the code below. If the example is ran, the plot will appear on the screen. We generate an 'svg' image and then include it in this document. In order to generate and image, the R.svg device is used. To generate the plot on the screen, use the R.awt device, as commented on the code.
 
 ``` truby
 require 'galaaz'
@@ -106,15 +106,15 @@ midwest = ~:midwest
 R.svg    # run the svg device if an image should be generated
 
 # Scatterplot
-gg = midwest.ggplot(E.aes(x: :area, y: :poptotal)) + 
-     R.geom_point(E.aes(col: :state, size: :popdensity)) + 
-     R.geom_smooth(method: "loess", se: false) + 
-     R.xlim(R.c(0, 0.1)) + 
-     R.ylim(R.c(0, 500000)) + 
-     R.labs(subtitle: "Area Vs Population", 
-            y: "Population", 
-            x: "Area", 
-            title: "Scatterplot", 
+gg = midwest.ggplot(E.aes(x: :area, y: :poptotal)) +
+     R.geom_point(E.aes(col: :state, size: :popdensity)) +
+     R.geom_smooth(method: "loess", se: false) +
+     R.xlim(R.c(0, 0.1)) +
+     R.ylim(R.c(0, 500000)) +
+     R.labs(subtitle: "Area Vs Population",
+            y: "Population",
+            x: "Area",
+            title: "Scatterplot",
             caption: "Source: midwest")
 
 R.png('midwest.png')     # this line is not necessary with the awt device
@@ -126,7 +126,7 @@ R.dev__off               # R.dev__off turns off the device.  If using awt, the p
 
 <img src="https://user-images.githubusercontent.com/3999729/46742999-87bc2480-cc7e-11e8-9f16-31c3437e4a58.PNG" alt="Midwest Plot" style="width:70.0%" />
 
-In R, the code to generate this plot is the following
+In R, the code to generate this plot is the following:
 
 ``` r
 # install.packages("ggplot2")
@@ -138,15 +138,15 @@ data("midwest", package = "ggplot2")
 # midwest <- read.csv("http://goo.gl/G1K41K")  # bkup data source
 
 # Scatterplot
-gg <- ggplot(midwest, aes(x=area, y=poptotal)) + 
-      geom_point(aes(col=state, size=popdensity)) + 
-      geom_smooth(method="loess", se=F) + 
-      xlim(c(0, 0.1)) + 
-      ylim(c(0, 500000)) + 
-      labs(subtitle="Area Vs Population", 
-           y="Population", 
-           x="Area", 
-           title="Scatterplot", 
+gg <- ggplot(midwest, aes(x=area, y=poptotal)) +
+      geom_point(aes(col=state, size=popdensity)) +
+      geom_smooth(method="loess", se=F) +
+      xlim(c(0, 0.1)) +
+      ylim(c(0, 500000)) +
+      labs(subtitle="Area Vs Population",
+           y="Population",
+           x="Area",
+           title="Scatterplot",
            caption = "Source: midwest")
 
 plot(gg)
@@ -161,25 +161,25 @@ An extension to the example
 
 If both codes are so similar, then why would one use Ruby instead of R and what good is galaaz after all?
 
-Ruby is a modern OO language with numerous very useful constructs such as classes, modules, blocks, procs, etc. The example above focus on the coupling of both languages, and does not show the use of other Ruby constructs. In the following example, we will show a more complex example using other Ruby constructs. This is certaily not a very well written and robust Ruby code, but it give the idea of how Ruby and R are stronglyg coupled.
+Ruby is a modern OO language with numerous very useful constructs such as classes, modules, blocks, procs, etc. The example above focus on the coupling of both languages, and does not show the use of other Ruby constructs. In the following example, we will show a more complex example using other Ruby constructs. This is certainly not a very well written and robust Ruby code, but it give the idea of how Ruby and R are strongly coupled.
 
-Let's imagine that we work in a corporation that has its plot themes. So, it has defined a 'CorpTheme' module. Plots in this corporation should not have grids, numbers in labels should not use scientific notation and the prefered color is blue.
+Let's imagine that we work in a corporation that has its plot themes. So, it has defined a 'CorpTheme' module. Plots in this corporation should not have grids, numbers in labels should not use scientific notation and the preferred color is blue.
 
 ``` truby
 # corp_theme.rb
 # defines the corporate theme for all plots
-    
+
 module CorpTheme
 
   #--------------------------------------------------------------------------------------
   # Defines the plot theme (visualization).  In this theme we remove major and minor
   # grids, borders and background.  We also turn-off scientific notation.
   #--------------------------------------------------------------------------------------
-  
+
   def self.global_theme
-    
+
     R.options(scipen: 999)  # turn-off scientific notation like 1e+48
-    
+
     # remove major grids
     global_theme = R.theme(panel__grid__major: E.element_blank())
     # remove minor grids
@@ -194,12 +194,12 @@ module CorpTheme
     # change color of axis titles
     global_theme = global_theme +
                    R.theme(axis__title: E.element_text(
-                             color: "#000080", 
+                             color: "#000080",
                              face: "bold",
                              size: 8,
                              hjust: 1))
   end
-   
+
 end
 ```
 
@@ -208,7 +208,7 @@ We now define a ScatterPlot class:
 ``` truby
 # ScatterPlot.rb
 # creates a scatter plot and allow some configuration
-    
+
 class ScatterPlot
 
   attr_accessor :title
@@ -216,7 +216,7 @@ class ScatterPlot
   attr_accessor :caption
   attr_accessor :x_label
   attr_accessor :y_label
-  
+
   #--------------------------------------------------------------------------------------
   # Initialize the plot with the data and the x and y variables
   #--------------------------------------------------------------------------------------
@@ -237,15 +237,15 @@ class ScatterPlot
   end
 
   #--------------------------------------------------------------------------------------
-  # Add a smoothing line, and if confidence is true the add a confidence interval, if
-  # false does not add the confidence interval
+  # Add a smoothing line, and if confidence is true, adds a confidence interval, if
+  # false, does not add the confidence interval
   #--------------------------------------------------------------------------------------
 
   def add_smoothing_line(method:, confidence: true)
     @method = method
     @confidence = confidence
   end
-  
+
   #--------------------------------------------------------------------------------------
   # Creates the graph title, properly formated for this theme
   # @param title [String] The title to add to the graph
@@ -254,11 +254,11 @@ class ScatterPlot
 
   def graph_params(title: "", subtitle: "", caption: "", x_label: "", y_label: "")
     R.labs(
-      title: title, 
-      subtitle: subtitle, 
+      title: title,
+      subtitle: subtitle,
       caption: caption,
-      y_label: y_label, 
-      x_label: x_label, 
+      y_label: y_label,
+      x_label: x_label,
     )
   end
 
@@ -272,32 +272,32 @@ class ScatterPlot
     params[:size] = @size_by if @size_by
     R.geom_point(E.aes(params))
   end
-      
+
   #--------------------------------------------------------------------------------------
   # Plots the scatterplot
   #--------------------------------------------------------------------------------------
 
   def plot(device = 'awt')
     device == 'awt' ? R.awt : R.svg
-   
+
     gg = @data.ggplot(E.aes(x: @x, y: @y)) +
-      points + 
+      points +
       R.geom_smooth(method: @method, se: @confidence) +
       R.xlim(R.c(0, 0.1)) +
-      R.ylim(R.c(0, 500000)) + 
+      R.ylim(R.c(0, 500000)) +
       graph_params(title: @title,
-                   subtitle: @subtitle, 
-                   y_label: @y_label, 
-                   x_label: @x_label, 
+                   subtitle: @subtitle,
+                   y_label: @y_label,
+                   x_label: @x_label,
                    caption: @caption) +
       CorpTheme.global_theme
 
     R.png('scatter_plot.png') if !(device == 'awt')
     puts gg
     R.dev__off
-    
+
   end
-  
+
 end
 ```
 
@@ -315,7 +315,7 @@ sp.x_label = "Area"
 sp.y_label = "Population"
 sp.group_by(color: :state, size: :popdensity)    # try sp.group_by(color: :state)
 # available methods: "lm", "glm", "loess", "gam"
-sp.add_smoothing_line(method: "glm") 
+sp.add_smoothing_line(method: "glm")
 sp.plot('svg')
 
 # require input from the user so that the script does not end removing the plot from

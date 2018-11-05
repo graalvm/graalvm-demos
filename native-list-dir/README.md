@@ -15,15 +15,15 @@ git clone https://github.com/shelajev/graalvm-demos
 cd graalvm-demos/native-list-dir
 ```
 
-There are two Java classes we'll the `ListDir.java` for the purposes of this demo.
-First we need to build this class. You can manually execute `javac ListDir.java`, but there's also a `build.sh` script included for your convenience.
+There are two Java classes, but we'll start by building `ListDir.java` for the purposes of this demo. You can manually execute `javac ListDir.java`, but there's also a `build.sh` script included for your convenience.
+
 
 Note that you can use any JDK for compiling the Java classes, but in the build script we refer to `javac` in the GraalVM to simplify the prerequisites and not depend on you having another JDK installed.
 
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=0.32
+GRAALVM_VERSION=1.0.0-rc9
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
@@ -40,12 +40,12 @@ $GRAALVM_HOME/bin/native-image ListDir
 
 The `native-image` utility is a part of GraalVM. It is used to compile applications ahead-of-time for faster starup and lower general overhead at runtime.
 
-After executing the `native-image` command, check the directory, it should have produced an exacutable file `listdir`.
+After executing the `native-image` command, check the directory, it should have produced an executable file `listdir`.
 
 
 ## Running the application
 
-To run the application, you need to execute the `ListDir` class. You can run it as a normal Java application using `java`. Or since we have a native image prepared, you can run that directly.
+To run the application, you need to execute the `ListDir` class. You can run it as a normal Java application using `java`. Or, since we have a native image prepared, you can run that directly.
 
 The `run.sh` file, executes both, and times them with the `time` utility.
 ```
@@ -78,7 +78,7 @@ The performance gain of the native version is largely due to the faster startup.
 
 ## ExtListDir class
 
-You can also experiment with a more sophisticated `ExtListDir` example, which uses Java / JavaScript polyglot capabilities and
+You can also experiment with a more sophisticated `ExtListDir` example, which uses Java / JavaScript polyglot capabilities.
 
 To compile that class you need to add `graal-sdk.jar` on the classpath:
 
@@ -86,14 +86,14 @@ To compile that class you need to add `graal-sdk.jar` on the classpath:
 $GRAALVM_HOME/bin/javac -cp $GRAALVM_HOME/jre/lib/boot/graal-sdk.jar ExtListDir.java
 ```
 
-Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--js` option.
+Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--language:js` option.
 Note that it takes a bit more time because it needs to include the JavaScript support.
 
 ```
-$GRAALVM_HOME/bin/native-image --js ExtListDir
+$GRAALVM_HOME/bin/native-image --language:js ExtListDir
 ```
 
-Executing it is the same as in the previous example:
+The execution is the same as in the previous example:
 
 ```
 time java ExtListDir $1
