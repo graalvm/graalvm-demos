@@ -27,7 +27,7 @@ Now you're all set to execute the benchmark and compare the results between diff
 Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=0.32
+GRAALVM_VERSION=1.0.0-rc9
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
@@ -38,13 +38,13 @@ To run the benchmark, you need to execute the `target/benchmarks.jar` file. You 
 ```
 $GRAALVM_HOME/bin/java -jar target/benchmarks.jar
 ```
-If you'd like to run the benchmark on a different JVM, you can run it with whatever `java` you have. However, if you just want to run it on the same JVM, just without the Graal compiler you can just add the `-XX:-UseJVMCICompiler` command line option into the same command.
+If you'd like to run the benchmark on a different JVM, you can run it with whatever `java` you have. However, if you want to run it on the same JVM, just without the Graal compiler, you can simply add the `-XX:-UseJVMCICompiler` command line option into the same command.
 
 ```
 $GRAALVM_HOME/bin/java -XX:-UseJVMCICompiler -jar target/benchmarks.jar
 ```
 
-This way, Graal won't be used as the JVMCI compiler and the JVM will use it's default one.
+This way, Graal won't be used as the JVMCI compiler and the JVM will use its default one.
 
 ## A note about the results
 

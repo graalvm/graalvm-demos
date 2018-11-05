@@ -59,13 +59,13 @@ To enable PGO we need to build an instrumented image and run it to collect profi
 $ $GRAALVM_HOME/bin/native-image --pgo-instrument TestStream
 $ ./teststream 1000 20
 ```
-Profiles collected from this run are now stored in the `default.iprof` file. Note that we run the profiling with a much smaller data size. 
+Profiles collected from this run are now stored in the `default.iprof` file. Note that we run the profiling with a much smaller data size.
 
 Now we can use these profiles to make an optimized image:
 ```
 $ $GRAALVM_HOME/bin/native-image --pgo TestStream
 ```
-When we run it
+Then we run it
 ```
 $ ./teststream  100000 200
 ...
@@ -73,5 +73,4 @@ Iteration 20 finished in 49 milliseconds with checksum e6e0b70aee921601
 TOTAL time: 915
 ```
 
-We get performance comparable to the Java version of the program. Note that you need at least GraalVM 1.0 RC3 (schedueled to be released early July 2018) to reproduce these numbers. The RC2 version had a bug in the profile collection, leading to longer execution times.
-
+We get performance comparable to the Java version of the program. Note that you need at least GraalVM 1.0 RC3 to reproduce these numbers.

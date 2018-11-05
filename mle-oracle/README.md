@@ -31,7 +31,7 @@ To verify that the database has started run the `sqlplus`:
 sqlplus scott/tiger@localhost:1521/ORCLCDB
 ```
 
-Note: `scott/tiger` are the default login/password. `ORCLCDB` is the sid if you changed them change the command respectively.
+Note: `scott/tiger` are the default login/password. `ORCLCDB` is a site identifier (SID), if you changed them, change the command respectively.
 
 If sqlplus works - the database is ready. Exit sqlplus.
 

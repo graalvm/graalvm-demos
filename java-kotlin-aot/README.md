@@ -1,4 +1,4 @@
-# GraalVM demos: Java Kotlin interop ahead-of-time compilation demo.
+# GraalVM demos: Java Kotlin interop ahead-of-time compilation demo
 
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
@@ -16,7 +16,7 @@ git clone https://github.com/shelajev/graalvm-demos
 cd graalvm-demos/java-kotlin-aot
 ```
 
-This is a simple Java / Kotlin application, which calls a Java method which accesses a String from Kotlin and calls a Kotlin function which accesses a String from a Java class. It's a very simple example showing how easy it is to interop between Java and Kotlin.
+This is a simple Java / Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class. This example demonstrates how easy it is to interop between Java and Kotlin.
 
 Before running this example, you need to build the application.
 
@@ -25,7 +25,7 @@ Note that you can use any JDK for building the app, but in the build script we r
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=0.32
+GRAALVM_VERSION=1.0.0-rc9
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
@@ -43,13 +43,13 @@ $GRAALVM_HOME/bin/native-image -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT.
 It takes a couple of parameters, the classpath, the main class of the application with the `-H:Class=...` and the name of the resulting executable with `-H:Name=...`.
 
 
-After executing the `native-image` command, check the directory, it should have produced an exacutable file `helloworld`.
+After executing the `native-image` command, check the directory, it should have produced an executable file `helloworld`.
 
 ## Running the application
 
-To run the application, you need to execute the fat jar file in the `target` dir. You can run it as a normal Java application using `java`. Or since we have a native image prepared, you can run that directly.
+To run the application, you need to execute the fat jar file in the `target` dir. You can run it as a normal Java application using `java`. Or, since we have a native image prepared, you can run that directly.
 
-The `run.sh` file, executes it both ways, and times them with the `time` utility.
+The `run.sh` file executes it both ways and times them with the `time` utility.
 ```
 time java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
 time ./helloworld
