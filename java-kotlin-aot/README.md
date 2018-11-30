@@ -25,7 +25,7 @@ Note that you can use any JDK for building the app, but in the build script we r
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=1.0.0-rc9
+GRAALVM_VERSION=1.0.0-rc10
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
@@ -37,7 +37,7 @@ Then execute:
 Let's look at the important line of the `build.sh` which creates a native image from our Java application. The `native-image` utility is a part of GraalVM. It is used to compile applications ahead-of-time for faster starup and lower general overhead at runtime.
 
 ```
-$GRAALVM_HOME/bin/native-image -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
+$GRAALVM_HOME/bin/native-image -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime --allow-incomplete-classpath
 ```
 
 It takes a couple of parameters, the classpath, the main class of the application with the `-H:Class=...` and the name of the resulting executable with `-H:Name=...`.

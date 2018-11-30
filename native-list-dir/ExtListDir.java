@@ -55,7 +55,7 @@ public class ExtListDir {
 			s = args[0];
 		}
 		final Value lambda = context.eval("js",
-			"function(name, size) { return " + s + "}");
+            "(function(name, size) { return " + s + "})");
 		try (Stream<Path> paths = Files.walk(Paths.get("."))) {
 			paths.filter(Files::isRegularFile).forEach((Path p) -> {
 				File f = p.toFile();
