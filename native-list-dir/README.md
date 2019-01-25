@@ -23,7 +23,7 @@ Note that you can use any JDK for compiling the Java classes, but in the build s
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=1.0.0-rc10
+GRAALVM_VERSION=1.0.0-rc11
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
