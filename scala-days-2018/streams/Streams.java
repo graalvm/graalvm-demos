@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class TestStream {
+public class Streams {
 
 	static final double EMPLOYMENT_RATIO = 0.5;
 	static final int MAX_AGE = 100;
@@ -25,16 +25,16 @@ public class TestStream {
 		for (int i = 0; i < dataLength; i++) {
 			persons[i] = new Person(
 					random.nextDouble() >= EMPLOYMENT_RATIO ? Employment.EMPLOYED : Employment.UNEMPLOYED,
-					random.nextInt(MAX_SALARY), 
+					random.nextInt(MAX_SALARY),
 					random.nextInt(MAX_AGE));
 		}
 
 		long totalTime = 0;
 		for (int i = 1; i <= 20; i++) {
 			long startTime = System.currentTimeMillis();
-			
+
 			long checksum = benchmark(iterations, persons);
-			
+
 			long iterationTime = System.currentTimeMillis() - startTime;
 			totalTime += iterationTime;
 			System.out.println("Iteration " + i + " finished in " + iterationTime + " milliseconds with checksum " + Long.toHexString(checksum));
@@ -46,14 +46,14 @@ public class TestStream {
 		long checksum = 1;
 		for (int i = 0; i < iterations; ++i) {
 			double result = getValue(persons);
-			
+
 			checksum = checksum * 31 + (long) result;
 		}
 		return checksum;
 	}
 
-	/* 
-	 * The actual stream expression that we want to benchmark. 
+	/*
+	 * The actual stream expression that we want to benchmark.
 	 */
 	public static double getValue(Person[] persons) {
 		return Arrays.stream(persons)
