@@ -1,5 +1,7 @@
 # Abstraction Without Regret When Running on GraalVM
 
+**Note:** _this example is meant to be executed using GraalVM EE, the results won't be the same when run on GraalVM CE. Also profile guided optimisation (PGO) and related features are only available on GraalVM EE._
+
 This demo shows how GraalVM efficiently removes abstractions from high-level programs. The `Streams.java` file contains a simple query implemented with the Java Streams API:
 ```
 Arrays.stream(persons)
