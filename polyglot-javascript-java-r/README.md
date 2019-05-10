@@ -5,6 +5,8 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Prerequisites
 * [GraalVM](http://graalvm.org)
+* Node (GraalVM plugin)
+* R (GraalVM plugin)
 
 ## Preparation
 
@@ -14,6 +16,11 @@ Download or clone the repository and navigate into the `polyglot-javascript-java
 git clone https://github.com/shelajev/graalvm-demos
 cd graalvm-demos/polyglot-javascript-java-r
 ```
+
+### Install 
+
+- install GraalVM plugin for `node`: `$GRAALVM_HOME/bin/gu install node`
+- install GraalVM plugin for `R`: `$GRAALVM_HOME/bin/gu install R`
 
 Build the benchmark. You can manually execute `npm install`, but there's also a `build.sh` script included for your convenience.
 
