@@ -5,10 +5,17 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Prerequisites
 * [GraalVM](http://graalvm.org)
+* Ruby (GraalVM plugin)
+* R (GraalVM plugin)
 
 ## Preparation
 
 Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path.
+
+### Install 
+
+- install GraalVM plugin for `ruby`: `$GRAALVM_HOME/bin/gu install ruby`
+- install GraalVM plugin for `R`: `$GRAALVM_HOME/bin/gu install R`
 
 Download or clone the repository and navigate into the `functionGraphDemo` directory:
 
