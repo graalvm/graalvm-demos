@@ -6,6 +6,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 ## Prerequisites
 * [Maven](https://maven.apache.org/)
 * [GraalVM](http://graalvm.org)
+* Native-image (GraalVM plugin)
 
 ## Preparation
 
@@ -16,6 +17,10 @@ git clone https://github.com/shelajev/graalvm-demos
 cd graalvm-demos/java-kotlin-aot
 ```
 
+### Install 
+
+ - install GraalVM plugin for `native-image`: `$GRAALVM_HOME/bin/gu install native-image`
+ 
 This is a simple Java / Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class. This example demonstrates how easy it is to interop between Java and Kotlin.
 
 Before running this example, you need to build the application.
