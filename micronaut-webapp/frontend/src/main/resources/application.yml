@@ -1,3 +1,5 @@
 micronaut:
   application:
     name: frontend
+  server:
+    port: 8081

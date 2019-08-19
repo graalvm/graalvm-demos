@@ -1,0 +1,28 @@
+plugins {
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "java"
+}
+
+version "0.1"
+group "org.graalvm.demos.micronaut.service.api"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:micronaut-bom:1.2.0'
+    }
+}
+
+dependencies {
+    annotationProcessor "io.micronaut:micronaut-graal"
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    compile "io.micronaut:micronaut-validation"
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+}

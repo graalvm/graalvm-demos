@@ -1,5 +1,7 @@
 package org.graalvm.demos.micronaut.service.todo;
 
+import org.graalvm.demos.micronaut.service.api.v1.Todo;
+
 import javax.inject.Singleton;
 import java.util.Collection;
 import java.util.Date;
@@ -40,13 +42,13 @@ public class InMemoryTodoService implements TodoService {
     }
 
     @Override
-    public Todo update(String todoId, Todo newTodo) throws ServiceException{
+    public Todo update(String todoId, Todo newTodoImpl) throws ServiceException{
         if (!allTodos.containsKey(todoId)) {
             throw new ServiceException("can not update todo with id: " + todoId);
         }
 
         Todo current = allTodos.get(todoId);
-        current.setContent(newTodo.getContent());
+        current.setContent(newTodoImpl.getContent());
         current.setLasTimeUpdated(new Date());
         return current;
     }

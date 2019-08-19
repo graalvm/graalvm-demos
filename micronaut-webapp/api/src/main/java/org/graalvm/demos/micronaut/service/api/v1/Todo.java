@@ -1,4 +1,4 @@
-package org.graalvm.demos.micronaut.service.todo;
+package org.graalvm.demos.micronaut.service.api.v1;
 
 import io.micronaut.core.annotation.Introspected;
 
@@ -7,10 +7,10 @@ import java.util.Date;
 
 @Introspected
 public class Todo {
-    @NotBlank String content;
-    String id;
-    Date timeCreated;
-    Date lasTimeUpdated;
+    private @NotBlank String content;
+    private String id;
+    private Date timeCreated;
+    private Date lasTimeUpdated;
 
 
     public String getId() {
@@ -54,14 +54,4 @@ public class Todo {
                 ", lasTimeUpdated=" + lasTimeUpdated +
                 '}';
     }
-
-    public static Todo withContent(String content) {
-        Todo todo = new Todo();
-        todo.content = content;
-        todo.lasTimeUpdated = new Date();
-        todo.timeCreated = new Date();
-        return todo;
-    }
-
-
 }

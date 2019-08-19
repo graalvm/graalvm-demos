@@ -84,6 +84,7 @@ local.properties
 **/.gradle/
 **/build/
 **/.gradle
+**/out/
 
 # CMake
 cmake-build-debug/

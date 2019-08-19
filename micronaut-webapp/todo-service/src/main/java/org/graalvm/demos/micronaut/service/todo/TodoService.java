@@ -1,6 +1,8 @@
 package org.graalvm.demos.micronaut.service.todo;
 
 
+import org.graalvm.demos.micronaut.service.api.v1.Todo;
+
 import java.util.Collection;
 
 public interface TodoService {

@@ -19,7 +19,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.1.4'
+        mavenBom 'io.micronaut:micronaut-bom:1.2.0'
     }
 }
 
@@ -38,6 +38,7 @@ dependencies {
     compile "io.micronaut:micronaut-runtime"
     compile "io.micronaut:micronaut-http-server-netty"
     compile "javax.annotation:javax.annotation-api"
+    compile project(":api")
     compileOnly "com.oracle.substratevm:svm"
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
