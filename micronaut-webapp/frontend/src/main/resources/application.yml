@@ -3,3 +3,6 @@ micronaut:
     name: frontend
   server:
     port: 8081
+todoservice:
+  client:
+    url: ${TODOSERVICE_URL}

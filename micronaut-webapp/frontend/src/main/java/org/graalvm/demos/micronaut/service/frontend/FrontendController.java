@@ -28,9 +28,9 @@ import java.util.Optional;
 @Controller("/todos")
 public class FrontendController {
 
-    @Inject
-    TodoServiceClient todoServiceClient;
     private static final Logger LOGGER = LoggerFactory.getLogger(FrontendController.class);
+
+    @Inject TodoServiceClient todoServiceClient;
 
     @Get("/{?format}")
     public ModelAndView<?> list(Optional<String> format) {
