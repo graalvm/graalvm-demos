@@ -46,7 +46,7 @@ public class TodoController {
     @Get("/{?userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> list(Optional<String> userId) {
-        LOGGER.info("Listing all todos");
+        LOGGER.debug("Listing all todos");
         if(userId.isPresent()) {
             return HttpResponse.badRequest("querying todos by user id is not supported");
         }
@@ -56,7 +56,7 @@ public class TodoController {
     @Post
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> create(@Body @Valid Todo todo){
-        LOGGER.info("Saving " + todo);
+        LOGGER.debug("Saving " + todo);
         return guardedResponse(() -> todoService.create(todo));
     }
 

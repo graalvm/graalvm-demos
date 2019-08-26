@@ -13,20 +13,34 @@ esac
 cat > docker-compose.tpl << "EOF"
 version: '3'
 services:
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile$flavor
-    ports:
-      - 8081:8081
-    environment:
-      - TODOSERVICE_URL=http://todo-service:8080
   todo-service:
     build:
       context: ./todo-service
       dockerfile: Dockerfile$flavor
     ports:
       - 8080:8080
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile$flavor
+    depends_on:
+      - todo-service
+    ports:
+      - 8081:8081
+    environment:
+      - TODOSERVICE_URL=http://todo-service:8080
+  loadtest:
+    build:
+      context: ./loadTests/
+      dockerfile: Dockerfile
+    depends_on:
+      - todo-service
+      - frontend
+    volumes:
+      - ./loadTests:/opt/loadTest
+    environment:
+      - TODOSERVICE_HOST=todo-service
+      - TODOSERVICE_PORT=8080
 EOF
 
 sed s"/\$flavor/$dockerfile_flavor/g" docker-compose.tpl | tee docker-compose.yml

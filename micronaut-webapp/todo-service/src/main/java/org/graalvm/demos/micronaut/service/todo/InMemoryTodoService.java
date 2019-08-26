@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Singleton
@@ -15,7 +16,7 @@ public class InMemoryTodoService implements TodoService {
     private AtomicInteger idCounter;
 
     public InMemoryTodoService() throws ServiceException {
-        allTodos = new HashMap<>();
+        allTodos = new ConcurrentHashMap<>();
         idCounter = new AtomicInteger();
     }
 
