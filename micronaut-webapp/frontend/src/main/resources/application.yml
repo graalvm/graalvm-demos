@@ -1,4 +1,8 @@
 micronaut:
+  ssl:
+    enabled: false
+    buildSelfSigned: true
+    port: 8081
   application:
     name: frontend
   server:

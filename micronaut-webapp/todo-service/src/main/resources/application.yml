@@ -1,3 +1,6 @@
 micronaut:
+  ssl:
+    enabled: true
+    buildSelfSigned: true
   application:
     name: todo-service

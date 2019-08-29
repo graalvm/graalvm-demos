@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 
 //todo make it a configuration
-@Client("${todoservice.url:`http://localhost:8080`}")
+@Client("${todoservice.url:`https://localhost:8443`}")
 @Validated
 public interface TodoServiceClient {
 

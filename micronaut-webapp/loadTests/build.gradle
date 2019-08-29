@@ -1,0 +1,9 @@
+apply plugin: 'base'
+
+clean.doLast {
+    file("${projectDir}/out").deleteDir()
+    file("${projectDir}").listFiles().findAll {
+        it.name.endsWith("jtl") || it.name.endsWith("log")
+    }.each { it.delete() }
+}
+

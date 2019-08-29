@@ -12,6 +12,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Produces;
 import io.micronaut.jackson.codec.JsonMediaTypeCodec;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.View;
@@ -50,13 +51,11 @@ public class FrontendController {
         return HttpResponse.redirect(new URI("/todos"));
     }
 
-    @Delete
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public HttpResponse<?> remove(@Body String todoId) throws Exception {
-
-        LOGGER.info("removing todo with id" + todoId);
+    @Delete("/{todoId}")
+    public HttpResponse<?> remove(String todoId) throws Exception {
+        LOGGER.info("removing todo with id {}", todoId);
         todoServiceClient.removeTodo(todoId);
-        return HttpResponse.redirect(new URI("/todos"));
+        return HttpResponse.ok();
     }
 
 }

@@ -40,7 +40,7 @@ services:
       - ./loadTests:/opt/loadTest
     environment:
       - TODOSERVICE_HOST=todo-service
-      - TODOSERVICE_PORT=8080
+      - TODOSERVICE_PORT=8443
 EOF
 
 sed s"/\$flavor/$dockerfile_flavor/g" docker-compose.tpl | tee docker-compose.yml

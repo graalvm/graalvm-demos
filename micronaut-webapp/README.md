@@ -59,7 +59,7 @@ To execute the services
 ./gradlew todo-service:run //for the todo-service
 ./gradlew frontend:run //for the frontend
 ```
-The above will start the `frontend` service in [http://localhost:8081](http://localhost:8081) and the `todo-service` in [http://localhost:8080](http://localhost:8080)
+The above will start the `frontend` service in [http://localhost:8081](http://localhost:8081) and the `todo-service` in [https://localhost:8443](https://localhost:8443)
 
 
 To run load tests you can execute the below. If your are running without docker make sure you have jmeter install and it is in your `PATH`
