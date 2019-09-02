@@ -12,4 +12,4 @@ for filename in $SCALA_LIB/*.jar; do
     SCALA_LIB_CLASSPATH=$filename:$SCALA_LIB_CLASSPATH
 done
 
-$GRAALVM_HOME/bin/native-image -cp $SCALA_LIB_CLASSPATH:$PWD/scalac-substitutions/target/scala-2.12/scalac-substitutions_2.12-0.1.0-SNAPSHOT.jar scala.tools.nsc.Main -H:SubstitutionResources=substitutions.json,substitutions-2.12.json -H:ReflectionConfigurationFiles=scalac-substitutions/reflection-config.json -H:Name=scalac $@
+$GRAALVM_HOME/bin/native-image --no-fallback --initialize-at-build-time -cp $SCALA_LIB_CLASSPATH:$PWD/scalac-substitutions/target/scala-2.12/scalac-substitutions_2.12-0.1.0-SNAPSHOT.jar scala.tools.nsc.Main -H:SubstitutionResources=substitutions.json,substitutions-2.12.json -H:ReflectionConfigurationFiles=scalac-substitutions/reflection-config.json -H:Name=scalac $@
