@@ -1,0 +1,5 @@
+FROM openjdk:8-jre-alpine
+COPY build/libs/todo-service-*-all.jar todo-service.jar
+
+EXPOSE 8080
+CMD java -Xmn32m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar todo-service.jar

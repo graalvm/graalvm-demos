@@ -81,6 +81,10 @@ local.properties
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+**/.gradle/
+**/build/
+**/.gradle
+**/out/
 
 # CMake
 cmake-build-debug/
@@ -220,3 +224,7 @@ typings/
 
 
 # End of https://www.gitignore.io/api/java,node,maven,eclipse,intellij+all
+jmeter.log
+apache-jmeter*
+*.jtl
+micronaut-webapp/docker-compose.yml
