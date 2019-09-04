@@ -1,6 +1,13 @@
 #!/bin/sh
 image_name=todo-service-native
 docker_file=Dockerfile
+quiet=false
+
+if [ "$1" = "-q" ]
+then
+    quiet=true
+    shift
+fi
 
 case "$1" in
     graalvm* )
@@ -14,8 +21,11 @@ case "$1" in
 esac
 
 docker build -f $docker_file .  -t $image_name
-echo
-echo
-echo "To run the docker container execute:"
-echo "    $ docker run -p 8080:8080 $image_name"
+if [ "${quiet}" = false ]
+then
+    echo
+    echo
+    echo "To run the docker container execute:"
+    echo "    $ docker run -p 8080:8080 $image_name"
+fi
 

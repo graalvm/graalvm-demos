@@ -18,7 +18,7 @@ services:
       context: ./todo-service
       dockerfile: Dockerfile$flavor
     ports:
-      - 8080:8080
+      - 8443:8443
   frontend:
     build: 
       context: ./frontend
@@ -28,7 +28,7 @@ services:
     ports:
       - 8081:8081
     environment:
-      - TODOSERVICE_URL=http://todo-service:8080
+      - TODOSERVICE_URL=http://todo-service:8443
   loadtest:
     build:
       context: ./loadTests/
