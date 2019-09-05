@@ -177,7 +177,7 @@ spec:
           command: ['sh', '-c', 'apk add git; git clone https://github.com/graalvm/graalvm-demos.git; cp graalvm-demos/micronaut-webapp/loadTests/* /opt/loadTest; rm -rf graalvm-demos']
         - name: init-todo-loadtest-2
           image: alpine
-          command: ['sh', '-c', 'until echo "GET /" | nc  $TODO_SERVICE_SERVICE_HOST $TODO_SERVICE_SERVICE_PORT; do echo waiting for NoSQL...; sleep 1; done;']
+          command: ['sh', '-c', 'until echo "GET /" | nc  $TODO_SERVICE_SERVICE_HOST $TODO_SERVICE_SERVICE_PORT; do echo waiting for Todo service...; sleep 1; done;']
 EOF
 sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" k8/todoloadtest_deployment.tpl > k8/todoloadtest_deployment.yml
 rm k8/todoloadtest_deployment.tpl

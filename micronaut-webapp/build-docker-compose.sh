@@ -28,7 +28,7 @@ services:
     ports:
       - 8081:8081
     environment:
-      - TODOSERVICE_URL=http://todo-service:8443
+      - TODOSERVICE_URL=https://todo-service:8443
   loadtest:
     build:
       context: ./loadTests/
