@@ -78,5 +78,12 @@ To build and run all the service including load tests via docker:
 - `./build-docker-compose.sh [|graalvm|hotspot]` Builds a docker compose file with different docker images running on either: native-image, graalvm or hotspot
 - `docker-compose up --build`
 
+### Kubernetes
+To build and run all the service including load tests via kubernetes:
+
+- `./gradlew assemble`
+- `./build-kubernetes.sh [|graalvm|hotspot]` Builds Docker images, if they don't exist, and creates a kubernetes config files in `k8` folder.
+- [Optional] for cluster deployment the created images must be pushed into Docker registry used by the cluster and `imagePullSecrets` may be required.
+- `kubectl create -f k8`
 
 
