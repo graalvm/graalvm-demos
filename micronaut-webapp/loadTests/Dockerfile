@@ -1,4 +1,6 @@
-FROM oracle/graalvm-ce:19.2.0
+FROM openjdk:8-jre-alpine
+
+RUN apk --no-cache add curl
 
 ARG JMETER_VERSION=5.1.1
 RUN curl --retry 3 http://mirrors.koehn.com/apache//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz | gunzip| tar x -C /opt
@@ -6,6 +8,7 @@ RUN curl --retry 3 http://mirrors.koehn.com/apache//jmeter/binaries/apache-jmete
 ENV PATH="${PATH}:/opt/apache-jmeter-$JMETER_VERSION/bin"
 
 RUN mkdir -p /opt/loadTest
+COPY . /opt/loadTest
 
 WORKDIR /opt/loadTest
 
