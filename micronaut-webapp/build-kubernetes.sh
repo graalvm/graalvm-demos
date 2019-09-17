@@ -1,18 +1,27 @@
 #!/bin/sh
 
 dockerfile_flavor=
+docker_registry=
+if [[ $2 != "" ]]
+then
+    docker_registry=$2\\/
+fi
+
+tag=:native
 case "$1" in
     graalvm* )
     dockerfile_flavor=-graalvm
+    tag=:graalvm-ce
     ;;
     hotspot*)
     dockerfile_flavor=-hotspot
+    tag=:openjdk8
     ;;
 esac
 
-TODO_SERVICE_IMAGE="todo-service${dockerfile_flavor}"
-FRONTEND_IMAGE="frontend${dockerfile_flavor}"
-LOADGEN_IMAGE="loadgeneration"
+TODO_SERVICE_IMAGE=${docker_registry}"micronaut-webapp_todo-service${tag}"
+FRONTEND_IMAGE=${docker_registry}"micronaut-webapp_frontend${tag}"
+LOADGEN_IMAGE=${docker_registry}"loadgeneration"
 
 (
     if [[ $(docker images -q ${TODO_SERVICE_IMAGE}) == "" ]]
@@ -63,10 +72,17 @@ spec:
         containers:
         - name: todo-service
           image: $TODO_SERVICE_IMAGE
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: "/tmp/results"
+              name: persistent-vol
           ports:
           - containerPort: 8443
             protocol: TCP
+        volumes:
+          - name: persistent-vol
+            persistentVolumeClaim:
+              claimName: pers-pvc
 EOF
 sed s"/\$TODO_SERVICE_IMAGE/$TODO_SERVICE_IMAGE/g" k8/todoservice_deployment.tpl > k8/todoservice_deployment.yml
 rm k8/todoservice_deployment.tpl
@@ -85,7 +101,7 @@ spec:
   - port: 8443
     targetPort: 8443
     protocol: TCP
-  type: ClusterIP
+  type: NodePort
 EOF
 
 cat > k8/todofrontend_deployment.tpl << "EOF"
@@ -108,7 +124,7 @@ spec:
         containers:
         - name: todo-frontend
           image: $FRONTEND_IMAGE
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: TODOSERVICE_URL
               value: "https://todo-service:8443"
@@ -137,52 +153,72 @@ spec:
 EOF
 
 cat > k8/todoloadtest_deployment.tpl << "EOF"
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: todo-loadtest
-  labels:
-    app: todo-loadtest
+  name: loadgeneration
 spec:
-    selector:
-      matchLabels:
-        app: todo-loadtest
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          app: todo-loadtest
-      spec:
-        containers:
-        - name: todo-loadtest
-          image: $LOADGEN_IMAGE
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-          - mountPath: /opt/loadTest
-            name: data
-          env:
-            - name: TODOSERVICE_HOST
-              value: "todo-service"
-            - name: TODOSERVICE_PORT
-              value: "8443"
-        volumes:
-        - name: data
-          emptyDir: {}
-        initContainers:
-        - name: init-todo-loadtest-1
-          image: alpine
-          volumeMounts:
-          - mountPath: /opt/loadTest
-            name: data
-          command: ['sh', '-c', 'apk add git; git clone https://github.com/graalvm/graalvm-demos.git; cp graalvm-demos/micronaut-webapp/loadTests/* /opt/loadTest; rm -rf graalvm-demos']
-        - name: init-todo-loadtest-2
-          image: alpine
-          command: ['sh', '-c', 'until echo "GET /" | nc  $TODO_SERVICE_SERVICE_HOST $TODO_SERVICE_SERVICE_PORT; do echo waiting for Todo service...; sleep 1; done;']
+  template:
+    metadata:
+      name: loadgeneration
+    spec:
+      containers:
+      - name: loadgeneration
+        image: $LOADGEN_IMAGE
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "/tmp/results"
+            name: persistent-vol
+        env:
+          - name: TODOSERVICE_HOST
+            value: "todo-service"
+          - name: TODOSERVICE_PORT
+            value: "8443"
+          - name: LOADTESTS_RESULTS
+            value: "/tmp/results"
+      volumes:
+        - name: persistent-vol
+          persistentVolumeClaim:
+            claimName: pers-pvc
+
+      restartPolicy: Never
 EOF
+
+
 sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" k8/todoloadtest_deployment.tpl > k8/todoloadtest_deployment.yml
 rm k8/todoloadtest_deployment.tpl
 
-echo
+cat > k8/storage_minikube.yml << "EOF"
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pers-vol
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/pers-vol"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pers-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  volumeName: pers-vol
+  resources:
+    requests:
+      storage: 1Gi
+EOF
+
+
+echo "Kubernetes deployment files create in k8/"
 echo
 echo "To deploy"
 echo "    $ kubectl create -f k8"
