@@ -47,12 +47,12 @@ LOADGEN_IMAGE=${docker_registry}"loadgeneration"
   fi
 )
 
-if [ ! -d k8 ]
+if [[ ! -d script-services ]]
 then
-    mkdir k8
+    mkdir script-services
 fi
 
-cat > k8/todoservice_deployment.tpl << "EOF"
+cat > script-services/todoservice_deployment.tpl << "EOF"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -73,21 +73,10 @@ spec:
         - name: todo-service
           image: $TODO_SERVICE_IMAGE
           imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: "/tmp/results"
-              name: persistent-vol
           ports:
           - containerPort: 8443
             protocol: TCP
-        volumes:
-          - name: persistent-vol
-            persistentVolumeClaim:
-              claimName: pers-pvc
-EOF
-sed s"/\$TODO_SERVICE_IMAGE/$TODO_SERVICE_IMAGE/g" k8/todoservice_deployment.tpl > k8/todoservice_deployment.yml
-rm k8/todoservice_deployment.tpl
-
-cat > k8/todoservice_service.yml << "EOF"
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -101,10 +90,12 @@ spec:
   - port: 8443
     targetPort: 8443
     protocol: TCP
-  type: NodePort
+  type: LoadBalancer
 EOF
+sed s"/\$TODO_SERVICE_IMAGE/$TODO_SERVICE_IMAGE/g" script-services/todoservice_deployment.tpl > script-services/todoservice_deployment.yml
+rm script-services/todoservice_deployment.tpl
 
-cat > k8/todofrontend_deployment.tpl << "EOF"
+cat > script-services/todofrontend_deployment.tpl << "EOF"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -131,11 +122,7 @@ spec:
           ports:
           - containerPort: 8081
             protocol: TCP
-EOF
-sed s"/\$FRONTEND_IMAGE/$FRONTEND_IMAGE/g" k8/todofrontend_deployment.tpl > k8/todofrontend_deployment.yml
-rm k8/todofrontend_deployment.tpl
-
-cat > k8/todofrontend_service.yml << "EOF"
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -149,10 +136,12 @@ spec:
   - port: 8081
     targetPort: 8081
     protocol: TCP
-  type: NodePort
+  type: LoadBalancer
 EOF
+sed s"/\$FRONTEND_IMAGE/$FRONTEND_IMAGE/g" script-services/todofrontend_deployment.tpl > script-services/todofrontend_deployment.yml
+rm script-services/todofrontend_deployment.tpl
 
-cat > k8/todoloadtest_deployment.tpl << "EOF"
+cat > script-services/todoloadtest_deployment.tpl << "EOF"
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -166,9 +155,6 @@ spec:
       - name: loadgeneration
         image: $LOADGEN_IMAGE
         imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: "/tmp/results"
-            name: persistent-vol
         env:
           - name: TODOSERVICE_HOST
             value: "todo-service"
@@ -176,19 +162,13 @@ spec:
             value: "8443"
           - name: LOADTESTS_RESULTS
             value: "/tmp/results"
-      volumes:
-        - name: persistent-vol
-          persistentVolumeClaim:
-            claimName: pers-pvc
 
       restartPolicy: Never
 EOF
+sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" script-services/todoloadtest_deployment.tpl > script-services/todoloadtest_deployment.yml
+rm script-services/todoloadtest_deployment.tpl
 
-
-sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" k8/todoloadtest_deployment.tpl > k8/todoloadtest_deployment.yml
-rm k8/todoloadtest_deployment.tpl
-
-cat > k8/storage_minikube.yml << "EOF"
+cat > script-services/storage_minikube.yml << "EOF"
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -218,7 +198,7 @@ spec:
 EOF
 
 
-echo "Kubernetes deployment files create in k8/"
+echo "Kubernetes deployment files create in script-services/"
 echo
 echo "To deploy"
-echo "    $ kubectl create -f k8"
+echo "    $ kubectl create -f script-services"
