@@ -12,11 +12,20 @@ case "$1" in
     graalvm* )
     dockerfile_flavor=-graalvm
     tag=:graalvm-ce
+    if [[ $GRAALVM_DOCKER_EE != "" ]]
+    then
+    tag=:graalvm-ee
+    fi
     ;;
     hotspot*)
     dockerfile_flavor=-hotspot
     tag=:openjdk8
     ;;
+    *)
+    if [[ $GRAALVM_DOCKER_EE != "" ]]
+    then
+    tag=:native-ee
+    fi
 esac
 
 TODO_SERVICE_IMAGE=${docker_registry}"micronaut-webapp_todo-service${tag}"
@@ -26,6 +35,7 @@ LOADGEN_IMAGE=${docker_registry}"loadgeneration"
 (
     if [[ $(docker images -q ${TODO_SERVICE_IMAGE}) == "" ]]
     then
+        echo "Building docker image for todo-service"
         cd todo-service
         ./docker-build.sh -q "$1"
     fi
@@ -34,6 +44,7 @@ LOADGEN_IMAGE=${docker_registry}"loadgeneration"
 (
   if [[ $(docker images -q ${FRONTEND_IMAGE}) == "" ]]
   then
+        echo "Building docker image for frontend"
       cd frontend
       ./docker-build.sh -q "$1"
   fi
@@ -42,17 +53,18 @@ LOADGEN_IMAGE=${docker_registry}"loadgeneration"
 (
   if [[ $(docker images -q ${LOADGEN_IMAGE}) == "" ]]
   then
+      echo "Building docker image-load"
       cd loadTests
       ./docker-build.sh -q
   fi
 )
 
-if [[ ! -d script-services ]]
+if [[ ! -d deployments/k8/script-services ]]
 then
-    mkdir script-services
+    mkdir deployments/k8/script-services
 fi
 
-cat > script-services/todoservice_deployment.tpl << "EOF"
+cat > deployments/k8/script-services/todoservice_deployment.tpl << "EOF"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -92,10 +104,10 @@ spec:
     protocol: TCP
   type: LoadBalancer
 EOF
-sed s"/\$TODO_SERVICE_IMAGE/$TODO_SERVICE_IMAGE/g" script-services/todoservice_deployment.tpl > script-services/todoservice_deployment.yml
-rm script-services/todoservice_deployment.tpl
+sed s"/\$TODO_SERVICE_IMAGE/$TODO_SERVICE_IMAGE/g" deployments/k8/script-services/todoservice_deployment.tpl > deployments/k8/script-services/todoservice_deployment.yml
+rm deployments/k8/script-services/todoservice_deployment.tpl
 
-cat > script-services/todofrontend_deployment.tpl << "EOF"
+cat > deployments/k8/script-services/todofrontend_deployment.tpl << "EOF"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -138,10 +150,10 @@ spec:
     protocol: TCP
   type: LoadBalancer
 EOF
-sed s"/\$FRONTEND_IMAGE/$FRONTEND_IMAGE/g" script-services/todofrontend_deployment.tpl > script-services/todofrontend_deployment.yml
-rm script-services/todofrontend_deployment.tpl
+sed s"/\$FRONTEND_IMAGE/$FRONTEND_IMAGE/g" deployments/k8/script-services/todofrontend_deployment.tpl > deployments/k8/script-services/todofrontend_deployment.yml
+rm deployments/k8/script-services/todofrontend_deployment.tpl
 
-cat > script-services/todoloadtest_deployment.tpl << "EOF"
+cat > deployments/k8/script-services/todoloadtest_deployment.tpl << "EOF"
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -165,10 +177,10 @@ spec:
 
       restartPolicy: Never
 EOF
-sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" script-services/todoloadtest_deployment.tpl > script-services/todoloadtest_deployment.yml
-rm script-services/todoloadtest_deployment.tpl
+sed s"/\$LOADGEN_IMAGE/$LOADGEN_IMAGE/g" deployments/k8/script-services/todoloadtest_deployment.tpl > deployments/k8/script-services/todoloadtest_deployment.yml
+rm deployments/k8/script-services/todoloadtest_deployment.tpl
 
-cat > script-services/storage_minikube.yml << "EOF"
+cat > deployments/k8/script-services/storage_minikube.yml << "EOF"
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -198,7 +210,7 @@ spec:
 EOF
 
 
-echo "Kubernetes deployment files create in script-services/"
+echo "Kubernetes deployment files create in deployments/k8/script-services/"
 echo
 echo "To deploy"
-echo "    $ kubectl create -f script-services"
+echo "    $ kubectl create -f deployments/k8/script-services"
