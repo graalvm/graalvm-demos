@@ -27,6 +27,26 @@ GRAALVM_VERSION=19.2.0.1
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 
+You would like to have the `native-image` utility installed. Try running:
+
+```
+gu install native-image
+```
+
+If it says something like:
+```
+$GRAALVM_HOME/bin/gu install native-image
+Skipping ULN EE channels, no username provided.
+Downloading: Component catalog from www.graalvm.org
+Downloading: Component catalog from www.graalvm.org
+Error: Unknown component: native-image
+``` 
+Then download the `native-image` installable component from the [OTN](https://www.oracle.com/downloads/graalvm-downloads.html)
+and install if from the local file, for example: 
+```
+gu install --file ~/Downloads/python-installable-svm-svmee-darwin-amd64-19.2.0.1.jar
+```
+
 Then execute:
 ```
 ./build.sh

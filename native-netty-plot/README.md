@@ -6,11 +6,31 @@ The code of this repository is based on an [earlier example](https://github.com/
 
 ### Preparing the environment
 
-To set up your development environment, you first need to [download GraalVM](http://www.graalvm.org/downloads/). The Enterprise Edition is preferable for the purpose of this example. The GraalVM download contains a full Java VM, the `native-image` tool, and other utilities. We assume that you extracted GraalVM to `~/graalvm-ee-1.0.0-rc8`.
+To set up your development environment, you first need to [download GraalVM](http://www.graalvm.org/downloads/). The Enterprise Edition is preferable for the purpose of this example. The GraalVM download contains a full Java VM, the `native-image` tool, and other utilities. We assume that you extracted GraalVM to `~/graalvm`.
+
+You would like to have the `native-image` utility installed. Try running:
+
+```
+gu install native-image
+```
+
+If it says something like:
+```
+$GRAALVM_HOME/bin/gu install native-image
+Skipping ULN EE channels, no username provided.
+Downloading: Component catalog from www.graalvm.org
+Downloading: Component catalog from www.graalvm.org
+Error: Unknown component: native-image
+```
+Then download the `native-image` installable component from the [OTN](https://www.oracle.com/downloads/graalvm-downloads.html)
+and install if from the local file, for example:
+```
+gu install --file ~/Downloads/python-installable-svm-svmee-darwin-amd64-19.2.0.1.jar
+```
 
 Now you can run the `native-image` tool:
 ```
-$ ~/graalvm-ee-1.0.0-rc8/native-image --help
+$ ~/graalvm/native-image --help
 
 GraalVM native-image building tool
 
@@ -94,4 +114,3 @@ The `ImageName` property specifies the name of the resulting executable, while `
   }
 ]
 ```
-
