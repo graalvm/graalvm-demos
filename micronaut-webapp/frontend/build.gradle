@@ -13,13 +13,15 @@ version "0.1"
 group "org.graalvm.demos.micronaut.service.frontend"
 
 repositories {
-    mavenCentral()
     maven { url "https://jcenter.bintray.com" }
+    maven {
+        url  "https://dl.bintray.com/micronaut/core-releases-local"
+    }
 }
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.2.3'
+        mavenBom 'io.micronaut:micronaut-bom:1.2.6'
     }
 }
 
@@ -39,7 +41,7 @@ dependencies {
     compile "io.micronaut:micronaut-http-server-netty"
     compile "javax.annotation:javax.annotation-api"
     compile "io.micronaut:micronaut-http-client"
-    compile "io.micronaut:micronaut-views"
+    compile "io.micronaut:micronaut-views-freemarker"
     runtime 'org.freemarker:freemarker:2.3.29'
     compile project(":api")
     compileOnly "com.oracle.substratevm:svm"
@@ -62,9 +64,28 @@ shadowJar {
     mergeServiceFiles()
 }
 
+/*
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            //Makes anything in the io.netty group to have a particualr version
+            if (details.requested.group == 'io.netty') {
+                details.useVersion "4.1.43.Final"
+            }
+        }
+    }
+}
+ */
+
 run.classpath += configurations.developmentOnly
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+run.jvmArgs('-noverify', '-Dcom.sun.management.jmxremote')
 tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
     options.compilerArgs.add('-parameters')
 }
+
+task nativei(type: Exec) {
+    commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', 'build/libs/*'
+}
+
+nativei.dependsOn(assemble)
