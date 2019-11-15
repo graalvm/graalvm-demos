@@ -11,7 +11,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 Download or clone the repository and navigate into the `native-list-dir` directory:
 
 ```
-git clone https://github.com/shelajev/graalvm-demos
+git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/native-list-dir
 ```
 
@@ -23,8 +23,28 @@ Note that you can use any JDK for compiling the Java classes, but in the build s
 So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=1.0.0-rc11
+GRAALVM_VERSION=19.2.0.1
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
+```
+
+You would like to have the `native-image` utility installed. Try running:
+
+```
+gu install native-image
+```
+
+If it says something like:
+```
+$GRAALVM_HOME/bin/gu install native-image
+Skipping ULN EE channels, no username provided.
+Downloading: Component catalog from www.graalvm.org
+Downloading: Component catalog from www.graalvm.org
+Error: Unknown component: native-image
+``` 
+Then download the `native-image` installable component from the [OTN](https://www.oracle.com/downloads/graalvm-downloads.html)
+and install if from the local file, for example: 
+```
+gu install --file ~/Downloads/python-installable-svm-svmee-darwin-amd64-19.2.0.1.jar
 ```
 
 Then execute:

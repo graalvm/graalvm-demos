@@ -11,7 +11,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 Download or clone the repository and navigate into the `polyglot-javascript-java-r` directory:
 
 ```
-git clone https://github.com/shelajev/graalvm-demos
+git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/polyglot-javascript-java-r
 ```
 

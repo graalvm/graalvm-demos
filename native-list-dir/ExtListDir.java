@@ -51,12 +51,16 @@ public class ExtListDir {
 	public static void main(String[] args) throws java.io.IOException {
 		final Context context = Context.create("js");
 		String s = "name + ': ' + size";
-		if (args.length == 1) {
-			s = args[0];
+    String root = ".";
+		if (args.length > 0) {
+			root = args[0];
 		}
+    if(args.length > 1) {
+      s = args[1];
+    }
 		final Value lambda = context.eval("js",
             "(function(name, size) { return " + s + "})");
-		try (Stream<Path> paths = Files.walk(Paths.get("."))) {
+		try (Stream<Path> paths = Files.walk(Paths.get(root))) {
 			paths.filter(Files::isRegularFile).forEach((Path p) -> {
 				File f = p.toFile();
 				Value v = lambda.execute(f.getName(), f.length());
