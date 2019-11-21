@@ -3,17 +3,17 @@ package org.graalvm.demos.micronaut.service.todo;
 import org.graalvm.demos.micronaut.service.api.v1.Todo;
 
 import javax.inject.Singleton;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Singleton
 public class InMemoryTodoService implements TodoService {
     private Map<String, Todo> allTodos;
     private AtomicInteger idCounter;
+
+    private static final int PAGE_SIZE = 50;
 
     public InMemoryTodoService() throws ServiceException {
         allTodos = new ConcurrentHashMap<>();
@@ -61,7 +61,7 @@ public class InMemoryTodoService implements TodoService {
             throw new ServiceException("querying by user Id not supported");
         }
 
-        return allTodos.values();
+        return allTodos.values().stream().limit(PAGE_SIZE).collect(Collectors.toList());
     }
 
     @Override
