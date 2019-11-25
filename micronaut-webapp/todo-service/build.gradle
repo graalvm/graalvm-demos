@@ -65,3 +65,9 @@ tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
     options.compilerArgs.add('-parameters')
 }
+
+task nativei(type: Exec) {
+    def allJar = fileTree(project.libsDir).filter {it.name.endsWith("jar") && it.name.contains("all")}.files.first()
+    commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', allJar
+}
+nativei.dependsOn(assemble)

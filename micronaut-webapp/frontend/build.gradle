@@ -64,19 +64,6 @@ shadowJar {
     mergeServiceFiles()
 }
 
-/*
-configurations.all {
-    resolutionStrategy {
-        eachDependency { DependencyResolveDetails details ->
-            //Makes anything in the io.netty group to have a particualr version
-            if (details.requested.group == 'io.netty') {
-                details.useVersion "4.1.43.Final"
-            }
-        }
-    }
-}
- */
-
 run.classpath += configurations.developmentOnly
 run.jvmArgs('-noverify', '-Dcom.sun.management.jmxremote')
 tasks.withType(JavaCompile){
@@ -85,7 +72,8 @@ tasks.withType(JavaCompile){
 }
 
 task nativei(type: Exec) {
-    commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', 'build/libs/*'
+    def allJar = fileTree(project.libsDir).filter {it.name.endsWith("jar") && it.name.contains("all")}.files.first()
+    commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', allJar
 }
 
 nativei.dependsOn(assemble)
