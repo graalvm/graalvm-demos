@@ -24,5 +24,5 @@ public interface TodoServiceClient {
     Todo addTodo(@Body @Valid Todo todo);
 
     @Delete("/api/todos/{id}")
-    void removeTodo(@Body @Valid String id);
+    void removeTodo(@Body String id);
 }
