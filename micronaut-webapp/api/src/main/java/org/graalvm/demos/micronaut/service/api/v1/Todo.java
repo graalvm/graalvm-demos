@@ -4,9 +4,10 @@ import io.micronaut.core.annotation.Introspected;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.Objects;
 
 @Introspected
-public class Todo {
+public final class Todo {
     private @NotBlank String content;
     private String id;
     private Date timeCreated;

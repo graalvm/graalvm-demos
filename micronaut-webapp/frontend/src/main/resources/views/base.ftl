@@ -22,7 +22,7 @@
             <ul class="list-group list-group-flush">
                 <#list allTodos as val>
                     <li class="list-group-item d-flex justify-content-between" id="${val.id}"><p class="p-0 m-0 flex-grow-1">${val.content}</p>
-                        <button class="btn-danger" onclick="deleteTodo(${val.id})">x</button>
+                        <button class="btn-danger" onclick="deleteTodo('${val.id}')">x</button>
                     </li>
                 </#list>
             </ul>
