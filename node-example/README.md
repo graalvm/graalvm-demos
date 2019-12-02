@@ -15,7 +15,7 @@ git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/node-example
 ```
 
-Build the application before running. You can manually execute `npm install plotly`, but there's also a `build.sh` script included for your convenience.
+Build the application before running. The application requires python libraries for plotting the graph. You can manually execute all the commands from `build.sh` file line-by-line, but that is more convenient to execute `build.sh` script as it is shown below.
 
 Execute:
 ```
@@ -52,12 +52,4 @@ This will perform 50 requests to the server and print results of benchmarking.
 
 ## Notes about the application
 
-This application uses [Plotly](https://plot.ly) library to plot the graph. Plotly provides API for plotting graphs, and requires username and API key indicated.
-
-To get username and API key, proceed to the [Plotly](https://chart-studio.plot.ly/settings/api#/) site, log in or sign up, go to Settings->API Keys and click on `Regenerate Key` button. Then copy your username and API key and paste them there, on the top of the `taylor.js` file:
-
-```
-const plotly = require('plotly')('username', 'api_key');
-```
-
-This API key can be used 1000 times per 24h.
+This application uses [matplotnode](https://www.npmjs.com/package/matplotnode) package to plot the graph. This package requires Python 2.7 and matplotlib installed. Scripts to install them and their dependencies are in `build.sh` file.

@@ -1,9 +1,13 @@
-const plotly = require('plotly')('username', 'api_key');
 const http = require('http');
+const plt = require('matplotnode');
+const fs = require('fs');
+
+const file = './plot.png';
 
 //-----------------------Creating-server------------------------------
 
 const server = http.createServer((req, res) => {
+    plt.close('all');
     outputSinGraph(res);
 });
 
@@ -53,47 +57,23 @@ function outputSinGraph(res) {
         return d;
     }
 
+
     //-----------------------Plotting-graph-------------------------------
 
-    var layout = {
-        title: {
-        text: `Evaluations took ${time} nanoseconds.`,
-        font: {
-            family: 'Courier New, monospace',
-            size: 24
-        },
-        xref: 'paper',
-        x: 0.05,
-        }
-    }
+    plt.title(`Evaluations took ${time} nanoseconds.`);
+    plt.plot(data.x, data.y, 'color=b', 'label=sin(x)');
+    plt.legend();
 
-    var trace1 = {
-        x: data.x,
-        y: data.y,
-        type: "scatter"
-    };
+    plt.save(file);
 
-    var figure = { 
-        'data': [trace1],
-        'layout' : layout
-    };
-
-    var imgOpts = {
-        format: 'png',
-        width: 1000,
-        height: 500
-    };
-    
-    plotly.getImage(figure, imgOpts, function (error, imageStream) {
-        if (error) return console.log (error);
-        res.writeHead(200, {'Content-Type': 'image/png'});
-        imageStream.pipe(res);
-    });
+    let imageStream = fs.createReadStream(file);
+    res.writeHead(200, {'Content-Type': 'image/png'});
+    imageStream.pipe(res);
 }
 
 //-----------------------Time-measurement-----------------------------
 
 function getNanoSecTime() {
-    var hrTime = process.hrtime();
+    let hrTime = process.hrtime();
     return hrTime[0] * 1000000000 + hrTime[1];
 }
