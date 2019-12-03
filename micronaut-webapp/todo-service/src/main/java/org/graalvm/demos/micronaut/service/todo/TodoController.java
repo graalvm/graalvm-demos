@@ -43,12 +43,12 @@ public class TodoController {
     }
 
 
-    @Get("/{?userId}")
+    @Get("/{?pageId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public HttpResponse<?> list(Optional<String> userId) {
+    public HttpResponse<?> list(Optional<String> pageId) {
         LOGGER.debug("Listing all todos");
-        if(userId.isPresent()) {
-            return HttpResponse.badRequest("querying todos by user id is not supported");
+        if(pageId.isPresent()) {
+            return HttpResponse.badRequest("querying todos by page id is not supported");
         }
         return guardedResponse(() -> todoService.listTodos(null));
     }
