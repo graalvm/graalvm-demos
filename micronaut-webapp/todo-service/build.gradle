@@ -19,7 +19,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.2.6'
+        mavenBom "io.micronaut:micronaut-bom:${project.properties.microanutVersion}"
     }
 }
 
@@ -67,7 +67,9 @@ tasks.withType(JavaCompile){
 }
 
 task nativei(type: Exec) {
-    def allJar = fileTree(project.libsDir).filter {it.name.endsWith("jar") && it.name.contains("all")}.files.first()
-    commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', allJar
+    def jarFiles = fileTree(project.libsDir).filter {it.name.endsWith("jar") && it.name.contains("all")}.files
+    if (!jarFiles.isEmpty()) {
+        commandLine 'native-image', '--no-server', '--verbose', '--enable-all-security-services', '-cp', jarFiles.first()
+    }
 }
 nativei.dependsOn(assemble)
