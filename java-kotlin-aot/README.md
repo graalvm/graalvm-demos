@@ -1,10 +1,10 @@
 # GraalVM demos: Java Kotlin interop ahead-of-time compilation demo
 
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains the code for a demo application for [GraalVM](https://graalvm.org).
 
 ## Prerequisites
 * [Maven](https://maven.apache.org/)
-* [GraalVM](http://graalvm.org)
+* [GraalVM](https://graalvm.org)
 
 ## Preparation
 
