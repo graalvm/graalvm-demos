@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-service
+  labels:
+    app: todo-service
+spec:
+    selector:
+      matchLabels:
+        app: todo-service
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: todo-service
+      spec:
+        containers:
+        - name: todo-service
+          image: eginez/micronaut-webapp_todo-service:native
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8443
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-service
+  labels:
+    app: todo-service
+spec:
+  selector:
+    app: todo-service
+  ports:
+  - port: 8443
+    targetPort: 8443
+    protocol: TCP
+  type: LoadBalancer

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+spec:
+    selector:
+      matchLabels:
+        app: todo-frontend
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: todo-frontend
+      spec:
+        containers:
+        - name: todo-frontend
+          image: eginez/micronaut-webapp_frontend:native
+          imagePullPolicy: Always
+          env:
+            - name: TODOSERVICE_URL
+              value: "https://todo-service:8443"
+          ports:
+          - containerPort: 8081
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+spec:
+  selector:
+    app: todo-frontend
+  ports:
+  - port: 8081
+    targetPort: 8081
+    protocol: TCP
+  type: LoadBalancer

@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: org.graalvm.demos.micronaut.service.frontend
+---
+testFramework: junit
+sourceLanguage: java

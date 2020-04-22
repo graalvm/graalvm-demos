@@ -1,0 +1,30 @@
+version: '3'
+services:
+  todo-service:
+    build:
+      context: ./todo-service
+      dockerfile: Dockerfile
+    ports:
+      - 8443:8443
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - todo-service
+    ports:
+      - 8081:8081
+    environment:
+      - TODOSERVICE_URL=https://todo-service:8443
+  loadtest:
+    build:
+      context: ./loadTests/
+      dockerfile: Dockerfile
+    depends_on:
+      - todo-service
+      - frontend
+    volumes:
+      - ./loadTests:/opt/loadTest
+    environment:
+      - TODOSERVICE_HOST=todo-service
+      - TODOSERVICE_PORT=8443

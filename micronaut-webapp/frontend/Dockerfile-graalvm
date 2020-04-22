@@ -1,0 +1,5 @@
+FROM oracle/graalvm-ce:19.2.0
+COPY build/libs/frontend-*-all.jar frontend.jar
+
+EXPOSE 8081
+CMD java -Xmn32m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar frontend.jar
