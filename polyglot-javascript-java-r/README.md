@@ -23,7 +23,7 @@ export PATH=$GRAALVM_HOME/bin:$PATH
 2. Download or clone the repository and navigate into the `polyglot-javascript-java-r` directory:
 
 ```
-git clone https://github.com/shelajev/graalvm-demos
+git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/polyglot-javascript-java-r
 ```
 
@@ -33,7 +33,6 @@ cd graalvm-demos/polyglot-javascript-java-r
 ```
 
 Now you are all set to run the polyglot JavaScript, Java, R application.
-
 
 ## Running the application
 To run the application, you need to execute the `server.js` file. You can run it with the following command (or run the `run.sh` script):

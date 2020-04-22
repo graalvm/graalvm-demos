@@ -11,7 +11,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 Download or clone the repository and navigate into the `java-simple-stream-benchmark` directory:
 
 ```
-git clone https://github.com/shelajev/graalvm-demos
+git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/java-simple-stream-benchmark
 ```
 
@@ -27,7 +27,7 @@ Now you're all set to execute the benchmark and compare the results between diff
 Export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
 
 ```
-GRAALVM_VERSION=1.0.0-rc9
+GRAALVM_VERSION=19.2.0.1
 export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
 ```
 

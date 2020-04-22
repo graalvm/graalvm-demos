@@ -6,7 +6,6 @@
   <packaging>jar</packaging>
   <version>0.1</version>
   <name>netty-plot</name>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -34,7 +33,6 @@
       <version>3.3</version>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>

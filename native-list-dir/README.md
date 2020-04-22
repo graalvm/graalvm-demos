@@ -26,7 +26,7 @@ For GraalVM Enterprise users, download the Native Image JAR file from [Oracle Te
 3. Download or clone the repository and navigate into the `native-list-dir` directory:
 
 ```
-git clone https://github.com/shelajev/graalvm-demos
+git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/native-list-dir
 ```
 

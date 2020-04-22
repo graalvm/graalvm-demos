@@ -1,0 +1,9 @@
+micronaut:
+  ssl:
+    enabled: true
+    keyStore:
+      path: classpath:certificate.p12
+      password: native
+      type: PKCS12
+  application:
+    name: todo-service

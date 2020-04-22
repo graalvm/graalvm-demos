@@ -104,7 +104,7 @@ public class FunctionPlotter {
 	 * We use the utility functions in {@link CTypeConversion} for the C string
 	 * conversions. Note that there are other more efficient ways to copy the
 	 * string, but this approach is the easiest.
-	 *
+   *
 	 * The return value is a handle to the string in the target isolate. Only the
 	 * target isolate can access and resolve that handle, the source isolate must
 	 * treat the handle as an opaque value.
@@ -246,7 +246,6 @@ class Graphics2DPlotter {
 			previous = point;
 		}
 		g2d.draw(tr.createTransformedShape(path));
-
 		return g2d.getSVGDocument().getBytes(StandardCharsets.UTF_8);
 	}
 }
