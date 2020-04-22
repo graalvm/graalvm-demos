@@ -18,7 +18,7 @@ on macOS:
 export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
 ```
 
-Lastly, install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image).
+Then install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image).
 For GraalVM Enterprise users, download the Native Image JAR file from [Oracle Technology Network](https://www.oracle.com/downloads/graalvm-downloads.html) and install it by running `gu -L install component.jar`, where -L option, equivalent to --local-file or --file, tells to install a component from a downloaded archive.
 
 Alternatively, you can build `native-image` from source by following the [quick start guide](https://github.com/oracle/graal/tree/master/substratevm#quick-start).
@@ -41,8 +41,14 @@ This creates a .jar file with all dependencies embedded: `target/netty-plot-0.1-
 The [pom.xml](pom.xml) specifies the expected dependencies to Netty, emp4j, and JFreeSVG. But it also specifies a dependency on Native Image, `org.graalvm.nativeimage`, - a technology to ahead-of-time compile Java code to a standalone executable. This dependency is required for the [method substitutions that are necessary for Netty](https://github.com/cstancu/netty-native-demo).
 
 ### Building a GraalVM Native Image
+If the application is expected to use some dynamic features at runtime (e.g., Reflection, Java Native Interface, Class Path Resources), they have to be provided to the native image generation process in the form of configuration files.
+To avoid writing the configuration file yourself, apply the [tracing agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent) when running on the Java HotSpot VM. It will observe the application behavior and create configuration files (jni-config.json, reflect-config.json, proxy-config.json and resource-config.json) in META-INF/native-image/ directory on the class path. The *reflect-config.json* file specifies classes which must be available via Java reflection at runtime.
 
-To build the native image, run:
+```
+$ java -agentlib:native-image-agent=config-output-dir=/Users/${current-user}/graalvm-demos/native-netty-plot/src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
+```
+
+Build the native image. The `native-image` tool will automatically search for any configuration file under META-INF/native-image and its subdirectories:
 ```
 $ native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
 Build on Server(pid: 8610, port: 32890)
@@ -78,22 +84,12 @@ Finally, you can open your browser and request the rendering of a function, for 
 ##### Build Parameters
 This build requires additional parameters to `native-image`, most prominently `-H:+SpawnIsolates` to enable support for isolates, and `--features=...` to enable the custom plotter feature.
 
-Instead of specifying the additional parameters on the command line, we provide them in a properties file in the input JAR file. `native-image` automatically looks for files named `native-image.properties` under `META-INF/native-image/` and processes their contents. With Maven projects, the path convention is `META-INF/native-image/${groupId}/${artifactId}/native-image.properties`. In this example, the file is therefore at `META-INF/native-image/com.oracle.substratevm/netty-plot/native-image.properties`, and contains the following:
+Instead of specifying the additional parameters on the command line, we provide them in a properties file in the input JAR file. The `native-image` automatically looks for files named `native-image.properties` and for any other configuration file under `META-INF/native-image` including subdirectories and processes their contents. The tracing agent wrote the *reflect-config.json* file specifying classes which must be available via Java reflection at runtime.
+
+ With Maven projects, the path convention is `META-INF/native-image/${groupId}/${artifactId}/native-image.properties`. In this example, the `META-INF/native-image/com.oracle.substratevm/netty-plot/native-image.properties` file contains the following:
 ```
 ImageName = netty-plot
 Args = --features=com.oracle.svm.nettyplot.PlotterSingletonFeature \
-          -H:ReflectionConfigurationResources=${.}/reflection-config.json \
-          --initialize-at-run-time=io.netty.handler.codec.http.HttpObjectEncoder \
           -H:+SpawnIsolates
 ```
-The `ImageName` property specifies the name of the resulting executable, while `Args` are treated like additional command-line arguments. The `-H:ReflectionConfigurationResources=${.}/reflection-config.json` parameter refers to `reflection-config.json` in the same subdirectory as `native-image.properties`. This configuration file specifies classes which must be available via Java reflection at runtime.
-```json
-[
-  {
-    "name": "io.netty.channel.socket.nio.NioServerSocketChannel",
-    "methods": [
-      { "name": "<init>", "parameterTypes": [] }
-    ]
-  }
-]
-```
+The `ImageName` property specifies the name of the resulting executable, while `Args` are treated like additional command-line arguments.

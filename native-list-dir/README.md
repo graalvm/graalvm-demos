@@ -13,10 +13,12 @@ This repository contains the code for a demo application for [GraalVM](http://gr
 On Linux:
 ```
 export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
+export PATH=$GRAALVM_HOME/bin:$PATH
 ```
 On macOS:
 ```
 export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+export PATH=$GRAALVM_HOME/bin:$PATH
 ```
 2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image). For GraalVM Community users, run `gu install native-image`.
 For GraalVM Enterprise users, download the Native Image JAR file from [Oracle Technology Network](https://www.oracle.com/downloads/graalvm-downloads.html) and install it by running `gu -L install component.jar`, where -L option, equivalent to --local-file or --file, tells to install a component from a downloaded archive.
