@@ -54,7 +54,7 @@ This way, Graal will not be used as the JVMCI compiler and the JVM will use its 
 
 ## A Note About the Results
 
-The benchmark mode is the `AverageTime` in nanoseconds per operation, which means lower numbers are better.
-
-Note that the results you see can be influenced by the hardware you're running
-this benchmark on, the CPU load, and other factors. Interpret them responsibly.
+The benchmark mode is the `AverageTime` in nanoseconds per operation, which
+means lower numbers are better. Note that the results you see can be influenced
+by the hardware you are running this benchmark on, the CPU load, and other
+factors. Interpret them responsibly.

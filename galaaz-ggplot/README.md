@@ -1,97 +1,76 @@
-Introduction
-============
+# Introduction
 
-Galaaz is a system for tightly coupling Ruby and R. Ruby is a powerful language, with a large community, a very large set of libraries and great for web development. However, it lacks libraries for data science, statistics, scientific plotting and machine learning. On the other hand, R is considered one of the most powerful languages for solving all of the above problems. Maybe the strongest competitor to R is Python with libraries such as NumPy, Panda, SciPy, SciKit-Learn and a couple more.
+Galaaz is a system for tightly coupling Ruby and R. Ruby is a powerful language,
+with a large community, a very large set of libraries and great for web
+development. However, it lacks libraries for data science, statistics,
+scientific plotting and machine learning. On the other hand, R is considered one
+of the most powerful languages for solving all of the above problems.
 
-With Galaaz we do not intend to re-implement any of the scientific libraries in R, we allow for very tight coupling between the two languages to the point that the Ruby developer does not need to know that there is an R engine running. For this to happen we use new technologies provided by Oracle, with GraalVM, TruffleRuby and FastR:
+With Galaaz we do not intend to re-implement any of the scientific libraries in
+R, we allow for very tight coupling between the two languages to the point that
+a Ruby developer does not need to know that there is an R engine running. For
+this to happen we use new technologies - GraalVM - a universal virtual machine
+that removes the isolation between programming languages and enables
+interoperability in a shared runtime. TruffleRuby is the implementation of Ruby,
+and FastR is the implementation of R on top of GraalVM.
 
-     GraalVM is a universal virtual machine for running applications written in JavaScript,
-     Python, Ruby, R, JVM-based languages like Java, Scala, Kotlin, and LLVM-based languages
-     such as C and C++.
 
-     GraalVM removes the isolation between programming languages and enables interoperability in a
-     shared runtime. It can run either standalone or in the context of OpenJDK, Node.js,
-     Oracle Database, or MySQL.
+## Galaaz Demo
 
-     GraalVM allows you to write polyglot applications with a seamless way to pass values from one
-     language to another. With GraalVM there is no copying or marshalling necessary as it is with
-     other polyglot systems. This lets you achieve high performance when language boundaries are
-     crossed. Most of the time there is no additional cost for crossing a language boundary at all.
-
-     Often developers have to make uncomfortable compromises that require them to rewrite
-     their software in other languages. For example:
-
-      * “That library is not available in my language. I need to rewrite it.”
-      * “That language would be the perfect fit for my problem, but we cannot run it in our environment.”
-      * “That problem is already solved in my language, but the language is too slow.”
-
-    With GraalVM we aim to allow developers to freely choose the right language for the task at
-    hand without making compromises.
-
-What does Galaaz mean?
----------------------
-
-Galaaz is the Portuguese name for "Galahad". From Wikipedia:
-
-    Sir Galahad (/ˈɡæləhæd/; sometimes referred to as Galeas /ɡəˈliːəs/ or Galath /ˈɡæləθ/),
-    in Arthurian legend, is a knight of King Arthur's Round Table and one of the three
-    achievers of the Holy Grail. He is the illegitimate son of Sir Lancelot and Elaine of
-    Corbenic, and is renowned for his gallantry and purity as the most perfect of all knights.
-    Emerging quite late in the medieval Arthurian tradition, Sir Galahad first appears in the
-    Lancelot–Grail cycle, and his story is taken up in later works such as the Post-Vulgate
-    Cycle and Sir Thomas Malory's Le Morte d'Arthur. His name should not be mistaken with
-    Galehaut, a different knight from Arthurian legend.
-
-Galaaz Demo
-===========
-
-Prerequisites
+### Prerequisites
 -------------
 
--   GraalVM (&gt;= rc7)
--   TruffleRuby
--   FastR
+- [GraalVM](http://graalvm.org)
+- [TruffleRuby](https://www.graalvm.org/docs/reference-manual/languages/ruby/)
+- [FastR](https://www.graalvm.org/docs/reference-manual/languages/r/)
 
 The following R packages will be automatically installed when necessary, but could be installed prior to the demo if desired:
 
 -   ggplot2
 -   gridExtra
 
-The installation of R packages requires a development environment. In Linux, the gnu compiler and tools should be enough. I am not sure what is needed on the Mac.
+The installation of R packages requires a development environment. In Linux, the GNU compiler and tools should be enough. In order to run the *specs* the following Ruby package is necessary:
+```
+gem install rspec
+```
 
-In order to run the 'specs' the following Ruby package is necessary:
+### Preparation
+Install Galaaz:
+```
+gem install galaaz
+```
 
--   gem install rspec
+### Running the Demo
 
-Preparation
------------
+The ggplot for this demos was extracted from [this resource](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html).
 
--   gem install galaaz
+On the console execute:
+```
+galaaz master_list:scatter_plot
+```
+### Running Other Demos
 
-Running the demo
-----------------
+Run on the console:
+```
+galaaz -T
+```
+will show a list with all available demos. To run any of the demos in the list,
+substitute the call to `rake` to `galaaz`. For instance, one of the examples in
+the list is `rake sthda:bar`. In order to run this example just do `galaaz
+sthda:bar`. Doing `galaaz sthda:all` will run all demos in the `sthda` category.
+Some of the examples require `rspec` do be available. To install missing
+`rspec`, run `gem install rspec`.
 
-The ggplot for this demos was extracted from: <http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html>.
+### Demo Code
 
-On the console do
+The following is the Ruby code and plot for the above example. There is a small
+difference between the code in the example and the code below. If the example is
+run, the plot will appear on the screen. We generate an SVG image and then
+include it in this document. In order to generate and image, the R.svg device is
+used. To generate the plot on the screen, use the R.awt device, as commented on
+the code.
 
-    > galaaz master_list:scatter_plot
-
-Running other demos
--------------------
-
-Doing on the console
-
-    > galaaz -T
-
-will show a list with all available demos. To run any of the demos in the list, substitute the call to 'rake' to 'galaaz'. For instance, one of the examples in the list is 'rake sthda:bar'. In order to run this example just do 'galaaz sthda:bar'. Doing 'galaaz sthda:all' will run all demos in the sthda category. Some of the examples require 'rspec' do be available. To install 'rspec' just do 'gem install rspec'.
-
-The demo code
-=============
-
-The following is the Ruby code and plot for the above example. There is a small difference between the code in the example and the code below. If the example is ran, the plot will appear on the screen. We generate an 'svg' image and then include it in this document. In order to generate and image, the R.svg device is used. To generate the plot on the screen, use the R.awt device, as commented on the code.
-
-``` truby
+```
 require 'galaaz'
 require 'ggplot'
 
@@ -128,7 +107,7 @@ R.dev__off               # R.dev__off turns off the device.  If using awt, the p
 
 In R, the code to generate this plot is the following:
 
-``` r
+```
 # install.packages("ggplot2")
 # load package and data
 options(scipen=999)  # turn-off scientific notation like 1e+48
@@ -152,20 +131,39 @@ gg <- ggplot(midwest, aes(x=area, y=poptotal)) +
 plot(gg)
 ```
 
-Note that both codes are very similar. The Ruby code requires the use of "R." before calling any functions, for instance R function 'geom\_point' becomes 'R.geom\_point' in Ruby. R named parameters such as (col = state, size = popdensity), become in Ruby (col: :state, size: :popdensity).
+Note that both codes are very similar. The Ruby code requires the use of "R."
+before calling any functions, for instance, the R function `geom\_point` becomes
+`R.geom\_point` in Ruby. R named parameters such as `col = state, size =
+popdensity`, become in Ruby `col: :state, size: :popdensity`.
 
-One last point that needs to be observed is the call to the 'aes' function. In Ruby instead of doing 'R.aes', we use 'E.aes'. The explanation of why E.aes is needed is an advanced topic in R and depends on what is know as Non-standard Evaluation (NSE) in R. In short, function 'aes' is lazily evaluated in R, i.e., in R when calling geom\_point(aes(col=state, size=popdensity)), function geom\_point receives as argument something similar to a string containing 'aes(col=state, size=popdensity)', and the aes function will be evaluated inside the geom\_point function. In Ruby, there is no Lazy evaluation and doing R.aes would try to evaluate aes immediately. In order to delay the evaluation of function aes we need to use E.aes. The interested reader on NSE in R is directed to <http://adv-r.had.co.nz/Computing-on-the-language.html>.
+One last point that needs to be observed is the call to the `aes` function. In
+Ruby instead of doing `R.aes`, we use `E.aes`. The explanation of why `E.aes` is
+needed is an advanced topic in R and depends on what is know as Non-standard
+Evaluation (NSE) in R. In short, the function `aes` is lazily evaluated in R,
+i.e., in R when calling `geom\_point(aes(col=state, size=popdensity))`, the
+function `geom\_point` receives as argument something similar to a string
+containing `aes(col=state, size=popdensity)`, and the `aes` function will be
+evaluated inside the `geom\_point` function. In Ruby, there is no lazy
+evaluation and doing `R.aes` would try to evaluate `aes` immediately. In order
+to delay the evaluation of function `aes` we need to use `E.aes`. To continue
+reading on NSE in R, proceed
+[here](http://adv-r.had.co.nz/Computing-on-the-language.html).
 
-An extension to the example
-===========================
+### Extension to the Demo
 
-If both codes are so similar, then why would one use Ruby instead of R and what good is galaaz after all?
+If both codes are so similar, then why would one use Ruby instead of R and what
+good is galaaz after all? Ruby is a modern language with numerous very useful
+constructs such as classes, modules, blocks, procs, etc.. The example above
+focus on the coupling of both languages, and does not show the use of other Ruby
+constructs. In the following example, we will show a more complex example using
+other Ruby constructs. This is certainly not a very well written and robust Ruby
+code, but it gives the idea of how Ruby and R are strongly coupled.
 
-Ruby is a modern OO language with numerous very useful constructs such as classes, modules, blocks, procs, etc. The example above focus on the coupling of both languages, and does not show the use of other Ruby constructs. In the following example, we will show a more complex example using other Ruby constructs. This is certainly not a very well written and robust Ruby code, but it give the idea of how Ruby and R are strongly coupled.
+Imagine that we work in a corporation that has its plot themes. It has defined a
+`CorpTheme` module. Plots in this corporation should not have grids, numbers in
+labels should not use scientific notation and the preferred color is blue.
 
-Let's imagine that we work in a corporation that has its plot themes. So, it has defined a 'CorpTheme' module. Plots in this corporation should not have grids, numbers in labels should not use scientific notation and the preferred color is blue.
-
-``` truby
+```
 # corp_theme.rb
 # defines the corporate theme for all plots
 
@@ -203,9 +201,9 @@ module CorpTheme
 end
 ```
 
-We now define a ScatterPlot class:
+We now define a `ScatterPlot` class:
 
-``` truby
+```
 # ScatterPlot.rb
 # creates a scatter plot and allow some configuration
 
@@ -301,9 +299,9 @@ class ScatterPlot
 end
 ```
 
-And this is the final code for making the scatter plot with the midwest data
+Here is the final code for making the scatter plot with the midwest data:
 
-``` truby
+```
 require 'galaaz'
 require 'ggplot'
 
