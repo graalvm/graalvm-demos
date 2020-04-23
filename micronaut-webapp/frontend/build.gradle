@@ -44,7 +44,7 @@ dependencies {
     compile "io.micronaut:micronaut-views-freemarker"
     runtime 'org.freemarker:freemarker:2.3.29'
     compile project(":api")
-    compileOnly "com.oracle.substratevm:svm"
+    compileOnly "org.graalvm.nativeimage:svm"
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"
