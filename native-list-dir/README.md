@@ -1,6 +1,5 @@
 # GraalVM demos: Native images for faster startup
 
-
 This repository contains the code for a demo application for [GraalVM](http://graalvm.org).
 
 ## Prerequisites

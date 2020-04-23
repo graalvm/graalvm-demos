@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <kotlin.version>1.0.1-2</kotlin.version>
+        <kotlin.version>1.3.72</kotlin.version>
         <junit.version>4.12</junit.version>
         <main.class>kotlin.KotlinHelloKt</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,11 +65,11 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.8.0</version>
                 <executions>
                     <!-- Replacing default-compile as it is treated specially by maven -->
                     <execution>

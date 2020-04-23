@@ -1,6 +1,5 @@
 # GraalVM demos: Spring Boot using R packages demo
 
-
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
 ## Prerequisites

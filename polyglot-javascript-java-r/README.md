@@ -1,6 +1,5 @@
 # GraalVM demos: Polyglot JavaScript, Java, R application
 
-
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
 ## Prerequisites

@@ -1,0 +1,6 @@
+[ {
+  "name" : "org.graalvm.demos.micronaut.service.api.v1.Todo",
+  "allDeclaredFields" : true,
+  "allPublicMethods" : true,
+  "allDeclaredConstructors" : true
+} ]
