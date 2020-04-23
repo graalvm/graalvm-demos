@@ -25,13 +25,13 @@ dependencyManagement {
 
 configurations {
     // for dependencies that are needed for development only
-    developmentOnly
+    developmentOnly 
 }
 
 dependencies {
+    annotationProcessor "io.micronaut:micronaut-graal"
     annotationProcessor "io.micronaut:micronaut-inject-java"
     annotationProcessor "io.micronaut:micronaut-validation"
-    annotationProcessor "io.micronaut:micronaut-graal"
     compile "io.micronaut:micronaut-http-client"
     compile "io.micronaut:micronaut-inject"
     compile "io.micronaut:micronaut-validation"
@@ -39,7 +39,11 @@ dependencies {
     compile "io.micronaut:micronaut-http-server-netty"
     compile "javax.annotation:javax.annotation-api"
     compile project(":api")
+<<<<<<< HEAD
     compileOnly "org.graalvm.nativeimage:svm"
+=======
+    compileOnly "com.oracle.substratevm:svm"
+>>>>>>> Reverting changes to Micronaut app
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"

@@ -1,35 +1,33 @@
-# GraalVM Micronaut Todo Web Application
+# GraalVM Micronaut Todo webapp
 
 ## Summary
 
-The Todo web application is an example application built with Micronaut and
-GraalVM in the form of a microservice architecture. The purpose of the
-application is to demonstrate GraalVM and Native Image speed ups in comparison
-with Vanilla JVM.
+The Todo web application is an example application built with Micronaut and GraalVM in the form of a microservice architecture. 
+
+The purpouse of the application is to demonstrate GraalVM and Native Image speed ups in comparison with vanilla jvm.
 
 
 ## Project Structure
 
-The application is currently broken into 3 pieces. The `frontend`,
-`todo-service` and `loadTest` project. Additionally, the `api` project contains
-classes shared amongst the `frontend` and the `todo-service`.
+The application is currently broken into 3 pieces. The `frontend`, `todo-service` and `loadTest` project. Aditionally the `api`
+project contains classes shared amongst the `frontend` and the `todo-service`
 
 ### Frontend
 
-A minimalistic service side rendering web application that renders data from the `todo-service`. The `frontend` communicates to the backend service via a http client.
-Its sole purpose is to render data.
+A minimalistic service side rendering web application that renders data from the `todo-service`. The `frontend` comunincates to the backend service via a http client.
+It sole purpouse(for now) is to render data.
 
 ### Todo-service
 
-A backend web-service that exposes RESTful CRUD operations on Todo items. This service is currently backed by a in-memory data structure, however new implementations can be easily added.
+A backend webservice that exposes RESTful CRUD operations on Todo items. This service is currently backed by a in-memory data structure, however new implementations can be easily added.
 
 ### Api
 
-Common classes shared by both the `frontend` and the `Todo-service`.
+Common classes shared by both the `frontend` and the `Todo-service`
 
 ### Load tests
 
-A project containing JMeter load tests. Currently the load test apply traffic on the `todo-service` only.
+A project containing jmeter load tests. Currently the load test apply traffic on the `todo-service` only
 
 
 ## Building
@@ -41,7 +39,7 @@ A project containing JMeter load tests. Currently the load test apply traffic on
 - GraalVM (if run without docker)
 - JMeter (for running load tests, if run without docker)
 
-There are generally two ways build and run the project: via Docker or via Kubernetes.
+There are generally two ways build and run the project 
 
 ### Gradle
 To build all the services
@@ -74,16 +72,18 @@ Open `loadTests/out/index.html` to see the results
 
 
 ### Docker
-To build and run all the service including load tests via Docker:
+To build and run all the service including load tests via docker:
 
 - `./gradlew assemble`
 - `./deployments/local/build-docker-compose.sh [|graalvm|hotspot]` Builds a docker compose file with different docker images running on either: native-image, graalvm or hotspot
 - `docker-compose up --build`
 
 ### Kubernetes
-To build and run all the service including load tests via Kubernetes:
+To build and run all the service including load tests via kubernetes:
 
 - `./gradlew assemble`
-- `./deployments/k8/build-kubernetes.sh [|graalvm|hotspot]` Builds Docker images, if they do not exist, and creates a Kubernetes config files in `k8` folder.
+- `./deployments/k8/build-kubernetes.sh [|graalvm|hotspot]` Builds Docker images, if they don't exist, and creates a kubernetes config files in `k8` folder.
 - [Optional] for cluster deployment the created images must be pushed into Docker registry used by the cluster and `imagePullSecrets` may be required.
 - `kubectl create -f k8`
+
+

@@ -1,3 +1,0 @@
-org.graalvm.demos.micronaut.service.todo.$InMemoryTodoServiceDefinitionClass
-org.graalvm.demos.micronaut.service.todo.$TodoControllerDefinitionClass
-org.graalvm.demos.micronaut.service.todo.$$TodoControllerDefinition$InterceptedDefinitionClass
