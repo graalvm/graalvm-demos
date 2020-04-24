@@ -6,22 +6,21 @@
   <packaging>jar</packaging>
   <version>0.1</version>
   <name>netty-plot</name>
-  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.oracle.substratevm</groupId>
+      <groupId>org.graalvm.nativeimage</groupId>
       <artifactId>svm</artifactId>
-      <version>1.0.0-rc8</version>
+      <version>20.0.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>4.1.30.Final</version>
+      <version>4.1.49.Final</version>
     </dependency>
     <dependency>
       <groupId>net.objecthunter</groupId>
@@ -34,13 +33,12 @@
       <version>3.3</version>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
             <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -63,11 +61,11 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
       </plugin>
       <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>3.8.0</version>
           <configuration>
               <source>1.8</source>
               <target>1.8</target>

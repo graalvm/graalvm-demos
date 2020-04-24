@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.graalvm.nativeimage.CurrentIsolate;
-import org.graalvm.nativeimage.Feature;
+import org.graalvm.nativeimage.hosted.Feature;
 import org.graalvm.nativeimage.ImageSingletons;
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.Isolates;
@@ -60,11 +60,11 @@ public class FunctionPlotter {
 
 	private static ByteBuffer plotAsSVGInNettyIsolate(String function, double xmin, double xmax) {
 		long initialMemory = printMemoryUsage("Memory usage before rendering: ", 0);
-		
+
 		Graphics2DPlotter plotter = new Graphics2DPlotter();
 		byte[] buffer = plotter.plotAsSVG(function, xmin, xmax);
 		ByteBuffer result = ByteBuffer.wrap(buffer);
-		
+
 		printMemoryUsage("Memory usage after rendering: ", initialMemory);
 		return result;
 	}
@@ -76,7 +76,7 @@ public class FunctionPlotter {
 
 	    /* Copy the function String from the Netty isolate into the rendering isolate. */
 	    ObjectHandle functionHandle = copyString(renderingContext, function);
-	    
+
 	    /* Render the function. This call performs the transition from the Netty isolate the rendering isolate, triggered by the annotations of plotAsSVG. */
 	    ObjectHandle resultHandle = plotAsSVG(renderingContext, nettyContext, functionHandle, xmin, xmax);
 
@@ -88,23 +88,23 @@ public class FunctionPlotter {
 	    Isolates.tearDownIsolate(renderingContext);
 
 		printMemoryUsage("Netty isolate memory usage: ", 0);
-	    
+
 	    return result;
 	}
 
 	/**
 	 * Copies a {@link String} from a source isolate to a target isolate. This
 	 * method is the part that is executed in the source isolate.
-	 * 
+	 *
 	 * An isolate cannot directly access Java objects from another isolate.
 	 * Therefore, we convert the source Java string to a C string, and pass the C
 	 * string to the target isolate. The target isolate then converts the C string
 	 * back to the target Java string.
-	 * 
+	 *
 	 * We use the utility functions in {@link CTypeConversion} for the C string
 	 * conversions. Note that there are other more efficient ways to copy the
 	 * string, but this approach is the easiest.
-	 * 
+   *
 	 * The return value is a handle to the string in the target isolate. Only the
 	 * target isolate can access and resolve that handle, the source isolate must
 	 * treat the handle as an opaque value.
@@ -152,7 +152,7 @@ public class FunctionPlotter {
 		ObjectHandles.getGlobal().destroy(functionHandle);
 
 		byte[] svgBytes = ImageSingletons.lookup(Graphics2DPlotter.class).plotAsSVG(function, xmin, xmax);
-		
+
 		ObjectHandle byteBufferHandle;
 		try (PinnedObject pin = PinnedObject.create(svgBytes)) {
 			byteBufferHandle = createByteBuffer(nettyContext, pin.addressOfArrayElement(0), svgBytes.length);
@@ -181,7 +181,7 @@ public class FunctionPlotter {
 	    copy.put(direct).rewind();
 		return ObjectHandles.getGlobal().create(copy);
 	}
-	
+
 	private static long printMemoryUsage(String message, long initialMemory) {
 		long currentMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
 		System.out.println(message + currentMemory / 1024 + " KByte" + (initialMemory == 0 ? "" : "  (difference: " + (currentMemory - initialMemory) / 1024 + " KByte)"));
@@ -204,7 +204,7 @@ class Graphics2DPlotter {
 
 	byte[] plotAsSVG(String function, double xmin, double xmax) {
 		Expression e = new ExpressionBuilder(function).variable("x").build();
-		
+
 		double xstep = (xmax - xmin) / area.width;
 		double ymin = 0;
 		double ymax = 1;
@@ -223,7 +223,7 @@ class Graphics2DPlotter {
 			}
 			points.add(point);
 		}
-		
+
 		AffineTransform tr = new AffineTransform();
 		tr.translate(margin, margin + area.height); // bottom left
 		tr.scale(1, -1); // y values increase toward top
@@ -246,7 +246,6 @@ class Graphics2DPlotter {
 			previous = point;
 		}
 		g2d.draw(tr.createTransformedShape(path));
-		
 		return g2d.getSVGDocument().getBytes(StandardCharsets.UTF_8);
 	}
 }

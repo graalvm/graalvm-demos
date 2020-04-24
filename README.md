@@ -8,14 +8,13 @@ Clone this repository. Every top level folder here contains a demo sources and t
 
 ## Tested Compatibility
 
-The demos are normal applications & benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on. You can run it on the stock JVM, Node, etc..
+The demos are normal applications and benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on. You can run it on the stock JVM, Node, etc..
 
-However, these were tested and are known to work with:
-* GraalVM 1.0.0 RC9
+However, these examples were tested and are known to work with GraalVM 20.0.0 builds based on JDK 8 and on JDK 11.
 
 ## Further Information
 
-* [GraalVM]( http://www.oracle.com/technetwork/oracle-labs/program-languages/overview) on the Oracle Technology Network
+* [GraalVM Website](https://www.graalvm.org)
 * [Graal on Github](https://github.com/oracle/graal/tree/master/compiler)
 * [Truffle JavaDoc](http://www.graalvm.org/truffle/javadoc/)
 * [Truffle on Github](https://github.com/oracle/graal/tree/master/truffle)

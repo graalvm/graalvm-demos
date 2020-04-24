@@ -1,14 +1,28 @@
 # GraalVM demos: Native images for faster startup
 
-
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains the code for a demo application for [GraalVM](http://graalvm.org).
 
 ## Prerequisites
 * [GraalVM](http://graalvm.org)
+* [GraalVM Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
 
 ## Preparation
 
-Download or clone the repository and navigate into the `native-list-dir` directory:
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+On Linux:
+```
+export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
+export PATH=$GRAALVM_HOME/bin:$PATH
+```
+On macOS:
+```
+export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+export PATH=$GRAALVM_HOME/bin:$PATH
+```
+2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image). For GraalVM Community users, run `gu install native-image`.
+For GraalVM Enterprise users, download the Native Image JAR file from [Oracle Technology Network](https://www.oracle.com/downloads/graalvm-downloads.html) and install it by running `gu -L install component.jar`, where -L option, equivalent to --local-file or --file, tells to install a component from a downloaded archive.
+
+3. Download or clone the repository and navigate into the `native-list-dir` directory:
 
 ```
 git clone https://github.com/graalvm/graalvm-demos
@@ -17,37 +31,9 @@ cd graalvm-demos/native-list-dir
 
 There are two Java classes, but we'll start by building `ListDir.java` for the purposes of this demo. You can manually execute `javac ListDir.java`, but there's also a `build.sh` script included for your convenience.
 
-
 Note that you can use any JDK for compiling the Java classes, but in the build script we refer to `javac` in the GraalVM to simplify the prerequisites and not depend on you having another JDK installed.
 
-So export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the path. Here's what I have in my `~/.bashrc` on my MacBook, note that your paths are likely to be different depending on the download location.
-
-```
-GRAALVM_VERSION=19.2.0.1
-export GRAALVM_HOME=/Users/${current_user}/repo/graal-releases/graalvm-$GRAALVM_VERSION/Contents/Home
-```
-
-You would like to have the `native-image` utility installed. Try running:
-
-```
-gu install native-image
-```
-
-If it says something like:
-```
-$GRAALVM_HOME/bin/gu install native-image
-Skipping ULN EE channels, no username provided.
-Downloading: Component catalog from www.graalvm.org
-Downloading: Component catalog from www.graalvm.org
-Error: Unknown component: native-image
-``` 
-Then download the `native-image` installable component from the [OTN](https://www.oracle.com/downloads/graalvm-downloads.html)
-and install if from the local file, for example: 
-```
-gu install --file ~/Downloads/python-installable-svm-svmee-darwin-amd64-19.2.0.1.jar
-```
-
-Then execute:
+4. Then execute:
 ```
 ./build.sh
 ```
@@ -58,16 +44,12 @@ The important line of the `build.sh` creates a native image from our Java class.
 $GRAALVM_HOME/bin/native-image ListDir
 ```
 
-The `native-image` utility is a part of GraalVM. It is used to compile applications ahead-of-time for faster starup and lower general overhead at runtime.
-
+The `native-image` compiles an application ahead-of-time for faster startup and lower general overhead at runtime.
 After executing the `native-image` command, check the directory, it should have produced an executable file `listdir`.
-
 
 ## Running the application
 
-To run the application, you need to execute the `ListDir` class. You can run it as a normal Java application using `java`. Or, since we have a native image prepared, you can run that directly.
-
-The `run.sh` file, executes both, and times them with the `time` utility.
+To run the application, you need to execute the `ListDir` class. You can run it as a normal Java application using `java`. Or, since we have a native image prepared, you can run that directly. The `run.sh` file, executes both, and times them with the `time` utility.
 ```
 time java ListDir $1
 time ./listDir $1
@@ -98,9 +80,7 @@ The performance gain of the native version is largely due to the faster startup.
 
 ## ExtListDir class
 
-You can also experiment with a more sophisticated `ExtListDir` example, which uses Java / JavaScript polyglot capabilities.
-
-To compile that class you need to add `graal-sdk.jar` on the classpath:
+You can also experiment with a more sophisticated `ExtListDir` example, which uses Java/JavaScript polyglot capabilities. To compile that class you need to add `graal-sdk.jar` on the classpath:
 
 ```
 $GRAALVM_HOME/bin/javac -cp $GRAALVM_HOME/jre/lib/boot/graal-sdk.jar ExtListDir.java
