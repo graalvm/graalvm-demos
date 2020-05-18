@@ -80,10 +80,11 @@ The performance gain of the native version is largely due to the faster startup.
 
 ## ExtListDir class
 
-You can also experiment with a more sophisticated `ExtListDir` example, which uses Java/JavaScript polyglot capabilities. To compile that class you need to add `graal-sdk.jar` on the classpath:
+You can also experiment with a more sophisticated `ExtListDir` example, which uses Java/JavaScript polyglot capabilities.
+Compile the example:
 
 ```
-$GRAALVM_HOME/bin/javac -cp $GRAALVM_HOME/jre/lib/boot/graal-sdk.jar ExtListDir.java
+$GRAALVM_HOME/bin/javac ExtListDir.java
 ```
 
 Building the native image command is similar to the one above, but since we want to use JavaScript, we need to inform the `native-image` utility about it passing the `--language:js` option.

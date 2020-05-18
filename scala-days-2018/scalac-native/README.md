@@ -17,7 +17,7 @@ The produced native image is called `scalac` and has no dependencies on the JDK.
 
 The script `scalac-native` calls the generated compiler and passes all the required parameters (just like `scala` does).
 
-Let's see how we compare to the JVM on the first run:
+Compare to the JVM on the first run:
 ```
 $ time $SCALA_HOME/bin/scalac HelloWorld.scala
 

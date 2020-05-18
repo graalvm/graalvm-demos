@@ -47,7 +47,7 @@ When the application is ready, open `http://localhost:8080/load`.
 
 ### Note about R Dependencies
 
-For a successful R packages installation, it is recommended to have gfortran on the path. 
+For a successful R packages installation, it is recommended to have gfortran on the path.
 If it is not on `PATH`, then its runtime library (libgfortran.dylib) will not be on paths searched by the compiler when linking the object files. You can either export the environment variable `PKG_LDFLAGS_OVERRIDE` to `-L/path/to/where/is/libgfrotran`:
 ```
 export PKG_LDFLAGS_OVERRIDE=-L/path/to/where/is/libgfortran

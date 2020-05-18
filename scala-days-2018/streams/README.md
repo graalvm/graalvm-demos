@@ -28,11 +28,14 @@ Iteration 20 finished in 48 milliseconds with checksum e6e0b70aee921601
 TOTAL time: 2406
 ```
 
-We can see over 4x speeup on this simple program.
+We can see over 4x speeDup on this simple program.
 
 # Profile-Guided Optimizations with `native-image`
 
-This demo shows how to use profile-guided optimizations (PGO) in `native-image`. We will use the same `Streams.java` program that contains a simple query implemented with the Java Streams API
+This demo shows how to use profile-guided optimizations (PGO) with the
+`native-image` builder. Note, profile-guided optimizations is a GraalVM Enterprise feature.
+We will use the same `Streams.java` program that
+contains a simple query implemented with the Java Streams API:
 ```
 Arrays.stream(persons)
    .filter(p -> p.getEmployment() == Employment.EMPLOYED)
@@ -43,7 +46,7 @@ Arrays.stream(persons)
    .getAsDouble();
 ```
 
-Let us first build the native image without profile-guided optimizations:
+First build the native image without profile-guided optimizations:
 ```
 $ javac Streams.java
 $ $GRAALVM_HOME/bin/native-image Streams
@@ -73,4 +76,4 @@ Iteration 20 finished in 49 milliseconds with checksum e6e0b70aee921601
 TOTAL time: 915
 ```
 
-We get performance comparable to the Java version of the program. Note that you need at least GraalVM 1.0 RC3 to reproduce these numbers.
+We get performance comparable to the Java version of the program.
