@@ -38,13 +38,13 @@ Before running this example, you need to build the application:
 ./build.sh
 ```
 
-Let's look at the important line of the `build.sh` which creates a native image
+Look at the important line of the `build.sh` which creates a native image
 from our Java application. The `native-image` utility is a part of GraalVM. It
 is used to compile applications ahead-of-time for faster startup and lower
 general overhead at runtime.
 
 ```
-$GRAALVM_HOME/bin/native-image -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime --allow-incomplete-classpath
+$GRAALVM_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
 ```
 
 It takes a couple of parameters, the class path, the main class of the

@@ -25,7 +25,7 @@ dependencyManagement {
 
 configurations {
     // for dependencies that are needed for development only
-    developmentOnly 
+    developmentOnly
 }
 
 dependencies {
@@ -39,11 +39,7 @@ dependencies {
     compile "io.micronaut:micronaut-http-server-netty"
     compile "javax.annotation:javax.annotation-api"
     compile project(":api")
-<<<<<<< HEAD
     compileOnly "org.graalvm.nativeimage:svm"
-=======
-    compileOnly "com.oracle.substratevm:svm"
->>>>>>> Reverting changes to Micronaut app
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"
