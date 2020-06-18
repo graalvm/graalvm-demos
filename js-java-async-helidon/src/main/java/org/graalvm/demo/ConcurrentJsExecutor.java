@@ -44,6 +44,8 @@ import org.graalvm.polyglot.*;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -55,6 +57,25 @@ class ConcurrentJsExecutor {
 
     private final String jsCode;
 
+    private static class ContextProvider {
+
+        private final Context context;
+        private final ReentrantLock lock;
+
+        ContextProvider(Context cx) {
+            this.context = cx;
+            this.lock = new ReentrantLock();
+        }
+
+        Context getContext() {
+            return context;
+        }
+
+        Lock getLock() {
+            return lock;
+        }
+    }
+
     /**
      * A GraalVM engine shared between multiple JavaScript contexts.
      */
@@ -63,7 +84,7 @@ class ConcurrentJsExecutor {
     /**
      * A Thread-local used to ensure that we have one JavaScript context per thread.
      */
-    private final ThreadLocal<Context> jsContext = ThreadLocal.withInitial(() -> {
+    private final ThreadLocal<ContextProvider> jsContext = ThreadLocal.withInitial(() -> {
         /*
          * For simplicity, allow ALL accesses. In a real application, access to resources should be restricted.
          */
@@ -72,9 +93,10 @@ class ConcurrentJsExecutor {
         /*
          * Register a Java method in the Context global scope as a JavaScript function.
          */
-        cx.getBindings(JS).putMember("computeFromJava", createJavaInteropComputeFunction(cx));
+        ContextProvider provider = new ContextProvider(cx);
+        cx.getBindings(JS).putMember("computeFromJava", createJavaInteropComputeFunction(provider));
         System.out.println("Created new JS context for thread " + Thread.currentThread());
-        return cx;
+        return provider;
     });
 
     ConcurrentJsExecutor(String jsCode) {
@@ -85,7 +107,7 @@ class ConcurrentJsExecutor {
      * Returns the Java implementation of <code>computeFromJava</code> exposed to
      * JavaScript.
      */
-    private Function<?, ?> createJavaInteropComputeFunction(Context cx) {
+    private Function<?, ?> createJavaInteropComputeFunction(ContextProvider cx) {
         /*
          * The Java implementation of the `computeFromJava` function takes one argument
          * as input and returns a JavaScript promise.
@@ -99,26 +121,27 @@ class ConcurrentJsExecutor {
              */
             CompletableFuture.supplyAsync(() -> {
                 /*
-                 * This code might be called from a concurrent thread. Java synchronization on
-                 * the polyglot context ensures that no concurrent access can happen.
+                 * This code might be called from a concurrent thread. Synchronization
+                 * can be used to ensure that no concurrent access can happen.
                  */
-                synchronized (cx) {
-                    try {
-                        /*
-                         * Do some random calculation using `requestId`.
-                         */
-                        double v = (int) requestId + Math.random();
-                        /*
-                         * Resolve the JavaScript promise with the computed value. This will resume the
-                         * JavaScript `async` function execution.
-                         */
-                        return onResolve.execute(v);
-                    } catch (PolyglotException e) {
-                        /*
-                         * Something went wrong. Reject the JavaScript promise.
-                         */
-                        return onReject.execute(e.getGuestObject() == null ? e.getGuestObject() : e.getMessage());
-                    }
+                cx.getLock().lock();
+                try {
+                    /*
+                     * Do some random calculation using `requestId`.
+                     */
+                    double v = (int) requestId + Math.random();
+                    /*
+                     * Resolve the JavaScript promise with the computed value. This will resume the
+                     * JavaScript `async` function execution.
+                     */
+                    return onResolve.execute(v);
+                } catch (PolyglotException e) {
+                    /*
+                     * Something went wrong. Reject the JavaScript promise.
+                     */
+                    return onReject.execute(e.getGuestObject() == null ? e.getGuestObject() : e.getMessage());
+                } finally {
+                    cx.getLock().unlock();
                 }
             });
         };
@@ -138,22 +161,25 @@ class ConcurrentJsExecutor {
          * Helidon might use multiple threads to handle concurrent requests. Hence, we
          * use one JavaScript context per thread.
          */
-        Context cx = jsContext.get();
+        ContextProvider cx = jsContext.get();
         /*
-         * This code might be called from a concurrent thread. Java synchronization on
-         * the polyglot context ensures that no concurrent access can happen.
+         * This code might be called from a concurrent thread. Synchronization
+         * can be used to ensure that no concurrent access can happen.
          */
-        synchronized (cx) {
+        cx.getLock().lock();
+        try {
             /*
              * Execute the JavaScript code. Will return a JavaScript promise.
              */
-            Value jsAsyncFunction = cx.eval(JS, jsCode);
+            Value jsAsyncFunction = cx.getContext().eval(JS, jsCode);
             /*
              * Register event reactions for the given promise. The corresponding Java
              * methods will be executed when the Promise completes.
              */
             jsAsyncFunction.execute(requestId).invokeMember(THEN, (Consumer<?>) jsExecution::complete)
                     .invokeMember(CATCH, (Consumer<Throwable>) jsExecution::completeExceptionally);
+        } finally {
+            cx.getLock().unlock();
         }
         return jsExecution;
     }
