@@ -59,13 +59,13 @@ class HelidonService {
      * The code awaits for some asynchronous computation (performed in Java).
      * {@see createJavaInteropComputeFunction}.
      */
-    private static final String jsCode = "(async function(requestId) {" 
+    private static final String jsCode = "(async function(requestId) {"
             + "  try {"
             + "    let data = await computeFromJava(requestId);"
             + "    return JSON.stringify({requestId: requestId, result: data});"
             + "  } catch (e) {"
             + "    return 'There was an error in JS-land! ' + e;"
-            + "  }" 
+            + "  }"
             + "})";
     private final String requestPath;
     private final ConcurrentJsExecutor jsExecutor;
@@ -89,12 +89,20 @@ class HelidonService {
              * Parse `?request=xxx` from an incoming request's URL. If not found, use a
              * default value.
              */
-            int requestId = req.queryParams().first("request").map(Integer::parseInt).orElse(42);
+            int requestId;
+            try {
+                requestId = req.queryParams().first("request").map(Integer::parseInt).orElse(42);
+            } catch (NumberFormatException e) {
+                res.send("Request id must be a number");
+                return;
+            }
+
             /*
-             * Invoke the GraalVM JavaScript execution engine. Returns a Java
-             * `CompletableFuture`. The `requestId` value is passed to JavaScript.
+             * Execute a JavaScript asynchronous function using GraalVM JavaScript.
+             * The result of the invocation is a Java `CompletableFuture` which will execute
+             * its handler once the JavaScript async function returns.
              */
-            jsExecutor.submitJavaScriptExecution(requestId).whenComplete((jsonResult, ex) -> {
+            jsExecutor.callJavaScriptAsyncFunction(requestId).whenComplete((jsonResult, ex) -> {
                 /*
                  * The JavaScript engine has completed this future.
                  */
@@ -105,7 +113,7 @@ class HelidonService {
                     res.send(jsonResult);
                 } else {
                     /*
-                     * There was an error in the JS execution.
+                     * There was an error.
                      */
                     res.send("There was an error: " + ex.getMessage());
                 }

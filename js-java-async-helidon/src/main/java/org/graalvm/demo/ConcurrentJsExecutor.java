@@ -57,6 +57,9 @@ class ConcurrentJsExecutor {
 
     private final String jsCode;
 
+    /**
+     * Utility class to associate locks with polyglot contexts.
+     */
     private static class ContextProvider {
 
         private final Context context;
@@ -82,7 +85,7 @@ class ConcurrentJsExecutor {
     private final Engine sharedEngine = Engine.newBuilder().build();
 
     /**
-     * A Thread-local used to ensure that we have one JavaScript context per thread.
+     * A Thread-local used to ensure that we have one JavaScript context per Helidon thread.
      */
     private final ThreadLocal<ContextProvider> jsContext = ThreadLocal.withInitial(() -> {
         /*
@@ -110,7 +113,7 @@ class ConcurrentJsExecutor {
     private Function<?, ?> createJavaInteropComputeFunction(ContextProvider cx) {
         /*
          * The Java implementation of the `computeFromJava` function takes one argument
-         * as input and returns a JavaScript promise.
+         * as input and returns a JavaScript Promise.
          *
          * In Java terms, this is equivalent to returning an instance of
          * `ComputeFromJavaFunction`.
@@ -121,23 +124,30 @@ class ConcurrentJsExecutor {
              */
             CompletableFuture.supplyAsync(() -> {
                 /*
-                 * This code might be called from a concurrent thread. Synchronization
-                 * can be used to ensure that no concurrent access can happen.
+                 * This code will resolve or reject a JavaScript Promise that was created in another thread.
+                 * Synchronization can be used to ensure that no concurrent access can happen on JavaScript objects
+                 * that belong to the same context.
                  */
                 cx.getLock().lock();
                 try {
+                    /*
+                     * Reject the Promise if requestId is smaller than 42.
+                     */
+                    if ((int) requestId < 42) {
+                        return onReject.execute(requestId + " is not a valid request id!");
+                    }
                     /*
                      * Do some random calculation using `requestId`.
                      */
                     double v = (int) requestId + Math.random();
                     /*
-                     * Resolve the JavaScript promise with the computed value. This will resume the
+                     * Resolve the JavaScript Promise with the computed value. This will resume the
                      * JavaScript `async` function execution.
                      */
                     return onResolve.execute(v);
                 } catch (PolyglotException e) {
                     /*
-                     * Something went wrong. Reject the JavaScript promise.
+                     * Something went wrong. Reject the JavaScript Promise.
                      */
                     return onReject.execute(e.getGuestObject() == null ? e.getGuestObject() : e.getMessage());
                 } finally {
@@ -151,33 +161,39 @@ class ConcurrentJsExecutor {
      * Submit a new request to the JavaScript engine. Returns a `CompletionStage`
      * instance that will complete when GraalVM JavaScript produces a value.
      */
-    public CompletionStage<Object> submitJavaScriptExecution(int requestId) {
+    public CompletionStage<Object> callJavaScriptAsyncFunction(int requestId) {
         /*
          * Create a new future. It will be completed by the JavaScript engine as a
-         * consequence of a JavaScript promise resolution.
+         * consequence of a JavaScript Promise resolution.
          */
         CompletableFuture<Object> jsExecution = new CompletableFuture<>();
         /*
-         * Helidon might use multiple threads to handle concurrent requests. Hence, we
-         * use one JavaScript context per thread.
+         * Helidon might use multiple threads to handle concurrent requests. To minimize the number of contexts
+         * in the application, we can use one polyglot context per thread. To this end, we use thread-locals.
          */
         ContextProvider cx = jsContext.get();
         /*
-         * This code might be called from a concurrent thread. Synchronization
-         * can be used to ensure that no concurrent access can happen.
+         * A concurrent thread might resolve or reject a JavaScript Promise that was created in this context.
+         * Synchronization can be used to ensure that no concurrent access can happen on objects that belong
+         * to the same polyglot context.
          */
         cx.getLock().lock();
         try {
             /*
-             * Execute the JavaScript code. Will return a JavaScript promise.
+             * Execute the JavaScript async function. Will return a JavaScript Promise.
              */
-            Value jsAsyncFunction = cx.getContext().eval(JS, jsCode);
+            Value jsAsyncFunctionPromise = cx.getContext().eval(JS, jsCode).execute(requestId);
             /*
-             * Register event reactions for the given promise. The corresponding Java
+             * Register event reactions for the given Promise. The corresponding Java
              * methods will be executed when the Promise completes.
              */
-            jsAsyncFunction.execute(requestId).invokeMember(THEN, (Consumer<?>) jsExecution::complete)
+            jsAsyncFunctionPromise.invokeMember(THEN, (Consumer<?>) jsExecution::complete)
                     .invokeMember(CATCH, (Consumer<Throwable>) jsExecution::completeExceptionally);
+        } catch (Throwable t) {
+            /*
+             * Something went wrong while running JavaScript.
+             */
+            jsExecution.completeExceptionally(t);
         } finally {
             cx.getLock().unlock();
         }
@@ -192,5 +208,5 @@ class ConcurrentJsExecutor {
     public interface ComputeFromJavaFunction {
         void then(Value onResolve, Value onReject);
     }
-    
+
 }
