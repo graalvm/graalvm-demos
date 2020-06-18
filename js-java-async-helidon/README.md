@@ -47,12 +47,18 @@ To send a request, execute the following command:
 ```
 curl http://localhost:8080/greet?request=42
 ```
-The Helidon HTTP server uses multiple Java thread.
+To demonstrate error handling, the application will not accept requests with `request` smaller than `42`.
+For example, the following requests will return an error message:
+```
+curl http://localhost:8080/greet?request=41
+curl http://localhost:8080/greet?request=foo
+```
+The Helidon HTTP server uses multiple Java threads.
 Each thread runs a private JavaScript context.
 To generate concurrent requests that will be handled by multiple threads, any workload generator can be used.
 For example, using `wrk`:
 ```
-wrk -c 100 -t 10 -d 100 http://localhost:8080/greet?foo=42
+wrk -c 100 -t 10 -d 100 http://localhost:8080/greet?request=42
 ```
 
 ## A Note About the Application
