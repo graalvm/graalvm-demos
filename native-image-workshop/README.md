@@ -314,7 +314,7 @@ We can also pass parameters to the native image tool using a properties files th
 src/main/resources/META-INF/native-image/native-image.properties
 ```
 
-In this deno we have included one such file in order to give you an idea of what you can do with this file.
+In this demo we have included one such file in order to give you an idea of what you can do with this file.
 
 ## Conclusion
 
