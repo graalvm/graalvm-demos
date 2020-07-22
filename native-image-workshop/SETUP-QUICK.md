@@ -167,7 +167,7 @@ Full instructions can be found [here](https://www.graalvm.org/docs/reference-man
 
 ### Install Visual Studio Code
 
-A number of plugins ahve been written for this editor, that allow for better integration with the GraalVM eco-system.
+A number of plugins have been written for this editor, that allow for better integration with the GraalVM eco-system.
 
 You are more than welcome to use another editor. When it comes to the polyglot debugging, please make sure that you have the Google Chrome browser installed.
 
