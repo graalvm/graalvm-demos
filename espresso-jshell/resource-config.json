@@ -1,0 +1,17 @@
+{
+  "resources": {
+    "includes": [
+        {"pattern":"jdk/jshell/tool/resources/.*"},
+        {"pattern":"jdk/internal/org/jline/utils/.*"},
+        {"pattern":"\\QMETA-INF/services/javax.tools.JavaCompiler\\E"},
+        {"pattern":"\\QMETA-INF/services/jdk.jshell.spi.ExecutionControlProvider\\E"}
+      ]
+  },
+  "bundles": [
+      {"name":"com.sun.org.apache.xml.internal.serializer.XMLEntities"}, 
+      {"name":"com.sun.tools.javac.resources.compiler"}, 
+      {"name":"com.sun.tools.javac.resources.javac"}, 
+      {"name":"jdk.internal.jshell.tool.resources.l10n"}, 
+      {"name":"jdk.internal.jshell.tool.resources.version"}
+    ]
+}
