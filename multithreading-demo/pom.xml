@@ -34,7 +34,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.oracle.demo.MultithreadingDemo</mainClass>
+                            <mainClass>demo.Multithreading</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -53,7 +53,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.oracle.demo.MultithreadingDemo</mainClass>
+                            <mainClass>demo.Multithreading</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
