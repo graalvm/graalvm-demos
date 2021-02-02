@@ -8,7 +8,7 @@ The programs calculates the time taken to perform the task synchronously and asy
 
 Multithreading demo is comprised of two sub-projecrs, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved. The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step. The plugin will also gather the diagnostic information during the native image build and write that data to a dump file in the target directory.
 
-```shell
+```xml
 <plugin>
     <groupId>org.graalvm.nativeimage</groupId>
     <artifactId>native-image-maven-plugin</artifactId>
@@ -40,15 +40,15 @@ To build and run the projects, you can either use [GraalVM](https://www.graalvm.
 $ git clone https://github.com/graalvm/graalvm-demos
 $ cd multithreading-demo/multithreading-demo-oversized
 ```
-
 2. Build the project:
 ```
 $ mvn package
 ```
-
 3. Run the project on a JVM or as a native image:
+```
 $ java -jar target/multithreading-1.0-jar-with-dependencies.jar
 $ ./target/multithreading-demo-oversized
+```
 
 ## Multithreading Demo Improved
 
@@ -63,7 +63,8 @@ $ multithreading-demo-improved
 ```
 $ mvn package
 ```
-
 3. Run the project on a JVM or as a native image:
+```
 $ java -jar target/multithreading-1.0-jar-with-dependencies.jar
 $ ./target/multithreading-demo-improved
+```
