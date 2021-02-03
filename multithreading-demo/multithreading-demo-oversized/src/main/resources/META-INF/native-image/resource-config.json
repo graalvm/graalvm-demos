@@ -1,0 +1,4 @@
+{
+  "resources":{
+  "includes":[{"pattern":"\\Qconfig.json\\E"}]}
+}
