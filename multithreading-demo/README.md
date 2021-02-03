@@ -2,11 +2,13 @@
 
 Multithreading demo is provided to showcase the applicability of [GraalVM Dashboard](https://www.graalvm.org/docs/tools/dashboard/) - a web-based dashboard for visualizing arbitrary aspects of dynamic and static compilations in GraalVM, in particular, [Native Image](https://www.graalvm.org/reference-manual/native-image/).
 
-The demo is a Java program does the synchronous and asynchronous threads execution.
+The demo is a Java program which does synchronous and asynchronous threads execution.
 Each thread loops through exactly the same array of integers and generates a stream of pseudorandom numbers.
 The programs calculates the time taken to perform the task synchronously and asynchronously.
 
-Multithreading demo is comprised of two sub-projecrs, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved. The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step. The plugin will also gather the diagnostic information during the native image build and write that data to a dump file in the target directory.
+Multithreading demo is comprised of two sub-projects, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved. 
+The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step. 
+The plugin will also gather the diagnostic information during the native image build and write that data to a dump file in the target directory.
 
 ```xml
 <plugin>
