@@ -20,7 +20,7 @@ services:
     ports:
       - 8443:8443
   frontend:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile$flavor
     depends_on:
@@ -50,4 +50,3 @@ echo
 echo
 echo "To build and run execute"
 echo "    $ docker-compose up --build"
-

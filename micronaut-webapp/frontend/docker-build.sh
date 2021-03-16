@@ -33,7 +33,7 @@ case "$1" in
         echo Building native ee image
         tag=:native-ee
         sed s"/oracle\/.*/$GRAALVM_DOCKER_EE as graalvm/g" $docker_file | \
-        sed s"/ARG GRAAL_VERSION=.*/ARG GRAAL_VERSION=graalvm-ee-19.2.0.1/g" | \
+        sed s"/ARG GRAAL_VERSION=.*/ARG GRAAL_VERSION=graalvm-ee-21.0.0.2/g" | \
         sed  "/^RUN gu*/d"  > Docker-native-ee
         docker_file=Docker-native-ee
     fi
