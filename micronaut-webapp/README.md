@@ -27,7 +27,7 @@ implementations can be easily added.
 
 ### Api
 
-Common classes shared by both the `frontend` and the `Todo-service`.
+Common classes shared by both the `frontend` and the `todo-service`.
 
 ### Load tests
 

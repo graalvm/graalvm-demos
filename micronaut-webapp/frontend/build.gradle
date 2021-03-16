@@ -41,10 +41,10 @@ dependencies {
     compile "io.micronaut:micronaut-http-server-netty"
     compile "javax.annotation:javax.annotation-api"
     compile "io.micronaut:micronaut-http-client"
-    compile "io.micronaut:micronaut-views-freemarker"
+    compile "io.micronaut.views:micronaut-views-freemarker"
     runtime 'org.freemarker:freemarker:2.3.31'
     compile project(":api")
-    compileOnly "com.oracle.substratevm:svm"
+    compileOnly "org.graalvm.nativeimage:svm"
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"
