@@ -1,4 +1,4 @@
-// Copyright (c) 2017, 2019, Oracle and/or its affiliates. All rights reserved.
+// Copyright (c) 2017, 2021, Oracle and/or its affiliates. All rights reserved.
 
 variable "tenancy_ocid" {}
 variable "user_ocid" {}
@@ -205,4 +205,3 @@ output "instance_private_ips" {
 output "instance_public_ips" {
   value = ["${oci_core_instance.graalvm_test_instance.*.public_ip}"]
 }
-

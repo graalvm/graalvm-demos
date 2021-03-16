@@ -33,7 +33,7 @@ case "$1" in
         echo Building native ee image
         tag=:native-ee
         sed s"/oracle\/.*/$GRAALVM_DOCKER_EE as graalvm/g" $docker_file | \
-        sed s"/\/opt\/graalvm-ce-19.2.0.1/\/usr\/lib64\/graalvm\/graalvm19-ee/g" | \
+        sed s"/\/opt\/graalvm-ce-graalvm-ce-21.0.0.2/\/usr\/lib64\/graalvm\/graalvm19-ee/g" | \
         sed  "/^RUN gu*/d"  > Docker-native-ee
         docker_file=Docker-native-ee
     fi
@@ -49,4 +49,3 @@ then
     echo "To run the docker container execute:"
     echo "    $ docker run -p 8443:8443 $image_name$tag"
 fi
-

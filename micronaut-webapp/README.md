@@ -3,10 +3,9 @@
 ## Summary
 
 The Todo web application is an example application built with
-[Micronaut](https://micronaut.io/) and GraalVM in the form of a microservice
+[Micronaut](https://micronaut.io/) and GraalVM in the form of microservices
 architecture. The purpose of the application is to demonstrate GraalVM and
-Native Image speed ups in comparison with Vanilla JVM.
-
+Native Image speedup in comparison with Vanilla JVM.
 
 ## Project Structure
 
@@ -16,9 +15,9 @@ classes shared amongst the `frontend` and the `todo-service`.
 
 ### Frontend
 
-A minimalistic service side rendering web application that renders data from the
+A minimalistic server-side rendering web application that renders data from the
 `todo-service`. The `frontend` communicates to the backend service via a http
-client. It sole purpose(for now) is to render data.
+client. Its sole purpose(for now) is to render data.
 
 ### Todo-service
 
@@ -32,8 +31,7 @@ Common classes shared by both the `frontend` and the `Todo-service`.
 
 ### Load tests
 
-A project containing JMeter load tests. Currently the load test apply traffic on the `todo-service` only.
-
+A project containing JMeter load tests. Currently, the load tests are applied on the `todo-service` only.
 
 ## Building
 
@@ -41,8 +39,8 @@ A project containing JMeter load tests. Currently the load test apply traffic on
 - Gradle
 - Docker
 - Docker Compose
-- GraalVM (if run without docker)
-- JMeter (for running load tests, if run without docker)
+- GraalVM (if run without Docker)
+- JMeter (for running load tests, if run without Docker)
 
 There are generally two ways build and run the project: via Docker and via Kubernetes.
 
@@ -79,7 +77,7 @@ Open `loadTests/out/index.html` to see the results.
 To build and run all the service including load tests via Docker:
 
 - `./gradlew assemble`
-- `./deployments/local/build-docker-compose.sh [|graalvm|hotspot]` -- this command builds a Docker composed file with different Docker images running on either: native-image, graalvm or hotspot.
+- `./deployments/local/build-docker-compose.sh [|graalvm|hotspot]` -- this command builds a Docker composed file with different Docker images running on either: Native Image, GraalVM or Hotspot.
 - `docker-compose up --build`
 
 ### Kubernetes
