@@ -47,7 +47,7 @@ If the application is expected to use some dynamic features at runtime (e.g., Re
 To avoid writing the configuration file yourself, apply the [tracing agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent) when running on the Java HotSpot VM. It will observe the application behavior and create configuration files (jni-config.json, reflect-config.json, proxy-config.json and resource-config.json) in the  META-INF/native-image/ directory on the class path. The *reflect-config.json* file specifies classes which must be available via Java reflection at runtime.
 
 ```
-java -agentlib:native-image-agent=config-output-dir=/Users/${current-user}/graalvm-demos/native-netty-plot/src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
+java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
 ```
 
 Build a native image. The `native-image` builder will automatically search for any configuration file under _META-INF/native-image_ and its subdirectories:
