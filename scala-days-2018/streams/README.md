@@ -1,7 +1,8 @@
 # Abstraction Without Regret When Running on GraalVM
 
-This demo shows how GraalVM efficiently removes abstractions from high-level programs. The `Streams.java` file contains a simple query implemented with the Java Streams API:
-```
+This demo shows how GraalVM efficiently removes abstractions from high-level programs.
+The `Streams.java` file contains a simple query implemented with the Java Streams API:
+```java
 Arrays.stream(persons)
    .filter(p -> p.getEmployment() == Employment.EMPLOYED)
    .filter(p -> p.getSalary() > 100_000)
@@ -13,30 +14,29 @@ Arrays.stream(persons)
 
 Let us run this stream with regular `java`:
 ```
-$ javac Streams.java
-$ java Streams 100000 200
+javac Streams.java
+java Streams 100000 200
 ...
 Iteration 20 finished in 219 milliseconds with checksum e6e0b70aee921601
 TOTAL time: 4717
 ```
 
-Now when we run the same with GraalVM:
+Now when we run the same on GraalVM:
 ```
-$ $GRAALVM_HOME/bin/java Streams
+$GRAALVM_HOME/bin/java Streams
 ...
-Iteration 20 finished in 48 milliseconds with checksum e6e0b70aee921601
-TOTAL time: 2406
+Iteration 20 finished in 36 milliseconds with checksum e6e0b70aee921601
+TOTAL time: 1271
 ```
 
-We can see over 4x speeDup on this simple program.
+We can see over 4x speedup on this simple program.
 
-# Profile-Guided Optimizations with `native-image`
+## Profile-Guided Optimizations with `native-image`
 
-This demo shows how to use profile-guided optimizations (PGO) with the
-`native-image` builder. Note, profile-guided optimizations is a GraalVM Enterprise feature.
-We will use the same `Streams.java` program that
-contains a simple query implemented with the Java Streams API:
-```
+This demo shows how to use profile-guided optimizations (PGO) with the `native-image` builder.
+Note, profile-guided optimizations is a GraalVM Enterprise feature.
+We will use the same `Streams.java` program that contains a simple query implemented with the Java Streams API:
+```java
 Arrays.stream(persons)
    .filter(p -> p.getEmployment() == Employment.EMPLOYED)
    .filter(p -> p.getSalary() > 100_000)
@@ -48,32 +48,34 @@ Arrays.stream(persons)
 
 First build the native image without profile-guided optimizations:
 ```
-$ javac Streams.java
-$ $GRAALVM_HOME/bin/native-image Streams
-$ ./streams 100000 200
+javac Streams.java
+$GRAALVM_HOME/bin/native-image Streams
+./streams 100000 200
 ...
 Iteration 20 finished in 452 milliseconds with checksum e6e0b70aee921601
-TOTAL time: 9085
+TOTAL time: 4747
 ```
+
 This version of the program runs about 2x slower than the one on the regular JDK.
 
 To enable PGO we need to build an instrumented image and run it to collect profiles:
 ```
-$ $GRAALVM_HOME/bin/native-image --pgo-instrument Streams
-$ ./streams 1000 20
+$GRAALVM_HOME/bin/native-image --pgo-instrument Streams
+./streams 1000 20
 ```
-Profiles collected from this run are now stored in the `default.iprof` file. Note that we run the profiling with a much smaller data size.
+Profiles collected from this run are now stored in the `default.iprof` file.
+Note that we run the profiling with a much smaller data size.
 
 Now we can use these profiles to make an optimized image:
 ```
-$ $GRAALVM_HOME/bin/native-image --pgo Streams
+$GRAALVM_HOME/bin/native-image --pgo Streams
 ```
-Then we run it
+Then we run it:
 ```
-$ ./streams  100000 200
+./streams  100000 200
 ...
-Iteration 20 finished in 49 milliseconds with checksum e6e0b70aee921601
-TOTAL time: 915
+Iteration 20 finished in 1 milliseconds with checksum a2708129d726fc01
+TOTAL time: 28
 ```
 
 We get performance comparable to the Java version of the program.
