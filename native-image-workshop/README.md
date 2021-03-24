@@ -169,7 +169,7 @@ To build the native image using maven:
 $ mvn clean package -PNATIVE_IMAGE
 ```
 
-**NOTE**: The maven build places the executable, `file-count`, in the `target` directory.
+**Note**: The maven build places the executable, `file-count`, in the `target` directory.
 
 ## Add Log4J and Why We Need the Tracing Agent
 
@@ -282,7 +282,7 @@ $ java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-
 
 The files should now be present.
 
-***Note**: There is a Maven profile added for this reason that can be called as follows:
+**Note**: There is a Maven profile added for this reason that can be called as follows:
 
 ![User Input](./images/userinput.png)
 ```sh
