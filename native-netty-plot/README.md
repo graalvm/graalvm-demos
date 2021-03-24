@@ -13,16 +13,16 @@ Having downloaded GraalVM Enterprise, unzip the archive, export the GraalVM home
 
 on Linux:
 ```
-$ export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
+export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
 ```
 on macOS:
 ```
-$ export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
 ```
 
 Then install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image):
 ```
-$ gu install native-image
+gu install native-image
 ```
 
 For compilation, the `native-image` depends on the local toolchain.
@@ -34,7 +34,7 @@ See [Prerequisites for Native Image](https://www.graalvm.org/reference-manual/na
 The example is built with Maven:
 
 ```
-$ mvn package
+mvn package
 ```
 
 This creates a JAR file with all dependencies embedded: `target/netty-plot-0.1-jar-with-dependencies.jar`.
@@ -47,7 +47,7 @@ If the application is expected to use some dynamic features at runtime (e.g., Re
 To avoid writing the configuration file yourself, apply the [tracing agent](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent) when running on the Java HotSpot VM. It will observe the application behavior and create configuration files (jni-config.json, reflect-config.json, proxy-config.json and resource-config.json) in the  META-INF/native-image/ directory on the class path. The *reflect-config.json* file specifies classes which must be available via Java reflection at runtime.
 
 ```
-$ java -agentlib:native-image-agent=config-output-dir=/Users/${current-user}/graalvm-demos/native-netty-plot/src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
+java -agentlib:native-image-agent=config-output-dir=/Users/${current-user}/graalvm-demos/native-netty-plot/src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
 ```
 
 Build a native image. The `native-image` builder will automatically search for any configuration file under _META-INF/native-image_ and its subdirectories:
@@ -70,14 +70,16 @@ Build on Server(pid: 8610, port: 32890)
 [netty-plot:8610]        write:     153.73 ms
 [netty-plot:8610]      [total]:  21,764.10 ms
 ```
+
 The result is an executable file that is around 8 MByte in size:
 ```
-$ du -h netty-plot
+du -h netty-plot
   8.2M    netty-plot
 ```
+
 You can now run the executable:
 ```
-$ ./netty-plot
+./netty-plot
 Open your web browser and navigate to http://127.0.0.1:8080/
 ```
 
