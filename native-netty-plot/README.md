@@ -53,28 +53,28 @@ java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/
 Build a native image. The `native-image` builder will automatically search for any configuration file under _META-INF/native-image_ and its subdirectories:
 ```
 native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
-Build on Server(pid: 8610, port: 32890)
-[netty-plot:8610]    classlist:     854.40 ms
-[netty-plot:8610]        (cap):     608.64 ms
-[netty-plot:8610]        setup:     956.98 ms
-[netty-plot:8610]   (typeflow):   4,908.30 ms
-[netty-plot:8610]    (objects):   4,946.27 ms
-[netty-plot:8610]   (features):     103.51 ms
-[netty-plot:8610]     analysis:  10,150.14 ms
-[netty-plot:8610]     universe:     250.36 ms
-[netty-plot:8610]      (parse):     624.32 ms
-[netty-plot:8610]     (inline):     644.10 ms
-[netty-plot:8610]    (compile):   6,692.94 ms
-[netty-plot:8610]      compile:   8,521.66 ms
-[netty-plot:8610]        image:     844.66 ms
-[netty-plot:8610]        write:     153.73 ms
-[netty-plot:8610]      [total]:  21,764.10 ms
+[netty-plot:16293]    classlist:   3,867.16 ms,  0.96 GB
+[netty-plot:16293]        (cap):   1,496.45 ms,  0.96 GB
+[netty-plot:16293]        setup:   6,442.19 ms,  0.96 GB
+[netty-plot:16293]     (clinit):   1,332.53 ms,  2.29 GB
+[netty-plot:16293]   (typeflow):  17,464.43 ms,  2.29 GB
+[netty-plot:16293]    (objects):  11,776.77 ms,  2.29 GB
+[netty-plot:16293]   (features):     953.49 ms,  2.29 GB
+[netty-plot:16293]     analysis:  32,456.63 ms,  2.29 GB
+[netty-plot:16293]     universe:   1,667.90 ms,  2.29 GB
+[netty-plot:16293]      (parse):   8,029.35 ms,  2.29 GB
+[netty-plot:16293]     (inline):   5,075.75 ms,  2.29 GB
+[netty-plot:16293]    (compile):  96,649.45 ms,  4.74 GB
+[netty-plot:16293]      compile: 112,232.42 ms,  4.45 GB
+[netty-plot:16293]        image:   3,262.36 ms,  4.45 GB
+[netty-plot:16293]        write:     683.96 ms,  4.45 GB
+[netty-plot:16293]      [total]: 160,975.43 ms,  4.45 GB
 ```
 
-The result is an executable file that is around 8 MByte in size:
+The result is an executable file that is around 16 MByte in size:
 ```
 du -h netty-plot
-  8.2M    netty-plot
+  16M    netty-plot
 ```
 
 You can now run the executable:
@@ -85,15 +85,20 @@ Open your web browser and navigate to http://127.0.0.1:8080/
 
 Finally, you can open your browser and request rendering of a function, for example, by browsing to `http://127.0.0.1:8080/?function=abs((x-31.4)sin(x-pi/2))&xmin=0&xmax=31.4`.
 
-#### Build parameters
-This build requires additional parameters to `native-image`, most prominently `-H:+SpawnIsolates` to enable support for isolates, and `--features=...` to enable the custom plotter feature.
+### Background information
 
-Instead of specifying the additional parameters on the command line, they are provided in a properties file in the input JAR file. The `native-image` automatically looks for files named `native-image.properties` and for any other configuration file under `META-INF/native-image` including subdirectories, and processes their contents. The tracing agent wrote the *reflect-config.json* file specifying classes which must be available via Java reflection at runtime.
+Instead of specifying any additional parameters on the command line, they may provided in a properties file in the input JAR file.
+The `native-image` builder automatically looks for files named `native-image.properties` and for any other configuration file under `META-INF/native-image` including subdirectories, and processes their contents.
+The tracing agent writes the *reflect-config.json* file specifying classes which must be available via Java reflection at runtime.
 
 With Maven projects, the path convention is `META-INF/native-image/${groupId}/${artifactId}/native-image.properties`. In this example, the `META-INF/native-image/com.oracle.substratevm/netty-plot/native-image.properties` file contains the following:
 ```
 ImageName = netty-plot
-Args = --features=com.oracle.svm.nettyplot.PlotterSingletonFeature \
-          -H:+SpawnIsolates
+Args = --allow-incomplete-classpath
 ```
 The `ImageName` property specifies the name of the resulting executable, while `Args` are treated like additional command-line arguments.
+
+### A note about the application
+
+This example cannot run as a regular Java application (on the JVM) and it cannot be profiled.
+It will fail because the program tries to create an [isolate which is a native image specific feature](https://medium.com/graalvm/isolates-and-compressed-references-more-flexible-and-efficient-memory-management-for-graalvm-a044cc50b67e).

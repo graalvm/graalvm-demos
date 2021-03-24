@@ -151,7 +151,7 @@ public class FunctionPlotter {
 		String function = ObjectHandles.getGlobal().get(functionHandle);
 		ObjectHandles.getGlobal().destroy(functionHandle);
 
-		byte[] svgBytes = ImageSingletons.lookup(Graphics2DPlotter.class).plotAsSVG(function, xmin, xmax);
+		byte[] svgBytes = new Graphics2DPlotter().plotAsSVG(function, xmin, xmax);
 
 		ObjectHandle byteBufferHandle;
 		try (PinnedObject pin = PinnedObject.create(svgBytes)) {
