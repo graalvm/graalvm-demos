@@ -8,14 +8,15 @@
   <name>netty-plot</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <graalvm.version>21.0.0.2</graalvm.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.graalvm.nativeimage</groupId>
-      <artifactId>svm</artifactId>
+      <artifactId>native-image-maven-plugin</artifactId>
       <version>${graalvm.version}</version>
-      <scope>provided</scope>
+      <type>maven-plugin</type>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
