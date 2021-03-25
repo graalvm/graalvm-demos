@@ -4,7 +4,7 @@ This repository contains the code of the Micronaut application that uses Python 
 
 ## Prerequisites
 * [Gradle](https://gradle.org/)
-* [GraalVM](http://graalvm.org) (Java 11 based)
+* [GraalVM](https://www.graalvm.org/) (Java 11 based)
 * [Python support](https://www.graalvm.org/reference-manual/python/#installing-python)
 
 ## Preparation
