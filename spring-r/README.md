@@ -38,7 +38,7 @@ cd graalvm-demos/spring-r
 
 4. Run the example:
 ```
-mvn spring-boot:run -Dgraalvm.version=21.1.0
+mvn spring-boot:run -Dgraalvm.version=21.0.0
 ```
 Replace "21.1.0" with your version of GraalVM.
 When the application is ready, open `http://localhost:8080/load`.

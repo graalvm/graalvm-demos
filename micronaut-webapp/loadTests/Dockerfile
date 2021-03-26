@@ -3,7 +3,7 @@ FROM openjdk:8-jre-alpine
 RUN apk --no-cache add curl
 
 ARG JMETER_VERSION=5.2
-RUN curl --retry 3 https://www-us.apache.org/dist//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz | gunzip| tar x -C /opt
+RUN curl --retry 3 https://downloads.apache.org/jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz | gunzip | tar x -C /opt
 
 ENV PATH="${PATH}:/opt/apache-jmeter-$JMETER_VERSION/bin"
 
