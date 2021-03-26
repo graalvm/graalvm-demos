@@ -29,6 +29,13 @@ export PATH=$GRAALVM_HOME/bin:$PATH
 gu install R
 ```
 
+3. Download or clone the repository and navigate into the `spring-r` directory:
+
+```
+git clone https://github.com/graalvm/graalvm-demos
+cd graalvm-demos/spring-r
+```
+
 4. Run the example:
 ```
 mvn spring-boot:run -Dgraalvm.version=21.1.0
