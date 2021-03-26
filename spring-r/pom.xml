@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <graalvm.version>21.0.0.2</graalvm.version>
     </properties>
 
     <dependencies>
@@ -33,8 +34,7 @@
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
             <version>${graalvm.version}</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/boot/graal-sdk.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

@@ -1,4 +1,4 @@
-# GraalVM demos: Multi Language Engine JavaScript demo
+# GraalVM Demos: Multi Language Engine JavaScript demo
 
 This repository contains the instructions how to run a demo of [GraalVM](graalvm.org) running a JavaScript module functions as stored procedures in the database.
 

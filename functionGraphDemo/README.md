@@ -1,5 +1,4 @@
-# FunctionGraph Demo - Polyglot JavaScript, Java, R application
-
+# GraalVM Demos: FunctionGraph Demo - Polyglot JavaScript, Java, R application
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
@@ -7,7 +6,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 * [GraalVM](http://graalvm.org)
 
 ## Preparation
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME`. and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
 On Linux:
 ```
 export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
@@ -39,12 +38,12 @@ If you would like to run the benchmark on a different instance of Node, you can
 run it with whatever `node` you have. However, usually the polyglot capability
 will not be supported and the app will not run successfully.
 
-Open [localhost:8088](localhost:8088) and enjoy the output. Play with the source
+Open [localhost:8088](http://localhost:8088/) and enjoy the output. Play with the source
 code and restart the application to see what else can you do with the mix of
 JavaScript, Java, and R.
 
 ## Debugging polyglot applications
 GraalVM supports [debugging polyglot applications](https://www.graalvm.org/docs/tools/chrome-debugger) too, add the
 `--inspect` parameter to the command line, open the URL the application prints
-at the startup in Chrome browser and you can debug, set breakpoints, evaluate
+at the startup in Chrome browser. You can debug, set breakpoints, evaluate
 expressions in this app in the JavaScript and R code alike.

@@ -1,34 +1,71 @@
 # Application Initialization at Build Time
 
-This example demonstrates the ability of native-image to run parts of your application at image-build time.
+This example demonstrates the ability of `native-image` to run parts of your application at the image build time.
 
 In both examples we use the Jackson framework to parse a JSON file to determine
 which `Handler` should be used by the application (`CurrentTimeHandler` or
 `HelloWorldHandler`) at runtime.
 
-* In `configure-at-runtime-example` the JSON parsing happens at image runtime
+* In `configure-at-runtime-example` the JSON parsing happens at image run time
   and thus contributes to the image startup time. In addition, all methods and
   static fields originated from the Jackson framework that are needed become part
-  of a native-image.
+  of a native image.
 
-* In contrast `configure-at-buildtime-example` performs the JSON parsing as
+* In contrast, `configure-at-buildtime-example` performs the JSON parsing as
   part of building the image. In this case the image does not contain any parts
   of the Jackson framework (can be verified easily by adding
   `-H:+PrintAnalysisCallTree` to the `<buildArgs>` in `pom.xml`).  When this
-  image gets executed it can run the handler right away since it was already
+  image gets executed, it can run the handler right away since it was already
   determined at build time which hander should be used.
 
 To learn more about this topic please read [Initialize Once, Start Fast: Application Initializationat Build Time](http://www.christianwimmer.at/Publications/Wimmer19a/Wimmer19a.pdf).
 
-# Use following instructions to build the examples:
+## Preparation
 
-* Download [GraalVM](https://www.graalvm.org/downloads).
-* Unzip the archive and set `JAVA_HOME` to the GraalVM home directory.
-* Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image). For GraalVM Community users, run `$JAVA_HOME/bin/gu install native-image`.
-For GraalVM Enterprise users, download the Native Image JAR file from [Oracle Technology Network](https://www.oracle.com/downloads/graalvm-downloads.html) and install it by running `$JAVA_HOME/bin/gu -L install component.jar`, where -L option, equivalent to --local-file or --file, tells to install a component from a downloaded archive.
-* Change to the example subdirectories and run `mvn package` there.
-* Once you are done with building both images run:
-  * `$JAVA_HOME/bin/native-image --server-shutdown`
-* The built executables are:
-  * `configure-at-runtime-example/target/example`
-  * `configure-at-buildtime-example/target/example`
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+
+On Linux:
+```
+export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
+export PATH=$GRAALVM_HOME/bin:$PATH
+```
+On macOS:
+```
+export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+export PATH=$GRAALVM_HOME/bin:$PATH
+```
+
+2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
+```
+gu install native-image
+```
+
+3. Download or clone the demos repository::
+```
+git clone https://github.com/graalvm/graalvm-demos
+```
+
+## Build and run examples
+
+1. Change to one of the demo subdirectories, for example, _configure-at-runtime-example_:
+```
+cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
+```
+2. Run `mvn package` there.
+3. Once the Maven build succeeds, a native image called "example" will be generated in the _configure-at-runtime-example/target/_ folder. Execute it:
+```
+./target/example
+Tue Mar 23 22:17:33 EET 2021
+```
+4. Repeat the same steps for the other sub-demo:
+```
+cd ..
+cd configure-at-buildtime-example
+mvn package
+./target/example
+Hello, world!
+```
+5. Finally, you may shutdown the `native-image` server:
+```
+$JAVA_HOME/bin/native-image --server-shutdown
+```
