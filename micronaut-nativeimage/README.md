@@ -40,6 +40,8 @@ package managers:
 * macOS: [Homebrew instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installHomebrew)
 * Windows: [Chocolatey instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installChocolatey)
 
+NOTE: If you've previously installed Micronaut you should upgrade to the latest release to ensure it includes GraalVM Native Image support.
+
 ## Running the Example
 
 
@@ -198,7 +200,7 @@ total 73M
 
 Let's startup the application.  It's a native executable, so we just invoke it:
 
-![](keyboard.jpg) `build/native-inage/application`
+![](keyboard.jpg) `build/native-image/application`
 
 ```sh
  __  __ _                                  _
