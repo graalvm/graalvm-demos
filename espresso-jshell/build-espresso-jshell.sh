@@ -11,14 +11,9 @@ if [[ -z "$GRAALVM_HOME" ]]; then
     exit 1
 fi
 
-if [ ! -f "$GRAALVM_HOME/lib/svm/builder/svm.jar" ]; then
-  echo "Dependency not found: " "$GRAALVM_HOME/lib/svm/builder/svm.jar"
-  exit 1
-fi
-
 # Manually build espresso-jshell.jar, requires GraalVM >= 21.0 with Native Image and Java on Truffle (Espresso) installed.
 echo "1/7 Compiling espresso-jshell..."
-$GRAALVM_HOME/bin/javac -cp "$GRAALVM_HOME/lib/svm/builder/svm.jar" $(find src/main/java -name '*.java') -d "$SCRATCH"
+$GRAALVM_HOME/bin/javac $(find src/main/java -name '*.java') -d "$SCRATCH"
 
 echo "2/7 Packaging espresso-jshell.jar..."
 cp -r ./src/main/resources/* "$SCRATCH"
@@ -41,7 +36,6 @@ echo "7/7 Building espresso-jshell native image, this may take a few minutes..."
 "$GRAALVM_HOME/bin/native-image" \
   -H:+AllowJRTFileSystem \
   -H:Name=espresso-jshell \
-  --features=com.oracle.truffle.espresso.jshell.JavaShellFeature \
   --initialize-at-build-time=com.sun.tools.doclint,'jdk.jshell.Snippet$SubKind' \
   -H:ConfigurationFileDirectories=. \
   --language:java \
