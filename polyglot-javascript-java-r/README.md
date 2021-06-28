@@ -8,7 +8,13 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+1. Download or clone the repository and navigate into the `polyglot-javascript-java-r` directory:
+```
+git clone https://github.com/graalvm/graalvm-demos
+cd graalvm-demos/polyglot-javascript-java-r
+```
+
+2. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
 
 On Linux:
 ```
@@ -21,18 +27,17 @@ export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
 export PATH=$GRAALVM_HOME/bin:$PATH
 ```
 
-2. Unlike the support for the JavaScript language, which comes by defualt with GraalVM, the support for R should be added to run this demo application:
+3. To run this demo, you need to enable Node.js support in GraalVM:
+```
+gu install nodejs
+```
+
+4. This application contains R code. The R language support is not enabled by default in GraalVM and you should add it too:
 ```
 gu install r
 ```
 
-3. Download or clone the repository and navigate into the `polyglot-javascript-java-r` directory:
-```
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/polyglot-javascript-java-r
-```
-
-4. Build the benchmark. You can manually execute `npm install`, but there is also a `build.sh` script included for your convenience:
+5. Build the benchmark. You can manually execute `npm install`, but there is also a `build.sh` script included for your convenience:
 ```
 ./build.sh
 ```
