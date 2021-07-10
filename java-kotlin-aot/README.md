@@ -1,10 +1,10 @@
 # GraalVM Demos: Java Kotlin Interoperability and AOT Compilation Demo
 
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains the code for a demo application for [GraalVM](https://www.graalvm.org/).
 
 ## Prerequisites
 * [Maven](https://maven.apache.org/)
-* [GraalVM](http://graalvm.org)
+* [GraalVM](https://www.graalvm.org/)
 
 ## Preparation
 
