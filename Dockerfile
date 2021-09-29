@@ -2,9 +2,10 @@ ARG FULL_GRAALVM_VERSION
 
 FROM findepi/graalvm:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
 
-RUN apt-get update
-RUN apt-get install -y wget
+# Install wget in the slim image
+RUN apt-get update && apt-get install -y wget
 
+# Set up GraalVM
 ARG GRAALVM_HOME
 ENV GRAALVM_HOME=${GRAALVM_HOME}
 ENV JAVA_HOME=${GRAALVM_HOME}
@@ -26,7 +27,6 @@ ENV JDK8_HOME="${JAVA_HOME}"
 RUN echo; echo "JDK8_HOME=${JDK8_HOME}"
 RUN echo; echo "PATH=${PATH}"
 RUN echo " --- Java version:"; ${JDK8_HOME}/bin/java -version
-
 
 # Install mvn
 ARG MAVEN_VERSION
