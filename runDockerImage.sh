@@ -4,18 +4,23 @@ set -e
 set -u
 set -o pipefail
 
-DOCKER_USER_NAME=${DOCKER_USER_NAME:-"neomatrix369"}
+BASE_GRAALVM_VERSION="21.2.0"
+GRAALVM_JDK_VERSION="java11"
+GRAALVM_TYPE="all"   # other types are "native" or "polyglot"
 
-IMAGE_NAME=${IMAGE_NAME:-graalvm}
-IMAGE_VERSION=${IMAGE_VERSION:-rc19}
-DOCKER_FULL_TAG_NAME="${DOCKER_USER_NAME}/${IMAGE_NAME}"
+DEFAULT_GRAALVM_VERSION="${BASE_GRAALVM_VERSION}-${GRAALVM_JDK_VERSION}-${GRAALVM_TYPE}"
 
-WORKDIR=graalvm-demos
+GRAALVM_VERSION="${GRAALVM_VERSION:-"${DEFAULT_GRAALVM_VERSION}"}"
+IMAGE_VERSION="0.1"
+FULL_DOCKER_TAG_NAME="graalvm/demos"
+GRAALVM_HOME_FOLDER="/graalvm"
+WORKDIR="graalvm-demos"
 
-docker run --rm                         \
-            --interactive --tty         \
-	        --volume $(pwd):/${WORKDIR} \
-        	-p 8888:8888                \
-        	--workdir /${WORKDIR}       \
+docker run --rm                                       \
+            --interactive --tty                       \
+	        --volume $(pwd):/${WORKDIR}               \
+        	-p 8888:8888                              \
+        	--workdir /${WORKDIR}                     \
+        	--env GRAALVM_HOME=${GRAALVM_HOME_FOLDER} \
         	--entrypoint /bin/bash      \
-        	${DOCKER_FULL_TAG_NAME}:${IMAGE_VERSION}
+        	${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}
