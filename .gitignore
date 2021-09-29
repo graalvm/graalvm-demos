@@ -228,3 +228,5 @@ jmeter.log
 apache-jmeter*
 *.jtl
 micronaut-webapp/docker-compose.yml
+/hello-graal/Hello
+/hello-graal/Hello.build_artifacts.txt
