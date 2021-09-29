@@ -13,13 +13,15 @@ DEFAULT_GRAALVM_VERSION="${BASE_GRAALVM_VERSION}-${GRAALVM_JDK_VERSION}-${GRAALV
 FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION:-"${DEFAULT_GRAALVM_VERSION}"}"
 FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
+
+MAVEN_VERSION="3.8.2"
 WORKDIR="graalvm-demos"
 
 echo; echo "--- Building docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
-	             --build-arg IMAGE_VERSION=${FULL_GRAALVM_VERSION}        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
+                 --build-arg MAVEN_VERSION=${MAVEN_VERSION}               \
 	             -t ${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}       \
 	             "."
 
