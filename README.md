@@ -6,6 +6,22 @@ This repository collects demo applications and benchmarks written in Java, JavaS
 
 Clone this repository. Every top level folder here contains a demo sources and the instructions on how to run that particular code are in its README.md.
 
+In case you wish to run some of the examples (console-based, non-GUI) inside the confinement of a docker container, then please follow then after cloning the repo but before running any of the demos, please do the below:
+
+Build the **GraalVM** demo docker image of choice:
+```
+   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./runDockerImage.sh
+```
+
+Run the GraalVM demo docker container built above:
+```
+   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./runDockerImage.sh
+```
+
+Note: Please specify a value tag with `FULL_GRAALVM_VERSION`, valid tags can be found [here](https://hub.docker.com/r/findepi/graalvm/tags). 
+
+Once the docker container is running, go to the folder of the respective demos, and follow the instructions.
+
 ## Tested Compatibility
 
 The demos are normal applications and benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on. You can run it on the stock JVM, Node, etc..
