@@ -15,11 +15,12 @@ FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="graalvm-demos"
 
-echo; echo "--- Running GraalVM docker image ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Running docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 docker run --rm                                       \
             --interactive --tty                       \
 	        --volume $(pwd):/${WORKDIR}               \
         	-p 8888:8888                              \
+        	-p 8088:8088                              \
         	--workdir /${WORKDIR}                     \
         	--env GRAALVM_HOME=${GRAALVM_HOME_FOLDER} \
         	--entrypoint /bin/bash      \

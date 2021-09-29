@@ -15,7 +15,7 @@ FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="graalvm-demos"
 
-echo; echo "--- Building GraalVM docker image ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Building docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
 	             --build-arg IMAGE_VERSION=${FULL_GRAALVM_VERSION}        \

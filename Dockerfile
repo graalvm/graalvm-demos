@@ -9,6 +9,7 @@ RUN echo; echo " --- GraalVM version (runtime)"; ${GRAALVM_HOME}/bin/java -versi
 
 # Install some of the needed components using 'gu install'
 RUN echo; echo " --- Downloading component 'espresso' using gu"; gu install espresso
+RUN echo; echo " --- Downloading component 'nodejs' using gu"; gu install nodejs
 
 # Install Java 8
 COPY --from=java:8u111-jdk /usr/lib/jvm /usr/lib/jvm
