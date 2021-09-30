@@ -24,7 +24,8 @@ RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E4
 RUN apt-get update && apt-get install -yq --no-install-recommends scala sbt
 RUN echo "Scala version:"; scala -help; echo
 RUN echo "sbt version:"; sbt --version; echo
-ENV SCALA_HOME="/usr/share/scala" # this maps to the specific vesion of Scala for e.g. scala-2.11
+# this location maps to the specific vesion of Scala for e.g. scala-2.11
+ENV SCALA_HOME="/usr/share/scala"
 RUN echo; echo "SCALA_HOME=${SCALA_HOME}"; echo
 
 # Setup GraalVM paths
