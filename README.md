@@ -10,7 +10,8 @@ In case you wish to run some of the examples (console-based, non-GUI) inside the
 
 Build the **GraalVM** demo docker image of choice:
 ```
-   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./runDockerImage.sh
+   $ cd docker-images
+   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./buildDockerImage.sh
 ```
 
 Run the GraalVM demo docker container built above:
