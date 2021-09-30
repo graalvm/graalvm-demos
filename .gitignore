@@ -221,7 +221,8 @@ typings/
 # dotenv environment variables file
 .env
 
-
+# macOS related
+.DS_Store
 
 # End of https://www.gitignore.io/api/java,node,maven,eclipse,intellij+all
 jmeter.log
