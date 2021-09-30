@@ -235,3 +235,5 @@ native-list-dir/listdir.build_artifacts.txt
 java-kotlin-aot/helloworld
 java-kotlin-aot/helloworld.build_artifacts.txt
 _dot_m2_folder
+_dot_gradle_folder/
+micronaut-nativeimage/hello/

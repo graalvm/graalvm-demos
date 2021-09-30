@@ -2,16 +2,17 @@ ARG FULL_GRAALVM_VERSION
 
 FROM findepi/graalvm:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
 
+COPY --from=micronaut/micronaut-starter /root/.micronaut/micronaut-cli /root/.micronaut/micronaut-cli
+ENV MICRONAUT_HOME="/root/.micronaut/micronaut-cli"
+ENV PATH=${MICRONAUT_HOME}/bin:${PATH}
+RUN echo; echo " --- Micronaut version"; mn --version; echo
+
+COPY --from=workload-generator/wrk /tmp/wrk/wrk /usr/local/bin
+RUN echo "Testing 'wrk':"; wrk || true
+
 # Install smaller utilities needed during building of image in the slim image
 RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
 RUN apt-get update && apt-get install -yq --no-install-recommends wget curl vim unzip
-
-# Install wrk in the slim image, see https://github-wiki-see.page/m/giltene/wrk2/wiki/Installing-wrk2-on-Linux
-RUN echo; echo "--- Installing wrk: workload generator (multiple threads)"; echo
-RUN apt-get install -yq --no-install-recommends build-essential libssl-dev git
-RUN cd /tmp/ && git clone https://github.com/wg/wrk.git
-RUN cd /tmp/wrk && make
-RUN chmod +x /tmp/wrk/wrk && cp /tmp/wrk/wrk /usr/local/bin
 
 # Setup GraalVM paths
 ARG GRAALVM_HOME
