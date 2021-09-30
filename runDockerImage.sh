@@ -41,4 +41,6 @@ docker run --rm                                                    \
         	-p 8888:8888                                           \
         	-p 8088:8088                                           \
         	-p 8080:8080                                           \
+            -p 8081:8081                                           \
+            -p 8443:8443                                           \
         	${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}

@@ -47,6 +47,14 @@ ENV M2_HOME="/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}/"
 ENV PATH=${M2_HOME}/bin:${PATH}
 RUN echo " --- Maven version:"; mvn --version; echo
 
+# Install jmeter
+RUN cd /tmp/; wget -q -nv https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.1.zip
+RUN unzip /tmp/apache-jmeter-5.4.1.zip
+ENV JMETER_HOME="${WORKDIR}/apache-jmeter-5.4.1"
+ENV PATH=${JMETER_HOME}/bin:${PATH}
+RUN echo " --- Jmeter version:"; jmeter --version; echo
+
+
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}

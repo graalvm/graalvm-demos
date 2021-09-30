@@ -237,3 +237,4 @@ java-kotlin-aot/helloworld
 java-kotlin-aot/helloworld.build_artifacts.txt
 shared
 micronaut-nativeimage/hello/
+micronaut-webapp/loadTests/results-*
