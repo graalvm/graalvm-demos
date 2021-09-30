@@ -224,6 +224,11 @@ typings/
 # macOS related
 .DS_Store
 
+# oci, terraform related
+**/credentials.rc
+terraform.tfstate
+terraform.tfstate.backup
+
 # End of https://www.gitignore.io/api/java,node,maven,eclipse,intellij+all
 jmeter.log
 apache-jmeter*
@@ -247,3 +252,4 @@ polyglot-javascript-java-r/package-lock.json
 spring-r/Rplot001.svg
 scala-examples/scalac-native/project/
 scala-examples/scalac-native/scalac.build_artifacts.txt
+graalpython-notebook-example/venv/
