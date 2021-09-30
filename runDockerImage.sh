@@ -29,18 +29,31 @@ GRADLE_REPO_ON_HOST="${SHARED_FOLDER}/_dot_gradle_folder"
 echo; echo "-- Creating/using folder '${GRADLE_REPO_ON_HOST}' mounted as '.gradle' folder inside the container (${GRADLE_REPO_INSIDE_CONTAINER})"
 mkdir -p ${GRADLE_REPO_ON_HOST}
 
+SBT_REPO_INSIDE_CONTAINER="/root/.sbt/"
+SBT_REPO_ON_HOST="${SHARED_FOLDER}/_dot_sbt_folder"
+echo; echo "-- Creating/using folder '${SBT_REPO_ON_HOST}' mounted as '.sbt' folder inside the container (${SBT_REPO_INSIDE_CONTAINER})"
+mkdir -p ${SBT_REPO_ON_HOST}
+
+IVY_REPO_INSIDE_CONTAINER="/root/.ivy2/"
+IVY_REPO_ON_HOST="${SHARED_FOLDER}/_dot_ivy_folder"
+echo; echo "-- Creating/using folder '${IVY_REPO_ON_HOST}' mounted as '.ivy*' folder inside the container (${IVY_REPO_INSIDE_CONTAINER})"
+mkdir -p ${IVY_REPO_ON_HOST}
+
 echo; echo "--- Running docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 docker run --rm                                                    \
             --interactive --tty                                    \
 	        --volume $(pwd):${WORKDIR}                             \
         	--volume "${M2_ON_HOST}":${M2_INSIDE_CONTAINER}        \
             --volume "${GRADLE_REPO_ON_HOST}":${GRADLE_REPO_INSIDE_CONTAINER} \
+            --volume "${SBT_REPO_ON_HOST}":${SBT_REPO_INSIDE_CONTAINER} \
+            --volume "${IVY_REPO_ON_HOST}":${IVY_REPO_INSIDE_CONTAINER} \
         	--workdir ${WORKDIR}                                   \
         	--env GRAALVM_HOME=${GRAALVM_HOME_FOLDER}              \
         	--entrypoint /bin/bash                                 \
-        	-p 8888:8888                                           \
-        	-p 8088:8088                                           \
-        	-p 8080:8080                                           \
+            -p 3000:3000                                           \
             -p 8081:8081                                           \
+        	-p 8080:8080                                           \
+        	-p 8088:8088                                           \
             -p 8443:8443                                           \
+        	-p 8888:8888                                           \
         	${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}

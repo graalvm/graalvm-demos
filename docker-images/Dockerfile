@@ -10,9 +10,22 @@ RUN echo; echo " --- Micronaut version"; mn --version; echo
 COPY --from=workload-generator/wrk /tmp/wrk/wrk /usr/local/bin
 RUN echo "Testing 'wrk':"; wrk || true
 
-# Install smaller utilities needed during building of image in the slim image
+# Install other smaller utilities needed during building of image in the slim image
 RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
-RUN apt-get update && apt-get install -yq --no-install-recommends wget curl vim unzip
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+                      wget curl vim unzip gnupg2
+
+# Install scala and sbt
+# See https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
+RUN echo; echo "--- Installing scala and sbt in the slim image"; echo
+RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
+RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
+RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
+RUN apt-get update && apt-get install -yq --no-install-recommends scala sbt
+RUN echo "Scala version:"; scala -help; echo
+RUN echo "sbt version:"; sbt --version; echo
+ENV SCALA_HOME="/usr/share/scala" # this maps to the specific vesion of Scala for e.g. scala-2.11
+RUN echo; echo "SCALA_HOME=${SCALA_HOME}"; echo
 
 # Setup GraalVM paths
 ARG GRAALVM_HOME

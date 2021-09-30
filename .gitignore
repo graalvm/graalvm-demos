@@ -238,3 +238,12 @@ java-kotlin-aot/helloworld.build_artifacts.txt
 shared
 micronaut-nativeimage/hello/
 micronaut-webapp/loadTests/results-*
+mn-python/env/
+functionGraphDemo/Rplot001.svg
+native-netty-plot/netty-plot.build_artifacts.txt
+native-netty-plot/src/main/resources/META-INF/native-image/*
+polyglot-javascript-java-r/Rplot001.svg
+polyglot-javascript-java-r/package-lock.json
+spring-r/Rplot001.svg
+scala-examples/scalac-native/project/
+scala-examples/scalac-native/scalac.build_artifacts.txt
