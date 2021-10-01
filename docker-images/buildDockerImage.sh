@@ -15,6 +15,8 @@ FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 
 MAVEN_VERSION="3.8.2"
+SCALA_VERSION="3.0.2"
+SBT_VERSION="1.5.5"
 WORKDIR="/graalvm-demos"
 
 # Building wrk takes a while
@@ -25,7 +27,7 @@ time docker build                          \
 
 
 # Building micronaut-starter docker image is relatively quicker
-echo; echo "--- Building docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Building docker image for micronaut-starter"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
@@ -39,6 +41,8 @@ time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
                  --build-arg MAVEN_VERSION=${MAVEN_VERSION}               \
+                 --build-arg SCALA_VERSION=${SCALA_VERSION}               \
+                 --build-arg SBT_VERSION=${SBT_VERSION}                   \
                  --build-arg WORKDIR=${WORKDIR}                           \
 	             -t ${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}       \
 	             "."

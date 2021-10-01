@@ -1,14 +1,19 @@
 ARG FULL_GRAALVM_VERSION
-
 FROM findepi/graalvm:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
+
+FROM buildpack-deps:stretch-scm
 
 # Install smaller utilities needed during building of image in the slim image
 RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
-RUN apt-get update && apt-get install -yq --no-install-recommends unzip git
+RUN apt-get update  && \
+    apt-get install -yq --no-install-recommends unzip git
 
-# Setup GraalVM paths
+# Install and setup GraalVM
+COPY --from=graalvm-jdk-image /graalvm /graalvm
+
 ARG GRAALVM_HOME
 ENV GRAALVM_HOME=${GRAALVM_HOME}
+ENV PATH=${GRAALVM_HOME}/bin:${PATH}
 ENV JAVA_HOME=${GRAALVM_HOME}
 RUN echo; echo "JAVA_HOME=${GRAALVM_HOME}"; echo
 RUN echo; echo "GRAALVM_HOME=${GRAALVM_HOME}"; echo
