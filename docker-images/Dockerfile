@@ -16,15 +16,19 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
                       wget curl vim unzip gnupg2
 
 # Install scala and sbt
-# See https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
 RUN echo; echo "--- Installing scala and sbt in the slim image"; echo
-RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list
-RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list
-RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
-RUN apt-get update && apt-get install -yq --no-install-recommends scala sbt
-RUN echo "Scala version:"; scala -help; echo
+# See https://www.scala-sbt.org/download.html
+RUN cd /tmp/; wget -q -nv https://github.com/sbt/sbt/releases/download/v1.5.5/sbt-1.5.5.zip
+RUN cd /tmp/; unzip sbt-1.5.5.zip; mv sbt /usr/share; ln -s /usr/share/sbt/bin/sbt /usr/bin/sbt
 RUN echo "sbt version:"; sbt --version; echo
-# this location maps to the specific vesion of Scala for e.g. scala-2.11
+
+# See https://www.scala-lang.org/download/
+RUN cd /tmp/; wget -q -nv https://github.com/lampepfl/dotty/releases/download/3.0.2/scala3-3.0.2.zip
+RUN cd /tmp/; unzip scala3-3.0.2.zip; mv scala3-3.0.2 /usr/share/scala;
+RUN ln -s /usr/share/scala /usr/share/scala-3.0.2; ln -s /usr/share/scala/bin/scala /usr/bin/scala
+RUN echo "scala version:"; scala -version; echo
+
+# this location maps to the specific vesion of Scala for e.g. scala-2.12
 ENV SCALA_HOME="/usr/share/scala"
 RUN echo; echo "SCALA_HOME=${SCALA_HOME}"; echo
 
