@@ -7,7 +7,7 @@ scientific plotting and machine learning. On the other hand, R is considered one
 of the most powerful languages for solving all of the above problems.
 
 With Galaaz we do not intend to re-implement any of the scientific libraries in
-R, we allow for very tight coupling between the two languages to the point that
+R. We allow for very tight coupling between the two languages to the point that
 a Ruby developer does not need to know that there is an R engine running. For
 this to happen we use new technologies - GraalVM - a universal virtual machine
 that removes the isolation between programming languages and enables
@@ -21,8 +21,8 @@ and FastR is the implementation of R on top of GraalVM.
 -------------
 
 - [GraalVM](http://graalvm.org)
-- [TruffleRuby](https://www.graalvm.org/docs/reference-manual/languages/ruby/)
-- [FastR](https://www.graalvm.org/docs/reference-manual/languages/r/)
+- [TruffleRuby](https://www.graalvm.org/reference-manual/ruby/)
+- [FastR](https://www.graalvm.org/reference-manual/r/)
 
 The following R packages will be automatically installed when necessary, but could be installed prior to the demo if desired:
 
