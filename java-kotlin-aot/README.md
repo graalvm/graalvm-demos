@@ -3,33 +3,38 @@
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
 ## Prerequisites
-* [Maven](https://maven.apache.org/)
 * [GraalVM](http://graalvm.org)
 
 ## Preparation
 
-This is a simple Java/Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class. This example demonstrates how easy it is to interop between Java and Kotlin.
+This is a simple Java/Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class.
+This example demonstrates how easy it is to interop between Java and Kotlin.
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
 On Linux:
-```
-export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
-export PATH=$GRAALVM_HOME/bin:$PATH
+```bash
+export JAVA_HOME=/home/${current_user}/path/to/graalvm
+export PATH=$JAVA_HOME/bin:$PATH
 ```
 On macOS:
+```bash
+export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
 ```
-export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-export PATH=$GRAALVM_HOME/bin:$PATH
+On Windows:
+```bash
+setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
 ```
 
 2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
-```
+```bash
 gu install native-image
 ```
 
 3. Download or clone the repository and navigate into the `java-kotlin-aot` directory:
-```
+```bash
 git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/java-kotlin-aot
 ```
@@ -37,54 +42,50 @@ cd graalvm-demos/java-kotlin-aot
 ## Build the application
 
 Before running this example, you need to build the application:
-```
+```bash
 ./build.sh
 ```
 
-Look at the important line of the `build.sh` which creates a native image
-from the Java application. The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower
-general overhead at runtime.
+Look at the important line of the `build.sh` which creates a native image from the Java application.
+The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
 
-```
+```bash
 $GRAALVM_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello
 ```
 
-It takes a couple of parameters, the class path, the main class of the
-application with the `-H:Class=...`, and the name of the resulting executable
-with `-H:Name=...`.
+It takes a couple of parameters, the class path, the main class of the application with the `-H:Class=...`, and the name of the resulting executable with `-H:Name=...`.
 
-After executing the `native-image` command, check the directory, it should have
-produced an executable file `helloworld`.
+After executing the `native-image` command, check the directory, it should have produced an executable file `helloworld`.
 
 ## Run the application
 
-To run the application, you need to execute the fat JAR file in the `target`
-directory. You can run it as a normal Java application using `java`. Or, since
-we have a native image prepared, you can run that directly.
+To run the application, you need to execute the fat JAR file in the `target` directory.
+You can run it as a normal Java application using `java`.
+Or, since we have a native image prepared, you can run that directly.
 
 The `run.sh` file executes it both ways and times them with the `time` utility.
-```
+```bash
 time java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
 time ./helloworld
 ```
 
 The `run.sh` script produces approximately the following output:
-```
+```bash
 → ./run.sh
 + java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
 Hello from Kotlin!
 Hello from Java!
 
-real	0m0.176s
-user	0m0.119s
-sys	0m0.039s
+real	0m0.646s
+user	0m0.167s
+sys	0m0.135s
 + ./helloworld
 Hello from Kotlin!
 Hello from Java!
 
-real	0m0.008s
-user	0m0.003s
-sys	0m0.003s
+real	0m0.030s
+user	0m0.005s
+sys	0m0.008s
 ```
 
 The performance gain of the native version is largely due to the faster startup.
