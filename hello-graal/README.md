@@ -1,7 +1,6 @@
-## GraalVM Demos: Hello Graal
+# GraalVM Demos: Hello Graal
 
 This is a "Hello Graal" Java example for GraalVM.
-
 The structure of the ``Hello`` package is like this:
 
   ```
@@ -20,28 +19,28 @@ The structure of the ``Hello`` package is like this:
 
 * Enterprise Edition
 
-Download [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html).
-Unzip the archive file. For example, on Linux run the following:
-```
+1. Download [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html).
+Unzip the archive file. For example, on Linux or macOS run the following:
+```bash
 tar -zxvf graalvm-ee-java11-linux-amd64-<version>.tar.gz && rm graalvm-ee-java11-linux-amd64-<version>.tar.gz
 ```
-
-Put GraalVM on the `PATH`:
-```
+2. Put GraalVM on the `PATH`:
+```bash
 export PATH=path/to/graal/bin:$PATH
 java -version
 ```
+
 * Community Edition
 
 On Oracle Linux or Red Hat:
-```
+```bash
 sudo yum -y install graalvm21-ee-11-<version>.el7.x86_64
 sudo yum -y install graalvm21-ee-11-native-image
 java -version
 ```
 
 On a Debian based Linux machine:
-```
+```bash
 export GRAAL_ZIP=graalvm-ce-java11-linux-amd64-<version>.tar.gz
 wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.0.0.2/$GRAAL_ZIP
 tar -zxvf $GRAAL_ZIP
@@ -52,39 +51,38 @@ gu install native-image
 ```
 
 ## Preparation
-Close the repositoty and change to the example folder:
-```
+
+Download or clone the examples repository:
+```bash
 git clone https://github.com/chrisbensen/HelloGraal
 cd HelloGraal
 ```
 
 ## Compile the code
+
 To compile the main class, run the follow command:
-```
+```bash
 javac -d build src/com/hello/Graal.java
 ```
-
 This generates the `Graal.class` file into `build/com/hello` directory.
 
 ## Run the class
 
 To run the main class, run the follow command:
-```
+```bash
 java -cp ./build com.hello.Graal
 ```
-
-This shows the message ``hello graal``.
+It outputs the message "hello graal".
 
 ## Create a JAR file
 
 Create a JAR for the application, run the follow command:
-```
+```bash
 jar cfvm Hello.jar manifest.txt -C build .
 jar tf Hello.jar
 ```
-
 The output will be:
-```
+```bash
 META-INF/
 META-INF/MANIFEST.MF
 com/
@@ -95,18 +93,24 @@ com/hello/Graal.class
 ## Run a JAR file
 
 Run the JAR file:
-```
+```bash
 java -jar Hello.jar
 ```
 
-This shows the ``hello graal`` message.
+It outputs the message "hello graal".
 
 ## Create a native image
 
-Run the native-image command: ::
-```
+Create a native executable of a JAR file:
+```bash
 native-image -jar Hello.jar
 ```
+The executable called `./Hello` will be created in the working directory.
+Execute it:
+```bash
+./Hello
+```
+It outputs the message "hello graal". To check the filesize of the executable image, run: `ls -lh Hello`.
 
 # References
 

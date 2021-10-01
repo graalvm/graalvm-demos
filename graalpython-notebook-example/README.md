@@ -2,22 +2,28 @@
 
 This example demonstrates how to integrate Python on GraalVM with a Java application.
 
+## Prerequisites
+
+- GraalVM
+- Python support
+
 ### Getting Started
 
-1. Download [GraalVM CE or EE](https://www.graalvm.org/downloads/) and set your `JAVA_HOME` to point to it. Make sure you have installed Python support:
-```
-"${JAVA_HOME}"/gu install python
+1. Download [GraalVM Commuity or Enterprise](https://www.graalvm.org/downloads/) and set your `JAVA_HOME` to point to it.
+
+2. Add the Python support. GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities, and to install Python, run this single command:
+```bash
+${JAVA_HOME}/gu install python
 ```
 
-2. Compile the example:
-```
+3. Compile the example:
+```bash
 mvn compile
 ```
 
-3. Run the example:
-```
+4. Run the example:
+```bash
 mvn exec:java
 ```
 
-In the application, try loading the test1.py example notebook and experiment with it.
-
+In the application, try loading the _test1.py_ example notebook and experiment with it.
