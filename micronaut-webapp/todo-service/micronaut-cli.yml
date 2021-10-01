@@ -1,5 +1,0 @@
-profile: service
-defaultPackage: org.graalvm.demos.micronaut.service.todo
----
-testFramework: junit
-sourceLanguage: java

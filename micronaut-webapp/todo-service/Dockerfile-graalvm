@@ -1,5 +1,0 @@
-FROM ghcr.io/graalvm/graalvm-ce:latest
-COPY build/libs/todo-service-*-all.jar todo-service.jar
-
-EXPOSE 8443
-CMD java -Xmn32m -XX:+UnlockExperimentalVMOptions -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar todo-service.jar

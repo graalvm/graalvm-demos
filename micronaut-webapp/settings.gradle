@@ -1,4 +1,0 @@
-include 'api'
-include 'frontend'
-include 'todo-service'
-include 'loadTests'
