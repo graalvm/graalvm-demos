@@ -27,11 +27,11 @@ time docker build                          \
 
 
 # Building micronaut-starter docker image is relatively quicker
-echo; echo "--- Building docker image for micronaut-starter"; echo
+echo; echo "--- Building docker image for micronaut-starter:${FULL_GRAALVM_VERSION}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
-	             -t micronaut/micronaut-starter                           \
+	             -t micronaut/micronaut-starter:${FULL_GRAALVM_VERSION}   \
 	             -f Dockerfile-mn "."
 
 

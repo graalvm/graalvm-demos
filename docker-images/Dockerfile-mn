@@ -31,4 +31,5 @@ RUN echo "MICRONAUT_HOME=${MICRONAUT_HOME}";                       \
 
 LABEL maintainer="GraalVM team"
 LABEL git_repo="https://github.com/micronaut-projects/micronaut-starter.git"
-LABEL version=0.1
+LABEL graalvm_version=${FULL_GRAALVM_VERSION}
+LABEL version=${FULL_GRAALVM_VERSION}

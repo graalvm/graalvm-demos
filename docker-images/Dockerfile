@@ -1,5 +1,6 @@
 ARG FULL_GRAALVM_VERSION
 FROM findepi/graalvm:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
+FROM micronaut/micronaut-starter:${FULL_GRAALVM_VERSION} as micronaut-starter-image
 
 FROM buildpack-deps:stretch-scm
 
@@ -73,7 +74,7 @@ RUN echo "scala version:"; scala -version; echo
 ENV SCALA_HOME="/usr/share/scala"
 RUN echo; echo "SCALA_HOME=${SCALA_HOME}"; echo
 
-COPY --from=micronaut/micronaut-starter /root/.micronaut/micronaut-cli /root/.micronaut/micronaut-cli
+COPY --from=micronaut-starter-image /root/.micronaut/micronaut-cli /root/.micronaut/micronaut-cli
 ENV MICRONAUT_HOME="/root/.micronaut/micronaut-cli"
 ENV PATH=${MICRONAUT_HOME}/bin:${PATH}
 RUN echo; echo " --- Micronaut version"; mn --version; echo
