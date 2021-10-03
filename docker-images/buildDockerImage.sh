@@ -19,6 +19,18 @@ SCALA_VERSION="3.0.2"
 SBT_VERSION="1.5.5"
 WORKDIR="/graalvm-demos"
 
+
+# Check if the 'findepi/graalvm' image version tag exists, else print additional steps information
+IMAGE_EXISTS=$(docker inspect --type=image "findepi/graalvm:${FULL_GRAALVM_VERSION}" || true)
+if [[ ${IMAGE_EXISTS} == '[]' ]]; then
+    echo ""
+    echo "A GraalVM Docker image with \"${FULL_GRAALVM_VERSION}\" as the version tag does not exist in the local or remote Docker registry."
+    echo ""
+    echo "A valid version tag name would like this: '21.2.0-java11-all'. Please check https://hub.docker.com/r/findepi/graalvm/tags, to verify if this tag is valid and exists, or pick a valid one from there."
+    echo ""
+    exit
+fi
+
 # Building wrk takes a while
 echo; echo "--- Building docker image for 'wrk' utility: workload generator"; echo
 time docker build                          \
@@ -27,7 +39,7 @@ time docker build                          \
 
 
 # Building micronaut-starter docker image is relatively quicker
-echo; echo "--- Building docker image for micronaut-starter:${FULL_GRAALVM_VERSION}"; echo
+echo; echo "--- Building Docker image for micronaut-starter:${FULL_GRAALVM_VERSION}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
@@ -36,7 +48,7 @@ time docker build                                                         \
 
 
 # Building graalvm-demos docker image is relatively quicker
-echo; echo "--- Building docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Building Docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \

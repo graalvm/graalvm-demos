@@ -16,6 +16,27 @@ GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="/graalvm-demos"
 SHARED_FOLDER="${PWD}/shared"
 
+# Check if the 'graalvm/demos' image version tag exists, else print additional steps information
+IMAGE_EXISTS=$(docker inspect --type=image "${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}" || true)
+if [[ ${IMAGE_EXISTS} == '[]' ]]; then
+    echo ""
+    echo "The \"${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}\" Docker image (with the version tag) does not exist in the local Docker registry."
+    echo ""
+    echo "A valid version tag name would like this: '21.2.0-java11-all'. Please check https://hub.docker.com/r/findepi/graalvm/tags, to verify if this tag is valid and exists, or pick a valid one from there."
+    echo ""
+    echo "If it is valid, then please try to build it using the below commands:"
+    echo ""
+    echo "   $ cd docker-images"
+    echo "   $ ./buildDockerImages.sh \"${FULL_GRAALVM_VERSION}\""
+    echo "   $ cd .."
+    echo ""
+    echo "And then attempt to re-run the image using this command (from the root directory of the project):"
+    echo "   "
+    echo "   $ ./runDockerImages.sh \"${FULL_GRAALVM_VERSION}\""
+    echo "   "
+    exit
+fi
+
 # By doing this we are extracting away the .m2 and .gradle folders from inside the
 # container to the outside, giving us a few advantages: speed gains, reduced image size,
 # among others
@@ -39,7 +60,7 @@ IVY_REPO_ON_HOST="${SHARED_FOLDER}/_dot_ivy_folder"
 echo; echo "-- Creating/using folder '${IVY_REPO_ON_HOST}' mounted as '.ivy*' folder inside the container (${IVY_REPO_INSIDE_CONTAINER})"
 mkdir -p ${IVY_REPO_ON_HOST}
 
-echo; echo "--- Running docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Running Docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 docker run --rm                                                    \
             --interactive --tty                                    \
 	        --volume $(pwd):${WORKDIR}                             \
