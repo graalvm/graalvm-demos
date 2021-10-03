@@ -11,12 +11,12 @@ In case you wish to run some of the examples (console-based, non-GUI) inside the
 Build the **GraalVM** demo docker image of choice:
 ```
    $ cd docker-images
-   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./buildDockerImage.sh
+   $ ./buildDockerImage.sh "21.2.0-java11-all"
 ```
 
 Run the GraalVM demo docker container built above:
 ```
-   $ FULL_GRAALVM_VERSION="21.2.0-java11-all" ./runDockerImage.sh
+   $ ./runDockerImage.sh "21.2.0-java11-all"
 ```
 
 Note: Please specify a value tag with `FULL_GRAALVM_VERSION`, valid tags can be found [here](https://hub.docker.com/r/findepi/graalvm/tags). 

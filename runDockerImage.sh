@@ -10,7 +10,7 @@ GRAALVM_TYPE="all"   # other types are "native" or "polyglot"
 # See https://hub.docker.com/r/findepi/graalvm/tags, for details on version tag names
 DEFAULT_GRAALVM_VERSION="${BASE_GRAALVM_VERSION}-${GRAALVM_JDK_VERSION}-${GRAALVM_TYPE}"
 
-FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION:-"${DEFAULT_GRAALVM_VERSION}"}"
+FULL_GRAALVM_VERSION="${1:-"${DEFAULT_GRAALVM_VERSION}"}"
 FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="/graalvm-demos"
@@ -51,8 +51,8 @@ docker run --rm                                                    \
         	--env GRAALVM_HOME=${GRAALVM_HOME_FOLDER}              \
         	--entrypoint /bin/bash                                 \
             -p 3000:3000                                           \
-            -p 8081:8081                                           \
         	-p 8080:8080                                           \
+            -p 8081:8081                                           \
         	-p 8088:8088                                           \
             -p 8443:8443                                           \
         	-p 8888:8888                                           \
