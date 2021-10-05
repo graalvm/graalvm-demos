@@ -4,6 +4,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Prerequisites
 * [GraalVM](http://graalvm.org)
+* [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
 
 ## Preparation
 
@@ -50,7 +51,7 @@ Look at the important line of the `build.sh` which creates a native image from t
 The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
 
 ```bash
-$GRAALVM_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello
+$JAVA_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
 ```
 
 It takes a couple of parameters, the class path, the main class of the application with the `-H:Class=...`, and the name of the resulting executable with `-H:Name=...`.
