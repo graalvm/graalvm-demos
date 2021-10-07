@@ -1,10 +1,10 @@
 # Java Multithreading Demo For GraalVM Dashboard
 
-Multithreading demo is provided to showcase the applicability of [GraalVM Dashboard](https://www.graalvm.org/docs/tools/dashboard/) - a web-based dashboard for visualizing arbitrary aspects of dynamic and static compilations in GraalVM, in particular, [Native Image](https://www.graalvm.org/reference-manual/native-image/).
+Multithreading demo is provided to showcase the applicability of [GraalVM Dashboard](https://www.graalvm.org/docs/tools/dashboard/) - a web-based dashboard for visualizing aspects of dynamic and static compilations in GraalVM, in particular, [Native Image](https://www.graalvm.org/reference-manual/native-image/).
 
 The demo is a Java program which does synchronous and asynchronous threads execution.
 Each thread loops through exactly the same array of integers and generates a stream of pseudorandom numbers.
-The programs calculates the time taken to perform the task synchronously and asynchronously.
+The program calculates the time taken to perform the task synchronously and asynchronously.
 
 Multithreading demo is comprised of two sub-projects, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved.
 The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step.
@@ -38,35 +38,35 @@ To build and run the projects, you can either use [GraalVM](https://www.graalvm.
 ## Multithreading Demo Oversized
 
 1. Download or clone the repository and navigate into the _multithreading-demo/multithreading-demo-oversized_ directory:
-```
-$ git clone https://github.com/graalvm/graalvm-demos
-$ cd multithreading-demo/multithreading-demo-oversized
-```
+  ```
+  git clone https://github.com/graalvm/graalvm-demos
+  cd multithreading-demo/multithreading-demo-oversized
+  ```
 2. Build the project:
-```
-$ mvn package
-```
+  ```
+  mvn package
+  ```
 3. Run the project on a JVM or as a native image:
-```
-$ java -jar target/multithreading-1.0-jar-with-dependencies.jar
-$ ./target/multithreading-demo-oversized
-```
+  ```
+  java -jar target/multithreading-1.0-jar-with-dependencies.jar
+  ./target/multithreading-image-oversized
+  ```
 
 ## Multithreading Demo Improved
 
 Multithreading Demo Improved contains an enhanced version of the same program.
 
 1. Change to the project directory:
-```
-$ cd ..
-$ multithreading-demo-improved
-```
+  ```
+  cd ..
+  multithreading-demo-improved
+  ```
 2. Build the project:
-```
-$ mvn package
-```
+  ```
+  mvn package
+  ```
 3. Run the project on a JVM or as a native image:
-```
-$ java -jar target/multithreading-1.0-jar-with-dependencies.jar
-$ ./target/multithreading-demo-improved
-```
+  ```
+  java -jar target/multithreading-1.0-jar-with-dependencies.jar
+  ./target/multithreading-demo-improved
+  ```
