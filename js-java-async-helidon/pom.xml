@@ -47,7 +47,7 @@
     </build>
 
     <properties>
-        <graalvm.version>20.1.0</graalvm.version>
+        <graalvm.version>21.2.0</graalvm.version>
     </properties>
 
     <dependencyManagement>
