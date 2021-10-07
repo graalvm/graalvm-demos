@@ -26,15 +26,15 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
   ```
 
 2. Download or clone the repository and navigate into the `java-simple-stream-benchmark` directory:
-```bash
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/java-simple-stream-benchmark
-```
+  ```bash
+  git clone https://github.com/graalvm/graalvm-demos
+  cd graalvm-demos/java-simple-stream-benchmark
+  ```
 
 3. Build the benchmark. You can manually execute `mvn package`, but there is also a `build.sh` script included for your convenience.
-```bash
-./build.sh
-```
+  ```bash
+  ./build.sh
+  ```
 
 Now you are all set to execute the benchmark and compare the results between different JVMs.
 

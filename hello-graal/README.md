@@ -21,14 +21,15 @@ The structure of the ``Hello`` package is like this:
 
 1. Download [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html).
 Unzip the archive file. For example, on Linux or macOS run the following:
-```bash
-tar -zxvf graalvm-ee-java11-linux-amd64-<version>.tar.gz && rm graalvm-ee-java11-linux-amd64-<version>.tar.gz
-```
+  ```bash
+  tar -zxvf graalvm-ee-java11-linux-amd64-<version>.tar.gz && rm graalvm-ee-java11-linux-amd64-<version>.tar.gz
+  ```
+  
 2. Put GraalVM on the `PATH`:
-```bash
-export PATH=path/to/graal/bin:$PATH
-java -version
-```
+  ```bash
+  export PATH=path/to/graal/bin:$PATH
+  java -version
+  ```
 
 * Community Edition
 
