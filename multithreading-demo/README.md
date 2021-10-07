@@ -68,5 +68,5 @@ Multithreading Demo Improved contains an enhanced version of the same program.
 3. Run the project on a JVM or as a native image:
   ```
   java -jar target/multithreading-1.0-jar-with-dependencies.jar
-  ./target/multithreading-demo-improved
+  ./target/multithreading-image-improved
   ```

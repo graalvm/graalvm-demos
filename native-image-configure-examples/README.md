@@ -54,7 +54,10 @@ To learn more about this topic please read [Initialize Once, Start Fast: Applica
   ```
   cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
   ```
-2. Run `mvn package` there.
+2. Build the project:
+  ```bash
+  mvn package
+  ```
 3. Once the Maven build succeeds, a native image called "example" will be generated in the _configure-at-runtime-example/target/_ folder. Execute it:
   ```
   ./target/example
