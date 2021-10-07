@@ -2,9 +2,7 @@
 
 This example demonstrates the ability of `native-image` to run parts of your application at the image build time.
 
-In both examples we use the Jackson framework to parse a JSON file to determine
-which `Handler` should be used by the application (`CurrentTimeHandler` or
-`HelloWorldHandler`) at runtime.
+In both examples we use the Jackson framework to parse a JSON file to determine which `Handler` should be used by the application (`CurrentTimeHandler` or `HelloWorldHandler`) at runtime.
 
 * In `configure-at-runtime-example` the JSON parsing happens at image run time
   and thus contributes to the image startup time. In addition, all methods and
@@ -22,50 +20,55 @@ To learn more about this topic please read [Initialize Once, Start Fast: Applica
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
-On Linux:
-```
-export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
-export PATH=$GRAALVM_HOME/bin:$PATH
-```
-On macOS:
-```
-export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-export PATH=$GRAALVM_HOME/bin:$PATH
-```
+  On Linux:
+  ```bash
+  export JAVA_HOME=/home/${current_user}/path/to/graalvm
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On macOS:
+  ```bash
+  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On Windows:
+  ```bash
+  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+  ```
 
 2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
-```
-gu install native-image
-```
+  ```bash
+  gu install native-image
+  ```
 
 3. Download or clone the demos repository::
-```
-git clone https://github.com/graalvm/graalvm-demos
-```
+  ```
+  git clone https://github.com/graalvm/graalvm-demos
+  ```
 
 ## Build and run examples
 
 1. Change to one of the demo subdirectories, for example, _configure-at-runtime-example_:
-```
-cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
-```
+  ```
+  cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
+  ```
 2. Run `mvn package` there.
 3. Once the Maven build succeeds, a native image called "example" will be generated in the _configure-at-runtime-example/target/_ folder. Execute it:
-```
-./target/example
-Tue Mar 23 22:17:33 EET 2021
-```
+  ```
+  ./target/example
+  Tue Mar 23 22:17:33 EET 2021
+  ```
 4. Repeat the same steps for the other sub-demo:
-```
-cd ..
-cd configure-at-buildtime-example
-mvn package
-./target/example
-Hello, world!
-```
+  ```
+  cd ..
+  cd configure-at-buildtime-example
+  mvn package
+  ./target/example
+  Hello, world!
+  ```
 5. Finally, you may shutdown the `native-image` server:
-```
-$JAVA_HOME/bin/native-image --server-shutdown
-```
+  ```
+  $JAVA_HOME/bin/native-image --server-shutdown
+  ```

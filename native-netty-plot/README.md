@@ -1,29 +1,40 @@
 # Isolates for GraalVM Native Images
 
-This application demonstrates the use of _isolates_ with [GraalVM Native Image](https://www.graalvm.org/docs/reference-manual/native-image/). The code implements a web service that renders plots of mathematical functions, such as _sin(x)_. For each requested plot, the web service spawns an isolate, which is an independent execution context. The isolate generates the plot, and after it returns the result to the web service, it is discarded as a whole, along with any memory it used.
+This application demonstrates the use of _isolates_ with [GraalVM Native Image](https://www.graalvm.org/docs/reference-manual/native-image/).
+The code implements a web service that renders plots of mathematical functions, such as _sin(x)_.
+For each requested plot, the web service spawns an isolate, which is an independent execution context.
+The isolate generates the plot, and after it returns the result to the web service, it is discarded as a whole, along with any memory it used.
 
-The code of this repository is based on an [earlier example](https://github.com/cstancu/netty-native-demo) for using `native-image` to build a web server using the [Netty](http://netty.io/) framework. This example further uses the [exp4j](https://www.objecthunter.net/exp4j/) library to parse mathematical expressions, and [JFreeSVG](http://www.jfree.org/jfreesvg/) to generate SVG images.
+The code of this repository is based on an [earlier example](https://github.com/cstancu/netty-native-demo) for using `native-image` to build a web server using the [Netty](http://netty.io/) framework.
+This example further uses the [exp4j](https://www.objecthunter.net/exp4j/) library to parse mathematical expressions, and [JFreeSVG](http://www.jfree.org/jfreesvg/) to generate SVG images.
 
-## Prepare the environment
+## Preparation
 
 To set up your development environment, you first need to [download](http://www.graalvm.org/downloads/) and set up GraalVM.
 GraalVM Enterprise Edition is preferable for the purpose of this example.
 
-Having downloaded GraalVM Enterprise, unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME`, and add `$GRAALVM_HOME/bin` to the `PATH`.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
-on Linux:
-```
-export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
-```
-on macOS:
-```
-export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-```
+  On Linux:
+  ```bash
+  export JAVA_HOME=/home/${current_user}/path/to/graalvm
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On macOS:
+  ```bash
+  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On Windows:
+  ```bash
+  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+  ```
 
-Then install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image):
-```
-gu install native-image
-```
+2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
+  ```bash
+  gu install native-image
+  ```
 
 For compilation, the `native-image` depends on the local toolchain.
 Please make sure that `glibc-devel`, `zlib-devel` (header files for the C library and zlib), and `gcc` are available on your system. Some Linux distributions may additionally require `libstdc++-static`.
