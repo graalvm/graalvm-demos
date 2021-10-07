@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <graalvm.version>21.0.0.2</graalvm.version>
+        <graalvm.version>21.2.0</graalvm.version>
         <jackson.version>2.12.1</jackson.version>
     </properties>
 
@@ -51,7 +51,7 @@
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
