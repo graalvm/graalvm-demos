@@ -13,19 +13,19 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 1. Download and [install GraalVM](https://www.graalvm.org/docs/getting-started/#install-graalvm). You can download the latest GraalVM [here](https://www.graalvm.org/downloads/).
 
 2. Add Node.js and R runtime support. GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities, and to install Node.js and R, run this single command:
+  ```bash
+  <graalvm>/bin/gu install nodejs R
+  ```
+  Check the Node.js version:
+  ```bash
+  node -v
+  ```
 
-```bash
-<graalvm>/bin/gu install nodejs R
-```
-Check the Node.js version:
-```bash
-node -v
-```
 3. Download or clone the repository and navigate into the `functionGraphDemo` directory:
-```
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/functionGraphDemo
-```
+  ```
+  git clone https://github.com/graalvm/graalvm-demos
+  cd graalvm-demos/functionGraphDemo
+  ```
 4. Build the application by running `npm install`.
 
 Now you are all set to run the polyglot JavaScript, Java, R application.

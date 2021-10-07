@@ -26,15 +26,15 @@ This is a polyglot Helidon HTTP web service that demonstrates how multiple JavaS
   ```
 
 2. Download or clone the repository and navigate into the `js-java-async-helidon` directory:
-```bash
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/js-java-async-helidon
-```
+  ```bash
+  git clone https://github.com/graalvm/graalvm-demos
+  cd graalvm-demos/js-java-async-helidon
+  ```
 
 3. Build the application using Maven:
-```bash
-mvn clean package
-```
+  ```bash
+  mvn clean package
+  ```
 
 Now you are all set to run the polyglot Helidon Web service.
 

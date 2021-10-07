@@ -13,32 +13,32 @@ This example demonstrates how easy it is to interop between Java and Kotlin.
 
 1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
-On Linux:
-```bash
-export JAVA_HOME=/home/${current_user}/path/to/graalvm
-export PATH=$JAVA_HOME/bin:$PATH
-```
-On macOS:
-```bash
-export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-export PATH=$JAVA_HOME/bin:$PATH
-```
-On Windows:
-```bash
-setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
-setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
-```
+  On Linux:
+  ```bash
+  export JAVA_HOME=/home/${current_user}/path/to/graalvm
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On macOS:
+  ```bash
+  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On Windows:
+  ```bash
+  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+  ```
 
 2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
-```bash
-gu install native-image
-```
+  ```bash
+  gu install native-image
+  ```
 
 3. Download or clone the repository and navigate into the `java-kotlin-aot` directory:
-```bash
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/java-kotlin-aot
-```
+  ```bash
+  git clone https://github.com/graalvm/graalvm-demos
+  cd graalvm-demos/java-kotlin-aot
+  ```
 
 ## Build the application
 

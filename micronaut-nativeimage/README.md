@@ -1,60 +1,49 @@
 # Micronaut with GraalVM Native Image and Docker
 
-This example shows how to create a simple [Micronaut](https://micronaut.io/) REST
-application, compile it with GraalVM Native Image, and package it in a Docker
-container image.  Along the way we'll also take a look at some of the
-performance benefits that Native Image provides to Micronaut applications.
+This example shows how to create a simple [Micronaut](https://micronaut.io/) REST application, compile it with [GraalVM Native Image](https://www.graalvm.org/reference-manual/native-image/), and package it in a Docker container image.
+Along the way we'll also take a look at some of the performance benefits that Native Image provides to Micronaut applications.
 
 As you make your way through this example, look out for this icon:
-![](keyboard.jpg) Whenever you see it, it's time for you to
-perform an action.
+![](keyboard.jpg)
+Whenever you see it, it's time for you to perform an action.
 
 ## Environment Setup
 
-To run this example you'll need GraalVM and the Micronaut CLI installed on a
-machine with Docker.
+To run this example you'll need GraalVM and the Micronaut CLI installed on a machine with Docker.
 
-#### Download the latest release of GraalVM
+### Download the latest release of GraalVM
 
-You can use either GraalVM Enterprise or Community, with Enterprise offering
-smaller and faster applications. 
+You can use either [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html) or [GraalVM Community](https://www.graalvm.org/downloads).
+GraalVM Enterprise offers smaller and faster applications.
 
-* [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html)
-* [GraalVM Community](https://www.graalvm.org/downloads)
+### Install GraalVM Native Image
 
-#### Install GraalVM Native Image
-
-As of GraalVM 21, you can use the Graal Updater utility (`gu`) to install the 
-GraalVM Native Image feature for both Community and Enterprise editions:
+GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities.
+To install Native Image, run this single command:
 
 ![](keyboard.jpg) `gu install native-image`
 
 NOTE: If you are using GraalVM Enterprise, you will be asked to accept the licence agreement.
 
-#### Install Micronaut
+### Install Micronaut
 
-You can download Micronaut and [install it
-manually](https://micronaut.io/download) or you can use one of the popular
-package managers:
+You can download Micronaut and [install it manually](https://micronaut.io/download) or you can use one of the popular package managers:
 * Linux: [SDKman instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installSdkman)
 * macOS: [Homebrew instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installHomebrew)
 * Windows: [Chocolatey instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installChocolatey)
 
-NOTE: If you've previously installed Micronaut you should upgrade to the latest release to ensure it includes GraalVM Native Image support.
+NOTE: If you've previously installed Micronaut you should upgrade to the latest release (3.x) to ensure it includes GraalVM Native Image support.
 
 ## Running the Example
 
-
 ### Create the Application
 
-To avoid lots of typing, we can use the Micronaut `mn` CLI to create a sample
-application:
+To avoid lots of typing, we can use the Micronaut `mn` CLI to create a sample application:
 
 ![](keyboard.jpg) `mn create-app hello`
 
-This will create a `hello` folder with a complete Micronaut application
-skeleton. It uses Gradle by default, but you can create a Maven project 
-using the appropriate `mn` command line args.
+This will create a `hello` folder with a complete Micronaut application skeleton.
+It uses Gradle by default, but you can create a Maven project using the appropriate `mn` command line args.
 
 ```sh
 └── hello
@@ -83,8 +72,7 @@ using the appropriate `mn` command line args.
                     └── HelloTest.java
 ```
 
-Let's `cd` into this directory and add a rest endpoint that will
-return a simple message.
+Let's `cd` into this directory and add a rest endpoint that will return a simple message.
 
 ![](keyboard.jpg) <br>
 `cd hello`<br>
@@ -107,24 +95,20 @@ public class HelloController {
 }
 ```
 
-We won't dwell on application details here, but Micronaut has [great docs and
-samples](https://micronaut.io/docs/) where you can learn more.
+We won't dwell on application details here, but Micronaut has [great docs and samples](https://micronaut.io/docs/) where you can learn more.
 
 ### Compiling and running on GraalVM JIT
 
-Use Gradle to compile the application code and build a fat jar that includes all
-its dependencies:
+Use Gradle to compile the application code and build a fat jar that includes all its dependencies:
 
 ![](keyboard.jpg) `./gradlew assemble`
 
-When complete, let's launch the app using the `java -jar` command which will
-start up a web server on the HotSpot JVM.
+When complete, let's launch the app using the `java -jar` command which will start up a web server on the HotSpot JVM.
 
 ![](keyboard.jpg) `java -jar build/libs/hello-0.1-all.jar`
 
-You can see the app starts in few hundred milliseconds.  How many will depend on
-the speed of your machine.  In this run it took 937ms, almost one second, to
-boot up:
+You can see the app starts in few hundred milliseconds.  How many will depend on the speed of your machine.
+In this run it took 937ms, almost one second, to boot up:
 
 ```sh
  __  __ _                                  _
@@ -138,27 +122,22 @@ boot up:
 22:16:30.800 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 937ms. Server Running: http://micronautexample:8080
 ```
 
-To exercise the `HelloController` we created, either curl
-http://localhost:8080/hello or open it in a browser:
+To exercise the `HelloController` we created, either curl http://localhost:8080/hello or open it in a browser:
 
 ![](keyboard.jpg) `curl http://localhost:8080/hello`
 
-The response should be `Example Response`. Stop the application and we'll
-continue on to native executable generation.
+The response should be `Example Response`. Stop the application and we'll continue on to native executable generation.
 
 ![](keyboard.jpg) `CTRL-C`
 
 ### Compiling with GraalVM Native Image
 
-With no runtime reflection, Micronaut is extremely well suited to GraalVM Native
-Image ahead-of-time (AOT) compilation.  It even includes build support for Native
-Image in Gradle and Maven projects created by `mn` so we can compile with a
-single command:
+With no runtime reflection, Micronaut is extremely well suited to GraalVM Native Image ahead-of-time (AOT) compilation.
+It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
 
 ![](keyboard.jpg) `./gradlew nativeImage`
 
-Compilation can take a few minutes--but more cores and more memory reduces the
-required time!
+Compilation can take a few minutes--but more cores and more memory reduces the required time!
 
 ```sh
 > Task :compileJava
@@ -188,8 +167,7 @@ BUILD SUCCESSFUL in 2m 26s
 3 actionable tasks: 2 executed, 1 up-to-date
 ```
 
-The result is a 73MB standalone executable placed in the `build/native-image` folder with
-the very generic default name `application`. 
+The result is a 73MB standalone executable placed in the `build/native-image` folder with the very generic default name `application`.
 
 ![](keyboard.jpg) `ls -lh build/native-image`
 
@@ -214,23 +192,20 @@ Let's startup the application.  It's a native executable, so we just invoke it:
 17:31:38.611 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 23ms. Server Running: http://micronautexample:8080
 ```
 
-Running on the same machine as before, the ahead-of-time compiled app boots and
-is listening on port 8080 in 23ms!!  Thats's **~40x faster** than when running
-on the JVM.
+Running on the same machine as before, the ahead-of-time compiled app boots and is listening on port 8080 in 23ms!!
+Thats's **~40x faster** than when running on the JVM.
 
-It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, init the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.  With a GraalVM native executable the application startup cost is neglible.
+It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, init the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.
+With a GraalVM native executable the application startup cost is neglible.
 
 ### Docker on Linux
 
-If you're on Linux, you can easily create a Docker container image that includes
-the native Linux executable you've built.  If you're on Windows or macOS, the
-process is little different and isn't covered here.  
+If you're on Linux, you can easily create a Docker container image that includes the native Linux executable you've built.
+If you're on Windows or macOS, the process is little different and isn't covered here.
 
-Typically, the first question is what base image to use? GraalVM Native Image
-supports both static and dynamically linked executables, with dynamic being the
-default.  So as our native executable is dynamically linked against glibc, we'll
-need a base image that includes it.  One of the smallest base images we could
-use is Alpine Linux with glibc.
+Typically, the first question is what base image to use? GraalVM Native Image supports both static and dynamically linked executables, with dynamic being the default.
+So as our native executable is dynamically linked against glibc, we'll need a base image that includes it.
+One of the smallest base images we could use is Alpine Linux with glibc.
 
 ![](keyboard.jpg) create a `Dockerfile` with the following contents:
 
@@ -241,7 +216,8 @@ ADD build/native-image/application /app/hello
 ENTRYPOINT ["/app/hello"]
 ```
 
-We simply copy the native executable into the container image and expose port 8080--that's it!  Let's build a container image:
+We simply copy the native executable into the container image and expose port 8080--that's it!
+Let's build a container image:
 
 ![](keyboard.jpg) `docker build . -t hello`
 
@@ -263,9 +239,7 @@ Successfully built f5ea290d8d08
 Successfully tagged hello:latest
 ```
 
-We can see the container image we built is about 94MB, which makes sense because
-the Alpine with glibc base image is about 18MB and our application binary is
-about 71MB.
+We can see the container image we built is about 94MB, which makes sense because the Alpine with glibc base image is about 18MB and our application binary is about 71MB.
 
 ![](keyboard.jpg) `docker images`
 
@@ -285,9 +259,7 @@ We can run the container image and use it just like we did when running the appl
 Example Response
 ```
 
-## Wrapping Up
+### Wrapping Up
 
-Micronaut makes it really easy to build modern Java applications and
-microservices.  Its elimination of runtime reflection also makes it the ideal
-application framework for use with GraalVM Native Image for ahead of time
-compilation and containerization.
+Micronaut makes it really easy to build modern Java applications and microservices.
+Its elimination of runtime reflection also makes it the ideal application framework for use with GraalVM Native Image for ahead of time compilation and containerization.
