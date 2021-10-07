@@ -3,35 +3,39 @@
 This repository contains the code of the Micronaut application that uses Python for data visualization.
 
 ## Prerequisites
-* [Gradle](https://gradle.org/)
 * [GraalVM](https://www.graalvm.org/) (Java 11 based)
 * [Python support](https://www.graalvm.org/reference-manual/python/#installing-python)
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME`, and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
-On Linux:
-```
-export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
-export PATH=$GRAALVM_HOME/bin:$PATH
-```
-On macOS:
-```
-export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-export PATH=$GRAALVM_HOME/bin:$PATH
-```
+  On Linux:
+  ```bash
+  export JAVA_HOME=/home/${current_user}/path/to/graalvm
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On macOS:
+  ```bash
+  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+  export PATH=$JAVA_HOME/bin:$PATH
+  ```
+  On Windows:
+  ```bash
+  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+  ```
 
-2. Install Python support for GraalVM:
-```
-gu install python
-```
+2. Add Python support. GraalVM comes with `gu` which is a command line utility to install additional functionalities. To add Python, run this single command:
+  ```bash
+  gu install python
+  ```
 
 3. Download or clone the repository and navigate to the `mn-python` directory:
-```
-git clone https://github.com/graalvm/graalvm-demos
-cd graalvm-demos/mn-python
-```
+  ```bash
+  git clone https://github.com/graalvm/graalvm-demos
+  cd graalvm-demos/mn-python
+  ```
 
 ## Prepare the environment
 
