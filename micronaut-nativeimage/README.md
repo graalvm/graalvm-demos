@@ -99,7 +99,7 @@ We won't dwell on application details here, but Micronaut has [great docs and sa
 
 ### Compiling and running on GraalVM JIT
 
-Use Gradle to compile the application code and build a fat jar that includes all its dependencies:
+Use Gradle to compile the application code and build a fat JAR that includes all its dependencies:
 
 ![](keyboard.jpg) `./gradlew assemble`
 
@@ -111,18 +111,18 @@ You can see the app starts in few hundred milliseconds.  How many will depend on
 In this run it took 937ms, almost one second, to boot up:
 
 ```sh
- __  __ _                                  _
+__  __ _                                  _
 |  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v2.4.2)
+ Micronaut (v3.0.0)
 
 22:16:29.972 [main] INFO  i.m.context.env.DefaultEnvironment - Established active environments: [oraclecloud, cloud]
 22:16:30.800 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 937ms. Server Running: http://micronautexample:8080
 ```
 
-To exercise the `HelloController` we created, either curl http://localhost:8080/hello or open it in a browser:
+To exercise the `HelloController` we created, either `curl http://localhost:8080/hello` or open it in a browser:
 
 ![](keyboard.jpg) `curl http://localhost:8080/hello`
 
@@ -132,17 +132,19 @@ The response should be `Example Response`. Stop the application and we'll contin
 
 ### Compiling with GraalVM Native Image
 
-With no runtime reflection, Micronaut is extremely well suited to GraalVM Native Image ahead-of-time (AOT) compilation.
+With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with GraalVM Native Image.
 It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
 
 ![](keyboard.jpg) `./gradlew nativeImage`
 
-Compilation can take a few minutes--but more cores and more memory reduces the required time!
+Compilation can take a few minutes, but more cores and more memory reduces the required time!
 
 ```sh
 > Task :compileJava
-Note: Writing resource-config.json file to destination: META-INF/native-image/hello/hello/resource-config.json
 Note: Creating bean classes for 1 type elements
+
+> Task :generateResourceConfigFile
+Generating /Users/ogupalo/graalvm-demos/hello/build/generated/resources/graalvm/resource-config.json
 
 > Task :nativeImage
 [application:31406]    classlist:   2,662.33 ms,  1.18 GB
@@ -161,41 +163,42 @@ Note: Creating bean classes for 1 type elements
 [application:31406]        image:   7,023.99 ms,  6.78 GB
 [application:31406]        write:   1,293.61 ms,  6.78 GB
 [application:31406]      [total]: 143,368.15 ms,  6.78 GB
-Native Image written to: /home/opc/hello/build/native-image/application
+# Printing build artifacts to: /Users/ogupalo/graalvm-demos/hello/build/native-image/application.build_artifacts.txt
+Native Image written to: /Users/ogupalo/graalvm-demos/hello/build/native-image/application
 
 BUILD SUCCESSFUL in 2m 26s
 3 actionable tasks: 2 executed, 1 up-to-date
 ```
 
-The result is a 73MB standalone executable placed in the `build/native-image` folder with the very generic default name `application`.
+The result is a 62M standalone executable placed in the `build/native-image` folder with the very generic default name `application`.
 
 ![](keyboard.jpg) `ls -lh build/native-image`
 
 ```sh
-total 73M
--rwxrwxr-x. 1 opc opc 73M Apr 16 22:39 application
+total 126624
+-rwxr-xr-x  1 ogupalo  staff    62M Oct  8 14:24 application
+-rw-r--r--  1 ogupalo  staff    26B Oct  8 14:24 application.build_artifacts.txt
 ```
 
 Let's startup the application.  It's a native executable, so we just invoke it:
 
-![](keyboard.jpg) `build/native-image/application`
+![](keyboard.jpg) `./build/native-image/application`
 
 ```sh
- __  __ _                                  _
+__  __ _                                  _
 |  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v2.4.2)
+ Micronaut (v3.0.0)
 
-17:31:38.595 [main] INFO  i.m.context.env.DefaultEnvironment - Established active environments: [oraclecloud, cloud]
-17:31:38.611 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 23ms. Server Running: http://micronautexample:8080
+14:50:05.985 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 54ms. Server Running: http://localhost:8080
 ```
 
-Running on the same machine as before, the ahead-of-time compiled app boots and is listening on port 8080 in 23ms!!
-Thats's **~40x faster** than when running on the JVM.
+Running on the same machine as before, the ahead-of-time compiled app boots and is listening on port 8080 in 54ms!
+Thats's much than when running on the JVM.
 
-It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, init the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.
+It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, initialize the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.
 With a GraalVM native executable the application startup cost is neglible.
 
 ### Docker on Linux
@@ -204,8 +207,8 @@ If you're on Linux, you can easily create a Docker container image that includes
 If you're on Windows or macOS, the process is little different and isn't covered here.
 
 Typically, the first question is what base image to use? GraalVM Native Image supports both static and dynamically linked executables, with dynamic being the default.
-So as our native executable is dynamically linked against glibc, we'll need a base image that includes it.
-One of the smallest base images we could use is Alpine Linux with glibc.
+So as our native executable is dynamically linked against `glibc`, we'll need a base image that includes it.
+One of the smallest base images we could use is Alpine Linux with `glibc`.
 
 ![](keyboard.jpg) create a `Dockerfile` with the following contents:
 
@@ -239,7 +242,7 @@ Successfully built f5ea290d8d08
 Successfully tagged hello:latest
 ```
 
-We can see the container image we built is about 94MB, which makes sense because the Alpine with glibc base image is about 18MB and our application binary is about 71MB.
+We can see the container image we built is about 94MB, which makes sense because the Alpine with `glibc` base image is about 18MB and our application binary is about 71MB.
 
 ![](keyboard.jpg) `docker images`
 
