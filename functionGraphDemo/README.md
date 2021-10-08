@@ -22,7 +22,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
   ```
 
 3. Download or clone the repository and navigate into the `functionGraphDemo` directory:
-  ```
+  ```bash
   git clone https://github.com/graalvm/graalvm-demos
   cd graalvm-demos/functionGraphDemo
   ```
@@ -35,7 +35,7 @@ To run the application, you need to execute the `server.js` file.
 You can run it with the following command, `<graalvm>` is path to the GraalVM installation directory.
 
 ```
-<graalvm>/bin/node --jvm --polyglot server.js
+$JAVA_HOME/bin/node --jvm --polyglot server.js
 ```
 
 If you would like to run the benchmark on a different instance of Node, you can run it with whatever `node` you have.

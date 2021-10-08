@@ -34,14 +34,14 @@ This repository contains the code of the Micronaut application that uses Python 
 3. Download or clone the repository and navigate to the `mn-python` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/mn-python
+  cd graalvm-demos/micronaut-python
   ```
 
 ## Prepare the environment
 
 Create a virtual environment for Python dependencies:
 ```
-cd mn-python
+cd micronaut-python
 graalpython -m venv env
 ```
 
