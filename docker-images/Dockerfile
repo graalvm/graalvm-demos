@@ -48,6 +48,14 @@ ENV M2_HOME="/usr/local/apache-maven/apache-maven-${MAVEN_VERSION}/"
 ENV PATH=${M2_HOME}/bin:${PATH}
 RUN echo " --- Maven version:"; mvn --version; echo
 
+# Install gradle
+ARG GRADLE_VERSION
+RUN cd /tmp/; wget -q -nv https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+RUN cd /tmp/; unzip gradle-${GRADLE_VERSION}-bin.zip && mv gradle-${GRADLE_VERSION} /
+ENV GRADLE_HOME="/gradle-${GRADLE_VERSION}"
+ENV PATH=${GRADLE_HOME}/bin:${PATH}
+RUN echo " --- Gradle version:"; gradle --version; echo
+
 # Install jmeter
 RUN cd /tmp/; wget -nv --no-check-certificate "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.1.zip"
 RUN unzip /tmp/apache-jmeter-5.4.1.zip

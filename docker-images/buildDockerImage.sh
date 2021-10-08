@@ -15,6 +15,7 @@ FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 
 MAVEN_VERSION="3.8.2"
+GRADLE_VERSION="7.2"
 SCALA_VERSION="3.0.2"
 SBT_VERSION="1.5.5"
 WORKDIR="/graalvm-demos"
@@ -53,6 +54,7 @@ time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
                  --build-arg MAVEN_VERSION=${MAVEN_VERSION}               \
+                 --build-arg GRADLE_VERSION=${GRADLE_VERSION}             \
                  --build-arg SCALA_VERSION=${SCALA_VERSION}               \
                  --build-arg SBT_VERSION=${SBT_VERSION}                   \
                  --build-arg WORKDIR=${WORKDIR}                           \
