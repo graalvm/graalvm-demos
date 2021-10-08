@@ -1,4 +1,5 @@
-# GraalVM Java to JavaScript Polyglot debugging
+# GraalVM Java to JavaScript Polyglot Debugging
+
 This sample code helps to demonstrate simplicity of debugging and developing GraalVM Polyglot apps using __VSCode extensions__.
 
 ## Prerequisities
@@ -8,10 +9,13 @@ This sample code helps to demonstrate simplicity of debugging and developing Gra
 4. Confirm to set this as _Active GraalVM_ for VSCode.
 
 ## Debugging the project
-Working with Polyglot project in VSCode is simple just open this sample. It will be working out of the box with VSCode GraalVM extensions.
+
+Working with Polyglot project in VSCode is simple just open this sample.
+It will be working out of the box with VSCode GraalVM extensions.
 
 Place breakpoints either in Java or JavaScript code.
 
-To debug the project go to __Run and Debug__ activity or simply press F5. Choose ___Launch Java 8+___ as this is the Polyglot debugger provided by GraalVM extensions.
+To debug the project go to __Run and Debug__ activity or simply press F5.
+Choose ___Launch Java 8+___ as this is the Polyglot debugger provided by GraalVM extensions.
 
-That is, the sample is running under debugger on GraalVM. 
+That is, the sample is running under debugger on GraalVM.

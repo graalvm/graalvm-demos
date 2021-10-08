@@ -127,8 +127,8 @@ time java -cp ./target/graalvmnidemos-1.0-SNAPSHOT-jar-with-dependencies.jar ora
 What do the various parameters we passed to the `native-image` command do? Full documentation on these can be found [here](https://www.graalvm.org/docs/reference-manual/native-image/#image-generation-options):
 
 * `--no-server`: Do not start a build server process. For these examples we just want to run the builds. It is possible to run the builds through a build server.
-* `--no-fallback`: Do not generate a fallback image. A fallback image requires the JVM to run, and we do not want this. we just want it to be a native image.
-* `-H:Class`: Tell the `native-image` builder which class is the entry point method (the main method).
+* `--no-fallback`: Do not generate a fallback image. A fallback image requires the JVM to run, and we do not want this.We just want it to be a native image.
+* `-H:Class`: Tell the `native-image` builder which class is the entry point method (the `main` method).
 * `-H:Name`: Specify what the output executable file should be called.
 
 We can also run the `native-image` tool using Maven. If you look at the `pom.xml` file in the project, you should find the following snippet:
@@ -262,10 +262,10 @@ map all the cases of reflection, JNI, proxies and resources accesses that it can
 
 For this case, it will be sufficient to run this only once, as there is only one path through the
 application, but we should bear in mind that we may need to do this a number of times with
-different program input. A complete documentation on this can be found [here](https://www.graalvm.org/docs/reference-manual/native-image/#tracing-agent).
+different program input. A complete documentation on this can be found [here](https://www.graalvm.org/reference-manual/native-image/Agent/).
 
-The way to generate these JSON files is to add the following to the command line that is running
-your Java application. Note that the agent parameters **MUST** come before any `-jar` or `-classpath` paremetrs. Also note that we specify a directory into which we would like to put the output.
+The way to generate these JSON files is to add the following to the command line that is running your Java application.
+Note that the agent parameters **MUST** come before any `-jar` or `-classpath` paremetrs. Also note that we specify a directory into which we would like to put the output.
 The recommended location is under `META-INF/native-image`.
 
 ```sh
