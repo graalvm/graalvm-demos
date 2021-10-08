@@ -17,11 +17,9 @@ RUN apt-get update \
 COPY --from=graalvm-jdk-image /graalvm /graalvm
 
 ARG GRAALVM_HOME
-ENV GRAALVM_HOME=${GRAALVM_HOME}
 ENV JAVA_HOME=${GRAALVM_HOME}
-ENV PATH=${GRAALVM_HOME}/bin:${PATH}
-RUN echo; echo "JAVA_HOME=${GRAALVM_HOME}"; echo
-RUN echo; echo "GRAALVM_HOME=${GRAALVM_HOME}"; echo
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+RUN echo; echo "JAVA_HOME=${JAVA_HOME}"; echo
 RUN echo; echo " --- GraalVM version (runtime)"; java -version; echo
 
 # Install some of the needed components using 'gu install'

@@ -69,7 +69,7 @@ docker run --rm                                                    \
             --volume "${SBT_REPO_ON_HOST}":${SBT_REPO_INSIDE_CONTAINER} \
             --volume "${IVY_REPO_ON_HOST}":${IVY_REPO_INSIDE_CONTAINER} \
         	--workdir ${WORKDIR}                                   \
-        	--env GRAALVM_HOME=${GRAALVM_HOME_FOLDER}              \
+        	--env JAVA_HOME=${GRAALVM_HOME_FOLDER}                 \
         	--entrypoint /bin/bash                                 \
             -p 3000:3000                                           \
         	-p 8080:8080                                           \
