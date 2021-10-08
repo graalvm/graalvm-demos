@@ -67,7 +67,7 @@ RUN echo; echo "--- Installing scala and sbt in the slim image"; echo
 # See https://www.scala-sbt.org/download.html
 RUN cd /tmp/; wget -q -nv https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.zip
 RUN cd /tmp/; unzip sbt-${SBT_VERSION}.zip; mv sbt /usr/share; ln -s /usr/share/sbt/bin/sbt /usr/bin/sbt
-RUN echo "sbt version:"; sbt --version; echo
+RUN echo "sbt version:"; sbt --version | grep "sbt script version"; echo
 
 ARG SCALA_VERSION
 # See https://www.scala-lang.org/download/
