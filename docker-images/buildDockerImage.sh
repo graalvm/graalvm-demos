@@ -19,6 +19,7 @@ GRADLE_VERSION="7.2"
 SCALA_VERSION="3.0.2"
 SBT_VERSION="1.5.5"
 WORKDIR="/graalvm-demos"
+DEMO_TYPE="console"
 
 
 # Check if the 'findepi/graalvm' image version tag exists, else print additional steps information
@@ -48,8 +49,8 @@ time docker build                                                         \
 	             -f Dockerfile-mn "."
 
 
-# Building graalvm-demos docker image is relatively quicker
-echo; echo "--- Building Docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+# Building graalvm-demos (console) docker image is relatively quicker
+echo; echo "--- Building Docker image (console) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
@@ -60,6 +61,15 @@ time docker build                                                         \
                  --build-arg WORKDIR=${WORKDIR}                           \
 	             -t ${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}       \
 	             "."
+
+
+# Building graalvm-demos (gui) docker image is relatively quicker
+echo; echo "--- Building Docker image (gui) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+time docker build                                                         \
+                 --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
+                 -t ${FULL_DOCKER_TAG_NAME}-gui:${FULL_GRAALVM_VERSION}   \
+                 -f Dockerfile-gui "."
+
 
 IMAGE_IDS="$(docker images -f dangling=true -q || true)"
 if [[ -n ${IMAGE_IDS} ]]; then

@@ -15,6 +15,7 @@ FULL_DOCKER_TAG_NAME="graalvm/demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="/graalvm-demos"
 SHARED_FOLDER="${PWD}/shared"
+DEMO_TYPE="${DEMO_TYPE:-console}"
 
 # Check if the 'graalvm/demos' image version tag exists, else print additional steps information
 IMAGE_EXISTS=$(docker inspect --type=image "${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}" || true)
@@ -60,9 +61,20 @@ IVY_REPO_ON_HOST="${SHARED_FOLDER}/_dot_ivy_folder"
 echo; echo "-- Creating/using folder '${IVY_REPO_ON_HOST}' mounted as '.ivy*' folder inside the container (${IVY_REPO_INSIDE_CONTAINER})"
 mkdir -p ${IVY_REPO_ON_HOST}
 
-echo; echo "--- Running Docker image for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
-docker run --rm                                                    \
-            --interactive --tty                                    \
+echo; echo "--- Running Docker image (${DEMO_TYPE} mode) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}";
+echo "Loading volumes, this will take a moment or two."; echo "";
+
+TARGET_IMAGE="${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}"
+ENTRYPOINT="--entrypoint /bin/bash"
+if [[ "${DEMO_TYPE}" == "gui" ]]; then
+    VNC_SERVER_ADDRESS="127.0.0.1:5900"
+    TARGET_IMAGE="${FULL_DOCKER_TAG_NAME}-${DEMO_TYPE}:${FULL_GRAALVM_VERSION}"
+    ENTRYPOINT=" "
+    echo "Also loading a X11VNC server, use any VNCViewer client(s) to log onto ${VNC_SERVER_ADDRESS} to access the GUI apps running in this container.";  echo ""
+fi
+
+docker run --interactive --tty  --rm                               \
+            --name graalvm-demos                                   \
 	        --volume $(pwd):${WORKDIR}                             \
         	--volume "${M2_ON_HOST}":${M2_INSIDE_CONTAINER}        \
             --volume "${GRADLE_REPO_ON_HOST}":${GRADLE_REPO_INSIDE_CONTAINER} \
@@ -70,11 +82,14 @@ docker run --rm                                                    \
             --volume "${IVY_REPO_ON_HOST}":${IVY_REPO_INSIDE_CONTAINER} \
         	--workdir ${WORKDIR}                                   \
         	--env JAVA_HOME=${GRAALVM_HOME_FOLDER}                 \
-        	--entrypoint /bin/bash                                 \
             -p 3000:3000                                           \
+            -p 5900:5900                                           \
+            -p 5901:5901                                           \
+            -p 5902:5902                                           \
         	-p 8080:8080                                           \
             -p 8081:8081                                           \
         	-p 8088:8088                                           \
             -p 8443:8443                                           \
         	-p 8888:8888                                           \
-        	${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}
+            ${ENTRYPOINT}                                          \
+        	"${TARGET_IMAGE}"
