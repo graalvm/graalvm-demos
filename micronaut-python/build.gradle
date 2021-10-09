@@ -4,7 +4,7 @@ plugins {
 }
 
 version = "0.1"
-group = "mn.python"
+group = "micronaut.python"
 
 repositories {
     mavenCentral()
@@ -20,6 +20,7 @@ micronaut {
 }
 
 dependencies {
+    implementation("javax.inject:javax.inject:1")
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")

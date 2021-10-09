@@ -31,7 +31,7 @@ This repository contains the code of the Micronaut application that uses Python 
   gu install python
   ```
 
-3. Download or clone the repository and navigate to the `mn-python` directory:
+3. Download or clone the repository and navigate to the `micronaut-python` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
   cd graalvm-demos/micronaut-python
