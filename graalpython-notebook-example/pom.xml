@@ -65,7 +65,7 @@
                                         <argument>-m</argument>
                                         <argument>ginstall</argument>
                                         <argument>install</argument>
-                                        <argument>matplotlib,Pillow,pandas</argument>
+                                        <argument>matplotlib,Pillow,pandas,numpy</argument>
                                     </arguments>
                                     <environmentVariables>
                                         <VIRTUAL_ENV>${project.basedir}/venv</VIRTUAL_ENV>
