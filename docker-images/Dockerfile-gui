@@ -25,6 +25,10 @@ RUN echo ""; echo "Contents of ~/.Xresources"; echo ""; cat ~/.Xresources; echo 
 RUN ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.0.2 /usr/lib/x86_64-linux-gnu/libssl.so.10
 RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.2 /usr/lib/x86_64-linux-gnu/libcrypto.so.10
 
+# Adding environment variable to support older demos that rely on the GRAALVM_DIR env variable
+ENV GRAALVM_DIR=${JAVA_HOME}
+RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
+
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}
