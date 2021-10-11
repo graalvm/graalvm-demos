@@ -8,7 +8,8 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
        x11vnc xvfb xterm \
        xfonts-75dpi xfonts-100dpi xfonts-base \
-       libfontconfig1 libxrender1 libxtst6 openssl libssl-dev \
+       libfontconfig1 libxrender1 libxtst6 \
+       openssl libssl-dev libgomp1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
