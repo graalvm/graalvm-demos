@@ -27,7 +27,8 @@ Run a docker container with GraalVM runtime in it (from the root directory of th
    $ DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
 ```
 
-_(Download and run a VNCViewer and then log onto http://127.0.0.1:5900 via the **VNCViewer** to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the docker console or any other CLI prompt.)_
+_(One-off: download and install any **VNCViewer**)_
+_(Wait for the container to be ready, then run VNCViewer and then log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the **VNCViewer** to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the docker console or any other CLI prompt.)_
 
 Note: Valid tags to specify as parameters, can be found [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce). A number of free or commercial [VNCViewers](https://duckduckgo.com/?q=vnc+viewer+download&ia=web) can be found online and are fairly easy to use.
  
