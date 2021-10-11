@@ -6,9 +6,9 @@ set -o pipefail
 
 BASE_GRAALVM_VERSION="21.2.0"
 GRAALVM_JDK_VERSION="java11"
-GRAALVM_TYPE="all"   # other types are "native" or "polyglot"
-# See https://hub.docker.com/r/findepi/graalvm/tags, for details on version tag names
-DEFAULT_GRAALVM_VERSION="${BASE_GRAALVM_VERSION}-${GRAALVM_JDK_VERSION}-${GRAALVM_TYPE}"
+# See https://github.com/graalvm/container/pkgs/container/graalvm-ce for all tags related info
+DEFAULT_GRAALVM_VERSION="${GRAALVM_JDK_VERSION}-${BASE_GRAALVM_VERSION}"
+DOCKER_IMAGE_TAGS_WEBSITE="https://github.com/graalvm/container/pkgs/container/graalvm-ce"
 
 FULL_GRAALVM_VERSION="${1:-"${DEFAULT_GRAALVM_VERSION}"}"
 FULL_DOCKER_TAG_NAME="graalvm/demos"

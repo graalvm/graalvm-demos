@@ -12,24 +12,24 @@ In case you wish to run some of the examples (console-based, non-GUI) inside the
 Build the **GraalVM** demo docker image of choice:
 ```
    $ cd docker-images
-   $ ./buildDockerImage.sh "21.2.0-java11-all"
+   $ ./buildDockerImage.sh "java11-21.2.0"
 ```
 
 Run the GraalVM demo docker container built above:
 ```
-   $ ./runDockerImage.sh "21.2.0-java11-all"
+   $ ./runDockerImage.sh "java11-21.2.0"
 ```
 
 
 Run a docker container with GraalVM runtime in it (from the root directory of the project) for **GUI-based** apps:
 
 ```
-   $ DEMO_TYPE="gui" ./runDockerImage.sh "21.2.0-java11-all"
+   $ DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
 ```
 
 _(Download and run a VNCViewer and then log onto http://127.0.0.1:5900 via the **VNCViewer** to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the docker console or any other CLI prompt.)_
 
-Note: Please specify a value tag with `FULL_GRAALVM_VERSION`, valid tags can be found [here](https://hub.docker.com/r/findepi/graalvm/tags). A number of free or commercial [VNCViewers](https://duckduckgo.com/?q=vnc+viewer+download&ia=web) can be found online and are fairly easy to use.
+Note: Valid tags to specify as parameters, can be found [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce). A number of free or commercial [VNCViewers](https://duckduckgo.com/?q=vnc+viewer+download&ia=web) can be found online and are fairly easy to use.
  
 
 Once the docker container is running, go to the folder of the respective demos, and follow the instructions.

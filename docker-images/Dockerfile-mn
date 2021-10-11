@@ -1,5 +1,6 @@
+ARG SOURCE_DOCKER_HUB
 ARG FULL_GRAALVM_VERSION
-FROM findepi/graalvm:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
+FROM ${SOURCE_DOCKER_HUB}:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
 
 FROM buildpack-deps:stretch-scm
 
@@ -9,7 +10,7 @@ RUN apt-get update  && \
     apt-get install -yq --no-install-recommends unzip git
 
 # Install and setup GraalVM
-COPY --from=graalvm-jdk-image /graalvm /graalvm
+COPY --from=graalvm-jdk-image /opt/graalvm-* /graalvm
 
 ARG GRAALVM_HOME
 ENV JAVA_HOME=${GRAALVM_HOME}

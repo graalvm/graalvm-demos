@@ -4,11 +4,12 @@ set -e
 set -u
 set -o pipefail
 
+SOURCE_DOCKER_HUB="ghcr.io/graalvm/graalvm-ce"
 BASE_GRAALVM_VERSION="21.2.0"
 GRAALVM_JDK_VERSION="java11"
-GRAALVM_TYPE="all"   # other types are "native" or "polyglot"
-# See https://hub.docker.com/r/findepi/graalvm/tags, for details on version tag names
-DEFAULT_GRAALVM_VERSION="${BASE_GRAALVM_VERSION}-${GRAALVM_JDK_VERSION}-${GRAALVM_TYPE}"
+# See https://github.com/graalvm/container/pkgs/container/graalvm-ce for all tags related info
+DEFAULT_GRAALVM_VERSION="${GRAALVM_JDK_VERSION}-${BASE_GRAALVM_VERSION}"
+DOCKER_IMAGE_TAGS_WEBSITE="https://github.com/graalvm/container/pkgs/container/graalvm-ce"
 
 FULL_GRAALVM_VERSION="${1:-"${DEFAULT_GRAALVM_VERSION}"}"
 FULL_DOCKER_TAG_NAME="graalvm/demos"
@@ -33,7 +34,8 @@ time docker build                          \
 echo; echo "--- Building Docker image for micronaut-starter:${FULL_GRAALVM_VERSION}" >&2; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
-                 --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
+                 --build-arg SOURCE_DOCKER_HUB="${SOURCE_DOCKER_HUB}"     \
+                 --build-arg FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION}" \
 	             -t micronaut/micronaut-starter:${FULL_GRAALVM_VERSION}   \
 	             -f Dockerfile-mn "."
 
@@ -42,7 +44,8 @@ time docker build                                                         \
 echo; echo "--- Building Docker image (console) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}" >&2; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
-                 --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
+                 --build-arg SOURCE_DOCKER_HUB="${SOURCE_DOCKER_HUB}"     \
+                 --build-arg FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION}" \
                  --build-arg MAVEN_VERSION=${MAVEN_VERSION}               \
                  --build-arg GRADLE_VERSION=${GRADLE_VERSION}             \
                  --build-arg SCALA_VERSION=${SCALA_VERSION}               \
@@ -55,7 +58,8 @@ time docker build                                                         \
 # Building graalvm-demos (gui) docker image is relatively quicker
 echo; echo "--- Building Docker image (gui) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}" >&2; echo
 time docker build                                                         \
-                 --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
+                 --build-arg SOURCE_DOCKER_HUB="${SOURCE_DOCKER_HUB}"     \
+                 --build-arg FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION}" \
                  -t ${FULL_DOCKER_TAG_NAME}-gui:${FULL_GRAALVM_VERSION}   \
                  -f Dockerfile-gui "."
 
