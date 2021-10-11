@@ -23,14 +23,14 @@ DEMO_TYPE="console"
 
 
 # Building wrk takes a while
-echo; echo "--- Building docker image for 'wrk' utility: workload generator"; echo
+echo; echo "--- Building docker image for 'wrk' utility: workload generator" >&2; echo
 time docker build                          \
 	             -t workload-generator/wrk \
 	             -f Dockerfile-wrk "."
 
 
 # Building micronaut-starter docker image is relatively quicker
-echo; echo "--- Building Docker image for micronaut-starter:${FULL_GRAALVM_VERSION}"; echo
+echo; echo "--- Building Docker image for micronaut-starter:${FULL_GRAALVM_VERSION}" >&2; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
@@ -39,7 +39,7 @@ time docker build                                                         \
 
 
 # Building graalvm-demos (console) docker image is relatively quicker
-echo; echo "--- Building Docker image (console) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Building Docker image (console) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}" >&2; echo
 time docker build                                                         \
 	             --build-arg GRAALVM_HOME="${GRAALVM_HOME_FOLDER}"        \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
@@ -53,7 +53,7 @@ time docker build                                                         \
 
 
 # Building graalvm-demos (gui) docker image is relatively quicker
-echo; echo "--- Building Docker image (gui) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}"; echo
+echo; echo "--- Building Docker image (gui) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}" >&2; echo
 time docker build                                                         \
                  --build-arg FULL_GRAALVM_VERSION=${FULL_GRAALVM_VERSION} \
                  -t ${FULL_DOCKER_TAG_NAME}-gui:${FULL_GRAALVM_VERSION}   \
@@ -62,6 +62,6 @@ time docker build                                                         \
 
 IMAGE_IDS="$(docker images -f dangling=true -q || true)"
 if [[ -n ${IMAGE_IDS} ]]; then
-    echo; echo "--- Cleaning up image(s)"; echo
+    echo; echo "--- Cleaning up image(s)" >&2; echo
     docker rmi -f ${IMAGE_IDS} || true
 fi
