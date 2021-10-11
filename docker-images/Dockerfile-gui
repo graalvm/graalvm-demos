@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
        x11vnc xvfb xterm \
        xfonts-75dpi xfonts-100dpi xfonts-base \
-       libfontconfig1 libxrender1 libxtst6 \
+       libfontconfig1 libxrender1 libxtst6 openssl libssl-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
@@ -18,6 +18,11 @@ RUN echo "exec xterm -maximized -fa 'Monospace' -fs 18" > \
 RUN echo ""; echo "Contents of ~/.xinitrc"; echo ""; cat ~/.xinitrc; echo "";
 RUN echo "xterm*font:     *-Monospace-*-*-*-18-*" > ~/.Xresources
 RUN echo ""; echo "Contents of ~/.Xresources"; echo ""; cat ~/.Xresources; echo "";
+
+# Necessary for TruffleRuby/ruby gem installation process
+# The fixes missing SO library errors we get for libssl.so.nn and libcrypto.so.nn, alternatively you can run https://github.com/oracle/truffleruby/blob/master/lib/truffle/post_install_hook.sh
+RUN ln -s /usr/lib/x86_64-linux-gnu/libssl.so.1.0.2 /usr/lib/x86_64-linux-gnu/libssl.so.10
+RUN ln -s /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.2 /usr/lib/x86_64-linux-gnu/libcrypto.so.10
 
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"

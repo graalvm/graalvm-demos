@@ -28,7 +28,7 @@ RUN echo; echo " --- Download & install 'espresso' using gu"; gu install espress
 RUN echo; echo " --- Download & install 'nodejs' using gu"; gu install nodejs; echo
 RUN echo; echo " --- Download & install 'python' using gu"; gu install python; echo
 RUN echo; echo " --- Download & install 'R' using gu"; gu install R; echo
-
+RUN echo; echo " --- Download & install 'Ruby' using gu"; gu install ruby; echo
 
 # Install Java 8
 COPY --from=java:8u111-jdk /usr/lib/jvm /usr/lib/jvm
