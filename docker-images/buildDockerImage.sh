@@ -22,17 +22,6 @@ WORKDIR="/graalvm-demos"
 DEMO_TYPE="console"
 
 
-# Check if the 'findepi/graalvm' image version tag exists, else print additional steps information
-IMAGE_EXISTS=$(docker inspect --type=image "findepi/graalvm:${FULL_GRAALVM_VERSION}" || true)
-if [[ ${IMAGE_EXISTS} == '[]' ]]; then
-    echo ""
-    echo "A GraalVM Docker image with \"${FULL_GRAALVM_VERSION}\" as the version tag does not exist in the local or remote Docker registry."
-    echo ""
-    echo "A valid version tag name would like this: '21.2.0-java11-all'. Please check https://hub.docker.com/r/findepi/graalvm/tags, to verify if this tag is valid and exists, or pick a valid one from there."
-    echo ""
-    exit
-fi
-
 # Building wrk takes a while
 echo; echo "--- Building docker image for 'wrk' utility: workload generator"; echo
 time docker build                          \
