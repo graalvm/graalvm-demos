@@ -10,6 +10,7 @@ RUN apt-get update \
        xfonts-75dpi xfonts-100dpi xfonts-base \
        libfontconfig1 libxrender1 libxtst6 \
        openssl libssl-dev libgomp1 \
+       zlib1g liblzma5 libc6 libbz2-1.0 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
