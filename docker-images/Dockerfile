@@ -1,11 +1,14 @@
+ARG DOCKER_USER_NAME
 ARG SOURCE_DOCKER_HUB
 ARG FULL_GRAALVM_VERSION
+
 FROM ${SOURCE_DOCKER_HUB}:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
-FROM micronaut/micronaut-starter:${FULL_GRAALVM_VERSION} as micronaut-starter-image
+FROM ${DOCKER_USER_NAME}/micronaut-starter:${FULL_GRAALVM_VERSION} as micronaut-starter-image
+FROM ${DOCKER_USER_NAME}/workload-generator as workload-generator
 
 FROM buildpack-deps:stretch-scm
 
-COPY --from=workload-generator/wrk /tmp/wrk/wrk /usr/local/bin
+COPY --from=workload-generator /tmp/wrk/wrk /usr/local/bin
 RUN echo "Testing 'wrk':"; wrk || true
 
 # Install other smaller utilities needed during building of image in the slim image

@@ -4,6 +4,7 @@ set -e
 set -u
 set -o pipefail
 
+DOCKER_USER_NAME="${DOCKER_USER_NAME:-neomatrix369}"
 BASE_GRAALVM_VERSION="21.2.0"
 GRAALVM_JDK_VERSION="java11"
 # See https://github.com/graalvm/container/pkgs/container/graalvm-ce for all tags related info
@@ -11,17 +12,18 @@ DEFAULT_GRAALVM_VERSION="${GRAALVM_JDK_VERSION}-${BASE_GRAALVM_VERSION}"
 DOCKER_IMAGE_TAGS_WEBSITE="https://github.com/graalvm/container/pkgs/container/graalvm-ce"
 
 FULL_GRAALVM_VERSION="${1:-"${DEFAULT_GRAALVM_VERSION}"}"
-FULL_DOCKER_TAG_NAME="graalvm/demos"
+FULL_DOCKER_TAG_NAME="graalvm-demos"
 GRAALVM_HOME_FOLDER="/graalvm"
 WORKDIR="/graalvm-demos"
 SHARED_FOLDER="${PWD}/shared"
 DEMO_TYPE="${DEMO_TYPE:-console}"
 
-# Check if the 'graalvm/demos' image version tag exists, else print additional steps information
-IMAGE_EXISTS=$(docker inspect --type=image "${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}" || true)
+# Check if the 'graalvm-demos' image version tag exists, else print additional steps information
+TARGET_IMAGE="${DOCKER_USER_NAME}/${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}"
+IMAGE_EXISTS=$(docker inspect --type=image "${TARGET_IMAGE}" || true)
 if [[ ${IMAGE_EXISTS} == '[]' ]]; then
     echo "" >&2
-    echo "The \"${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}\" Docker image (with the version tag) does not exist in the local Docker registry." >&2
+    echo "The \"${TARGET_IMAGE}\" Docker image (with the version tag) does not exist in the local Docker registry." >&2
     echo "" >&2
     echo "A valid version tag name would like this: '21.2.0-java11-all'. Please check https://hub.docker.com/r/findepi/graalvm/tags, to verify if this tag is valid and exists, or pick a valid one from there." >&2
     echo "" >&2
@@ -64,15 +66,15 @@ mkdir -p ${IVY_REPO_ON_HOST}
 echo; echo "--- Running Docker image (${DEMO_TYPE} mode) for GraalVM version ${FULL_GRAALVM_VERSION} for ${WORKDIR}";  >&2
 echo "Loading volumes, this will take a moment or two." >&2; echo "";
 
-TARGET_IMAGE="${FULL_DOCKER_TAG_NAME}:${FULL_GRAALVM_VERSION}"
 ENTRYPOINT="--entrypoint /bin/bash"
 if [[ "${DEMO_TYPE}" == "gui" ]]; then
-    VNC_SERVER_ADDRESS="127.0.0.1:5900"
-    TARGET_IMAGE="${FULL_DOCKER_TAG_NAME}-${DEMO_TYPE}:${FULL_GRAALVM_VERSION}"
+    VNC_SERVER_ADDRESS="localhost:5900 or 127.0.0.1:5900"
+    TARGET_IMAGE="${DOCKER_USER_NAME}/${FULL_DOCKER_TAG_NAME}-${DEMO_TYPE}:${FULL_GRAALVM_VERSION}"
     ENTRYPOINT=" "
     echo "Also loading a X11VNC server, use any VNCViewer client(s) to log onto ${VNC_SERVER_ADDRESS} to access the GUI apps running in this container." >&2;  echo ""
 fi
 
+docker pull ${TARGET_IMAGE} || true && echo "Finished pulling ${TARGET_IMAGE} from remote repo"
 docker run --interactive --tty  --rm                               \
             --name graalvm-demos                                   \
 	        --volume $(pwd):${WORKDIR}                             \
