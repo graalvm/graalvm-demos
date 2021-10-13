@@ -28,7 +28,8 @@ RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
 
 # Rebuild Ruby to make the Ruby openssl C extensions to work with the local system libssl (see https://github.com/oracle/truffleruby/blob/master/doc/user/installing-graalvm.md#installing-ruby-and-other-languages)
 RUN echo "Rebuilding Ruby to make the Ruby openssl C extensions to work with the local system libssl"
-RUN $GRAALVM_DIR/jre/languages/ruby/lib/truffle/post_install_hook.sh 
+RUN if [ -e "$GRAALVM_DIR/jre" ]; then  $GRAALVM_DIR/jre/languages/ruby/lib/truffle/post_install_hook.sh;  else $GRAALVM_DIR/languages/ruby/lib/truffle/post_install_hook.sh; fi
+
 RUN echo "Rebuilding polyglot libpolyglot as Ruby has been rebuilt"
 #RUN gu rebuild-images --verbose ruby
 #RUN gu rebuild-images --verbose polyglot
