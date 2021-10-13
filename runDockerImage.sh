@@ -75,23 +75,23 @@ if [[ "${DEMO_TYPE}" == "gui" ]]; then
 fi
 
 docker pull ${TARGET_IMAGE} || true && echo "Finished pulling ${TARGET_IMAGE} from remote repo"
-docker run --interactive --tty  --rm                               \
-            --name graalvm-demos                                   \
-	        --volume $(pwd):${WORKDIR}                             \
-        	--volume "${M2_ON_HOST}":${M2_INSIDE_CONTAINER}        \
+docker run --interactive --tty  --rm                                          \
+            --name "graalvm-demos-${DEMO_TYPE}-${FULL_GRAALVM_VERSION}"       \
+	        --volume $(pwd):${WORKDIR}                                        \
+        	--volume "${M2_ON_HOST}":${M2_INSIDE_CONTAINER}                   \
             --volume "${GRADLE_REPO_ON_HOST}":${GRADLE_REPO_INSIDE_CONTAINER} \
-            --volume "${SBT_REPO_ON_HOST}":${SBT_REPO_INSIDE_CONTAINER} \
-            --volume "${IVY_REPO_ON_HOST}":${IVY_REPO_INSIDE_CONTAINER} \
-        	--workdir ${WORKDIR}                                   \
-        	--env JAVA_HOME=${GRAALVM_HOME_FOLDER}                 \
-            -p 3000:3000                                           \
-            -p 5900:5900                                           \
-            -p 5901:5901                                           \
-            -p 5902:5902                                           \
-        	-p 8080:8080                                           \
-            -p 8081:8081                                           \
-        	-p 8088:8088                                           \
-            -p 8443:8443                                           \
-        	-p 8888:8888                                           \
-            ${ENTRYPOINT}                                          \
+            --volume "${SBT_REPO_ON_HOST}":${SBT_REPO_INSIDE_CONTAINER}       \
+            --volume "${IVY_REPO_ON_HOST}":${IVY_REPO_INSIDE_CONTAINER}       \
+        	--workdir ${WORKDIR}                                              \
+        	--env JAVA_HOME=${GRAALVM_HOME_FOLDER}                            \
+            -p 3000:3000                                                      \
+            -p 5900:5900                                                      \
+            -p 5901:5901                                                      \
+            -p 5902:5902                                                      \
+        	-p 8080:8080                                                      \
+            -p 8081:8081                                                      \
+        	-p 8088:8088                                                      \
+            -p 8443:8443                                                      \
+        	-p 8888:8888                                                      \
+            ${ENTRYPOINT}                                                     \
         	"${TARGET_IMAGE}"

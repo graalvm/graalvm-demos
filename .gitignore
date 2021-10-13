@@ -257,3 +257,5 @@ micronaut-python/venv/
 nohup.out
 fastR-examples/*.*
 *.whl
+.vscode
+*.log?

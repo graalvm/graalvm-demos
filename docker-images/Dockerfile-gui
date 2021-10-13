@@ -10,10 +10,14 @@ RUN apt-get update \
        x11vnc xvfb xterm \
        xfonts-75dpi xfonts-100dpi xfonts-base \
        libfontconfig1 libxrender1 libxtst6 \
-       openssl libssl-dev libcrypto++-dev build-essential gcc g++ \
-       libgomp1 zlib1g liblzma5 libc6 libbz2-1.0 \
+       openssl libssl-dev libcrypto++-dev \
+       libgomp1 zlib1g liblzma5 libc6 libbz2-1.0 libz.a \
+       patch make gcc g++ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
+
+RUN echo "gcc version: "; gcc --version
+RUN echo "make version: "; make --version
 
 # https://askubuntu.com/questions/161652/how-to-change-the-default-font-size-of-xterm#161704
 RUN echo "exec xterm -maximized -fa 'Monospace' -fs 18" > \
@@ -27,14 +31,15 @@ ENV GRAALVM_DIR=${JAVA_HOME}
 RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
 
 # Rebuild Ruby to make the Ruby openssl C extensions to work with the local system libssl (see https://github.com/oracle/truffleruby/blob/master/doc/user/installing-graalvm.md#installing-ruby-and-other-languages)
+ENV LANG=en_US.UTF-8
 RUN echo "Rebuilding Ruby to make the Ruby openssl C extensions to work with the local system libssl"
 RUN if [ -e "$GRAALVM_DIR/jre" ]; then  $GRAALVM_DIR/jre/languages/ruby/lib/truffle/post_install_hook.sh;  else $GRAALVM_DIR/languages/ruby/lib/truffle/post_install_hook.sh; fi
 
-RUN echo "Rebuilding polyglot libpolyglot as Ruby has been rebuilt"
-#RUN gu rebuild-images --verbose ruby
-#RUN gu rebuild-images --verbose polyglot
-#RUN gu rebuild-images --verbose libpolyglot
+RUN echo "gcc version: "; gcc --version
+RUN echo "make version: "; make --version
 
+# https://github.com/oracle/truffleruby/blob/master/doc/user/ruby-managers.md#chruby
+RUN if [ -e "$GRAALVM_DIR/jre" ]; then  ruby_home=$($JAVA_HOME/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$($JAVA_HOME/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}
