@@ -12,7 +12,7 @@ RUN apt-get update \
        libfontconfig1 libxrender1 libxtst6 \
        openssl libssl-dev libcrypto++-dev \
        libgomp1 zlib1g liblzma5 libc6 libbz2-1.0 libz.a \
-       patch make gcc g++ \
+       patch \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 

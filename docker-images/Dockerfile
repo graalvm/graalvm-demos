@@ -15,7 +15,12 @@ RUN echo "Testing 'wrk':"; wrk || true
 RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-                       wget curl vim unzip gnupg2
+                       wget curl vim unzip gnupg2 \
+                       make gcc g++
+
+# Install gcc and make
+RUN echo "gcc version: "; gcc --version
+RUN echo "make version: "; make --version
 
 # Install and setup GraalVM
 COPY --from=graalvm-jdk-image /opt/graalvm-* /graalvm
