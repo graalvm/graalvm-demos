@@ -98,6 +98,10 @@ ENV MICRONAUT_HOME="/root/.micronaut/micronaut-cli"
 ENV PATH=${MICRONAUT_HOME}/bin:${PATH}
 RUN echo; echo " --- Micronaut version"; mn --version; echo
 
+# Some demo apps require this env variable set
+ENV GRAALVM_HOME=${GRAALVM_HOME}
+RUN echo; echo "GRAALVM_HOME=${GRAALVM_HOME}"; echo
+
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}
