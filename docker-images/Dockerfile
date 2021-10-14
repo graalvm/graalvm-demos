@@ -53,7 +53,12 @@ RUN echo "gcc version: "; gcc --version
 RUN echo "make version: "; make --version
 
 # https://github.com/oracle/truffleruby/blob/master/doc/user/ruby-managers.md#chruby
-RUN if [ -e "$GRAALVM_DIR/jre" ]; then  ruby_home=$($JAVA_HOME/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$($JAVA_HOME/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
+
+RUN export RUBY_POST_HOOK_SCRIPT="$(find ${GRAALVM_HOME} -name *post_install_hook.sh*)";  \
+   chmod +x ${RUBY_POST_HOOK_SCRIPT}; \
+   bash ${RUBY_POST_HOOK_SCRIPT};
+
+RUN if [ -e "${GRAALVM_HOME}/jre" ]; then  ruby_home=$(${GRAALVM_HOME}/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$(${GRAALVM_HOME}/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
 
 
 # Install Java 8
