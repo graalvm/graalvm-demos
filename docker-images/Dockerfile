@@ -6,7 +6,7 @@ FROM ${SOURCE_DOCKER_HUB}:${FULL_GRAALVM_VERSION} as graalvm-jdk-image
 FROM ${DOCKER_USER_NAME}/micronaut-starter:${FULL_GRAALVM_VERSION} as micronaut-starter-image
 FROM ${DOCKER_USER_NAME}/workload-generator as workload-generator
 
-FROM buildpack-deps:stretch-scm
+FROM debian:buster
 
 COPY --from=workload-generator /tmp/wrk/wrk /usr/local/bin
 RUN echo "Testing 'wrk':"; wrk || true
@@ -18,6 +18,9 @@ RUN apt-get update \
                        wget curl vim unzip gnupg2 \
                        make gcc g++ \
                        openssl libssl-dev libcrypto++-dev libz.a
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/*
+
 
 # Install gcc and make
 RUN echo "gcc version: "; gcc --version
@@ -72,7 +75,7 @@ RUN echo " --- Java 8 version:"; ${JDK8_HOME}/bin/java -version; echo
 # Install mvn
 ARG MAVEN_VERSION
 RUN cd /tmp
-RUN wget -q -nv https://raw.githubusercontent.com/Drambluker/install-maven/main/install-maven.sh
+RUN wget -q -nv --no-check-certificate https://raw.githubusercontent.com/Drambluker/install-maven/main/install-maven.sh
 RUN wget -q -nv --no-check-certificate "https://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN chmod +x ./install-maven.sh
 RUN ./install-maven.sh -f apache-maven-${MAVEN_VERSION}-bin.tar.gz
@@ -82,14 +85,14 @@ RUN echo " --- Maven version:"; mvn --version; echo
 
 # Install gradle
 ARG GRADLE_VERSION
-RUN cd /tmp/; wget -q -nv https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+RUN cd /tmp/; wget -q -nv --no-check-certificate https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN cd /tmp/; unzip gradle-${GRADLE_VERSION}-bin.zip && mv gradle-${GRADLE_VERSION} /
 ENV GRADLE_HOME="/gradle-${GRADLE_VERSION}"
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
 RUN echo " --- Gradle version:"; gradle --version; echo
 
 # Install jmeter
-RUN cd /tmp/; wget -nv --no-check-certificate "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.1.zip"
+RUN cd /tmp/; wget -q -nv --no-check-certificate "https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.1.zip"
 RUN unzip /tmp/apache-jmeter-5.4.1.zip
 ENV JMETER_HOME="${WORKDIR}/apache-jmeter-5.4.1"
 ENV PATH=${JMETER_HOME}/bin:${PATH}
@@ -99,13 +102,13 @@ RUN echo " --- Jmeter version:"; jmeter --version; echo
 ARG SBT_VERSION
 RUN echo; echo "--- Installing scala and sbt in the slim image"; echo
 # See https://www.scala-sbt.org/download.html
-RUN cd /tmp/; wget -q -nv https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.zip
+RUN cd /tmp/; wget -q -nv --no-check-certificate https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.zip
 RUN cd /tmp/; unzip sbt-${SBT_VERSION}.zip; mv sbt /usr/share; ln -s /usr/share/sbt/bin/sbt /usr/bin/sbt
 RUN echo "sbt version:"; sbt --version | grep "sbt script version"; echo
 
 ARG SCALA_VERSION
 # See https://www.scala-lang.org/download/
-RUN cd /tmp/; wget -q -nv https://github.com/lampepfl/dotty/releases/download/${SCALA_VERSION}/scala3-${SCALA_VERSION}.zip
+RUN cd /tmp/; wget -q -nv --no-check-certificate https://github.com/lampepfl/dotty/releases/download/${SCALA_VERSION}/scala3-${SCALA_VERSION}.zip
 RUN cd /tmp/; unzip scala3-${SCALA_VERSION}.zip; mv scala3-${SCALA_VERSION} /usr/share/scala;
 RUN ln -s /usr/share/scala /usr/share/scala-${SCALA_VERSION}; ln -s /usr/share/scala/bin/scala /usr/bin/scala
 RUN echo "scala version:"; scala -version; echo

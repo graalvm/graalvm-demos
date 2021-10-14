@@ -5,7 +5,7 @@ set -u
 set -o pipefail
 
 if [[ -n "${DOCKER_USER_NAME:-}" ]]; then
-   echo "DOCKER_USER_NAME has been defined been defined in the environment, hence docker image built WILL BE pushed to user's Docker hub."
+   echo "DOCKER_USER_NAME has been defined in the environment, hence docker image built WILL BE pushed to user's Docker hub."
    PUSH_IMAGE_TO_HUB="yes"
 else 
    echo "DOCKER_USER_NAME with has NOT been defined in the environment, hence docker image built WILL NOT be pushed to user's Docker hub."
