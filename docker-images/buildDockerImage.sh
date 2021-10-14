@@ -102,11 +102,11 @@ TARGET_IMAGE="${DOCKER_USER_NAME}/${FULL_DOCKER_TAG_NAME}-gui:${FULL_GRAALVM_VER
 echo; echo "--- Building Docker image (gui) for GraalVM version ${TARGET_IMAGE} for ${WORKDIR}" >&2; echo
 docker pull ${TARGET_IMAGE} && echo "Finished pulling ${TARGET_IMAGE} from remote repo" || true
 
-time docker build                                                         \
-                 --build-arg DOCKER_USER_NAME=${DOCKER_USER_NAME}         \
-                 --build-arg SOURCE_DOCKER_HUB="${SOURCE_DOCKER_HUB}"     \
+time docker build                                                           \
+                 --build-arg DOCKER_USER_NAME=${DOCKER_USER_NAME}           \
+                 --build-arg SOURCE_DOCKER_HUB="${SOURCE_DOCKER_HUB}"       \
                  --build-arg FULL_GRAALVM_VERSION="${FULL_GRAALVM_VERSION}" \
-                 -t ${TARGET_IMAGE}                                       \
+                 -t ${TARGET_IMAGE}                                         \
                  -f Dockerfile-gui "."
 pushImageToHub ${TARGET_IMAGE}
 

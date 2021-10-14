@@ -10,8 +10,7 @@ RUN apt-get update \
        x11vnc xvfb xterm \
        xfonts-75dpi xfonts-100dpi xfonts-base \
        libfontconfig1 libxrender1 libxtst6 \
-       openssl libssl-dev libcrypto++-dev \
-       libgomp1 zlib1g liblzma5 libc6 libbz2-1.0 libz.a \
+       libgomp1 zlib1g liblzma5 libc6 libbz2-1.0 \
        patch \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
@@ -27,19 +26,10 @@ RUN echo "xterm*font:     *-Monospace-*-*-*-18-*" > ~/.Xresources
 RUN echo ""; echo "Contents of ~/.Xresources"; echo ""; cat ~/.Xresources; echo "";
 
 # Adding environment variable to support older demos that rely on the GRAALVM_DIR env variable
-ENV GRAALVM_DIR=${JAVA_HOME}
+ENV GRAALVM_DIR="${JAVA_HOME}"
 RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
+RUN echo "GRAALVM_HOME=${GRAALVM_HOME}"
 
-# Rebuild Ruby to make the Ruby openssl C extensions to work with the local system libssl (see https://github.com/oracle/truffleruby/blob/master/doc/user/installing-graalvm.md#installing-ruby-and-other-languages)
-ENV LANG=en_US.UTF-8
-RUN echo "Rebuilding Ruby to make the Ruby openssl C extensions to work with the local system libssl"
-RUN if [ -e "$GRAALVM_DIR/jre" ]; then  $GRAALVM_DIR/jre/languages/ruby/lib/truffle/post_install_hook.sh;  else $GRAALVM_DIR/languages/ruby/lib/truffle/post_install_hook.sh; fi
-
-RUN echo "gcc version: "; gcc --version
-RUN echo "make version: "; make --version
-
-# https://github.com/oracle/truffleruby/blob/master/doc/user/ruby-managers.md#chruby
-RUN if [ -e "$GRAALVM_DIR/jre" ]; then  ruby_home=$($JAVA_HOME/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$($JAVA_HOME/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}

@@ -16,7 +16,8 @@ RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
                        wget curl vim unzip gnupg2 \
-                       make gcc g++
+                       make gcc g++ \
+                       openssl libssl-dev libcrypto++-dev libz.a
 
 # Install gcc and make
 RUN echo "gcc version: "; gcc --version
@@ -38,6 +39,21 @@ RUN echo; echo " --- Download & install 'python' using gu"; gu install python; e
 RUN echo; echo " --- Download & install 'R' using gu"; gu install R; echo
 RUN echo; echo " --- Download & install 'Ruby' using gu"; gu install ruby; echo
 RUN echo; echo " --- Download & install 'native-image' using gu"; gu install native-image; echo
+
+# Rebuild Ruby to make the Ruby openssl C extensions to work with the local system libssl (see https://github.com/oracle/truffleruby/blob/master/doc/user/installing-graalvm.md#installing-ruby-and-other-languages)
+ENV LANG=en_US.UTF-8
+RUN echo "Rebuilding Ruby to make the Ruby openssl C extensions to work with the local system libssl"
+
+RUN export RUBY_POST_HOOK_SCRIPT="$(find ${GRAALVM_HOME} -name *post_install_hook.sh*)";  \
+   chmod +x ${RUBY_POST_HOOK_SCRIPT}; \
+   bash ${RUBY_POST_HOOK_SCRIPT};
+
+
+RUN echo "gcc version: "; gcc --version
+RUN echo "make version: "; make --version
+
+# https://github.com/oracle/truffleruby/blob/master/doc/user/ruby-managers.md#chruby
+RUN if [ -e "$GRAALVM_DIR/jre" ]; then  ruby_home=$($JAVA_HOME/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$($JAVA_HOME/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
 
 
 # Install Java 8
