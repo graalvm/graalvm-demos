@@ -42,6 +42,8 @@ echo "7/7 Building espresso-jshell native image, this may take a few minutes..."
   -J-Djdk.image.use.jvm.map=false \
   -J-Dorg.graalvm.launcher.home="$GRAALVM_HOME" \
   -J--patch-module -Jjdk.jshell=./jdk.jshell-patch `# patch for Java 8, not required for 11` \
+  -H:+ReportExceptionStackTraces \
+  $@ \
   -jar espresso-jshell.jar
 
 echo "Done!"
