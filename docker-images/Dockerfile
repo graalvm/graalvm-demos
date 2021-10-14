@@ -17,10 +17,20 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
                        wget curl vim unzip gnupg2 \
                        make gcc g++ \
-                       openssl libssl-dev libcrypto++-dev libz.a
-RUN apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/*
+                       openssl libssl-dev libcrypto++-dev libz.a \
+                       locales
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/*
 
+# https://www.rosehosting.com/blog/configure-system-locale-on-debian-9/
+# https://people.debian.org/~schultmc/locales.html <-- simple steps
+RUN echo "--- Installing and setting locales"
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+ENV LANG="en_US.UTF-8"
+ENV LANGUAGE="en_US"
+RUN locale-gen
+RUN echo; echo "LANG=${LANG}"; echo "LANGUAGE=${LANGUAGE}";
+RUN echo; echo "List of installed locales:"; locale -a; echo;
 
 # Install gcc and make
 RUN echo "gcc version: "; gcc --version
@@ -44,23 +54,16 @@ RUN echo; echo " --- Download & install 'Ruby' using gu"; gu install ruby; echo
 RUN echo; echo " --- Download & install 'native-image' using gu"; gu install native-image; echo
 
 # Rebuild Ruby to make the Ruby openssl C extensions to work with the local system libssl (see https://github.com/oracle/truffleruby/blob/master/doc/user/installing-graalvm.md#installing-ruby-and-other-languages)
-ENV LANG=en_US.UTF-8
 RUN echo "Rebuilding Ruby to make the Ruby openssl C extensions to work with the local system libssl"
 
 RUN export RUBY_POST_HOOK_SCRIPT="$(find ${GRAALVM_HOME} -name *post_install_hook.sh*)";  \
    chmod +x ${RUBY_POST_HOOK_SCRIPT}; \
    bash ${RUBY_POST_HOOK_SCRIPT};
 
-
 RUN echo "gcc version: "; gcc --version
 RUN echo "make version: "; make --version
 
 # https://github.com/oracle/truffleruby/blob/master/doc/user/ruby-managers.md#chruby
-
-RUN export RUBY_POST_HOOK_SCRIPT="$(find ${GRAALVM_HOME} -name *post_install_hook.sh*)";  \
-   chmod +x ${RUBY_POST_HOOK_SCRIPT}; \
-   bash ${RUBY_POST_HOOK_SCRIPT};
-
 RUN if [ -e "${GRAALVM_HOME}/jre" ]; then  ruby_home=$(${GRAALVM_HOME}/jre/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]');  else ruby_home=$(${GRAALVM_HOME}/languages/ruby/bin/ruby -e 'print RbConfig::CONFIG["prefix"]'); fi
 
 
