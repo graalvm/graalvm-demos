@@ -259,3 +259,4 @@ fastR-examples/*.*
 *.whl
 .vscode
 *.log?
+venv/
