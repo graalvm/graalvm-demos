@@ -61,7 +61,7 @@ RUN export RUBY_POST_HOOK_SCRIPT="$(find ${GRAALVM_HOME} -name *post_install_hoo
    bash ${RUBY_POST_HOOK_SCRIPT};
 # At the moment this is a simple litmus test to verify that the above step has actually worked!
 RUN echo "Installing ruby gems to verify if the above installation and rebuilding processes are working..."
-RUN gem install rspec, galaaz
+RUN gem install rspec galaaz
 
 RUN echo "gcc version: "; gcc --version
 RUN echo "make version: "; make --version
