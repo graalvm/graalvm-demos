@@ -30,6 +30,12 @@ ENV GRAALVM_DIR="${JAVA_HOME}"
 RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
 RUN echo "GRAALVM_HOME=${GRAALVM_HOME}"
 
+# Install python packages using graalpython, to prepare the image beforehand, and also to verify if the environment is ready for these packages
+RUN graalpython -m venv venv
+RUN VIRTUAL_ENV=venv
+RUN graalpython -Im ensurepip --upgrade --default-pip
+RUN graalpython -m ginstall install matplotlib,Pillow,pandas%
+
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
 LABEL graalvm_version=${FULL_GRAALVM_VERSION}
