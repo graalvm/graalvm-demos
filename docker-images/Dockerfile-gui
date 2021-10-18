@@ -11,7 +11,7 @@ RUN apt-get update \
        xfonts-75dpi xfonts-100dpi xfonts-base \
        libfontconfig1 libxrender1 libxtst6 \
        libgomp1 zlib1g liblzma5 libc6 \
-       libbz2-1.0 bzip2 patch \
+       libbz2-1.0 bzip2 patch ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
@@ -29,12 +29,6 @@ RUN echo ""; echo "Contents of ~/.Xresources"; echo ""; cat ~/.Xresources; echo 
 ENV GRAALVM_DIR="${JAVA_HOME}"
 RUN echo "GRAALVM_DIR=${GRAALVM_DIR}"
 RUN echo "GRAALVM_HOME=${GRAALVM_HOME}"
-
-# Install python packages using graalpython, to prepare the image beforehand, and also to verify if the environment is ready for these packages
-RUN graalpython -m venv venv
-RUN VIRTUAL_ENV=venv
-RUN graalpython -Im ensurepip --upgrade --default-pip
-RUN graalpython -m ginstall install matplotlib,Pillow,pandas%
 
 LABEL maintainer="GraalVM team"
 LABEL example_git_repo="https://github.com/graalvm/graalvm-demos"
