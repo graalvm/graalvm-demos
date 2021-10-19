@@ -11,7 +11,7 @@ RUN apt-get update \
        xfonts-75dpi xfonts-100dpi xfonts-base \
        libfontconfig1 libxrender1 libxtst6 \
        libgomp1 zlib1g liblzma5 libc6 \
-       libbz2-1.0 bzip2 patch ca-certificates \
+       libbz2-1.0 bzip2 patch \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
