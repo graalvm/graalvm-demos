@@ -16,7 +16,7 @@ RUN echo; echo "--- Installing wget, curl, vim, unzip in the slim image"; echo
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
                        wget curl vim unzip gnupg2 \
-                       make gcc g++ \
+                       make gcc g++ libc++-dev \
                        openssl libssl-dev libcrypto++-dev libz.a \
                        locales
 RUN apt-get clean && \
