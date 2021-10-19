@@ -36,10 +36,11 @@ RUN echo; echo "List of installed locales:"; locale -a; echo;
 RUN echo "gcc version: "; gcc --version
 RUN echo "make version: "; make --version
 
-# Install and setup GraalVM
-COPY --from=graalvm-jdk-image /opt/graalvm-* /graalvm
-
 ARG GRAALVM_HOME
+
+# Install and setup GraalVM
+COPY --from=graalvm-jdk-image /opt/graalvm-* ${GRAALVM_HOME}
+
 ENV JAVA_HOME=${GRAALVM_HOME}
 ENV PATH=${JAVA_HOME}/bin:${PATH}
 RUN echo; echo "JAVA_HOME=${JAVA_HOME}"; echo

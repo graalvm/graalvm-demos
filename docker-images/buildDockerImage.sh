@@ -22,7 +22,7 @@ DOCKER_IMAGE_TAGS_WEBSITE="https://github.com/graalvm/container/pkgs/container/g
 
 FULL_GRAALVM_VERSION="${1:-"${DEFAULT_GRAALVM_VERSION}"}"
 FULL_DOCKER_TAG_NAME="graalvm-demos"
-GRAALVM_HOME_FOLDER="/graalvm"
+GRAALVM_HOME_FOLDER="/opt/graalvm"
 
 MAVEN_VERSION="3.8.3"
 GRADLE_VERSION="7.2"
