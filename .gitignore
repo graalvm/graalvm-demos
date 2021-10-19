@@ -260,3 +260,7 @@ fastR-examples/*.*
 .vscode
 *.log?
 venv/
+espresso-jshell/espresso-jshell
+espresso-jshell/espresso-jshell.build_artifacts.txt
+native-list-dir/extlistdir
+native-list-dir/extlistdir.build_artifacts.txt
