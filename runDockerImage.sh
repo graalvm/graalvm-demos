@@ -30,12 +30,12 @@ fi
 CONTAINER_NAME="$(echo ${TARGET_IMAGE} | tr '/:' '-')"
 
 echo "Attempting to download the ${TARGET_IMAGE} docker image from local (or remote) repos, this may take a moment..."  >&2
-IMAGE_EXISTS="$(docker pull ${TARGET_IMAGE} || true)"
+IMAGE_EXISTS=$(docker pull ${TARGET_IMAGE} >&2 || (echo $? && true))
 
 if [[ ! -n "${IMAGE_EXISTS}" ]]; then
     echo ${IMAGE_EXISTS} >&2
     echo ""; echo "The \"${TARGET_IMAGE}\" Docker image found in the Docker registry." >&2; echo ""
-else:
+else
     echo "" >&2
     echo "The \"${TARGET_IMAGE}\" Docker image (with the version tag) does not exist in the local (or remote) Docker registry." >&2
     echo "" >&2
