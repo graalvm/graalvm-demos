@@ -221,10 +221,46 @@ typings/
 # dotenv environment variables file
 .env
 
+# macOS related
+.DS_Store
 
+# oci, terraform related
+**/credentials.rc
+terraform.tfstate
+terraform.tfstate.backup
 
 # End of https://www.gitignore.io/api/java,node,maven,eclipse,intellij+all
 jmeter.log
 apache-jmeter*
 *.jtl
 micronaut-webapp/docker-compose.yml
+/hello-graal/Hello
+/hello-graal/Hello.build_artifacts.txt
+native-list-dir/listdir
+native-list-dir/listdir.build_artifacts.txt
+java-kotlin-aot/helloworld
+java-kotlin-aot/helloworld.build_artifacts.txt
+shared
+micronaut-nativeimage/hello/
+micronaut-webapp/loadTests/results-*
+mn-python/env/
+functionGraphDemo/Rplot001.svg
+native-netty-plot/netty-plot.build_artifacts.txt
+native-netty-plot/src/main/resources/META-INF/native-image/*
+polyglot-javascript-java-r/Rplot001.svg
+polyglot-javascript-java-r/package-lock.json
+spring-r/Rplot001.svg
+scala-examples/scalac-native/project/
+scala-examples/scalac-native/scalac.build_artifacts.txt
+graalpython-notebook-example/venv/
+micronaut-python/venv/
+nohup.out
+fastR-examples/*.*
+*.whl
+.vscode
+*.log?
+venv/
+espresso-jshell/espresso-jshell
+espresso-jshell/espresso-jshell.build_artifacts.txt
+native-list-dir/extlistdir
+native-list-dir/extlistdir.build_artifacts.txt

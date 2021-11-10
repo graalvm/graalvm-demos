@@ -21,7 +21,12 @@ This example demonstrates how to integrate Python on GraalVM with a Java applica
   mvn compile
   ```
 
-4. Run the example:
+4. Install the dependencies:
+  ```bash
+  ./install-deps.sh
+  ```
+
+5. Run the example:
   ```bash
   mvn exec:java
   ```

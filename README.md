@@ -7,6 +7,34 @@ These programs are illustrating diverse capabilities of [GraalVM](http://graalvm
 
 Clone this repository. Every top level folder here contains demo sources and the instructions on how to run that particular code are in its README.md.
 
+In case you wish to run some of the examples (console-based, non-GUI) inside the confinement of a docker container, then please follow then after cloning the repo but before running any of the demos, please do the below:
+
+Build the **GraalVM** demo docker image of choice:
+```
+   $ cd docker-images
+   $ ./buildDockerImage.sh "java11-21.2.0"
+```
+
+Run the GraalVM demo docker container built above:
+```
+   $ ./runDockerImage.sh "java11-21.2.0"
+```
+
+
+Run a docker container with GraalVM runtime in it (from the root directory of the project) for **GUI-based** apps:
+
+```
+   $ DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
+```
+
+_(One-off: download and install any **VNCViewer**)_
+_(Wait for the container to be ready, then run VNCViewer and then log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the **VNCViewer** to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the docker console or any other CLI prompt.)_
+
+Note: Valid tags to specify as parameters, can be found [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce). A number of free or commercial [VNCViewers](https://duckduckgo.com/?q=vnc+viewer+download&ia=web) can be found online and are fairly easy to use.
+ 
+
+Once the docker container is running, go to the folder of the respective demos, and follow the instructions.
+
 ## Tested Compatibility
 
 The demos are normal applications and benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on.

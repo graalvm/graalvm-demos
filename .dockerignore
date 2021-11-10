@@ -1,0 +1,6 @@
+shared
+_dot_gradle_folder
+_dot_m2_folder
+.git
+.gitmodules
+.idea
