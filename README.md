@@ -35,7 +35,7 @@ Running GUI-based applications inside a Docker container requires some intermedi
 2. Wait for the container to be ready, then run VNC Viewer.
 3. Log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the VNC Viewer to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the Docker console or any other CLI prompt.
 
-Finally, from the root directory of GraalVM Demos repository, run a Docker container with GraalVM runtime in it:
+Finally, from the root directory of this repository, run a Docker container with the GraalVM runtime in it:
   ```
   DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
   ```
