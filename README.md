@@ -14,17 +14,17 @@ Some of the demos (console-based, non-GUI) can be run inside the confinement of 
 After cloning the repository, but before running any of the demos, do the following:
 
 1. Build the GraalVM demo Docker image of choice:
-  ```
-  cd docker-images
-  ./buildDockerImage.sh "java11-21.2.0"
-  ```
+    ```
+    cd docker-images
+    ./buildDockerImage.sh "java11-21.2.0"
+    ```
 
-  Note: You can find valid tags to specify as parameters [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce).
+    Note: You can find valid tags to specify as parameters [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce).
 
 2. Return to the root directory of the project and run the GraalVM demo Docker container built above:
-  ```
-  ./runDockerImage.sh "java11-21.2.0"
-  ```
+    ```
+    ./runDockerImage.sh "java11-21.2.0"
+    ```
 
 Once the Docker container is running, go to the folder of the respective demo, and follow the instructions from its README.md.
 Note that GraalVM runtime built with Docker will already contain additional GraalVM components such as Node.JS, Ruby, Python etc., required to run some of the demos.
@@ -50,8 +50,7 @@ However, these examples were tested and are known to work with GraalVM 21.2.0 bu
 
 * [GraalVM website](https://www.graalvm.org)
 * [GraalVM on GitHub](https://github.com/oracle/graal/tree/master/compiler)
-* [Papers on Truffle](http://ssw.jku.at/Research/Projects/JVM/Truffle.html)
-* [Papers on GraalVM](http://ssw.jku.at/Research/Projects/JVM/Graal.html)
+* [Scientific Publications](https://github.com/oracle/graal/blob/master/docs/Publications.md)
 
 ## License
 
