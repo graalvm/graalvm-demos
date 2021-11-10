@@ -5,50 +5,51 @@ These programs are illustrating diverse capabilities of [GraalVM](http://graalvm
 
 ## Running
 
-Clone this repository. Every top level folder here contains demo sources and the instructions on how to run that particular code are in its README.md.
+Every top level folder here contains demo sources and the instructions on how to run that particular demo are in its README.md.
+To run a demo, clone this repository, enter the demo folder, and follow steps in the README.md.
 
-In case you wish to run some of the examples (console-based, non-GUI) inside the confinement of a docker container, then please follow then after cloning the repo but before running any of the demos, please do the below:
+### Running in a Docker Container
 
-Build the **GraalVM** demo docker image of choice:
-```
-   $ cd docker-images
-   $ ./buildDockerImage.sh "java11-21.2.0"
-```
+Some of the demos (console-based, non-GUI) can be run inside the confinement of a Docker container.
+After cloning the repository, but before running any of the demos, do the following:
 
-Run the GraalVM demo docker container built above:
-```
-   $ ./runDockerImage.sh "java11-21.2.0"
-```
+1. Build the GraalVM demo Docker image of choice:
+  ```
+  cd docker-images
+  ./buildDockerImage.sh "java11-21.2.0"
+  ```
 
+  Note: You can find valid tags to specify as parameters [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce).
 
-Run a docker container with GraalVM runtime in it (from the root directory of the project) for **GUI-based** apps:
+2. Return to the root directory of the project and run the GraalVM demo Docker container built above:
+  ```
+  ./runDockerImage.sh "java11-21.2.0"
+  ```
 
-```
-   $ DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
-```
+Once the Docker container is running, go to the folder of the respective demo, and follow the instructions from its README.md.
+Note that GraalVM runtime built with Docker will already contain additional GraalVM components such as Node.JS, Ruby, Python etc., required to run some of the demos.
 
-_(One-off: download and install any **VNCViewer**)_
-_(Wait for the container to be ready, then run VNCViewer and then log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the **VNCViewer** to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the docker console or any other CLI prompt.)_
+Running GUI-based applications inside a Docker container requires some intermediate VNC Viewer to access the GUI interface.
 
-Note: Valid tags to specify as parameters, can be found [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce). A number of free or commercial [VNCViewers](https://duckduckgo.com/?q=vnc+viewer+download&ia=web) can be found online and are fairly easy to use.
- 
+1. Download and install any **VNC Viewer**. A number of free or commercial VNC Viewers can be found [here]((https://duckduckgo.com/?q=vnc+viewer+download&ia=web).
+2. Wait for the container to be ready, then run VNC Viewer.
+3. Log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the VNC Viewer to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the Docker console or any other CLI prompt.
 
-Once the docker container is running, go to the folder of the respective demos, and follow the instructions.
+Finally, from the root directory of GraalVM Demos repository, run a Docker container with GraalVM runtime in it:
+  ```
+  DEMO_TYPE="gui" ./runDockerImage.sh "java11-21.2.0"
+  ```
 
 ## Tested Compatibility
 
 The demos are normal applications and benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on.
 You can run it on the stock JVM, Node, etc..
-
 However, these examples were tested and are known to work with GraalVM 21.2.0 builds based on JDK 11.
 
 ## Further Information
 
 * [GraalVM website](https://www.graalvm.org)
 * [GraalVM on GitHub](https://github.com/oracle/graal/tree/master/compiler)
-* [Truffle Javadoc](http://www.graalvm.org/truffle/javadoc/)
-* [Truffle on GitHub](https://github.com/oracle/graal/tree/master/truffle)
-* [Truffle tutorials and presentations](https://github.com/oracle/graal/blob/master/docs/Publications.md)
 * [Papers on Truffle](http://ssw.jku.at/Research/Projects/JVM/Truffle.html)
 * [Papers on GraalVM](http://ssw.jku.at/Research/Projects/JVM/Graal.html)
 
