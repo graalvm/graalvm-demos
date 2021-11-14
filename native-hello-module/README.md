@@ -69,11 +69,14 @@ The following modularized Java Hello World example
 can be executed via Java using the following command:
 
     $ java --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
-    Hello from Java Module: HelloModule
+    Hello from Java Module: HelloModule    
 
     $ time java --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
     Hello from Java Module: HelloModule
-
+    
+    real	0m1.470s
+    user	0m0.863s
+    sys	    0m0.620s
 
 With GraalVM 21.3 we can **now also build Java modules** into images. Using:
 
@@ -93,3 +96,7 @@ builds the modular Java app into an image that can be executed with:
 
     $ time ./hellomodule 
     Hello from Java Module: HelloModule
+
+    real	0m0.544s
+    user	0m0.011s
+    sys	    0m0.031s
