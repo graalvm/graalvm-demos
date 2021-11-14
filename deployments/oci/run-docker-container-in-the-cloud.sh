@@ -7,9 +7,9 @@ INSTANCE_PUBLIC_IP="$(get-instance-public-ip.sh)"
 
 echo "Public IP address of the cloud instance running is ${INSTANCE_PUBLIC_IP}"
 
+ANY_CLI_ARGS="$@"
 exit_code=0
-ssh opc@${INSTANCE_PUBLIC_IP} \
-    'cd graalvm-demos; git checkout provide-Docker-scripts; ./runDockerImage.sh' \
+ssh opc@${INSTANCE_PUBLIC_IP} "${ANY_CLI_ARGS}" \
     || exit_code=$? && true
 
 if [[ ${exit_code} -eq 0 ]]; then
