@@ -15,15 +15,13 @@ variable "ssh_private_key" {}
 // `project_code` is used as prefix to `xxx_label` variables
 // Terraform & OCI conventions mean they should be under 15 characters
 variable "project_code" {
-  //default = "gvm-demos"
   default = "demos"
 }
 
 // `project_name` is used as prefix to `display_name` variables
 // Can be long, but must follow Terraform & OCI conventions
 variable "project_name" {
-  //default = "GVMDemos-OCI-TF"
-  default = "Demos-OCI-TF"
+  default = "GVMDemos-OCI"
 }
 
 variable "suffix_name" {
