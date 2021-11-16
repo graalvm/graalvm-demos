@@ -13,6 +13,9 @@
         <graalvm.version>20.0.0</graalvm.version>
         <jackson.version>2.10.1</jackson.version>
         <app.main.class>oracle.App</app.main.class>
+        <!-- Define the version of the GraalVM Maven Plugin we want to use -->
+        <native.maven.plugin.version>0.9.7.1</native.maven.plugin.version>
+        <!-- We can use properties to define the name of the executable we produce -->
         <exe.file.name>file-count</exe.file.name>
     </properties>
 
@@ -31,72 +34,13 @@
     </dependencies>
 
     <profiles>
-        <!-- This is the profile for running the JIT version of the app. To run:
-
-            $ mvn clean package exec:exec -PJAVA
-        -->
-        <profile>
-            <id>JAVA</id>
-            <build>
-                <!-- Compiler -->
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.8.0</version>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                        </configuration>
-                    </plugin>
-                    <!-- Package -->
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                                <archive>
-                                <manifest>
-                                    <!-- Specify the main class -->
-                                    <mainClass>${app.main.class}</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Run the app, quick way of testing the Java version -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2</version>
-                        <configuration>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-classpath</argument>
-                                <classpath />
-                                <argument>${app.main.class}</argument>
-                            </arguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <!-- This is the profile for running the JIT version of the app AND RUNNING THE AGENTLIB
             to profile the app to identify reflection etc. To run:
 
             $ mvn clean package exec:exec -PJAVA_AGENT_LIB
         -->
         <profile>
-            <id>JAVA_AGENT_LIB</id>
+            <id>java_agent</id>
             <build>
                 <plugins>
                     <!-- Compiler -->
@@ -160,68 +104,35 @@
             $ mvn clean package exec:exec -PNATIVE_IMAGE
         -->
         <profile>
-            <id>NATIVE_IMAGE</id>
+            <id>native</id>
             <build>
                 <plugins>
-                    <!-- Compiler -->
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.8.0</version>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                        </configuration>
-                    </plugin>
-                    <!-- Package -->
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                                <archive>
-                                <manifest>
-                                    <!-- Specify the main class -->
-                                    <mainClass>${app.main.class}</mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <!-- Native Image -->
                     <plugin>
-                        <groupId>org.graalvm.nativeimage</groupId>
-                        <artifactId>native-image-maven-plugin</artifactId>
-                        <version>${graalvm.version}</version>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${native.maven.plugin.version}</version>
+                        <extensions>true</extensions>
                         <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
+                        <execution>
+                            <id>build-native</id>
+                            <goals>
+                            <goal>build</goal>
+                            </goals>
+                            <phase>package</phase>
+                        </execution>
                         </executions>
                         <configuration>
                             <!-- Set this to true if you need to switch this off -->
                             <skip>false</skip>
                             <!-- The output name for the executable -->
                             <imageName>${exe.file.name}</imageName>
-                            <!-- Set any parameters we need to pass to the native-image tool.
-                                no-fallback : create a native image that doesn't fall back to the JVM
-                                no-server : don't start a build server, which you then just need to shut down,
-                                            in order to build the image
-                            -->
+                            <mainClass>${app.main.class}</mainClass>
                             <buildArgs>
-                                --no-fallback --no-server
+                                <!-- With Enterprise you can use the G1GC -->
+                                <!--buildArg>- -gc=G1</buildArg-->
+                                <buildArg>--no-fallback</buildArg>
+                                <buildArg>--report-unsupported-elements-at-runtime</buildArg>
                             </buildArgs>
                         </configuration>
                     </plugin>
@@ -229,4 +140,57 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <plugins>
+            <!-- Compiler -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <!-- Package -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                        <archive>
+                        <manifest>
+                            <!-- Specify the main class -->
+                            <mainClass>${app.main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Run the app, quick way of testing the Java version -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <classpath />
+                        <argument>${app.main.class}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
