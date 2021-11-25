@@ -1,51 +1,63 @@
 # GraalVM Native Image Workshop
 
+## Prerequisites
+
+* OS : Linux or Mac OSX
+* Apache Maven
+
 ## Introduction
 
-This workshop aims to walk you through a number of features GraalVM's Native Image offers,
-namely:
-
-1. Run a basic Java app
-2. Build a native image from it and see how that compares in terms of startup time
-3. Look at how we use the tracing agent to identify any dynamic features
-4. Run some of the application at the native image build time
-
-## Setup
-
-Install GraalVM. Instructions can be found [here](./SETUP-QUICK.md).
-
-You need a working version of Maven as well, and this should be covered in the installation instructions.
-
-## Outline of Demo
-
-We are going to use a fairly trivial application to walk through some of the features that
-are available with GraalVM's Native Image. These are:
+We are going to use a fairly trivial application to walk through using GraalVM Native Image. Along the way we will see:
 
 1. How you can turn a Java app into a native executable
-2. How you can deal with Java Reflection API calls, etc..
+2. How you can build a native image that works with the dynamic parts of Java
 3. Using the command line tools for generating a native image, as well as using the Maven tooling
 
-The application is a Java command line app that counts the number of files within the current directory and sub directories.
-It also calculates their total size.
+So what is going to be our testbed application? We will use a command line Java application that counts the number of files within the current directory and sub directories. As a nice extra it also calculates their total size.
 
-You will need to update the code, in the following various steps, in order to work through the points we listed above.
+As you work through this workshop you will need to update the code, in the following steps.
+
+This workshop relies on using GraalVM 21.3 or higher, with GraalVM Native Image installed. It will work with either Community Edition (CE), or Enterprise Edition (EE). If there is any EE speific code / configuration, this will be clearly marked out.
 
 Let's beign!
 
-## Quick Note on Using Maven Profile
+## Setup
 
-The Maven build has been split into several different profiles, each of which serves a different purpose. We can call these profiles by passing a parameter that contains the name of the profile to maven. In the example below the `JAVA` profile is called:
+Install GraalVM. Instructions can be found on the website:
+
+[Linux](https://www.graalvm.org/docs/getting-started/linux/)
+[macOS](https://www.graalvm.org/docs/getting-started/macos/)
+[Windows](https://www.graalvm.org/docs/getting-started/windows/)
+
+You will need the following installed:
+
+* GraalVM 21.3.0 JDK 11 or JDK17 installed (either Enterprise Edition or Community Edition)
+* Native Image plugin that matches your GraalVM installation
+
+## Quick Note on Using Maven Profiles
+
+This workshop will use Maven profiles. Proflies are a great way to have different build configurtions within a single `pom.xml` file. You can find out more about them [here](https://maven.apache.org/guides/introduction/introduction-to-profiles.html).
+
+We will use several profiles throughout the project, each of which will serve a different purpose. We are able to call these profiles by passing a parameter containing the name of the profile to `mvn`. The example below shows how we would call the `JAVA` profile, when building with maven:
 
 ![User Input](./images/userinput.png)
 ```sh
 $ mvn clean package -PJAVA
 ```
 
-The name of the profile to be called is appended to the `-P` flag. We have the following profiles defined in the maven file:
+The name of the profile to be called is appended to the `-P` flag. We use these profiles within this workshop (all defined in the `pom.xml` file):
 
-1. `JAVA` : This builds the Java applicaiton
-2. `JAVA_AGENT_LIB` : Ths builds the Java application with the tracing agent
-3. `NATIVE_IMAGE` : This builds the native image
+1. `java_agent` : This builds the Java application with the tracing agent. The agent tracks all usages of dynamic features of your application and captures this inforamtion into configuration files
+2. `native` : This builds the native executable
+
+## The Java App
+
+The Java application can be found in the `src` directory and it consists of two files. 
+
+* `App.java` : A wrapper for the `ListDir` application
+* `ListDir.java` : This does all the work, counting the files and summarising the output
+
+We build our application using a maven, `pom.xml` file. Now we have a basic understanding of our application, let's build our application and see how it works.
 
 ## Build the Basic Java App
 
@@ -55,7 +67,7 @@ From a command line:
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn clean package exec:exec -PJAVA
+$ mvn clean package exec:exec
 ```
 
 What the above command does:
@@ -78,9 +90,9 @@ Did it work for you?
 
 ## Build a Native Image from the App
 
-Next, build a native image version of the application.
+Next, we are going to build a native image version of the application. This will start quicker than the Java application.
 
-We will do this by hand first. To begin, check that you have a compiled uber JAR in your `target` dir:
+We will do this by hand first, using the `native-image` tool. To begin, check that you have a compiled uber JAR in your `target` dir:
 
 ![User Input](./images/userinput.png)
 ```sh
@@ -96,11 +108,13 @@ $ ls ./target
 
 The file you will need is, `graalvmnidemos-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
+**NOTE** : You need to have Native Image plugin installed in GraalVM - see the set up instructions.
+
 Now you can generate a native image as follows, within the root of the project:
 
 ![User Input](./images/userinput.png)
 ```sh
-$ native-image -jar ./target/graalvmnidemos-1.0-SNAPSHOT-jar-with-dependencies.jar --no-fallback --no-server -H:Class=oracle.App -H:Name=file-count
+$ native-image -jar ./target/graalvmnidemos-1.0-SNAPSHOT-jar-with-dependencies.jar --no-fallback -H:Class=oracle.App -H:Name=file-count
 ```
 
 This will generate a file called `file-count`, which you can run as follows:
@@ -124,10 +138,9 @@ Compare that to the time running the app with the regular `java` command:
 time java -cp ./target/graalvmnidemos-1.0-SNAPSHOT-jar-with-dependencies.jar oracle.App
 ```
 
-What do the various parameters we passed to the `native-image` command do? Full documentation on these can be found [here](https://www.graalvm.org/docs/reference-manual/native-image/#image-generation-options):
+What do the various parameters we passed to the `native-image` command do? The full documentation on these can be found [here](https://www.graalvm.org/reference-manual/native-image/BuildConfiguration/):
 
-* `--no-server`: Do not start a build server process. For these examples we just want to run the builds. It is possible to run the builds through a build server.
-* `--no-fallback`: Do not generate a fallback image. A fallback image requires the JVM to run, and we do not want this.We just want it to be a native image.
+* `--no-fallback`: Do not generate a fallback image. A fallback image requires the JVM to run, and we do not want this. We just want it to be a native image.
 * `-H:Class`: Tell the `native-image` builder which class is the entry point method (the `main` method).
 * `-H:Name`: Specify what the output executable file should be called.
 
@@ -136,25 +149,33 @@ We can also run the `native-image` tool using Maven. If you look at the `pom.xml
 ```xml
 <!-- Native Image -->
 <plugin>
-    <groupId>org.graalvm.nativeimage</groupId>
-    <artifactId>native-image-maven-plugin</artifactId>
-    <version>${graalvm.version}</version>
+    <groupId>org.graalvm.buildtools</groupId>
+    <artifactId>native-maven-plugin</artifactId>
+    <version>${native.maven.plugin.version}</version>
+    <extensions>true</extensions>
     <executions>
-        <execution>
-            <goals>
-                <goal>native-image</goal>
-            </goals>
-            <phase>package</phase>
-        </execution>
+    <execution>
+        <id>build-native</id>
+        <goals>
+        <goal>build</goal>
+        </goals>
+        <phase>package</phase>
+    </execution>
     </executions>
     <configuration>
         <!-- Set this to true if you need to switch this off -->
         <skip>false</skip>
         <!-- The output name for the executable -->
         <imageName>${exe.file.name}</imageName>
-        <!-- Set any parameters you need to pass to native-image tool.-->
+        <mainClass>${app.main.class}</mainClass>
         <buildArgs>
-            --no-fallback --no-server
+            <!-- Don't create a native executable that falls back to starting a JVM if the image won't build -->
+            <buildArg>--no-fallback</buildArg>
+            <!-- Warn about features that arent supported by native image at run time.
+                If there is any reflection, for example, this will generate an error at the runtime of
+                native image.
+            -->
+            <buildArg>--report-unsupported-elements-at-runtime</buildArg>
         </buildArgs>
     </configuration>
 </plugin>
@@ -166,7 +187,7 @@ To build the native image using maven:
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn clean package -PNATIVE_IMAGE
+$ mvn clean package -Pnative
 ```
 
 **Note**: The maven build places the executable, `file-count`, in the `target` directory.
@@ -179,14 +200,14 @@ relies on reflection. A good candidate for testing this out would be to add `log
 We've already added it as a dependency in the `pom.xml` file, and it can be seen in the depencies:
 
 ```xml
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
 ```
 
-To add `log4j` all we need to do is to open up the `ListDir.java` file and uncomment some things in order to start using it. Go through and uncomment the various lines that add the imports and the logging code. These are the following lines that need uncommenting:
+To add `log4j` all we need to do is to open up the `ListDir.java` file and uncomment some things in order to start using it. Go through and uncomment the various lines that add the imports and the logging code. Uncomment the following lines:
 
 ```java
 //import org.apache.log4j.Logger;
@@ -214,17 +235,17 @@ OK, so now we have added logging, let's see if it works by rebuilding and runnin
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn clean package exec:exec -PJAVA
+$ mvn clean package exec:exec
 ```
 
-Great, that works. Now, let's build a native image using the maven profile:
+Great, that works. Now, let's build a native image using the Maven profile:
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn clean package -PNATIVE_IMAGE
+$ mvn clean package -Pnative
 ```
 
-The run the built image:
+Then run the executable:
 
 ![User Input](./images/userinput.png)
 ```sh
@@ -237,20 +258,13 @@ This generates an error:
 Exception in thread "main" java.lang.NoClassDefFoundError
         at org.apache.log4j.Category.class$(Category.java:118)
         at org.apache.log4j.Category.<clinit>(Category.java:118)
-        at com.oracle.svm.core.hub.ClassInitializationInfo.invokeClassInitializer(ClassInitializationInfo.java:350)
-        at com.oracle.svm.core.hub.ClassInitializationInfo.initialize(ClassInitializationInfo.java:270)
-        at java.lang.Class.ensureInitialized(DynamicHub.java:496)
-        at com.oracle.svm.core.hub.ClassInitializationInfo.initialize(ClassInitializationInfo.java:235)
-        at java.lang.Class.ensureInitialized(DynamicHub.java:496)
+        at java.lang.Class.ensureInitialized(DynamicHub.java:552)
         at oracle.ListDir.<clinit>(ListDir.java:75)
-        at com.oracle.svm.core.hub.ClassInitializationInfo.invokeClassInitializer(ClassInitializationInfo.java:350)
-        at com.oracle.svm.core.hub.ClassInitializationInfo.initialize(ClassInitializationInfo.java:270)
-        at java.lang.Class.ensureInitialized(DynamicHub.java:496)
         at oracle.App.main(App.java:63)
 Caused by: java.lang.ClassNotFoundException: org.apache.log4j.Category
-        at com.oracle.svm.core.hub.ClassForNameSupport.forName(ClassForNameSupport.java:60)
-        at java.lang.Class.forName(DynamicHub.java:1211)
-        ... 12 more
+        at java.lang.Class.forName(DynamicHub.java:1433)
+        at java.lang.Class.forName(DynamicHub.java:1408)
+        ... 5 more
 ```
 
 Why? This is caused by the addition of the Log4J library. This library depends heavily upon the reflection calls,
@@ -286,14 +300,14 @@ The files should now be present.
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn clean package exec:exec -PJAVA_AGENT_LIB
+$ mvn clean package exec:exec -Pjava_agent
 ```
 
 Now, you run the native image generation again, and then execute the generated image:
 
 ![User Input](./images/userinput.png)
 ```sh
-$ mvn package -PNATIVE_IMAGE
+$ mvn package -Pnative
 $ time ./target/.file-count
 ```
 
