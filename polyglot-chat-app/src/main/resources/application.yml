@@ -1,0 +1,13 @@
+micronaut:
+    application:
+        name: websocket-chat
+    router:
+        static-resources:
+            default:
+                enabled: true
+                mapping: /**
+                paths: classpath:public
+scripts:
+    python-script: "classpath:scripts/script.py"
+    r-script: "classpath:scripts/plot.R"
+    python-venv: "classpath:venv/pyvenv.cfg"

@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: poly.chat
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, gradle, http-client, java, java-application, junit, logback, netty-server, readme, shade, yaml]
