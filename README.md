@@ -1,5 +1,7 @@
 # GraalVM Demos
 
+[![GraalVM Demos](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml/badge.svg)](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml)
+
 This repository collects demo applications and benchmarks written in Java, JavaScript, R, Ruby, and other JVM languages like Kotlin and Scala.
 These programs are illustrating diverse capabilities of [GraalVM](http://graalvm.org).
 
@@ -45,6 +47,7 @@ Finally, from the root directory of this repository, run a Docker container with
 The demos are normal applications and benchmarks written in Java, Kotlin, JavaScript, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on.
 You can run it on the stock JVM, Node, etc..
 However, these examples were tested and are known to work with GraalVM 21.2.0 builds based on JDK 11.
+Some of these demos are also [tested against the latest GraalVM release using GitHub Actions](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml).
 
 ## Further Information
 
