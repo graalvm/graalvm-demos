@@ -1,0 +1,148 @@
+name: GraalVM Demos
+on: [push, pull_request]
+jobs:
+  hello-graal:
+    name: Run 'hello-graal' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'hello-graal' demo
+        run: |
+          cd hello-graal
+          javac -d build src/com/hello/Graal.java
+          java -cp ./build com.hello.Graal
+          jar cfvm Hello.jar manifest.txt -C build .
+          jar tf Hello.jar
+          native-image -jar Hello.jar
+          ./Hello
+  java-kotlin-aot:
+    name: Run 'java-kotlin-aot' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'java-kotlin-aot' demo
+        run: |
+          cd java-kotlin-aot
+          ./build.sh
+          ./run.sh
+  java-simple-stream-benchmark:
+    name: Run 'java-simple-stream-benchmark' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'java-simple-stream-benchmark' demo
+        run: |
+          cd java-simple-stream-benchmark
+          ./build.sh
+          ./run.sh
+  javagdbnative:
+    name: Run 'javagdbnative' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'javagdbnative' demo
+        run: |
+          cd javagdbnative
+          mvn -Pnative -DskipTests --no-transfer-progress package
+          ./target/javagdb
+  multithreading-demo:
+    name: Run 'multithreading-demo' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'multithreading-demo-oversized' demo
+        run: |
+          cd multithreading-demo/multithreading-demo-oversized
+          mvn --no-transfer-progress package
+          java -jar target/multithreading-1.0-jar-with-dependencies.jar
+          ./target/multithreading-image-oversized
+      - name: Run 'multithreading-demo-improved' demo
+        run: |
+          cd multithreading-demo/multithreading-demo-improved
+          mvn --no-transfer-progress package
+          java -jar target/multithreading-1.0-jar-with-dependencies.jar
+          ./target/multithreading-image-improved
+  native-hello-module:
+    name: Run 'native-hello-module' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-hello-module' demo
+        run: |
+          cd native-hello-module
+          mvn --no-transfer-progress package
+          native-image --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
+          ./hellomodule
+  native-image-configure-examples:
+    name: Run 'native-image-configure-examples' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'configure-at-runtime-example' demo
+        run: |
+          cd native-image-configure-examples/configure-at-runtime-example
+          mvn --no-transfer-progress package
+          ./target/example
+      - name: Run 'configure-at-buildtime-example' demo
+        run: |
+          cd native-image-configure-examples/configure-at-buildtime-example
+          mvn --no-transfer-progress package
+          ./target/example
+  native-list-dir:
+    name: Run 'native-list-dir' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-list-dir' demo
+        run: |
+          cd native-list-dir
+          ./build.sh
+          ./run.sh
