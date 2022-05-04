@@ -13,7 +13,7 @@ This example demonstrates how to integrate Python on GraalVM with a Java applica
 
 2. Add the Python support. GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities, and to install Python, run this single command:
   ```bash
-  ${JAVA_HOME}/gu install python
+  $JAVA_HOME/gu install python
   ```
 
 3. Compile the example:

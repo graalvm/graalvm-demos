@@ -1,7 +1,6 @@
 # GraalVM Demos: Hello Graal
 
-This is a "Hello Graal" Java example for GraalVM.
-The structure of the ``Hello`` package is like this:
+This is a "Hello Graal" Java example for GraalVM. The structure of the `Hello` package is like this:
 
   ```
   .
@@ -15,103 +14,95 @@ The structure of the ``Hello`` package is like this:
   `-- README.md
   ```
 
-## Install GraalVM
+## Preparation
 
-* Enterprise Edition
+1. Download and [install GraalVM](https://www.graalvm.org/docs/getting-started/#install-graalvm). You can download the latest GraalVM [here](https://www.graalvm.org/downloads/).
 
-1. Download [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html).
-Unzip the archive file. For example, on Linux or macOS run the following:
-  ```bash
-  tar -zxvf graalvm-ee-java11-linux-amd64-<version>.tar.gz && rm graalvm-ee-java11-linux-amd64-<version>.tar.gz
-  ```
-  
 2. Put GraalVM on the `PATH`:
+
   ```bash
   export PATH=path/to/graal/bin:$PATH
   java -version
   ```
+  On Oracle Linux or Red Hat:
+  ```bash
+  sudo yum -y install graalvm22-ee-<11 or 17>-<version>.el7.x86_64
+  sudo yum -y install graalvm22-ee-<11 or 17-native-image
+  java -version
+  ```
 
-* Community Edition
+  On a Debian based Linux machine:
+  ```bash
+  export GRAAL_ZIP=graalvm-ce-java<11 or 17-linux-amd64-<version>.tar.gz
+  wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-<version>/$GRAAL_ZIP
+  tar -zxvf $GRAAL_ZIP
+  rm $GRAAL_ZIP
+  export PATH=/root/graalvm-ce-java<11 or 17-<version>/bin:$PATH
+  java -version
+  gu install native-image
+  ```
+  
+3. Download or clone the repository and navigate into the `functionGraphDemo` directory:
+  ```bash
+  git clone https://github.com/graalvm/graalvm-demos
+  cd HelloGraal
+  ```
 
-On Oracle Linux or Red Hat:
-```bash
-sudo yum -y install graalvm21-ee-11-<version>.el7.x86_64
-sudo yum -y install graalvm21-ee-11-native-image
-java -version
-```
+## Running the Application from a Class File
 
-On a Debian based Linux machine:
-```bash
-export GRAAL_ZIP=graalvm-ce-java11-linux-amd64-<version>.tar.gz
-wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.0.0.2/$GRAAL_ZIP
-tar -zxvf $GRAAL_ZIP
-rm $GRAAL_ZIP
-export PATH=/root/graalvm-ce-java11-<version>/bin:$PATH
-java -version
-gu install native-image
-```
+1. Compile the application running the follow command:
 
-## Preparation
+  ```bash
+  javac -d build src/com/hello/Graal.java
+  ```
+  This generates the `Graal.class` file into `build/com/hello` directory.
 
-Download or clone the examples repository:
-```bash
-git clone https://github.com/chrisbensen/HelloGraal
-cd HelloGraal
-```
+2. Run the application from a class file:
 
-## Compile the code
+  ```bash
+  java -cp ./build com.hello.Graal
+  ```
+  It outputs the message "hello graal".
 
-To compile the main class, run the follow command:
-```bash
-javac -d build src/com/hello/Graal.java
-```
-This generates the `Graal.class` file into `build/com/hello` directory.
+## Running the Application from JAR
 
-## Run the class
+1. reate a JAR for the application, running the follow command:
 
-To run the main class, run the follow command:
-```bash
-java -cp ./build com.hello.Graal
-```
-It outputs the message "hello graal".
+  ```bash
+  jar cfvm Hello.jar manifest.txt -C build .
+  jar tf Hello.jar
+  ```
+  The output will be:
+  ```bash
+  META-INF/
+  META-INF/MANIFEST.MF
+  com/
+  com/hello/
+  com/hello/Graal.class
+  ```
 
-## Create a JAR file
+2. Run the JAR file:
 
-Create a JAR for the application, run the follow command:
-```bash
-jar cfvm Hello.jar manifest.txt -C build .
-jar tf Hello.jar
-```
-The output will be:
-```bash
-META-INF/
-META-INF/MANIFEST.MF
-com/
-com/hello/
-com/hello/Graal.class
-```
+  ```bash
+  java -jar Hello.jar
+  ```
+  It outputs the message "hello graal".
 
-## Run a JAR file
+## Running the Application as a Native Executable
 
-Run the JAR file:
-```bash
-java -jar Hello.jar
-```
+1. Create a native executable of a JAR file:
 
-It outputs the message "hello graal".
+  ```bash
+  native-image -jar Hello.jar
+  ```
+  The executable called `./Hello` will be created in the working directory.
 
-## Create a native image
-
-Create a native executable of a JAR file:
-```bash
-native-image -jar Hello.jar
-```
-The executable called `./Hello` will be created in the working directory.
-Execute it:
-```bash
-./Hello
-```
-It outputs the message "hello graal". To check the filesize of the executable image, run: `ls -lh Hello`.
+2. Execute it:
+  ```bash
+  ./Hello
+  ```
+  It outputs the message "hello graal".
+  To check the filesize of the executable image, run: `ls -lh Hello`.
 
 # References
 

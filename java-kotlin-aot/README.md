@@ -5,6 +5,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 ## Prerequisites
 * [GraalVM](http://graalvm.org)
 * [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
+* Maven
 
 ## Preparation
 
@@ -40,14 +41,14 @@ This example demonstrates how easy it is to interop between Java and Kotlin.
   cd graalvm-demos/java-kotlin-aot
   ```
 
-## Build the application
+## Build the Application
 
 Before running this example, you need to build the application:
 ```bash
 ./build.sh
 ```
 
-Look at the important line of the `build.sh` which creates a native image from the Java application.
+Look at the important line of the `build.sh` which creates a native executable for the Java application.
 The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
 
 ```bash
@@ -58,7 +59,7 @@ It takes a couple of parameters, the class path, the main class of the applicati
 
 After executing the `native-image` command, check the directory, it should have produced an executable file `helloworld`.
 
-## Run the application
+## Run the Application
 
 To run the application, you need to execute the fat JAR file in the `target` directory.
 You can run it as a normal Java application using `java`.

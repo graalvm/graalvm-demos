@@ -11,7 +11,7 @@ Whenever you see it, it's time for you to perform an action.
 
 To run this example you'll need GraalVM and the Micronaut CLI installed on a machine with Docker.
 
-### Download the latest release of GraalVM
+### Download the Latest GraalVM
 
 You can use either [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html) or [GraalVM Community](https://www.graalvm.org/downloads).
 GraalVM Enterprise offers smaller and faster applications.
@@ -130,7 +130,7 @@ The response should be `Example Response`. Stop the application and we'll contin
 
 ![](keyboard.jpg) `CTRL-C`
 
-### Compiling with GraalVM Native Image
+## Compile with GraalVM Native Image
 
 With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with GraalVM Native Image.
 It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
@@ -201,7 +201,7 @@ Thats's much than when running on the JVM.
 It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, initialize the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.
 With a GraalVM native executable the application startup cost is neglible.
 
-### Docker on Linux
+## Docker on Linux
 
 If you're on Linux, you can easily create a Docker container image that includes the native Linux executable you've built.
 If you're on Windows or macOS, the process is little different and isn't covered here.

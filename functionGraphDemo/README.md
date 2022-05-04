@@ -7,6 +7,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 - GraalVM for Java 11 or higher
 - Node.js support
 - R support
+- Ruby support
 
 ## Preparation
 
@@ -30,9 +31,9 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 Now you are all set to run the polyglot JavaScript, Java, R application.
 
-## Running the application
-To run the application, you need to execute the `server.js` file.
-You can run it with the following command, `<graalvm>` is path to the GraalVM installation directory.
+## Running the Application
+
+To run the application, you need to execute the `server.js` file providing  `--jvm` and `--polyglot` flags:
 
 ```
 $JAVA_HOME/bin/node --jvm --polyglot server.js
@@ -45,6 +46,7 @@ Open [localhost:8088](http://localhost:8088/) and enjoy the output.
 Play with the source code, for example, type `1 * 7` in a function field and press "Draw Function".
 Restart the application to see what else can you do with the mix of JavaScript, Java, and R.
 
-## Debugging polyglot applications
+## Debugging Polyglot Applications
+
 GraalVM supports [debugging polyglot applications](https://www.graalvm.org/tools/chrome-debugger/) too, add the `--inspect` parameter to the command line, open the URL the application prints at the startup in Chrome browser.
 You can debug, set breakpoints, evaluate expressions in this app in the JavaScript and R code alike.

@@ -41,10 +41,10 @@ This is a simple Java Spring application that uses GraalVM interoperability to l
 
 4. Run the example:
   ```bash
-  mvn spring-boot:run -Dgraalvm.version=21.2.0
+  mvn spring-boot:run -Dgraalvm.version=22.1.0
   ```
 
-Replace "21.2.0" with your version of GraalVM.
+Replace "22.1.0" with your version of GraalVM.
 When the application is ready, open `http://localhost:8080/load`.
 
 > Note: It may take 2-3 minutes to generate the plot.
