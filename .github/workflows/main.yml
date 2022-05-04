@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -99,7 +99,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -137,7 +137,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: 'dev'
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -146,3 +146,51 @@ jobs:
           cd native-list-dir
           ./build.sh
           ./run.sh
+  streams:
+    name: Run 'streams' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'streams' demo
+        run: |
+          cd streams
+          ./run.sh    
+  js-java-async-helidon:
+    name: Run 'js-java-async-helidon' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          # components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'js-java-async-helidon' demo
+        run: |
+          cd graalvm-demos/js-java-async-helidon
+          mvn clean package
+          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar  
+  espresso-jshell:
+    name: Run 'espresso-jshell' demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          components: 'espresso'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'espresso-jshell' demo
+        run: |
+          cd espresso-jshell
+          sh build-espresso-jshell.sh
+          ./espresso-jshell
