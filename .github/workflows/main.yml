@@ -186,8 +186,7 @@ jobs:
         with:
           version: 'dev'
           java-version: '11'
-          components: 'native-image'
-          components: 'espresso'
+          components: 'espresso,native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'espresso-jshell' demo
         run: |
