@@ -175,8 +175,11 @@ jobs:
       - name: Run 'js-java-async-helidon' demo
         run: |
           cd js-java-async-helidon
-          mvn clean package
-          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar  
+          mvn --no-transfer-progress clean package
+          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
+          sleep 10 # this gives the server more than enough time to start
+          curl http://localhost:8080/greet?request=41
+          curl http://localhost:8080/greet?request=foo
   espresso-jshell:
     name: Run 'espresso-jshell' demo
     runs-on: ubuntu-latest
