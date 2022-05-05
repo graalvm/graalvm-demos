@@ -8,21 +8,21 @@ This repository contains the code for a demo application for [GraalVM](http://gr
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
 
   On Linux:
   ```bash
-  export JAVA_HOME=/home/${current_user}/path/to/graalvm
-  export PATH=$JAVA_HOME/bin:$PATH
+  export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
+  export PATH=$GRAALVM_HOME/bin:$PATH
   ```
   On macOS:
   ```bash
-  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-  export PATH=$JAVA_HOME/bin:$PATH
+  export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
+  export PATH=$GRAALVM_HOME/bin:$PATH
   ```
   On Windows:
   ```bash
-  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
+  setx /M GRAALVM_HOME "C:\Progra~1\Java\<graalvm>"
   setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
   ```
 
@@ -50,7 +50,7 @@ This repository contains the code for a demo application for [GraalVM](http://gr
 
 The important line of the `build.sh` creates a native image from our Java class. Have a look at it:
 ```bash
-$JAVA_HOME/bin/native-image ListDir
+$GRAALVM_HOME/bin/native-image ListDir
 ```
 
 The `native-image` compiles the application ahead-of-time for faster startup and lower general overhead at runtime.
@@ -92,12 +92,12 @@ You can also experiment with a more sophisticated `ExtListDir` example, which ta
 
 1. Compile the source Java code:
   ```shell
-  $JAVA_HOME/bin/javac ExtListDir.java
+  $GRAALVM_HOME/bin/javac ExtListDir.java
   ```
 
 2. Build a native image. Building the native executable command is similar to the one above, but since the example uses JavaScript, you need to inform the `native-image` utility about that by passing the `--language:js` option. Note that it takes a bit more time because it needs to include the JavaScript support.
   ```shell
-  $JAVA_HOME/bin/native-image --language:js ExtListDir
+  $GRAALVM_HOME/bin/native-image --language:js ExtListDir
   ```
 
 3. Execute it. The execution is the same as in the previous example:
@@ -115,7 +115,7 @@ As an example, a [program demonstrating Java streams](https://github.com/graalvm
 1&#46; Run the application with `java` to see the output:
   ```shell
   javac Streams.java
-  $JAVA_HOME/bin/native-image Streams
+  $GRAALVM_HOME/bin/native-image Streams
   ./streams 1000000 200
   ...
   Iteration 20 finished in 1955 milliseconds with checksum 6e36c560485cdc01
@@ -123,14 +123,14 @@ As an example, a [program demonstrating Java streams](https://github.com/graalvm
 
 2&#46; Build an instrumented image and run it to collect profiles:
   ```shell
-  $JAVA_HOME/bin/native-image --pgo-instrument Streams
+  $GRAALVM_HOME/bin/native-image --pgo-instrument Streams
   ./streams 1000 200
   ```
   Profiles collected from this run are now stored in the `default.iprof` file. Note that the profiling now runs with a much smaller data size.
 
 3&#46; Use the profiles gathered at the previous step to build an optimized native executable:
   ```shell
-  $JAVA_HOME/bin/native-image --pgo Streams
+  $GRAALVM_HOME/bin/native-image --pgo Streams
   ```
 
 4&#46; Run that optimized native executable:

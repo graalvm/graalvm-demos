@@ -1,5 +1,12 @@
 name: GraalVM Demos
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "* * * */1 *" # run every month
+  # Enable manual dispatch of the workflow
+  # see https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
+  workflow_dispatch:
 jobs:
   espresso-jshell:
     name: Run 'espresso-jshell' demo
@@ -16,8 +23,8 @@ jobs:
       - name: Run 'espresso-jshell' demo
         run: |
           cd espresso-jshell
-          sh build-espresso-jshell.sh
-          ./espresso-jshell
+          ./build-espresso-jshell.sh
+          echo "Math.PI" | ./espresso-jshell
   functionGraphDemo:
     name: Run 'functionGraphDemo' demo
     runs-on: ubuntu-latest
@@ -34,13 +41,14 @@ jobs:
         run: |
           cd functionGraphDemo
           npm install
-          $JAVA_HOME/bin/node --jvm --polyglot server.js &
-          sleep 30
+          $GRAALVM_HOME/bin/node --version
+          $GRAALVM_HOME/bin/node --jvm --polyglot server.js &
+          sleep 60
           curl http://localhost:8088/
   graalpython-notebook-example:
     name: Run 'graalpython-notebook-example' demo
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
@@ -52,7 +60,7 @@ jobs:
       - name: Run 'graalpython-notebook-example' demo
         run: |
           cd graalpython-notebook-example
-          mvn compile
+          mvn --no-transfer-progress compile
           ./install-deps.sh
           # mvn exec:java (skip running the example)
   hello-graal:
@@ -142,7 +150,7 @@ jobs:
         run: |
           cd js-java-async-helidon
           mvn --no-transfer-progress clean package
-          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
+          $GRAALVM_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
           sleep 10
           curl http://localhost:8080/greet?request=41
           curl http://localhost:8080/greet?request=foo
@@ -213,7 +221,7 @@ jobs:
   native-list-dir:
     name: Run 'native-list-dir' demo
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
@@ -249,7 +257,7 @@ jobs:
           kill $pid
           native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
           du -h netty-plot
-          ./netty-plot
+          ./netty-plot &
           sleep 10
           curl http://localhost:8080/
   polyglot-chat-app:
@@ -271,6 +279,22 @@ jobs:
           ./gradlew run &
           sleep 10
           curl http://localhost:8080/
+  polyglot-debug:
+    name: Run 'polyglot-debug' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'polyglot-debug' demo
+        run: |
+          cd polyglot-debug
+          mvn --no-transfer-progress clean package
+          java -cp ./target/PolyglotDebug-1.0-SNAPSHOT.jar org.graalvm.demos.PolyglotDebug
   polyglot-javascript-java-r:
     name: Run 'polyglot-javascript-java-r' demo
     runs-on: ubuntu-latest
@@ -287,7 +311,7 @@ jobs:
         run: |
           cd polyglot-javascript-java-r
           npm install
-          $JAVA_HOME/bin/node --jvm --polyglot server.js &
+          $GRAALVM_HOME/bin/node --jvm --polyglot server.js &
           sleep 10
           curl http://localhost:3000/
   spring-r:
@@ -306,7 +330,7 @@ jobs:
         run: |
           cd spring-r
           mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.1.0 &
-          sleep 30
+          sleep 60
           curl http://localhost:8080/load
   streams:
     name: Run 'streams' demo

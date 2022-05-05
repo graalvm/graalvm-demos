@@ -82,7 +82,7 @@ Arrays.stream(persons)
   ```
 3. Run this instrumented image to collect profiles:
   ```bash
-  ./streams 1000 20
+  ./streams 10000 200
   ```
   Profiles collected from this run are now stored in the `default.iprof` file.
   Note that we run the profiling with a much smaller data size.

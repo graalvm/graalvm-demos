@@ -28,7 +28,7 @@ export GRAALVM_HOME="/path/to/graalvm"
 
 Then exetute the `build-espresso-jshell.sh` script:
 ```bash
-sh build-espresso-jshell.sh
+./build-espresso-jshell.sh
 ```
 
 It generates a native executable: `espresso-jshell` in the working directory.
