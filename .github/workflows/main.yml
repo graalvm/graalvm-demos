@@ -1,6 +1,60 @@
 name: GraalVM Demos
 on: [push, pull_request]
 jobs:
+  espresso-jshell:
+    name: Run 'espresso-jshell' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'espresso,native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'espresso-jshell' demo
+        run: |
+          cd espresso-jshell
+          sh build-espresso-jshell.sh
+          ./espresso-jshell
+  functionGraphDemo:
+    name: Run 'functionGraphDemo' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'nodejs,R,ruby'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'functionGraphDemo' demo
+        run: |
+          cd functionGraphDemo
+          npm install
+          $JAVA_HOME/bin/node --jvm --polyglot server.js &
+          sleep 30
+          curl http://localhost:8088/
+  graalpython-notebook-example:
+    name: Run 'graalpython-notebook-example' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'python'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'graalpython-notebook-example' demo
+        run: |
+          cd graalpython-notebook-example
+          mvn compile
+          ./install-deps.sh
+          # mvn exec:java (skip running the example)
   hello-graal:
     name: Run 'hello-graal' demo
     runs-on: ubuntu-latest
@@ -73,6 +127,25 @@ jobs:
           cd javagdbnative
           mvn -Pnative -DskipTests --no-transfer-progress package
           ./target/javagdb
+  js-java-async-helidon:
+    name: Run 'js-java-async-helidon' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'js-java-async-helidon' demo
+        run: |
+          cd js-java-async-helidon
+          mvn --no-transfer-progress clean package
+          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
+          sleep 10
+          curl http://localhost:8080/greet?request=41
+          curl http://localhost:8080/greet?request=foo
   multithreading-demo:
     name: Run 'multithreading-demo' demo
     runs-on: ubuntu-latest
@@ -154,6 +227,87 @@ jobs:
           cd native-list-dir
           ./build.sh
           ./run.sh
+  native-netty-plot:
+    name: Run 'native-netty-plot' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-netty-plot' demo
+        run: |
+          cd native-netty-plot
+          mvn --no-transfer-progress package
+          java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar &
+          pid=$!
+          sleep 10
+          kill $pid
+          native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
+          du -h netty-plot
+          ./netty-plot
+          sleep 10
+          curl http://localhost:8080/
+  polyglot-chat-app:
+    name: Run 'polyglot-chat-app' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'python,R'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'polyglot-chat-app' demo
+        run: |
+          cd polyglot-chat-app
+          ./gradlew build # pre-build application
+          ./gradlew run &
+          sleep 10
+          curl http://localhost:8080/
+  polyglot-javascript-java-r:
+    name: Run 'polyglot-javascript-java-r' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'nodejs,R'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'polyglot-javascript-java-r' demo
+        run: |
+          cd polyglot-javascript-java-r
+          npm install
+          $JAVA_HOME/bin/node --jvm --polyglot server.js &
+          sleep 10
+          curl http://localhost:3000/
+  spring-r:
+    name: Run 'spring-r' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.1.0'
+          java-version: '11'
+          components: 'R'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'spring-r' demo
+        run: |
+          cd spring-r
+          mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.1.0 &
+          sleep 30
+          curl http://localhost:8080/load
   streams:
     name: Run 'streams' demo
     runs-on: ubuntu-latest
@@ -170,40 +324,4 @@ jobs:
       - name: Run 'streams' demo
         run: |
           cd streams
-          ./run.sh    
-  js-java-async-helidon:
-    name: Run 'js-java-async-helidon' demo
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v2
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          version: 'dev'
-          java-version: '11'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'js-java-async-helidon' demo
-        run: |
-          cd js-java-async-helidon
-          mvn --no-transfer-progress clean package
-          $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
-          sleep 10 # this gives the server more than enough time to start
-          curl http://localhost:8080/greet?request=41
-          curl http://localhost:8080/greet?request=foo
-  espresso-jshell:
-    name: Run 'espresso-jshell' demo
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v2
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          version: 'dev'
-          java-version: '11'
-          components: 'espresso,native-image'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'espresso-jshell' demo
-        run: |
-          cd espresso-jshell
-          sh build-espresso-jshell.sh
-          ./espresso-jshell
+          ./run.sh
