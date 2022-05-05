@@ -15,7 +15,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 2. Add Node.js and R runtime support. GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities, and to install Node.js and R, run this single command:
   ```bash
-  <graalvm>/bin/gu install nodejs R
+  <graalvm>/bin/gu install nodejs R ruby
   ```
   Check the Node.js version:
   ```bash
