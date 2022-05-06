@@ -20,13 +20,14 @@ The following modularized Java Hello World example
 
 can be executed via Java using the following command:
     
-    ```shell
+    ```
     $ java --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
     Hello from Java Module: HelloModule
     ```
     
 With GraalVM you can **now build Java modules** into native executables, using the following syntax:
-    ```shell
+
+    ```
     $ native-image --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
 
     [hellomodule:10847]    classlist:     513.59 ms,  0.96 GB
@@ -38,7 +39,7 @@ With GraalVM you can **now build Java modules** into native executables, using t
     ```                                      
 It builds the modular Java app into a native executable that can be executed with:
     
-    ```shell
+    ```
     $ ./hellomodule 
     Hello from Java Module: HelloModule
     ```
