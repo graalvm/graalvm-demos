@@ -1,8 +1,0 @@
-[
-   {
-     "name" : "scala.tools.nsc.reporters.ConsoleReporter",
-      "methods" : [
-        { "name" : "<init>", "parameterTypes" : ["scala.tools.nsc.Settings"] }
-      ]
-   }
-]

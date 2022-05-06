@@ -15,20 +15,22 @@ This demo is intended to be used to demonstrate how to debug a Java application,
 2. Open the demo folder, _graalvm/demos/javagdbnative_, in VS Code.
 3. Open VS Code Terminal window and run following command:
 
-```mvn -Pnative -DskipTests package```
+    ```shell
+    mvn -Pnative -DskipTests package
+    ```
 
-The ```mvn -Pnative -DskipTests package``` command will package a Java application into a runnable JAR file, and then build a native executable of it.
+The `mvn -Pnative -DskipTests package` command will package a Java application into a runnable JAR file, and then build a native executable of it.
 
 ## Debugging the Sample
 1. Select Run and Debug activity panel in VSCode
-2. Add a new launch configuration named ```Native Image: launch``` into launch.json which should look like this:
-```
-{
-    "type": "nativeimage",
-    "request": "launch",
-    "name": "Launch Native Image",
-    "nativeImagePath": "${workspaceFolder}/target/javagdb",
-    "args": "100"
-}
-```
-3. Then run debugger using ```Launch Native Image``` from RUN ... menu. It will start debugging a native image binary in VSCode using Java source code.        
+2. Add a new launch configuration named **Native Image: launch** into launch.json which should look like this:
+    ```json
+    {
+        "type": "nativeimage",
+        "request": "launch",
+        "name": "Launch Native Image",
+        "nativeImagePath": "${workspaceFolder}/target/javagdb",
+        "args": "100"
+    }
+    ```
+3. Then run debugger using **Launch Native Image** from **RUN...** menu. It will start debugging a native image binary in VSCode using Java source code.        

@@ -38,7 +38,7 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 Now you are all set to execute the benchmark and compare the results between different JVMs.
 
-## Running the benchmark
+## Running the Benchmark
 
 To run the benchmark, you need to execute the `target/benchmarks.jar` file. You can run it with the following command:
 ```bash

@@ -11,6 +11,8 @@ if [[ -z "$GRAALVM_HOME" ]]; then
     exit 1
 fi
 
+echo $GRAALVM_HOME
+
 # Manually build espresso-jshell.jar, requires GraalVM >= 21.0 with Native Image and Java on Truffle (Espresso) installed.
 echo "1/7 Compiling espresso-jshell..."
 $GRAALVM_HOME/bin/javac $(find src/main/java -name '*.java') -d "$SCRATCH"

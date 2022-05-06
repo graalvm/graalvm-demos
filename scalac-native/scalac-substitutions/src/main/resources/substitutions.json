@@ -1,0 +1,12 @@
+[
+  {
+    "annotatedClass": "scala.tools.nsc.substitutions.Target_scala_tools_nsc_ast_TreeBrowsers$SwingBrowser",
+    "originalClass": "scala.tools.nsc.ast.TreeBrowsers$SwingBrowser",
+    "methods": [
+      {
+        "annotatedName": "browse",
+        "substitute": true
+      }
+    ]
+  }
+]
