@@ -38,11 +38,12 @@ echo "7/7 Building espresso-jshell native image, this may take a few minutes..."
 "$GRAALVM_HOME/bin/native-image" \
   -H:+AllowJRTFileSystem \
   -H:Name=espresso-jshell \
-  --initialize-at-build-time=com.sun.tools.doclint,'jdk.jshell.Snippet$SubKind' \
+  --initialize-at-build-time=com.sun.tools.doclint,'jdk.jshell.Snippet$SubKind','com.sun.tools.javac.parser.Tokens$TokenKind' \
+  --initialize-at-run-time=com.sun.tools.javac.file.Locations \
+  --report-unsupported-elements-at-runtime \
   -H:ConfigurationFileDirectories=. \
   --language:java \
   -J-Djdk.image.use.jvm.map=false \
-  -J-Dorg.graalvm.launcher.home="$GRAALVM_HOME" \
   -J--patch-module -Jjdk.jshell=./jdk.jshell-patch `# patch for Java 8, not required for 11` \
   -H:+ReportExceptionStackTraces \
   $@ \

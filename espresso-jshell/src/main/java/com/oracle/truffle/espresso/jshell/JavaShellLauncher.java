@@ -22,22 +22,32 @@
  */
 package com.oracle.truffle.espresso.jshell;
 
+import jdk.jshell.tool.JavaShellToolBuilder;
+import org.graalvm.polyglot.Engine;
+
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import jdk.jshell.tool.JavaShellToolBuilder;
-
 public final class JavaShellLauncher {
 
-    public static void main(String[] args) {
-        try {
-            EspressoLocalExecutionControl.initializeInParallel(extractRemoteOptions(args));
-            System.exit(JavaShellToolBuilder.builder().start(withEspressoExecutionEngine(args)));
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws Exception {
+        String javaHome = System.getProperty("java.home");
+        if (javaHome == null) {
+            System.err.println("java.home is not defined (required by javac), trying fallback to org.graalvm.home.");
+            Path graalvmHome = Engine.findHome();
+            if (graalvmHome != null) {
+                System.err.println("Setting java.home=" + graalvmHome);
+                System.setProperty("java.home", graalvmHome.toString());
+            } else {
+                System.err.println("Cannot find GraalVM home; org.graalvm.home is not defined.");
+                System.exit(-1);
+            }
         }
+        EspressoLocalExecutionControl.initializeInParallel(extractRemoteOptions(args));
+        System.exit(JavaShellToolBuilder.builder().start(withEspressoExecutionEngine(args)));
     }
 
     private static Map<String, String> extractRemoteOptions(String[] args) {
