@@ -178,6 +178,30 @@ jobs:
           mvn --no-transfer-progress package
           java -jar target/multithreading-1.0-jar-with-dependencies.jar
           ./target/multithreading-image-improved
+  fortune-demo:
+    name: Run 'fortune-demo' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'fortune' demo
+        run: |
+          cd fortune-demo/fortune
+          mvn --no-transfer-progress package
+          java -jar target/fortune-1.0-jar-with-dependencies.jar
+          ./target/fortune
+      - name: Run 'staticfortune' demo
+        run: |
+          cd fortune-demo/staticfortune
+          mvn --no-transfer-progress package
+          java -jar target/staticfortune-1.0-jar-with-dependencies.jar
+          ./target/staticfortune
   native-hello-module:
     name: Run 'native-hello-module' demo
     runs-on: ubuntu-latest
