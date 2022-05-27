@@ -349,3 +349,23 @@ jobs:
         run: |
           cd streams
           ./run.sh
+  spring-native-image:
+    name: Run 'hello-graal' demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'spring-native-image' demo
+        run: |
+          cd spring-native-image
+          mvn package
+          mvn package -Dnative
+          ./target/jibber &
+          wait 5
+          curl http://localhost:8080/jibber
