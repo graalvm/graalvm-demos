@@ -51,6 +51,45 @@
 		<base-image-tag>graalce</base-image-tag>
 	</properties>
 
+	<profiles>
+		<!-- Default profile : This builds a JVM based container that runs the JAR of the application -->
+		<profile>
+			<id>jvm</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>!native</name>
+				</property>
+			</activation>
+			<properties>
+				<docker-file>Dockerfile.graalce</docker-file>
+				<!-- Turn off the GraalVM Native Image plugin -->
+				<skip-native-build>true</skip-native-build>
+			</properties>
+		</profile>
+		<!-- This builds a native image,. It turns off packaging as a docker image
+		 		Activate this profile as follows:
+		 		mvn package -Dnative
+		 -->
+		<profile>
+			<id>native</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<properties>
+				<repackage.classifier>exec</repackage.classifier>
+				<!-- Turn on the GraalVM Native Image plugin -->
+				<skip-native-build>false</skip-native-build>
+				<!-- Switch of building a docker container -->
+				<dockerfile.skip>true</dockerfile.skip>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -172,6 +211,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<classifier>${repackage.classifier}</classifier>
+					<!-- Unused as we build directly, not using paketo -->
 					<image>
 						<builder>paketobuildpacks/builder:tiny</builder>
 						<env>
@@ -186,120 +226,76 @@
                 the jar file, to the Docker build. These build args are defined in the Dockerfile
             -->
 			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<version>${native-buildtools.version}</version>
+				<executions>
+					<execution>
+						<id>build-native</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imageName>${binary-name}</imageName>
+					<skip>${skip-native-build}</skip>
+					<buildArgs>
+						<buildArg>-H:+ReportExceptionStackTraces ${native-image-extra-flags}</buildArg>
+					</buildArgs>
+				</configuration>
+			</plugin>
+			<!--
+              Spring Native Support - required to make the Spring App convert into a Native Image Executable
+              see : https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#aot
+            -->
+			<plugin>
+				<groupId>org.springframework.experimental</groupId>
+				<artifactId>spring-aot-maven-plugin</artifactId>
+				<version>${spring-native.version}</version>
+				<executions>
+					<execution>
+						<id>test-generate</id>
+						<goals>
+							<goal>test-generate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--
+				Build a Docker Image - we will use this for packaging our Jar in a docker image.
+				We won't sue this when building a native executable due to the possibility that you are building on something
+				that isn't linux. The resultant executable wouldn't work in side the linux container
+			-->
+			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>${dockerfile-maven-version}</version>
 				<executions>
-					<!-- Add mutiple executions to tag as latest as well as version?
-						see: https://github.com/spotify/dockerfile-maven/issues/10 -->
 					<execution>
-					<id>default</id>
-					<goals>
-						<goal>build</goal>
-						<goal>push</goal>
-					</goals>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<repository>${docker-repository}</repository>
-					<tag>${binary-name}.${base-image-tag}.${project.version}</tag>
+					<tag>${base-image-tag}.${project.version}</tag>
 					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+						<APP_FILE>${project.build.finalName}.jar</APP_FILE>
 					</buildArgs>
-					<dockerfile>${docker-file}</dockerfile>
+					<dockerfile>Dockerfiles/${docker-file}</dockerfile>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
-	<profiles>
-		<!-- Native Image EE Image
-		customise this by passing in extra args such as:
-		Rename the tag for the image
-		-Dbase-image-tag=NAME-OF-TAG
-		Extra flasg to the native image build
-		-Dnative-image-extra-flags="- -gc=G1"
-		-->
-		<profile>
-			<id>native</id>
-			<properties>
-				<repackage.classifier>exec</repackage.classifier>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.graalvm.buildtools</groupId>
-						<artifactId>native-maven-plugin</artifactId>
-						<version>${native-buildtools.version}</version>
-						<executions>
-							<execution>
-								<id>build-native</id>
-								<phase>package</phase>
-								<goals>
-									<goal>build</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<imageName>${binary-name}</imageName>
-							<buildArgs>
-								<buildArg>-H:+ReportExceptionStackTraces ${native-image-extra-flags}</buildArg>
-							</buildArgs>
-						</configuration>
-					</plugin>
-					<!--
-                      Spring Native Support - required to make the Spring App convert into a Native Image Executable
-                      see : https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#aot
-                    -->
-					<plugin>
-						<groupId>org.springframework.experimental</groupId>
-						<artifactId>spring-aot-maven-plugin</artifactId>
-						<version>${spring-native.version}</version>
-						<executions>
-							<execution>
-								<id>test-generate</id>
-								<goals>
-									<goal>test-generate</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>generate</id>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<!--
-						Builds a Docker Image using a Dockerfile specified by ${docker-file} with the jar in it.
-						Notice that we use the <buildArgs> tags to pass in build arguments, in this case the name of
-						the jar file, to the Docker build. These build args are defined in the Dockerfile
-					-->
-					<plugin>
-						<groupId>com.spotify</groupId>
-						<artifactId>dockerfile-maven-plugin</artifactId>
-						<version>${dockerfile-maven-version}</version>
-						<executions>
-							<execution>
-							<id>default</id>
-							<goals>
-								<goal>build</goal>
-								<goal>push</goal>
-							</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<repository>${docker-repository}</repository>
-							<tag>${binary-name}.${base-image-tag}.${project.version}</tag>
-							<buildArgs>
-								<APP_FILE>${binary-name}</APP_FILE>
-							</buildArgs>
-							<dockerfile>${docker-file}</dockerfile>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		</profiles>
 </project>
