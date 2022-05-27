@@ -358,9 +358,9 @@ jobs:
           curl http://localhost:8080/load
   streams:
     name: Run 'streams' demo
+    if: github.event_name != 'pull_request'
     env:
       HAS_GDS_TOKEN: ${{ secrets.GDS_TOKEN != '' }}
-    if: ${{ env.HAS_GDS_TOKEN == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -373,6 +373,7 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'streams' demo
+        if: env.HAS_GDS_TOKEN == 'true'
         run: |
           cd streams
           ./run.sh
