@@ -358,6 +358,9 @@ jobs:
           curl http://localhost:8080/load
   streams:
     name: Run 'streams' demo
+    env:
+      HAS_GDS_TOKEN: ${{ secrets.GDS_TOKEN != '' }}
+    if: ${{ env.HAS_GDS_TOKEN == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
