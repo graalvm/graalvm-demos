@@ -88,11 +88,27 @@ And once that is built, you can test it as follows:
 docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
 ```
 
+## Building A Native Image Container on Something Other than Linux
+
+If you are not using linux as your OS, you will need to do the native image build within a docker container. To do this
+we have supplied a two-stage Docker build file. 
+
+To build:
+
+```shell
+docker build -f Dockerfiles/Dockerfile -t jibber-benchmark:native.0.0.1-SNAPSHOT .
+```
+And once that is built, you can test it as follows:
+
+```shell
+docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
+```
+
 ## Metrics And Measuring the Performance of the Application
 
 The Spring Actuator dependency has been added to the project, along with support for Prometheus. If you
 want to test the performance of either the JVM version, or the native executable version of the application you can
-make use of the prometheus support. It will be available on the URL, say if you are hosting it localy on port 8080:
+make use of the prometheus support. It will be available on the URL, say if you are hosting it locally on port 8080:
 
 [http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 
