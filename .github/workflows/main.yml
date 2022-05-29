@@ -350,7 +350,7 @@ jobs:
           cd streams
           ./run.sh
   spring-native-image:
-    name: Run 'hello-graal' demo
+    name: Run 'spring-native-graal' demo
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
