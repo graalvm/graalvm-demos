@@ -364,8 +364,8 @@ jobs:
       - name: Run 'spring-native-image' demo
         run: |
           cd spring-native-image
-          mvn package
-          mvn package -Dnative
+          mvn --no-transfer-progress package
+          mvn --no-transfer-progress package -Dnative
           ./target/jibber &
           sleep 5
           curl http://localhost:8080/jibber
