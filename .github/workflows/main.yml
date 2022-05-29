@@ -367,5 +367,5 @@ jobs:
           mvn package
           mvn package -Dnative
           ./target/jibber &
-          wait 5
+          sleep 5
           curl http://localhost:8080/jibber
