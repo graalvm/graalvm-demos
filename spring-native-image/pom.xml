@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.5</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>com.oracle.graal</groupId>
+	<artifactId>benchmark-jibber</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>benchmark-jibber</name>
+	<description>Jibber benchmark project for Spring Boot</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--
+			Java Version
+		-->
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<java.version>17</java.version>
+		<!--
+			Required by Spring Native
+		-->
+		<repackage.classifier/>
+		<spring-native.version>0.11.2</spring-native.version>
+		<native-buildtools.version>0.9.11</native-buildtools.version>
+		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+		<!--
+			Using this property you can define other flags you would like to be passed to the native image
+			invocation from the command line as follows: -Dnative-image-extra-flags="..."
+		-->
+		<native-image-extra-flags></native-image-extra-flags>
+		<!-- The output name for the binary executable built by GraalVM Native Image -->
+		<binary-name>jibber</binary-name>
+		<!--
+			Docker Repository
+		-->
+		<docker-repository>jibber-benchmark</docker-repository>
+		<!--
+			Location of the Dockerfile to build the GraalVM JVM Docker Image with
+		-->
+		<docker-file>Dockerfiles/Dockerfile.graalce</docker-file>
+		<!--
+			How to tag the GraalVM JVM Docker Image
+		-->
+		<base-image-tag>graalce</base-image-tag>
+	</properties>
+
+	<profiles>
+		<!-- Default profile : This builds a JVM based container that runs the JAR of the application -->
+		<profile>
+			<id>jvm</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>!native</name>
+				</property>
+			</activation>
+			<properties>
+				<docker-file>Dockerfile.graalce</docker-file>
+				<!-- Turn off the GraalVM Native Image plugin -->
+				<skip-native-build>true</skip-native-build>
+			</properties>
+		</profile>
+		<!-- This builds a native image,. It turns off packaging as a docker image
+		 		Activate this profile as follows:
+		 		mvn package -Dnative
+		 -->
+		<profile>
+			<id>native</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<properties>
+				<repackage.classifier>exec</repackage.classifier>
+				<!-- Turn on the GraalVM Native Image plugin -->
+				<skip-native-build>false</skip-native-build>
+				<!-- Switch of building a docker container -->
+				<dockerfile.skip>true</dockerfile.skip>
+			</properties>
+		</profile>
+
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.experimental</groupId>
+			<artifactId>spring-native</artifactId>
+			<version>${spring-native.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.graalvm.buildtools</groupId>
+			<artifactId>junit-platform-native</artifactId>
+			<version>${native-buildtools.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.rednoise</groupId>
+			<artifactId>rita</artifactId>
+			<version>2.4.501</version>
+		</dependency>
+	</dependencies>
+
+	<!--
+		Required for Spring Native Support
+	-->
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+			<plugins>
+				<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+				<!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!--
+				Creates a Jar with dependencies and a manifest
+			-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>${repackage.classifier}</classifier>
+					<!-- Unused as we build directly, not using paketo -->
+					<image>
+						<builder>paketobuildpacks/builder:tiny</builder>
+						<env>
+							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+						</env>
+					</image>
+				</configuration>
+			</plugin>
+			<!--
+                Builds a Docker Image using a Dockerfile specified by ${docker-file} with the jar in it.
+                Notice that we use the <buildArgs> tags to pass in build arguments, in this case the name of
+                the jar file, to the Docker build. These build args are defined in the Dockerfile
+            -->
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<version>${native-buildtools.version}</version>
+				<executions>
+					<execution>
+						<id>build-native</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imageName>${binary-name}</imageName>
+					<skip>${skip-native-build}</skip>
+					<buildArgs>
+						<buildArg>-H:+ReportExceptionStackTraces ${native-image-extra-flags}</buildArg>
+					</buildArgs>
+				</configuration>
+			</plugin>
+			<!--
+              Spring Native Support - required to make the Spring App convert into a Native Image Executable
+              see : https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#aot
+            -->
+			<plugin>
+				<groupId>org.springframework.experimental</groupId>
+				<artifactId>spring-aot-maven-plugin</artifactId>
+				<version>${spring-native.version}</version>
+				<executions>
+					<execution>
+						<id>test-generate</id>
+						<goals>
+							<goal>test-generate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!--
+				Build a Docker Image - we will use this for packaging our Jar in a docker image.
+				We won't sue this when building a native executable due to the possibility that you are building on something
+				that isn't linux. The resultant executable wouldn't work in side the linux container
+			-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${dockerfile-maven-version}</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>${docker-repository}</repository>
+					<tag>${base-image-tag}.${project.version}</tag>
+					<buildArgs>
+						<APP_FILE>${project.build.finalName}.jar</APP_FILE>
+					</buildArgs>
+					<dockerfile>Dockerfiles/${docker-file}</dockerfile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
