@@ -26,9 +26,9 @@ This repository contains the code for a demo application for [GraalVM](http://gr
   setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
   ```
 
-2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
+2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) and `js` by running:
   ```bash
-  gu install native-image
+  gu install native-image js
   ```
 
 3. Download or clone the repository and navigate into the `native-list-dir` directory:

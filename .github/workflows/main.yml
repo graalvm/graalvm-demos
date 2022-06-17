@@ -252,7 +252,7 @@ jobs:
         with:
           version: 'dev'
           java-version: '11'
-          components: 'native-image'
+          components: 'native-image,js'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'native-list-dir' demo
         run: |
@@ -313,6 +313,7 @@ jobs:
         with:
           version: 'dev'
           java-version: '11'
+          components: 'js'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'polyglot-debug' demo
         run: |
