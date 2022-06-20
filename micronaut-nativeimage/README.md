@@ -1,4 +1,4 @@
-Native# Micronaut with GraalVM Native Image and Docker
+# Micronaut with GraalVM Native Image and Docker
 
 This example shows how to create a simple [Micronaut](https://micronaut.io/) REST application, compile it with [GraalVM Native Image](https://www.graalvm.org/reference-manual/native-image/), and package it in a Docker container image.
 Along the way we'll also take a look at some of the performance benefits that Native Image provides to Micronaut applications.
