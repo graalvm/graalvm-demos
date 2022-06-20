@@ -24,6 +24,7 @@ fi
 JAVAC_BOOT_CLASSPATH="$JDK8_JRE/lib/resources.jar:$JDK8_JRE/lib/rt.jar:$JDK8_JRE/lib/sunrsasign.jar:$JDK8_JRE/lib/jsse.jar:$JDK8_JRE/lib/jce.jar:$JDK8_JRE/lib/charsets.jar:$JDK8_JRE/lib/jfr.jar:$JDK8_JRE/classes"
 
 ./espresso-jshell \
+    -Dorg.graalvm.home="$GRAALVM_HOME" \
     -Rjava.JavaHome="$JDK8_HOME" \
     -Rjava.BootClasspathAppend="./jshell8.jar" \
     -C-source -C8 \

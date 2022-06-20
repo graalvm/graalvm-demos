@@ -22,21 +22,55 @@
  */
 package com.oracle.truffle.espresso.jshell;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.graalvm.home.HomeFinder;
+
 import jdk.jshell.tool.JavaShellToolBuilder;
 
 public final class JavaShellLauncher {
 
-    public static void main(String[] args) {
-        try {
-            EspressoLocalExecutionControl.initializeInParallel(extractRemoteOptions(args));
-            System.exit(JavaShellToolBuilder.builder().start(withEspressoExecutionEngine(args)));
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws Exception {
+        findJavaHome();
+        EspressoLocalExecutionControl.initializeInParallel(extractRemoteOptions(args));
+        System.exit(JavaShellToolBuilder.builder().start(withEspressoExecutionEngine(args)));
+    }
+
+    /**
+     * Finds and set a Java home to run espresso-jshell.
+     *
+     * espresso-jshell is not fully standalone, it requires a Java home + Espresso home to run.
+     *
+     * The following sources are checked:
+     * <ul type=1>
+     * <li>{@code org.graalvm.home} property
+     * <li>{@code GRAALVM_HOME} environment variable
+     * <li>{@code HomeFinder.getInstance().getHomeFolder()}
+     * </ul>
+     */
+    private static void findJavaHome() {
+        String javaHome = System.getProperty("java.home");
+        if (javaHome == null) {
+            System.err.println("java.home (required by javac) is not defined; trying fallback to 'org.graalvm.home' and $GRAALVM_HOME");
+            if (System.getProperty("org.graalvm.home") == null) {
+                String envVariable = System.getenv("GRAALVM_HOME");
+                if (envVariable != null) {
+                    System.err.println("Setting org.graalvm.home=" + envVariable);
+                    System.setProperty("org.graalvm.home", envVariable);
+                }
+            }
+            Path graalvmHome = HomeFinder.getInstance().getHomeFolder();
+            if (graalvmHome != null) {
+                System.err.println("Setting java.home=" + graalvmHome);
+                System.setProperty("java.home", graalvmHome.toString());
+            } else {
+                System.err.println("Cannot find GraalVM home; 'org.graalvm.home' nor $GRAALVM_HOME are defined.");
+                System.exit(-1);
+            }
         }
     }
 

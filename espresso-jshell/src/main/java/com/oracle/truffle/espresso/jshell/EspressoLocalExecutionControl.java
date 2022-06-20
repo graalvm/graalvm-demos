@@ -22,15 +22,14 @@
  */
 package com.oracle.truffle.espresso.jshell;
 
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Engine;
 import org.graalvm.polyglot.Value;
+
+import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public final class EspressoLocalExecutionControl extends EspressoExecutionControl {
 
@@ -38,26 +37,12 @@ public final class EspressoLocalExecutionControl extends EspressoExecutionContro
 
     public static void initializeInParallel(Map<String, String> options) {
         // Initialize Espresso context and load LocalExecutionControl in parallel.
-        contextOptions = (options != null ) ? options : Collections.emptyMap();
+        contextOptions = (options != null) ? options : Collections.emptyMap();
         new Thread(LocalExecutionControl::get).start();
     }
 
     protected static final Lazy<Context> context = Lazy.of(() -> {
-        String javaHome = System.getProperty("java.home");
-        if (javaHome == null) {
-            Path graalHome = Engine.findHome();
-            if (graalHome != null) {
-                javaHome = graalHome.toString();
-            }
-        }
-        if (javaHome == null) {
-            javaHome = contextOptions.get("java.JavaHome");
-        }
-        if (javaHome == null) {
-            throw new RuntimeException("Cannot create Espresso context: java.home is not defined, run jshell with -Djava.home= or -R-Djava.JavaHome= .");
-        }
         return Context.newBuilder("java") //
-                .option("java.JavaHome", javaHome) //
                 .options(contextOptions) //
                 .allowAllAccess(true) //
                 .build();
