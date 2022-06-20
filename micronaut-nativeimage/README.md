@@ -135,7 +135,8 @@ The response should be `Example Response`. Stop the application and we'll contin
 With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with GraalVM Native Image.
 It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
 
-![](keyboard.jpg) `./gradlew nativeBuild`
+![](keyboard.jpg) `./gradlew nativeCompile`
+  
 
 Compilation can take a few minutes, but more cores and more memory reduces the required time!
 
