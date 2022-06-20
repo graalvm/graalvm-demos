@@ -212,6 +212,8 @@ BUILD SUCCESSFUL in 51s
 ```
 
 The result is a 54M standalone executable placed in the `build/native/nativeCompile` folder named 'hello`.
+    
+    For Micronaught 3.0 and an older GraalVM distribution this executable was 63M, which is a 14% reduction in size!
 
 ![](keyboard.jpg) `ls -lh build/native/nativeCompile`
 
