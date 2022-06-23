@@ -108,7 +108,7 @@ When complete, let's launch the app using the `java -jar` command which will sta
 ![](keyboard.jpg) `java -jar build/libs/hello-0.1-all.jar`
 
 You can see the app starts in few hundred milliseconds.  How many will depend on the speed of your machine.
-In this run it took 557ms, about half a second, to boot up:
+In this run it took 486ms, about half a second, to boot up:
 
 ```sh
  __  __ _                                  _   
