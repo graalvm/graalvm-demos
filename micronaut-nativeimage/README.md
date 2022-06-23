@@ -116,12 +116,10 @@ In this run it took 557ms, about half a second, to boot up:
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
 | |  | | | (__| | | (_) | | | | (_| | |_| | |_ 
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
-  Micronaut (v3.5.1)
+  Micronaut (v3.5.2)
 
-22:50:31.973 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 557ms. Server Running: http://localhost:8080
-
+22:21:47.239 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 486ms. Server Running: http://localhost:8080
 ```
-
 To exercise the `HelloController` we created, either `curl http://localhost:8080/hello` or open it in a browser:
 
 ![](keyboard.jpg) `curl http://localhost:8080/hello`
@@ -147,11 +145,11 @@ Compilation can take a few minutes, but more cores and more memory reduces the r
 > Task :nativeCompile
 [native-image-plugin] Toolchain detection is disabled, will use GraalVM from /home/rleland/.local/share/graalvm/graalvm.
 [native-image-plugin] Using executable path: /home/rleland/.local/share/graalvm/graalvm/bin/native-image
-Warning: Using a deprecated option --allow-incomplete-classpath from 'META-INF/native-image/io.micronaut/micronaut-inject/native-image.properties' in 'file:///home/rleland/.gradle/caches/modules-2/files-2.1/io.micronaut/micronaut-inject/3.5.1/cc9e726fe97c46286e5635015d74c2b89096b790/micronaut-inject-3.5.1.jar'. Allowing an incomplete classpath is now the default. Use --link-at-build-time to report linking errors at image build time for a class or package.
+Warning: Using a deprecated option --allow-incomplete-classpath from 'META-INF/native-image/io.micronaut/micronaut-inject/native-image.properties' in 'file:///home/rleland/.gradle/caches/modules-2/files-2.1/io.micronaut/micronaut-inject/3.5.2/c564af395867f630b24b1b2f382e5a971baf7cad/micronaut-inject-3.5.2.jar'. Allowing an incomplete classpath is now the default. Use --link-at-build-time to report linking errors at image build time for a class or package.
 ========================================================================================================================
 GraalVM Native Image: Generating 'hello' (executable)...
 ========================================================================================================================
-[1/7] Initializing...                                                                                    (2.8s @ 0.28GB)
+[1/7] Initializing...                                                                                    (2.5s @ 0.32GB)
  Version info: 'GraalVM 22.1.0 Java 11 CE'
  C compiler: gcc (linux, x86_64, 11.2.0)
  Garbage collector: Serial GC
@@ -160,54 +158,54 @@ GraalVM Native Image: Generating 'hello' (executable)...
   - io.micronaut.core.graal.ServiceLoaderFeature
   - io.micronaut.http.netty.graal.HttpNettyFeature
   - io.micronaut.jackson.JacksonDatabindFeature
-Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type kotlinx.coroutines.reactive.ReactiveFlowKt not present
-Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
-Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type org.apache.logging.log4j.core.config.Configurator not present
-Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
-Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.epoll.Epoll not present
-Warning: Could not register complete reflection metadata for io.micronaut.http.bind.binders.ContinuationArgumentBinder. Reason(s): java.lang.TypeNotPresentException: Type kotlin.coroutines.Continuation not present
 Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type kotlin.coroutines.CoroutineContext not present
 Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.epoll.Epoll not present
-[2/7] Performing analysis...  [***************]                                                         (23.8s @ 2.36GB)
-  13,107 (91.99%) of 14,248 classes reachable
-  18,653 (59.12%) of 31,551 fields reachable
-  65,802 (62.98%) of 104,483 methods reachable
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type org.apache.logging.log4j.core.config.Configurator not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
+Warning: Could not register complete reflection metadata for io.micronaut.http.bind.binders.ContinuationArgumentBinder. Reason(s): java.lang.TypeNotPresentException: Type kotlin.coroutines.Continuation not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.epoll.Epoll not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type kotlinx.coroutines.reactive.ReactiveFlowKt not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
+[2/7] Performing analysis...  [***************]                                                         (21.0s @ 4.72GB)
+  13,109 (91.99%) of 14,250 classes reachable
+  18,655 (59.12%) of 31,555 fields reachable
+  65,820 (62.98%) of 104,507 methods reachable
      702 classes,   242 fields, and 2,414 methods registered for reflection
       68 classes,    88 fields, and    55 methods registered for JNI access
-[3/7] Building universe...                                                                               (2.0s @ 3.28GB)
-[4/7] Parsing methods...      [*]                                                                        (1.0s @ 4.46GB)
-[5/7] Inlining methods...     [****]                                                                     (1.3s @ 5.05GB)
-[6/7] Compiling methods...    [****]                                                                    (12.0s @ 2.81GB)
-[7/7] Creating image...                                                                                  (3.0s @ 4.06GB)
-  24.53MB (42.25%) for code area:   43,766 compilation units
-  25.56MB (44.03%) for image heap:   9,362 classes and 297,458 objects
-   7.97MB (13.72%) for other data
-  58.06MB in total
+[3/7] Building universe...                                                                               (1.9s @ 2.35GB)
+[4/7] Parsing methods...      [*]                                                                        (0.9s @ 3.53GB)
+[5/7] Inlining methods...     [****]                                                                     (2.1s @ 2.91GB)
+[6/7] Compiling methods...    [***]                                                                     (10.1s @ 3.16GB)
+[7/7] Creating image...                                                                                  (2.8s @ 4.40GB)
+  24.53MB (42.24%) for code area:   43,779 compilation units
+  25.56MB (44.01%) for image heap:   9,364 classes and 297,425 objects
+   7.99MB (13.75%) for other data
+  58.08MB in total
 ------------------------------------------------------------------------------------------------------------------------
 Top 10 packages in code area:                               Top 10 object types in image heap:
    1.60MB sun.security.ssl                                     5.36MB byte[] for code metadata
-1006.64KB java.util                                            3.72MB java.lang.Class
- 688.46KB com.sun.crypto.provider                              2.52MB java.lang.String
- 573.56KB reactor.core.publisher                               2.38MB byte[] for java.lang.String
+1006.61KB java.util                                            3.63MB java.lang.Class
+ 688.43KB com.sun.crypto.provider                              2.52MB java.lang.String
+ 573.54KB reactor.core.publisher                               2.38MB byte[] for java.lang.String
  560.76KB io.netty.buffer                                      2.37MB byte[] for general heap data
- 542.04KB com.oracle.svm.core.reflect                          1.20MB com.oracle.svm.core.hub.DynamicHubCompanion
- 497.99KB sun.security.x509                                  615.35KB byte[] for reflection metadata
- 479.24KB io.netty.handler.codec.http2                       572.55KB java.lang.String[]
- 463.12KB java.util.concurrent                               520.08KB java.util.HashMap$Node
+ 541.64KB com.oracle.svm.core.reflect                          1.20MB com.oracle.svm.core.hub.DynamicHubCompanion
+ 497.99KB sun.security.x509                                  615.52KB byte[] for reflection metadata
+ 479.24KB io.netty.handler.codec.http2                       572.66KB java.lang.String[]
+ 463.05KB java.util.concurrent                               520.27KB java.util.HashMap$Node
  452.63KB java.lang                                          513.44KB java.lang.reflect.Method
-      ... 478 additional packages                                 ... 2912 additional object types
+      ... 478 additional packages                                 ... 2913 additional object types
                                            (use GraalVM Dashboard to see all)
 ------------------------------------------------------------------------------------------------------------------------
-                        5.1s (10.2% of total time) in 31 GCs | Peak RSS: 7.90GB | CPU load: 8.78
+                        4.7s (10.5% of total time) in 31 GCs | Peak RSS: 7.70GB | CPU load: 9.25
 ------------------------------------------------------------------------------------------------------------------------
 Produced artifacts:
  /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile/hello (executable)
  /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile/hello.build_artifacts.txt
 ========================================================================================================================
-Finished generating 'hello' in 49.7s.
+Finished generating 'hello' in 44.5s.
 [native-image-plugin] Native Image written to: /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile
 
-BUILD SUCCESSFUL in 51s
+BUILD SUCCESSFUL in 46s
 5 actionable tasks: 2 executed, 3 up-to-date
 
 ```
@@ -219,9 +217,9 @@ The result is a 54M standalone executable placed in the `build/native/nativeComp
 ![](keyboard.jpg) `ls -lh build/native/nativeCompile`
 
 ```sh
-total 55340
--rwxrwxr-x 1 rleland rleland 56647944 Jun 19 22:38 hello
--rw-rw-r-- 1 rleland rleland       20 Jun 19 22:38 hello.build_artifacts.txt
+total 55352
+-rwxrwxr-x 1 rleland rleland 56668424 Jun 22 22:14 hello
+-rw-rw-r-- 1 rleland rleland       20 Jun 22 22:14 hello.build_artifacts.txt
 ```
 
 Let's startup the application.  It's a native executable, so we just invoke it:
