@@ -30,16 +30,16 @@ This repository contains the code for a demo application for [GraalVM](http://gr
   ```bash
   gu install native-image
   ```
-For compilation, the `native-image` depends on the local toolchain.
+For compilation, the `native-image` tool depends on the local toolchain.
 Please make sure that `glibc-devel`, `zlib-devel` (header files for the C library and zlib), and `gcc` are available on your system. Some Linux distributions may additionally require `libstdc++-static`.
-See [Prerequisites for Native Image](https://www.graalvm.org/reference-manual/native-image/#prerequisites).
+See [Prerequisites for Native Image](https://www.graalvm.org/dev/reference-manual/native-image/#prerequisites).
 
 3. Download or clone the repository and navigate into the `native-hello-module` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
   cd graalvm-demos/native-hello-module
   ```
-## Building the application
+## Build the Application
 Before running this example, you need to build the application:
 
 ```bash
@@ -47,7 +47,7 @@ $ mvn package
 ```
 This creates a JAR file with all dependencies embedded: `target/HelloModule-1.0-SNAPSHOT.jar`
 
-## Run the application
+## Run the Application
 The following modularized Java Hello World example
 
     ├── hello
