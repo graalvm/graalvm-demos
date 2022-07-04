@@ -192,16 +192,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'fortune' demo
         run: |
-          cd fortune-demo/fortune
-          mvn --no-transfer-progress package
-          java -jar target/fortune-1.0-jar-with-dependencies.jar
-          ./target/fortune
+          ./build.sh
       - name: Run 'staticfortune' demo
         run: |
-          cd fortune-demo/staticfortune
-          mvn --no-transfer-progress package
-          java -jar target/staticfortune-1.0-jar-with-dependencies.jar
-          ./target/staticfortune
+          ./build.sh
   native-hello-module:
     name: Run 'native-hello-module' demo
     runs-on: ubuntu-latest
