@@ -5,10 +5,10 @@ The Fortune demo is provided to showcase the applicability of [GraalVM Dashboard
 The demo is a Java program that simulates the traditional `fortune` Unix program (for more information, see [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix))). The data for the fortune phrases is provided by [YourFortune](https://github.com/your-fortune).
 
 The Fortune demo is comprised of two sub-projects, each built with Maven: Fortune and StaticFortune.
-The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native executable from a JAR file with all dependencies at the `mvn package` step.
+The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html), which instructs Maven to generate a native executable from a JAR file with all dependencies.
 The plugin will also gather the diagnostic data at build time and write it to a dump file in the _target_ directory.
 
-To build and run the projects, use [GraalVM](https://www.graalvm.org/downloads/).
+To build and run the projects, a user is expected to have [GraalVM installed with Native Image support](https://www.graalvm.org/dev/reference-manual/native-image/#install-native-image).
 
 ## Fortune
 
@@ -19,11 +19,28 @@ To build and run the projects, use [GraalVM](https://www.graalvm.org/downloads/)
     ```
 2. Build the project:
     ```
-    mvn package
+    mvn clean package
     ```
-3. Run the application as a native executable:
+3. When the build succeeds, run the application on the JVM with the [Java agent](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#agent-support). Since you have installed GraalVM, it will run on GraalVM JDK.
+    ```
+    mvn -Pnative -Dagent exec:exec@java-agent
+    ```
+    The application will return a random saying. 
+    The agent generates the configuration files in the `target/native/agent-output` subdirectory. The diagnostic data will be written to a dump file `/target/fortune.bgv`.
+
+4. Build a native executable of this application with GraalVM Native Image and Maven:
+    ```
+    mvn -Pnative -Dagent package
+    ```
+    When the command completes, a native executable, `fortune`, is generated in the `/target` directory of the project and ready for use.
+
+5. Run the application by launching a native executable directly or with the Maven profile:
+
     ```
     ./target/fortune
+    ```
+    ```
+    mvn -Pnative exec:exec@native
     ```
 
 ## StaticFortune
