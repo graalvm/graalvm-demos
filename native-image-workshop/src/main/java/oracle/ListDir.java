@@ -47,7 +47,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;
 
 /**
  * Holds the count data - number of files and total size, in Bytes.
