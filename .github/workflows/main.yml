@@ -192,9 +192,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'fortune' demo
         run: |
+          cd fortune
           ./build.sh
       - name: Run 'staticfortune' demo
         run: |
+          cd staticfortune
           ./build.sh
   native-hello-module:
     name: Run 'native-hello-module' demo
