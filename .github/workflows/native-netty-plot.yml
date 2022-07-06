@@ -1,0 +1,39 @@
+name: native-netty-plot
+on:
+  push:
+    paths:
+      - 'native-netty-plot/**'
+      - '.github/workflows/native-netty-plot.yml'
+  pull_request:
+    paths:
+      - 'native-netty-plot/**'
+      - '.github/workflows/native-netty-plot.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'native-netty-plot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-netty-plot'
+        run: |
+          cd native-netty-plot
+          mvn --no-transfer-progress package
+          java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar &
+          pid=$!
+          sleep 10
+          kill $pid
+          native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
+          du -h netty-plot
+          ./netty-plot &
+          sleep 10
+          curl http://localhost:8080/

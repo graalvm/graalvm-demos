@@ -1,0 +1,36 @@
+name: native-image-configure-examples
+on:
+  push:
+    paths:
+      - 'native-image-configure-examples/**'
+      - '.github/workflows/native-image-configure-examples.yml'
+  pull_request:
+    paths:
+      - 'native-image-configure-examples/**'
+      - '.github/workflows/native-image-configure-examples.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'native-image-configure-examples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'configure-at-runtime-example'
+        run: |
+          cd native-image-configure-examples/configure-at-runtime-example
+          mvn --no-transfer-progress package
+          ./target/example
+      - name: Run 'configure-at-buildtime-example'
+        run: |
+          cd native-image-configure-examples/configure-at-buildtime-example
+          mvn --no-transfer-progress package
+          ./target/example
