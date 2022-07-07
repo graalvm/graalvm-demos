@@ -1,0 +1,31 @@
+name: native-list-dir
+on:
+  push:
+    paths:
+      - 'native-list-dir/**'
+      - '.github/workflows/native-list-dir.yml'
+  pull_request:
+    paths:
+      - 'native-list-dir/**'
+      - '.github/workflows/native-list-dir.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'native-list-dir'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image,js'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-list-dir'
+        run: |
+          cd native-list-dir
+          ./build.sh
+          ./run.sh

@@ -1,0 +1,35 @@
+name: hello-graal
+on:
+  push:
+    paths:
+      - 'hello-graal/**'
+      - '.github/workflows/hello-graal.yml'
+  pull_request:
+    paths:
+      - 'hello-graal/**'
+      - '.github/workflows/hello-graal.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'hello-graal'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'hello-graal'
+        run: |
+          cd hello-graal
+          javac -d build src/com/hello/Graal.java
+          java -cp ./build com.hello.Graal
+          jar cfvm Hello.jar manifest.txt -C build .
+          jar tf Hello.jar
+          native-image -jar Hello.jar
+          ./Hello

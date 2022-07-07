@@ -1,0 +1,33 @@
+name: js-java-async-helidon
+on:
+  push:
+    paths:
+      - 'js-java-async-helidon/**'
+      - '.github/workflows/js-java-async-helidon.yml'
+  pull_request:
+    paths:
+      - 'js-java-async-helidon/**'
+      - '.github/workflows/js-java-async-helidon.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'js-java-async-helidon'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'js-java-async-helidon'
+        run: |
+          cd js-java-async-helidon
+          mvn --no-transfer-progress clean package
+          $GRAALVM_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
+          sleep 10
+          curl http://localhost:8080/greet?request=41
+          curl http://localhost:8080/greet?request=foo

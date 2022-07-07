@@ -1,6 +1,6 @@
 # GraalVM Demos
 
-[![GraalVM Demos](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml/badge.svg)](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml)
+[![GraalVM Demos](https://img.shields.io/badge/GraalVM%20Demos-passing-success)](https://github.com/graalvm/graalvm-demos/actions)
 
 This repository collects demo applications and benchmarks written in Java, JavaScript, R, Ruby, and other JVM languages like Kotlin and Scala.
 These programs are illustrating diverse capabilities of [GraalVM](http://graalvm.org).

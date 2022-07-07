@@ -1,0 +1,31 @@
+name: espresso-jshell
+on:
+  push:
+    paths:
+      - 'espresso-jshell/**'
+      - '.github/workflows/espresso-jshell.yml'
+  pull_request:
+    paths:
+      - 'espresso-jshell/**'
+      - '.github/workflows/espresso-jshell.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'espresso-jshell'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'espresso,native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'espresso-jshell'
+        run: |
+          cd espresso-jshell
+          ./build-espresso-jshell.sh
+          echo "Math.PI" | ./espresso-jshell

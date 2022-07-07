@@ -1,0 +1,31 @@
+name: javagdbnative
+on:
+  push:
+    paths:
+      - 'javagdbnative/**'
+      - '.github/workflows/javagdbnative.yml'
+  pull_request:
+    paths:
+      - 'javagdbnative/**'
+      - '.github/workflows/javagdbnative.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'javagdbnative'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'javagdbnative'
+        run: |
+          cd javagdbnative
+          mvn -Pnative -DskipTests --no-transfer-progress package
+          ./target/javagdb

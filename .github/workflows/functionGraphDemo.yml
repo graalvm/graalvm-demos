@@ -1,0 +1,34 @@
+name: functionGraphDemo
+on:
+  push:
+    paths:
+      - 'functionGraphDemo/**'
+      - '.github/workflows/functionGraphDemo.yml'
+  pull_request:
+    paths:
+      - 'functionGraphDemo/**'
+      - '.github/workflows/functionGraphDemo.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'functionGraphDemo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'nodejs,R,ruby'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'functionGraphDemo'
+        run: |
+          cd functionGraphDemo
+          npm install
+          $GRAALVM_HOME/bin/node --version
+          $GRAALVM_HOME/bin/node --jvm --polyglot server.js &
+          sleep 60
+          curl http://localhost:8088/

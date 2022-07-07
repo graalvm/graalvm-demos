@@ -1,0 +1,34 @@
+name: fortune-demo
+on:
+  push:
+    paths:
+      - 'fortune-demo/**'
+      - '.github/workflows/fortune-demo.yml'
+  pull_request:
+    paths:
+      - 'fortune-demo/**'
+      - '.github/workflows/fortune-demo.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'fortune-demo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'fortune'
+        run: |
+          cd fortune-demo/fortune
+          ./build.sh
+      - name: Run 'staticfortune'
+        run: |
+          cd fortune-demo/staticfortune
+          ./build.sh

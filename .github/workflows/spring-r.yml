@@ -1,0 +1,32 @@
+name: spring-r
+on:
+  push:
+    paths:
+      - 'spring-r/**'
+      - '.github/workflows/spring-r.yml'
+  pull_request:
+    paths:
+      - 'spring-r/**'
+      - '.github/workflows/spring-r.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'spring-r'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.1.0'
+          java-version: '11'
+          components: 'R'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'spring-r'
+        run: |
+          cd spring-r
+          mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.1.0 &
+          sleep 60
+          curl http://localhost:8080/load

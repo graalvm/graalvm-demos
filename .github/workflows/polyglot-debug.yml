@@ -1,0 +1,31 @@
+name: polyglot-debug
+on:
+  push:
+    paths:
+      - 'polyglot-debug/**'
+      - '.github/workflows/polyglot-debug.yml'
+  pull_request:
+    paths:
+      - 'polyglot-debug/**'
+      - '.github/workflows/polyglot-debug.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'polyglot-debug'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'js'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'polyglot-debug'
+        run: |
+          cd polyglot-debug
+          mvn --no-transfer-progress clean package
+          java -cp ./target/PolyglotDebug-1.0-SNAPSHOT.jar org.graalvm.demos.PolyglotDebug

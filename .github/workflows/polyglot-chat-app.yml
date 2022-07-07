@@ -1,0 +1,33 @@
+name: polyglot-chat-app
+on:
+  push:
+    paths:
+      - 'polyglot-chat-app/**'
+      - '.github/workflows/polyglot-chat-app.yml'
+  pull_request:
+    paths:
+      - 'polyglot-chat-app/**'
+      - '.github/workflows/polyglot-chat-app.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'polyglot-chat-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'python,R'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'polyglot-chat-app'
+        run: |
+          cd polyglot-chat-app
+          ./gradlew build # pre-build application
+          ./gradlew run &
+          sleep 10
+          curl http://localhost:8080/
