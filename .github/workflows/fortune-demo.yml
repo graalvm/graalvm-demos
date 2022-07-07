@@ -28,6 +28,10 @@ jobs:
         run: |
           cd fortune-demo/fortune
           ./build.sh
+      - name: Run 'fortune-gradle'
+        run: |
+          cd fortune-demo/fortune-gradle
+          ./build.sh    
       - name: Run 'staticfortune'
         run: |
           cd fortune-demo/staticfortune
