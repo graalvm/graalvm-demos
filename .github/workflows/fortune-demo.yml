@@ -15,7 +15,7 @@ jobs:
   run:
     name: Run 'fortune-demo'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
@@ -28,6 +28,10 @@ jobs:
         run: |
           cd fortune-demo/fortune
           ./build.sh
+      - name: Run 'fortune-gradle'
+        run: |
+          cd fortune-demo/fortune-gradle
+          ./build.sh    
       - name: Run 'staticfortune'
         run: |
           cd fortune-demo/staticfortune
