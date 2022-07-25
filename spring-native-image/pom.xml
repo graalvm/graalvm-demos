@@ -27,8 +27,8 @@
 			Required by Spring Native
 		-->
 		<repackage.classifier/>
-		<spring-native.version>0.11.2</spring-native.version>
-		<native-buildtools.version>0.9.11</native-buildtools.version>
+		<spring-native.version>0.12.1</spring-native.version>
+		<native-buildtools.version>0.9.13</native-buildtools.version>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
 		<!--
 			Using this property you can define other flags you would like to be passed to the native image
@@ -242,7 +242,7 @@
 					<imageName>${binary-name}</imageName>
 					<skip>${skip-native-build}</skip>
 					<buildArgs>
-						<buildArg>-H:+ReportExceptionStackTraces ${native-image-extra-flags}</buildArg>
+						<buildArg>-Ob -H:+ReportExceptionStackTraces ${native-image-extra-flags}</buildArg>
 					</buildArgs>
 				</configuration>
 			</plugin>
