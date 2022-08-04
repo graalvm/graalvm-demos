@@ -64,7 +64,7 @@
     GraalVM 22.2.0 Java 17 EE (Java Version 17.0.4+11-LTS-jvmci-22.2-b05)
     ```
 
-6. Confirm the `maven` version and `Java` used:
+6. Confirm the `Java` used for Maven builds:
 
     ```shell
     mvn --version
@@ -73,11 +73,9 @@
     The output should be similar to:
 
     ```shell
-    Apache Maven 3.6.1 (Red Hat 3.6.1-6.3)
-    Maven home: /opt/rh/rh-maven36/root/usr/share/maven
-    Java version: 17.0.4, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17   
-    Default locale: en_US, platform encoding: UTF-8
-    OS name: "linux", version: "4.14.35-2047.513.2.2.el7uek.x86_64", arch: "amd64", family: "unix"
+    ...
+    Java version: 17.0.4, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
+    ...
     ```
 
 Continue to **[Step 4: Setup Project and Run](./README-CS.md#step-4-setup-project-and-run)**
