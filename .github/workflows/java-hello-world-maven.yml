@@ -1,16 +1,16 @@
-name: java-hello-world
+name: java-hello-world-maven
 on:
   push:
     paths:
-      - 'java-hello-world/**'
-      - '.github/workflows/java-hello-world.yml'
+      - 'java-hello-world-maven/**'
+      - '.github/workflows/java-hello-world-maven.yml'
   # pull_request: (requires EE, which is unavailable in PRs)
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
 jobs:
   run:
-    name: Run 'java-hello-world'
+    name: Run 'java-hello-world-maven'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -22,9 +22,9 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'java-hello-world'
+      - name: Run 'java-hello-world-maven'
         run: |
-          cd java-hello-world
+          cd java-hello-world-maven
           mvn --no-transfer-progress clean package
           java -jar target/my-app-1.0-SNAPSHOT.jar
           mvn --no-transfer-progress clean -Pnative -DskipTests package
