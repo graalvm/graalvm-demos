@@ -27,7 +27,7 @@ jobs:
           cd micronaut-hello-rest
           mvn --no-transfer-progress clean package
           export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-          mvn package -Dpackaging=native-image
+          mvn --no-transfer-progress package -Dpackaging=native-image
           ./target/MnHelloRest &
           sleep 5
           curl http://localhost:8080/Micronaut-Graal-Native
