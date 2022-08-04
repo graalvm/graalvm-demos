@@ -30,4 +30,4 @@ jobs:
           mvn --no-transfer-progress package -Dpackaging=native-image
           ./target/MnHelloRest &
           sleep 5
-          curl http://localhost:8080/Micronaut-Graal-Native
+          curl "http://localhost:8080/Micronaut-Graal-Native"
