@@ -1,16 +1,16 @@
-name: micronaut-hello-rest
+name: micronaut-hello-rest-maven
 on:
   push:
     paths:
-      - 'micronaut-hello-rest/**'
-      - '.github/workflows/micronaut-hello-rest.yml'
+      - 'micronaut-hello-rest-maven/**'
+      - '.github/workflows/micronaut-hello-rest-maven.yml'
   # pull_request: (requires EE, which is unavailable in PRs)
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
 jobs:
   run:
-    name: Run 'micronaut-hello-rest'
+    name: Run 'micronaut-hello-rest-maven'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -22,9 +22,9 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'micronaut-hello-rest'
+      - name: Run 'micronaut-hello-rest-maven'
         run: |
-          cd micronaut-hello-rest
+          cd micronaut-hello-rest-maven
           mvn --no-transfer-progress clean package
           ### Start: Workaround for 22.2 / To be removed once Micronaut releases a fix
           export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
