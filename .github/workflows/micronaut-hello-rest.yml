@@ -1,0 +1,33 @@
+name: micronaut-hello-rest
+on:
+  push:
+    paths:
+      - 'micronaut-hello-rest/**'
+      - '.github/workflows/micronaut-hello-rest.yml'
+  # pull_request: (requires EE, which is unavailable in PRs)
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'micronaut-hello-rest'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest' # EE dev builds not supported
+          gds-token: ${{ secrets.GDS_TOKEN }}
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'micronaut-hello-rest'
+        run: |
+          cd micronaut-hello-rest
+          mvn --no-transfer-progress clean package
+          export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
+          mvn package -Dpackaging=native-image
+          ./target/MnHelloRest &
+          sleep 5
+          curl http://localhost:8080/Micronaut-Graal-Native

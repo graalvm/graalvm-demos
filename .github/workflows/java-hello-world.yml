@@ -1,0 +1,31 @@
+name: java-hello-world
+on:
+  push:
+    paths:
+      - 'java-hello-world/**'
+      - '.github/workflows/java-hello-world.yml'
+  # pull_request: (requires EE, which is unavailable in PRs)
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+jobs:
+  run:
+    name: Run 'java-hello-world'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest' # EE dev builds not supported
+          gds-token: ${{ secrets.GDS_TOKEN }}
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'java-hello-world'
+        run: |
+          cd java-hello-world
+          mvn --no-transfer-progress clean package
+          java -jar target/my-app-1.0-SNAPSHOT.jar
+          mvn --no-transfer-progress clean -Pnative -DskipTests package
+          ./target/my-app
