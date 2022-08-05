@@ -38,10 +38,11 @@ To learn more about this topic, read [Initialize Once, Start Fast: Application I
   setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
   ```
 
-2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
+2. Install [Native Image](https://www.graalvm.org/dev/reference-manual/native-image/#install-native-image) by running:
   ```bash
   gu install native-image
   ```
+  You will also need to provide some native compiler toolchain prerequisites.
 
 3. Download or clone the demos repository::
   ```
