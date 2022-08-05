@@ -11,6 +11,8 @@ on:
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   run:
     name: Run 'native-image-configure-examples'
