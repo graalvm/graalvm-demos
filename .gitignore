@@ -252,7 +252,7 @@ polyglot-javascript-java-r/package-lock.json
 spring-r/Rplot001.svg
 scala-examples/scalac-native/project/
 scala-examples/scalac-native/scalac.build_artifacts.txt
-graalpython-notebook-example/venv/
+graalpy-notebook-example/venv/
 micronaut-python/venv/
 nohup.out
 fastR-examples/*.*

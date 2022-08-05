@@ -1,13 +1,13 @@
-name: graalpython-notebook-example
+name: graalpy-notebook-example
 on:
   push:
     paths:
-      - 'graalpython-notebook-example/**'
-      - '.github/workflows/graalpython-notebook-example.yml'
+      - 'graalpy-notebook-example/**'
+      - '.github/workflows/graalpy-notebook-example.yml'
   pull_request:
     paths:
-      - 'graalpython-notebook-example/**'
-      - '.github/workflows/graalpython-notebook-example.yml'
+      - 'graalpy-notebook-example/**'
+      - '.github/workflows/graalpy-notebook-example.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'graalpython-notebook-example'
+    name: Run 'graalpy-notebook-example'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -26,9 +26,9 @@ jobs:
           java-version: '11'
           components: 'python'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'graalpython-notebook-example'
+      - name: Run 'graalpy-notebook-example'
         run: |
-          cd graalpython-notebook-example
+          cd graalpy-notebook-example
           mvn --no-transfer-progress compile
           ./install-deps.sh
           # mvn exec:java (skip running the example)

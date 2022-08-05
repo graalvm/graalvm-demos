@@ -194,7 +194,7 @@ But the basic steps are:
 ~~~ {.bash}
 $ gu list
 # You should see that Python EE version 20.1.1 is now installed
-$ graalpython
+$ graalpy
 ~~~
 
 #### Installing R
