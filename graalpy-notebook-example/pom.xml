@@ -39,7 +39,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>${env.JAVA_HOME}/bin/graalpython</executable>
+                                    <executable>${env.JAVA_HOME}/bin/graalpy</executable>
                                     <arguments>
                                         <argument>-m</argument>
                                         <argument>venv</argument>
@@ -60,7 +60,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>venv/bin/graalpython</executable>
+                                    <executable>venv/bin/graalpy</executable>
                                     <arguments>
                                         <argument>-m</argument>
                                         <argument>ginstall</argument>
@@ -130,7 +130,7 @@
                                 <requireFilesExist>
                                     <message>You must set JAVA_HOME to a GraalVM with Python installed.</message>
                                     <files>
-                                        <file>${env.JAVA_HOME}/bin/graalpython</file>
+                                        <file>${env.JAVA_HOME}/bin/graalpy</file>
                                     </files>
                                 </requireFilesExist>
                             </rules>

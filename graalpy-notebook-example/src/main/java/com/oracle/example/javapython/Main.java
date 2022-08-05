@@ -32,7 +32,7 @@ import org.graalvm.polyglot.Value;
 
 public class Main {
     private static String PYTHON = "python";
-    private static String VENV_EXECUTABLE = Main.class.getClassLoader().getResource(Paths.get("venv", "bin", "graalpython").toString()).getPath();
+    private static String VENV_EXECUTABLE = Main.class.getClassLoader().getResource(Paths.get("venv", "bin", "graalpy").toString()).getPath();
 
     private static Context context;
     private static Value BytesIO;
