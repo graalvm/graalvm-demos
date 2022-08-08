@@ -106,16 +106,12 @@ This step is optional - [Check software version and environment variables](./REA
 7. Build the app native executable
 
     ```shell
-    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-
     mvn package -Dpackaging=native-image
     ```
 
     **OR** 
 
     ```shell
-    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-    
     ./mvnw package -Dpackaging=native-image
     ```
 
