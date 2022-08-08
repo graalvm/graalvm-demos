@@ -28,9 +28,6 @@ jobs:
         run: |
           cd micronaut-hello-rest-maven
           mvn --no-transfer-progress clean package
-          ### Start: Workaround for 22.2 / To be removed once Micronaut releases a fix
-          export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-          ### End: Workaround for 22.2 / To be removed once Micronaut releases a fix
           mvn --no-transfer-progress package -Dpackaging=native-image
           ./target/MnHelloRest &
           sleep 5
