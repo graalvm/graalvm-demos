@@ -1,6 +1,6 @@
 # Spring Boot Microservice with GraalVM Enterprise in OCI Code Editor
 
-This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Code Editor. This sample uses a Spring Boot application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
+This example shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Code Editor. This example uses a Spring Boot application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
 
 ## What is GraalVM?
 
@@ -55,9 +55,9 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
 This step is optional - [Check software version and environment variables](./README-check-version-env-vars.md)
 
 
-## Step 4: Setup project, build and run as a JAR
+## Step 4: Set up your project, build and run as a JAR
 
-1. Git clone this sample folder.
+1. Git clone this example.
 
     ```shell
     git init graalvmee-spring-native-image
@@ -76,7 +76,7 @@ This step is optional - [Check software version and environment variables](./REA
 
     ```
 
-2. Build a JAR for the sample app.
+2. Build a JAR file for the example app.
 
     ```shell
     mvn clean package
@@ -119,7 +119,7 @@ This step is optional - [Check software version and environment variables](./REA
 6. Once the app is running in the foreground, press CTRL+C to stop it.
 
 
-## Step 5: Build and run as a native executable
+## Step 5: Build and run a native executable
 
 Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image. In this example, we'll use the Maven plugin from [GraalVM Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html) and
 [Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
