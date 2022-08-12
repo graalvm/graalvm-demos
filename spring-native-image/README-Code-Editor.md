@@ -50,7 +50,7 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The current managed java version is set to graalvmeejdk-17.0.4.
     ```
 
-## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
+## Step 3: [OPTIONAL] Confirm software version and environment variables
 
 This step is optional - [Check software version and environment variables](./README-check-version-env-vars.md)
 
