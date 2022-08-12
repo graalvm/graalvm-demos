@@ -4,17 +4,15 @@ This sample shows how you can get started quickly with GraalVM Enterprise Editio
 
 ## What is GraalVM?
 
-GraalVM is a high-performance JDK distribution that can accelerate any Java workload running on the HotSpot JVM.
-
-GraalVM Native Image ahead-of-time compilation enables you to build lightweight Java applications that are smaller, faster, and use less memory and CPU. At build time, GraalVM Native Image analyzes a Java application and its dependencies to identify just what classes, methods, and fields are absolutely necessary and generates optimized machine code for just those elements.
+[GraalVM](https://www.oracle.com/in/java/graalvm/) is a high-performance JDK distribution that accelerates Java workloads. GraalVM Native Image ahead-of-time compilation builds your Java application into a native executable that is small, starts fast, and uses less memory and CPU. Leading Java microservices frameworks such as Spring Boot, Micronaut, Quarkus and Helidon support GraalVM Native Image.
 
 GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
 
 ## What is Cloud Shell?
 
-Cloud Shell is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with pre-authenticated OCI CLI and other pre-installed developer tools. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run commands. 
+[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a pre-authenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
-GraalVM Enterprise Native Image and JDK 17 are preinstalled in Cloud Shell. 
+GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
 ## Step 1: Launch Cloud Shell 
 
@@ -48,14 +46,31 @@ GraalVM Enterprise Native Image and JDK 17 are preinstalled in Cloud Shell.
     The current managed java version is set to graalvmeejdk-17.0.4.
     ```
 
-## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
+## Step 3: [OPTIONAL] Confirm software version and environment variables
 
-This step is optional - [Check software version and environment variables](./README-CS-check-version-env-vars.md)
+This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
 
-## Step 4: Setup Project and Run
+## Step 4: Setup project, build and run as a JAR
 
-1. Git clone this repo.
+1. Git clone this sample folder.
+
+    ```shell
+    git init graalvmee-java-hello-world-maven
+
+    cd graalvmee-java-hello-world-maven
+
+    git remote add origin https://github.com/graalvm/graalvm-demos.git
+
+    git config core.sparsecheckout true
+
+    echo "java-hello-world-maven/*">>.git/info/sparse-checkout
+
+    git pull --depth=1 origin master
+
+    cd java-hello-world-maven
+
+    ```
 
 2. Build a JAR for the sample app.
 
@@ -74,17 +89,21 @@ This step is optional - [Check software version and environment variables](./REA
     Hello World!
     ```
 
-4. Let's use GraalVM Native Image to produce a native executable.
+## Step 5: Build and run as a native executable
 
-    4.1) **Option 1: Quick Build enabled**
+Let's use GraalVM Native Image to produce a native executable.
 
-    To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor like Nano and uncomment the line shown:
+**Option 1: Quick Build enabled**
+
+You will notice the `Quick Build` mode reduces the time required to generate a native executable, making it covenient to use Native Image builds in a typical development cycle (edit, compile, test, and debug). The `Quick Build` mode is recommended for development purpose only.
+
+1. To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor like Nano and uncomment the line shown:
 
     ```
     <buildArg>-Ob</buildArg>
     ```
 
-    Run the Native Image build to generate a native executable:
+2. Run the Native Image maven build to generate a native executable:
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
@@ -98,7 +117,7 @@ This step is optional - [Check software version and environment variables](./REA
     ```
     ...
     You enabled -Ob for this image build. This will configure some optimizations to reduce image build time.
-    This feature should only be used during development and never for deployment.
+    ...
     ================================================================================================
     GraalVM Native Image: Generating 'my-app' (executable)...
     ================================================================================================
@@ -147,15 +166,27 @@ This step is optional - [Check software version and environment variables](./REA
     ...
     ```
 
-    4.2) **Option 2: Quick Build disabled** 
+3. Run the native executable using:
+
+    ```shell
+    ./target/my-app
+    ```
+
+    The output should be similar to:
+    ```
+    Hello World!
+    ```
+
+
+**Option 2: Quick Build disabled** 
     
-    To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor like Nano and comment the line shown:  
+1. To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor like Nano and comment the line shown:  
 
     ```
     <!-- <buildArg>-Ob</buildArg> -->
     ```
 
-    Run the Native Image build to generate a native executable:
+2. Run the Native Image maven build to generate a native executable:
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
@@ -216,7 +247,7 @@ This step is optional - [Check software version and environment variables](./REA
     ...
     ```
 
-5. Run the native executable using:
+3. Run the native executable using:
 
     ```shell
     ./target/my-app

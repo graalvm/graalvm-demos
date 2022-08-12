@@ -1,4 +1,4 @@
-## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
+## [OPTIONAL] Confirm software version and environment variables
 
 1. Confirm GraalVM is the current JDK:
 
@@ -78,4 +78,4 @@
     ...
     ```
 
-Continue to **[Step 4: Setup Project and Run](./README-CS.md#step-4-setup-project-and-run)**
+Go back to continue with the rest of the demo sample.
