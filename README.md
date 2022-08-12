@@ -7,11 +7,50 @@ These programs are illustrating diverse capabilities of [GraalVM](http://graalvm
 
 ## Table of Contents
 
-| Name                      | Description                                          | Components                      | Try in OCI Code Editor | Try in OCI Cloud Shell | 
-|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|
-| java-hello-world-maven | This example uses a simple hello world Java application built with GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Maven | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-hello-world) | [GraalVM Enterprise in OCI Cloud Shell](./java-hello-world-maven/README-Cloud-Shell.md) |
-| micronaut-hello-rest-maven | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Micronaut, Maven | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) | [GraalVM Enterprise in OCI Cloud Shell](./micronaut-hello-rest-maven/README-Cloud-Shell.md) |
-| spring-native-image | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Spring Boot, Maven | [GraalVM Enterprise in OCI Code Editor](./spring-native-image/README-Code-Editor.md) | [GraalVM Enterprise in OCI Cloud Shell](./spring-native-image/README-Cloud-Shell.md) |
+### Java
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| java-hello-world-maven | This example uses a simple hello world Java application built with GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Maven | - | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-hello-world) | [GraalVM Enterprise in OCI Cloud Shell](./java-hello-world-maven/README-Cloud-Shell.md) |
+| fortune-demo | Java program that simulates the traditional fortune teller Unix program. This demo shows how to run it in JIT mode, build a native executable, and finally build a mostly-static native executable. | JDK, Native Image, Maven, Gradle | [fortune-demo](./fortune-demo/README.md) | - | - |
+
+
+### Micronaut
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| micronaut-hello-rest-maven | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Micronaut, Maven | - | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) | [GraalVM Enterprise in OCI Cloud Shell](./micronaut-hello-rest-maven/README-Cloud-Shell.md) |
+
+
+### Spring Boot
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| spring-native-image | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Spring Boot, Maven | - | [GraalVM Enterprise in OCI Code Editor](./spring-native-image/README-Code-Editor.md) | [GraalVM Enterprise in OCI Cloud Shell](./spring-native-image/README-Cloud-Shell.md) |
+
+
+### Scala
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| scalac-native | This example demonstrates how to build a native image of the Scala compiler. | JDK, Native Image, Scala, Maven | [scalac-native](./scalac-native/README.md) | - | - |
+
+
+### Kotlin
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| java-kotlin-aot | This example is a simple Java/Kotlin application, where a Java method accesses a Kotlin String and calls a Kotlin function, which later accesses a Java String. This example demonstrates how easy it is to interop between Java and Kotlin. | JDK, Native Image, Kotliin, Maven | [java-kotlin-aot](./java-kotlin-aot/README.md) | - | - |
+
+
+### Polyglot
+
+| Name                      | Description                                          | Components                      | Linux/macOS/Windows | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|:---------------:|
+| polyglot-chat-app | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | Java, Python, R, JDK, Native Image, Spring Boot, Maven | [polyglot-chat-app](./polyglot-chat-app/README.md) | - | - |
+| polyglot-debug | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | Java, JavaScript, JDK, Native Image, Spring Boot, Maven | [polyglot-debug](./polyglot-debug/README.MD) | - | - |
+| polyglot-javascript-java-r | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | Java, JavaScript, R, JDK, Native Image, Spring Boot, Maven | [polyglot-javascript-java-r](./polyglot-javascript-java-r/README.md) | - | - |
+| js-java-async-helidon | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | Java, JavaScript, Helidon, JDK, Native Image, Maven | [polyglot-debug](./polyglot-debug/README.MD) | - | - |
 
 
 ## Running
