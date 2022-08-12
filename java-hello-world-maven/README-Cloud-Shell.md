@@ -53,7 +53,7 @@ This step is optional - [Check software version and environment variables](../_c
 
 ## Step 4: Set up your project, build and run as a JAR
 
-1. Git clone this sample folder.
+1. Git clone this example.
 
     ```shell
     git init graalvmee-java-hello-world-maven
