@@ -1,6 +1,6 @@
 # Java Hello World with GraalVM Enterprise in OCI Cloud Shell
 
-This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This sample uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
+This example shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This example uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
 
 ## What is GraalVM?
 
@@ -10,7 +10,7 @@ GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (
 
 ## What is Cloud Shell?
 
-[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a pre-authenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
+[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a preauthenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
 GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
@@ -51,7 +51,7 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
 This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
 
-## Step 4: Setup project, build and run as a JAR
+## Step 4: Set up your project, build and run as a JAR
 
 1. Git clone this sample folder.
 
@@ -72,7 +72,7 @@ This step is optional - [Check software version and environment variables](../_c
 
     ```
 
-2. Build a JAR for the sample app.
+2. Build a JAR file for the example app.
 
     ```shell
     mvn clean package
@@ -89,21 +89,21 @@ This step is optional - [Check software version and environment variables](../_c
     Hello World!
     ```
 
-## Step 5: Build and run as a native executable
+## Step 5: Build and run a native executable
 
-Let's use GraalVM Native Image to produce a native executable.
+Use GraalVM Native Image to produce a native executable.
 
 **Option 1: Quick Build enabled**
 
-You will notice the `Quick Build` mode reduces the time required to generate a native executable, making it covenient to use Native Image builds in a typical development cycle (edit, compile, test, and debug). The `Quick Build` mode is recommended for development purpose only.
+You will notice the `Quick Build` mode reduces the time required to generate a native executable, making it convenient to use Native Image builds in a typical development cycle (edit, compile, test, and debug). The `Quick Build` mode is recommended for development purposes only.
 
-1. To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor like Nano and uncomment the line shown:
+1. To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor such as Nano and uncomment the line shown:
 
     ```
     <buildArg>-Ob</buildArg>
     ```
 
-2. Run the Native Image maven build to generate a native executable:
+2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
@@ -180,13 +180,13 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 
 **Option 2: Quick Build disabled** 
     
-1. To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor like Nano and comment the line shown:  
+1. To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor such as Nano and comment the line shown:  
 
     ```
     <!-- <buildArg>-Ob</buildArg> -->
     ```
 
-2. Run the Native Image maven build to generate a native executable:
+2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
