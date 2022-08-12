@@ -1,4 +1,4 @@
-# Spring Boot Native Image Microservice sample
+# Spring Boot Native Image Microservice example
 
 ## Overview
 
