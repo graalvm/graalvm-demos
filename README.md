@@ -2,8 +2,17 @@
 
 [![GraalVM Demos](https://img.shields.io/badge/GraalVM%20Demos-passing-success)](https://github.com/graalvm/graalvm-demos/actions)
 
-This repository collects demo applications and benchmarks written in Java, JavaScript, R, Ruby, and other JVM languages like Kotlin and Scala.
+This repository contains demo applications, benchmarks and examples written in Java, JavaScript, R, Ruby, and other JVM languages like Kotlin and Scala.
 These programs are illustrating diverse capabilities of [GraalVM](http://graalvm.org).
+
+## Table of Contents
+
+| Name                      | Description                                          | Components                      | Try in OCI Code Editor | Try in OCI Cloud Shell | 
+|---------------------------|------------------------------------------------------|---------------------------------|:---------------:|:---------------:|
+| java-hello-world-maven | This example uses a simple hello world Java application built with GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Maven | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-hello-world) | [GraalVM Enterprise in OCI Cloud Shell](./java-hello-world-maven/README-Cloud-Shell.md) |
+| micronaut-hello-rest-maven | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Micronaut, Maven | [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) | [GraalVM Enterprise in OCI Cloud Shell](./micronaut-hello-rest-maven/README-Cloud-Shell.md) |
+| spring-native-image | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Spring Boot, Maven | [GraalVM Enterprise in OCI Code Editor](./spring-native-image/README-Code-Editor.md) | [GraalVM Enterprise in OCI Cloud Shell](./spring-native-image/README-Cloud-Shell.md) |
+
 
 ## Running
 
