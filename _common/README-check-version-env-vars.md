@@ -78,4 +78,4 @@
     ...
     ```
 
-Go back to continue with the rest of the demo.
+Go back to continue with the rest of the example.
