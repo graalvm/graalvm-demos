@@ -52,14 +52,31 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The current managed java version is set to graalvmeejdk-17.0.4.
     ```
 
-## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
+## Step 3: [OPTIONAL] Confirm software version and environment variables
 
 This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
 
-## Step 4: Setup Project and Run
+## Step 4: Setup project, build and run as a JAR
 
-1. Git clone this repo.
+1. Git clone this sample folder.
+
+    ```shell
+    git init graalvmee-micronaut-hello-rest-maven
+
+    cd graalvmee-micronaut-hello-rest-maven
+
+    git remote add origin https://github.com/graalvm/graalvm-demos.git
+
+    git config core.sparsecheckout true
+
+    echo "micronaut-hello-rest-maven/*">>.git/info/sparse-checkout
+
+    git pull --depth=1 origin master
+
+    cd micronaut-hello-rest-maven
+
+    ```
 
 2. Build the app JAR
 
@@ -101,7 +118,12 @@ This step is optional - [Check software version and environment variables](../_c
 
 6. Once the app is running in the foreground, press CTRL+C to stop it.
 
-7. Build the app native executable
+
+## Step 5: Build and run as a native executable
+
+Let's use GraalVM Native Image to produce a native executable.
+
+1. Build the app native executable
 
     ```shell
     mvn package -Dpackaging=native-image
@@ -112,31 +134,91 @@ This step is optional - [Check software version and environment variables](../_c
     ```shell
     ./mvnw package -Dpackaging=native-image
     ```
+    
+    The output should be similar to:
+    
+    ```shell
+    ...
+    You enabled -Ob for this image build. This will configure some optimizations to reduce image build time.
+    ...
+    ==============================================================================================================
+    GraalVM Native Image: Generating 'MnHelloRest' (executable)...
+    ==============================================================================================================
+    [1/7] Initializing...                                                                         (14.8s @ 0.14GB)
+     Version info: 'GraalVM 22.2.0 Java 17 EE'
+     Java version info: '17.0.4+11-LTS-jvmci-22.2-b05'
+     C compiler: gcc (redhat, x86_64, 11.2.1)
+     Garbage collector: Serial GC
+     4 user-specific feature(s)
+     - io.micronaut.buffer.netty.NettyFeature
+     - io.micronaut.core.graal.ServiceLoaderFeature
+     - io.micronaut.http.netty.graal.HttpNettyFeature
+     - io.micronaut.jackson.JacksonDatabindFeature
+    [2/7] Performing analysis...  [*********]                                                    (134.8s @ 1.36GB)
+      13,633 (91.99%) of 14,820 classes reachable
+      18,746 (56.91%) of 32,942 fields reachable
+      73,576 (63.75%) of 115,405 methods reachable
+         753 classes,   342 fields, and 2,788 methods registered for reflection
+          63 classes,    68 fields, and    55 methods registered for JNI access
+           4 native libraries: dl, pthread, rt, z
+    [3/7] Building universe...                                                                    (16.3s @ 1.51GB)
+    [4/7] Parsing methods...      [****]                                                          (19.9s @ 1.69GB)
+    [5/7] Inlining methods...     [***]                                                            (7.9s @ 1.40GB)
+    [6/7] Compiling methods...    [********]                                                      (67.1s @ 2.21GB)
+    [7/7] Creating image...                                                                       (12.4s @ 2.23GB)
+      19.93MB (47.43%) for code area:    52,033 compilation units
+      21.77MB (51.81%) for image heap:  340,838 objects and 292 resources
+     327.48KB ( 0.76%) for other data
+      42.02MB in total
+    --------------------------------------------------------------------------------------------------------------
+    Top 10 packages in code area:                          Top 10 object types in image heap:
+       1.83MB com.oracle.svm.core.code                        4.60MB byte[] for code metadata
+       1.18MB sun.security.ssl                                3.00MB byte[] for java.lang.String
+     750.79KB java.util                                       2.93MB java.lang.Class
+     465.04KB com.sun.crypto.provider                         2.21MB java.lang.String
+     424.19KB java.lang.invoke                                2.06MB byte[] for general heap data
+     407.35KB java.text                                     765.40KB byte[] for reflection metadata
+     406.78KB io.netty.buffer                               639.05KB com.oracle.svm.core.hub.DynamicHubCompanion
+     386.15KB reactor.core.publisher                        407.69KB java.util.concurrent.ConcurrentHashMap$Node
+     372.09KB java.lang                                     392.31KB c.o.s.core.hub.DynamicHub$ReflectionMetadata
+     364.29KB io.netty.handler.codec.http2                  377.50KB java.util.HashMap$Node
+      13.05MB for 501 more packages                           3.64MB for 3063 more object types
+    --------------------------------------------------------------------------------------------------------------
+                       13.6s (4.8% of total time) in 35 GCs | Peak RSS: 4.14GB | CPU load: 1.77
+    --------------------------------------------------------------------------------------------------------------
+    Produced artifacts:
+     /home/sachin_pik/graalvmee-micronaut-hello-rest-maven/micronaut-hello-rest-maven/target/MnHelloRest (executable)
+     /home/sachin_pik/graalvmee-micronaut-hello-rest-maven/micronaut-hello-rest-maven/target/MnHelloRest.build_artifacts.txt (txt)
+    ==============================================================================================================
+    Finished generating 'MnHelloRest' in 4m 41s.
+    ...    
+    ```
+    
 
-8. Run the app native executable in the background
+2. Run the app native executable in the background
 
     ```shell
     ./target/MnHelloRest &
     ```
 
-9. Test the app native executable
+3. Test the app native executable
 
-    9.1) Should output "Hello World"
+    3.1) Should output "Hello World"
 
     ```shell
     curl http://localhost:8080/
     ```
 
-    9.2) Should output "Hello Micronaut-Graal-Native"
+    3.2) Should output "Hello Micronaut-Graal-Native"
 
     ```shell
     curl http://localhost:8080/Micronaut-Graal-Native
     ```
 
-10. Bring the running app JAR in the foreground
+4. Bring the running app JAR in the foreground
 
     ```shell
     fg
     ```
 
-11. Once the app is running in the foreground, press CTRL+C to stop it.
+5. Once the app is running in the foreground, press CTRL+C to stop it.
