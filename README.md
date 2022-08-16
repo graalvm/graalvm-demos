@@ -11,22 +11,22 @@ These programs are illustrating diverse capabilities of [GraalVM](http://graalvm
 
 | Name                      | Description                                          | Components                      | Guide/Blog Link | 
 |---------------------------|------------------------------------------------------|--------------------------------|-----------------|
-| [java-hello-world-maven](./java-hello-world-maven/) | This example uses a simple hello world Java application built with GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Maven | TBD [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-hello-world) [GraalVM Enterprise in OCI Cloud Shell](./java-hello-world-maven/README-Cloud-Shell.md) |
-| [fortune-demo](./fortune-demo/) | Java program that simulates the traditional fortune teller Unix program. This demo shows how to run it in JIT mode, build a native executable, and finally build a mostly-static native executable. | JDK, Native Image, Maven, Gradle | - TBD - |
+| [java-hello-world-maven](./java-hello-world-maven/) | This example uses a simple hello world Java application built with GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Maven | [Try in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-hello-world) [Try in OCI Cloud Shell](./java-hello-world-maven/README-Cloud-Shell.md) |
+| [fortune-demo](./fortune-demo/) | Java application that simulates the traditional fortune teller Unix program. This demo shows how to run it in JIT mode, build a native executable, and finally build a mostly-static native executable. | JDK, Native Image, Maven, Gradle | - TBD - |
 
 
 ### Micronaut
 
 | Name                      | Description                                          | Components                      | Guide/Blog Link | 
 |---------------------------|------------------------------------------------------|--------------------------------|-----------------|
-| [micronaut-hello-rest-maven](./micronaut-hello-rest-maven/) | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Micronaut, Maven | TBD [GraalVM Enterprise in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) [GraalVM Enterprise in OCI Cloud Shell](./micronaut-hello-rest-maven/README-Cloud-Shell.md) |
+| [micronaut-hello-rest-maven](./micronaut-hello-rest-maven/) | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Micronaut, Maven | [Try in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) [Try in OCI Cloud Shell](./micronaut-hello-rest-maven/README-Cloud-Shell.md) |
 
 
 ### Spring Boot
 
 | Name                      | Description                                          | Components                      | Guide/Blog Link |
 |---------------------------|------------------------------------------------------|--------------------------------|-----------------|
-| [spring-native-image](./spring-native-image/) | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Spring Boot, Maven | TBD [GraalVM Enterprise in OCI Code Editor](./spring-native-image/README-Code-Editor.md) [GraalVM Enterprise in OCI Cloud Shell](./spring-native-image/README-Cloud-Shell.md) |
+| [spring-native-image](./spring-native-image/) | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK and Native Image. | JDK, Native Image, Spring Boot, Maven | [Try in OCI Code Editor](./spring-native-image/README-Code-Editor.md) [Try in OCI Cloud Shell](./spring-native-image/README-Cloud-Shell.md) |
 
 
 ### Scala
