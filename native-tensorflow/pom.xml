@@ -1,0 +1,81 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.myorg</groupId>
+    <artifactId>hellotensorflow</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <exec.mainClass>HelloTensorFlow</exec.mainClass>
+        <!-- Minimal version for compiling with TensorFlow Java is JDK 11 -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- Include TensorFlow (pure CPU only) for all supported platforms -->
+        <dependency>
+            <groupId>org.tensorflow</groupId>
+            <artifactId>tensorflow-core-platform</artifactId>
+            <version>0.4.1</version>
+        </dependency>
+    </dependencies>
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>0.9.13</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+                <!-- <buildArgs>
+                    <arg>-Ob</arg>
+                </buildArgs> -->
+                <mainClass>${exec.mainClass}</mainClass>
+                <fallback>false</fallback>
+                <!-- <agent>
+                    <enabled>true</enabled>
+                </agent> -->
+            </configuration>
+          </plugin>
+
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <id>java-agent</id>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    <configuration>
+                        <executable>java</executable>
+                        <workingDirectory>${project.build.directory}</workingDirectory>
+                        <arguments>
+                            <argument>-classpath</argument>
+                            <classpath/>
+                            <argument>${exec.mainClass}</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

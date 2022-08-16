@@ -1,0 +1,48 @@
+[
+{
+  "name":"java.lang.Object",
+  "methods":[{"name":"toString","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.SecurityManager",
+  "fields":[{"name":"initialized"}]
+},
+{
+  "name":"java.lang.String",
+  "methods":[
+    {"name":"<init>","parameterTypes":["byte[]"] }, 
+    {"name":"getBytes","parameterTypes":[] }
+  ]
+},
+{
+  "name":"java.nio.Buffer",
+  "fields":[
+    {"name":"capacity"}, 
+    {"name":"limit"}, 
+    {"name":"position"}
+  ],
+  "methods":[
+    {"name":"array","parameterTypes":[] }, 
+    {"name":"arrayOffset","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.bytedeco.javacpp.Loader",
+  "methods":[{"name":"putMemberOffset","parameterTypes":["java.lang.String","java.lang.String","int"] }]
+},
+{
+  "name":"org.bytedeco.javacpp.Pointer",
+  "fields":[
+    {"name":"address"}, 
+    {"name":"capacity"}, 
+    {"name":"deallocator"}, 
+    {"name":"limit"}, 
+    {"name":"position"}
+  ],
+  "methods":[{"name":"init","parameterTypes":["long","long","long","long"] }]
+},
+{
+  "name":"org.bytedeco.javacpp.Pointer$NativeDeallocator",
+  "fields":[{"name":"ownerAddress"}]
+}
+]

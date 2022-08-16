@@ -1,0 +1,410 @@
+[
+{
+  "name":"com.google.protobuf.ExtensionRegistry",
+  "methods":[{"name":"getEmptyRegistry","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.NullPointerException"
+},
+{
+  "name":"java.lang.Object"
+},
+{
+  "name":"java.lang.String"
+},
+{
+  "name":"java.lang.UnsatisfiedLinkError"
+},
+{
+  "name":"java.nio.Buffer",
+  "fields":[{"name":"address"}]
+},
+{
+  "name":"java.nio.charset.Charset"
+},
+{
+  "name":"org.bytedeco.javacpp.BoolPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.BooleanPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.BytePointer"
+},
+{
+  "name":"org.bytedeco.javacpp.CLongPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.CharPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.DoublePointer"
+},
+{
+  "name":"org.bytedeco.javacpp.FloatPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.IntPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.Loader"
+},
+{
+  "name":"org.bytedeco.javacpp.LongPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.Pointer"
+},
+{
+  "name":"org.bytedeco.javacpp.Pointer$NativeDeallocator"
+},
+{
+  "name":"org.bytedeco.javacpp.PointerPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.ShortPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.SizeTPointer"
+},
+{
+  "name":"org.bytedeco.javacpp.presets.javacpp",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.TensorFlow"
+},
+{
+  "name":"org.tensorflow.internal.c_api.Compute_func_Pointer_TF_OpKernelContext",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Create_func_TF_OpKernelConstruction",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Deallocator_Pointer_long_Pointer",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Delete_func_Pointer",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.GradFunc",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.GradOpRegistry",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Listener_BytePointer",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Listener_String",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NameMap",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NameMap$Iterator",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeGraphPointer",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeOperation",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeOutput",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeOutputVector",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeOutputVector$Iterator",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NativeStatus",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Node",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.NodeBuilder",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.Shape_inference_func_TF_ShapeInferenceContext_TF_Status",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_Context",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_ContextOptions",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_Op",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_OpAttrs",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_TensorDebugInfo",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TFE_TensorHandle",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_AllocatorAttributes",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_ApiDefMap",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_AttrMetadata",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Buffer",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Buffer$Data_deallocator_Pointer_long",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_DeprecatedSession",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_DeviceList",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_DimensionHandle",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Function",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Graph",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_ImportGraphDefOptions",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_ImportGraphDefResults",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Input",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_KernelBuilder",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Library",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_OpDefinitionBuilder",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_OpKernelConstruction",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_OpKernelContext",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Operation",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_OperationDescription",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Output",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Scope",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Scope$Impl",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Server",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Session",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_SessionOptions",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_ShapeHandle",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_ShapeInferenceContext",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Status",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_StringView",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_Large",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_Offset",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_Raw",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_Small",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_Union",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_TString_View",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_Tensor",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.TF_WhileParams",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.global.tensorflow",
+  "unsafeAllocated": true
+},
+{
+  "name":"org.tensorflow.internal.c_api.presets.tensorflow",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TBfloat16Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TBoolMapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TFloat16Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TFloat32Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TFloat64Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TInt32Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TInt64Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TStringMapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.tensorflow.internal.types.TUint8Mapper",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "allDeclaredFields":true,
+  "queriedMethods":[
+    {"name":"arrayBaseOffset","parameterTypes":["java.lang.Class"] }, 
+    {"name":"arrayIndexScale","parameterTypes":["java.lang.Class"] }, 
+    {"name":"copyMemory","parameterTypes":["long","long","long"] }, 
+    {"name":"copyMemory","parameterTypes":["java.lang.Object","long","java.lang.Object","long","long"] }, 
+    {"name":"getBoolean","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getByte","parameterTypes":["long"] }, 
+    {"name":"getByte","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getDouble","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getFloat","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getInt","parameterTypes":["long"] }, 
+    {"name":"getInt","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getLong","parameterTypes":["long"] }, 
+    {"name":"getLong","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getObject","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"getShort","parameterTypes":["java.lang.Object","long"] }, 
+    {"name":"objectFieldOffset","parameterTypes":["java.lang.reflect.Field"] }, 
+    {"name":"putBoolean","parameterTypes":["java.lang.Object","long","boolean"] }, 
+    {"name":"putByte","parameterTypes":["long","byte"] }, 
+    {"name":"putByte","parameterTypes":["java.lang.Object","long","byte"] }, 
+    {"name":"putDouble","parameterTypes":["java.lang.Object","long","double"] }, 
+    {"name":"putFloat","parameterTypes":["java.lang.Object","long","float"] }, 
+    {"name":"putInt","parameterTypes":["long","int"] }, 
+    {"name":"putInt","parameterTypes":["java.lang.Object","long","int"] }, 
+    {"name":"putLong","parameterTypes":["long","long"] }, 
+    {"name":"putLong","parameterTypes":["java.lang.Object","long","long"] }, 
+    {"name":"putObject","parameterTypes":["java.lang.Object","long","java.lang.Object"] }, 
+    {"name":"putShort","parameterTypes":["java.lang.Object","long","short"] }
+  ]
+}
+]

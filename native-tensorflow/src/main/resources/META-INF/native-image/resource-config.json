@@ -1,0 +1,21 @@
+{
+  "resources":{
+  "includes":[
+    {
+      "pattern":"\\Qorg/bytedeco/javacpp/linux-x86_64/libjnijavacpp.so\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/bytedeco/javacpp/properties/linux-x86_64.properties\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/tensorflow/internal/c_api/linux-x86_64/libjnitensorflow.so\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/tensorflow/internal/c_api/linux-x86_64/libtensorflow_cc.so.2\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/tensorflow/internal/c_api/linux-x86_64/libtensorflow_framework.so.2\\E"
+    }
+  ]},
+  "bundles":[]
+}

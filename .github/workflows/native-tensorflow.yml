@@ -1,0 +1,33 @@
+name: native-tensorflow
+on:
+  push:
+    paths:
+      - 'native-tensorflow/**'
+      - '.github/workflows/native-tensorflow.yml'
+  pull_request:
+    paths:
+      - 'native-tensorflow/**'
+      - '.github/workflows/native-tensorflow.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-tensorflow'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-tensorflow'
+        run: |
+          cd native-tensorflow
+          mvn --no-transfer-progress -Pnative -DskipTests package
+          ./target/hellotensorflow
