@@ -18,7 +18,6 @@ cd graalvm-demos
 The demos are normal applications and benchmarks written in Java, JavaScript, Python, etc., so they are compatible with any virtual machine capable of running Java, JavaScript and so on. 
 These demos are [tested against the latest GraalVM release using GitHub Actions](https://github.com/graalvm/graalvm-demos/actions/workflows/main.yml).
 
-
 ### Java: Native Image and JIT
 
 | Name                      | Description                                          | Technologies                      | Reference | 
@@ -27,7 +26,12 @@ These demos are [tested against the latest GraalVM release using GitHub Actions]
 | [Java Fortune Demo](./fortune-demo/) | A Java application that simulates the traditional fortune teller Unix program. This demo shows how to run it in JIT mode, build a native executable, and finally build a mostly-static native executable, using Gradle or Maven build tools. | Native Image, Maven, Gradle | [Use GraalVM Dashboard to Optimize the Size of a Native Executable](https://www.graalvm.org/dev/reference-manual/native-image/guides/use-graalvm-dashboard/) |
 | [Hello Graal](./hello-graal/) | This is a simple Java example to demonstrate how to build native executables from a class file and a JAR file. All steps including creating a Java application are done from the command line. | Native Image | [Native Image Getting Started](graalvm.org/dev/reference-manual/native-image/#build-a-native-executable) |
 | [Hello World](./fortune-demo/) | This is a "HelloWorld" Java application, built with Maven, to demonstrate how to generate a native executable using [Native Build Tools Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html). It shows how you can get started quickly with GraalVM Enterprise in OCI Cloud Shell and OCI Code Editor. | Native Image, Native Build Tools, Maven | [GraalVM Enterprise in OCI Code Editor](https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/code-editor/), [GraalVM Enterprise in OCI Cloud Shell](https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/cloud-shell/) |
-
+| [Simple Java Stream Benchmark](./java-simple-stream-benchmark/) | This application is a small benchmark of the Java Stream API. It demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas, or other Java features.| Graal compiler, C2 | [Simple Java Stream Benchmark](https://www.graalvm.org/dev/examples/java-simple-stream-benchmark/) |
+| [Native Image Debugging](./javagdbnative/) | This demo is used to demonstrate how to debug a Java application, built into a native executable, using [GraalVM Tools for Java VS Code extension](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm#xd_co_f=ZTA0Y2M0YjgtNGQ5Yi00NGVlLThmZjgtMWRiZDU5OGI4OWM2~). | Native Image, Maven, GraalVM Tools for Java | [Native Image Debugging in VS Code](https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1) |
+| [Java Multithreading Demo](./multithreading-demo/) | The application is a Java program which does synchronous and asynchronous threads execution. The demo is comprised of two sub-projects, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved. | Native Image, Native Image Maven Plugin, GraalVM Dashboard | [Making sense of Native Image contents](https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d) |
+| [Building a Java Module into a Native Executable](./native-hello-module/) | This is a simple HelloWorld Java module gathered with Maven, to show how to build a modular Java application into a native executable. | Native Image, Maven | [Build Java Modules into a Native Executable](https://www.graalvm.org/dev/reference-manual/native-image/guides/build-java-modules-into-native-executable/) |
+| [Application Initialization at Build Time](./native-image-configure-examples/) | This example demonstrates the ability of Native Image to run parts of your application at the image build time. In both demo's part the Jackson framework is used to parse a JSON file at runtime. | Native Image, Maven | [Understanding Class Initialization in GraalVM Native Image Generation](https://medium.com/graalvm/understanding-class-initialization-in-graalvm-native-image-generation-d765b7e4d6ed) |
+| [Java Streams API Demo](./java-simple-stream-benchmark/) | This demo shows how GraalVM efficiently removes abstractions from high-level programs. The Streams.java file contains a simple query implemented with the Java Streams API. | Native Image, Native Build Tools, Maven | [Optimize a Native Executable with Profile-Guided Optimizations](https://www.graalvm.org/dev/reference-manual/native-image/guides/optimize-native-executable-with-pgo/), [Abstraction Without Regret When Running on GraalVM](#) |
 
 ### Micronaut
 
@@ -36,7 +40,6 @@ These demos are [tested against the latest GraalVM release using GitHub Actions]
 | [Micronaut Hello World REST](./micronaut-hello-rest-maven/) | This example uses a simple hello world REST application built with the Micronaut framework and GraalVM Enterprise JDK and Native Image. | Native Image, Micronaut, Native Build Tools, Maven | [Try in OCI Code Editor](https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest) |
 | [Micronaut with GraalVM Native Image and Docker](./micronaut-nativeimage/) | This example shows how to create a simple Micronaut REST application, compile it with Native Image, and package it in a Docker container image. | Native Image, Micronaut, Native Build Tools, Gradle, Docker | |
 
-
 ### Spring Boot
 
 | Name                      | Description                                          | Technologies                      | Reference |
@@ -44,13 +47,11 @@ These demos are [tested against the latest GraalVM release using GitHub Actions]
 | [Spring Boot Native Image Microservice](./spring-native-image/) | This example uses a simple Spring Boot microservice built with the Spring Boot framework and GraalVM Enterprise JDK, and  Native Image. | Spring Boot, Spring Native, Native Image | - |
 | [Spring Boot Using R Packages](./spring-r/) | This is a simple Java Spring application that uses GraalVM interoperability to load an R script, which uses a typical R package, `lattice`. | Spring, FastR | - |
 
-
 ### Scala
 
 | Name                      | Description                                          | Technologies                      | Reference |
 |---------------------------|------------------------------------------------------|--------------------------------|-----------------|
 | [Native Image of the Scala Compiler](./scalac-native/) | This example demonstrates how to build a native executable of the Scala compiler. | Scala 2.12.x, Native Image, Scala | - |
-
 
 ### Kotlin
 
@@ -58,6 +59,11 @@ These demos are [tested against the latest GraalVM release using GitHub Actions]
 |---------------------------|------------------------------------------------------|--------------------------------|-----------------|
 | [Java Kotlin Interoperability and AOT Compilation](./java-kotlin-aot/) | This is a simple Java/Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class. This example demonstrates how to interoperate between Java and Kotlin and build a native executable. | Native Image, Kotlin, Maven | [Build a Native Image of a Java and Kotlin Application](https://www.graalvm.org/dev/examples/java-kotlin-aot/) |
 
+### Python
+
+| Name                      | Description                                          | Technologies                      | Reference |
+|---------------------------|------------------------------------------------------|--------------------------------|-----------------|
+| [Graalpy Notebook](./graalpy-notebook-example/) | This example demonstrates how to integrate Python on GraalVM with a Java application. | GraalPy | - |
 
 ### Polyglot
 
