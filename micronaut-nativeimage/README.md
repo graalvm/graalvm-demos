@@ -108,20 +108,18 @@ When complete, let's launch the app using the `java -jar` command which will sta
 ![](keyboard.jpg) `java -jar build/libs/hello-0.1-all.jar`
 
 You can see the app starts in few hundred milliseconds.  How many will depend on the speed of your machine.
-In this run it took 937ms, almost one second, to boot up:
+In this run it took 486ms, about half a second, to boot up:
 
 ```sh
-__  __ _                                  _
-|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
+ __  __ _                                  _   
+|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_ 
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
-| |  | | | (__| | | (_) | | | | (_| | |_| | |_
+| |  | | | (__| | | (_) | | | | (_| | |_| | |_ 
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
- Micronaut (v3.0.0)
+  Micronaut (v3.5.2)
 
-22:16:29.972 [main] INFO  i.m.context.env.DefaultEnvironment - Established active environments: [oraclecloud, cloud]
-22:16:30.800 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 937ms. Server Running: http://micronautexample:8080
+22:21:47.239 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 486ms. Server Running: http://localhost:8080
 ```
-
 To exercise the `HelloController` we created, either `curl http://localhost:8080/hello` or open it in a browser:
 
 ![](keyboard.jpg) `curl http://localhost:8080/hello`
@@ -135,68 +133,111 @@ The response should be `Example Response`. Stop the application and we'll contin
 With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with GraalVM Native Image.
 It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
 
-![](keyboard.jpg) `./gradlew nativeImage`
+![](keyboard.jpg) `./gradlew nativeCompile`
+  
 
 Compilation can take a few minutes, but more cores and more memory reduces the required time!
 
-```sh
-> Task :compileJava
-Note: Creating bean classes for 1 type elements
+```
+> Task :generateResourcesConfigFile
+[native-image-plugin] Resources configuration written into /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/generated/generateResourcesConfigFile/resource-config.json
 
-> Task :generateResourceConfigFile
-Generating /Users/ogupalo/graalvm-demos/hello/build/generated/resources/graalvm/resource-config.json
+> Task :nativeCompile
+[native-image-plugin] Toolchain detection is disabled, will use GraalVM from /home/rleland/.local/share/graalvm/graalvm.
+[native-image-plugin] Using executable path: /home/rleland/.local/share/graalvm/graalvm/bin/native-image
+Warning: Using a deprecated option --allow-incomplete-classpath from 'META-INF/native-image/io.micronaut/micronaut-inject/native-image.properties' in 'file:///home/rleland/.gradle/caches/modules-2/files-2.1/io.micronaut/micronaut-inject/3.5.2/c564af395867f630b24b1b2f382e5a971baf7cad/micronaut-inject-3.5.2.jar'. Allowing an incomplete classpath is now the default. Use --link-at-build-time to report linking errors at image build time for a class or package.
+========================================================================================================================
+GraalVM Native Image: Generating 'hello' (executable)...
+========================================================================================================================
+[1/7] Initializing...                                                                                    (2.5s @ 0.32GB)
+ Version info: 'GraalVM 22.1.0 Java 11 CE'
+ C compiler: gcc (linux, x86_64, 11.2.0)
+ Garbage collector: Serial GC
+ 4 user-provided feature(s)
+  - io.micronaut.buffer.netty.NettyFeature
+  - io.micronaut.core.graal.ServiceLoaderFeature
+  - io.micronaut.http.netty.graal.HttpNettyFeature
+  - io.micronaut.jackson.JacksonDatabindFeature
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type kotlin.coroutines.CoroutineContext not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.epoll.Epoll not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type org.apache.logging.log4j.core.config.Configurator not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
+Warning: Could not register complete reflection metadata for io.micronaut.http.bind.binders.ContinuationArgumentBinder. Reason(s): java.lang.TypeNotPresentException: Type kotlin.coroutines.Continuation not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.epoll.Epoll not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type kotlinx.coroutines.reactive.ReactiveFlowKt not present
+Warning: unable to register annotation value "classes" for annotation type interface io.micronaut.context.annotation.Requires. Reason: java.lang.TypeNotPresentException: Type io.netty.channel.kqueue.KQueue not present
+[2/7] Performing analysis...  [***************]                                                         (21.0s @ 4.72GB)
+  13,109 (91.99%) of 14,250 classes reachable
+  18,655 (59.12%) of 31,555 fields reachable
+  65,820 (62.98%) of 104,507 methods reachable
+     702 classes,   242 fields, and 2,414 methods registered for reflection
+      68 classes,    88 fields, and    55 methods registered for JNI access
+[3/7] Building universe...                                                                               (1.9s @ 2.35GB)
+[4/7] Parsing methods...      [*]                                                                        (0.9s @ 3.53GB)
+[5/7] Inlining methods...     [****]                                                                     (2.1s @ 2.91GB)
+[6/7] Compiling methods...    [***]                                                                     (10.1s @ 3.16GB)
+[7/7] Creating image...                                                                                  (2.8s @ 4.40GB)
+  24.53MB (42.24%) for code area:   43,779 compilation units
+  25.56MB (44.01%) for image heap:   9,364 classes and 297,425 objects
+   7.99MB (13.75%) for other data
+  58.08MB in total
+------------------------------------------------------------------------------------------------------------------------
+Top 10 packages in code area:                               Top 10 object types in image heap:
+   1.60MB sun.security.ssl                                     5.36MB byte[] for code metadata
+1006.61KB java.util                                            3.63MB java.lang.Class
+ 688.43KB com.sun.crypto.provider                              2.52MB java.lang.String
+ 573.54KB reactor.core.publisher                               2.38MB byte[] for java.lang.String
+ 560.76KB io.netty.buffer                                      2.37MB byte[] for general heap data
+ 541.64KB com.oracle.svm.core.reflect                          1.20MB com.oracle.svm.core.hub.DynamicHubCompanion
+ 497.99KB sun.security.x509                                  615.52KB byte[] for reflection metadata
+ 479.24KB io.netty.handler.codec.http2                       572.66KB java.lang.String[]
+ 463.05KB java.util.concurrent                               520.27KB java.util.HashMap$Node
+ 452.63KB java.lang                                          513.44KB java.lang.reflect.Method
+      ... 478 additional packages                                 ... 2913 additional object types
+                                           (use GraalVM Dashboard to see all)
+------------------------------------------------------------------------------------------------------------------------
+                        4.7s (10.5% of total time) in 31 GCs | Peak RSS: 7.70GB | CPU load: 9.25
+------------------------------------------------------------------------------------------------------------------------
+Produced artifacts:
+ /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile/hello (executable)
+ /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile/hello.build_artifacts.txt
+========================================================================================================================
+Finished generating 'hello' in 44.5s.
+[native-image-plugin] Native Image written to: /home/rleland/Projects/GitHub/graalvm/graalvm-demos/micronaut-nativeimage/hello/build/native/nativeCompile
 
-> Task :nativeImage
-[application:31406]    classlist:   2,662.33 ms,  1.18 GB
-[application:31406]        (cap):     803.97 ms,  1.18 GB
-[application:31406]        setup:   3,238.24 ms,  1.18 GB
-[application:31406]     (clinit):   1,161.24 ms,  5.36 GB
-[application:31406]   (typeflow):  15,410.49 ms,  5.36 GB
-[application:31406]    (objects):  22,238.96 ms,  5.36 GB
-[application:31406]   (features):   2,381.91 ms,  5.36 GB
-[application:31406]     analysis:  42,972.27 ms,  5.36 GB
-[application:31406]     universe:   2,147.73 ms,  5.36 GB
-[application:31406]      (parse):   3,262.36 ms,  5.51 GB
-[application:31406]     (inline):   7,580.11 ms,  6.98 GB
-[application:31406]    (compile):  67,779.11 ms,  6.79 GB
-[application:31406]      compile:  83,760.95 ms,  6.79 GB
-[application:31406]        image:   7,023.99 ms,  6.78 GB
-[application:31406]        write:   1,293.61 ms,  6.78 GB
-[application:31406]      [total]: 143,368.15 ms,  6.78 GB
-# Printing build artifacts to: /Users/ogupalo/graalvm-demos/hello/build/native-image/application.build_artifacts.txt
-Native Image written to: /Users/ogupalo/graalvm-demos/hello/build/native-image/application
+BUILD SUCCESSFUL in 46s
+5 actionable tasks: 2 executed, 3 up-to-date
 
-BUILD SUCCESSFUL in 2m 26s
-3 actionable tasks: 2 executed, 1 up-to-date
 ```
 
-The result is a 62M standalone executable placed in the `build/native-image` folder with the very generic default name `application`.
+The result is a 54M standalone executable placed in the `build/native/nativeCompile` folder named 'hello`.
+    
+    For Micronaught 3.0 and an older GraalVM distribution this executable was 63M, which is a 14% reduction in size!
 
-![](keyboard.jpg) `ls -lh build/native-image`
+![](keyboard.jpg) `ls -lh build/native/nativeCompile`
 
 ```sh
-total 126624
--rwxr-xr-x  1 ogupalo  staff    62M Oct  8 14:24 application
--rw-r--r--  1 ogupalo  staff    26B Oct  8 14:24 application.build_artifacts.txt
+total 55352
+-rwxrwxr-x 1 rleland rleland 56668424 Jun 22 22:14 hello
+-rw-rw-r-- 1 rleland rleland       20 Jun 22 22:14 hello.build_artifacts.txt
 ```
 
 Let's startup the application.  It's a native executable, so we just invoke it:
 
-![](keyboard.jpg) `./build/native-image/application`
+![](keyboard.jpg) `./build/native/nativeCompile/hello`
 
 ```sh
-__  __ _                                  _
-|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_
+ __  __ _                                  _   
+|  \/  (_) ___ _ __ ___  _ __   __ _ _   _| |_ 
 | |\/| | |/ __| '__/ _ \| '_ \ / _` | | | | __|
-| |  | | | (__| | | (_) | | | | (_| | |_| | |_
+| |  | | | (__| | | (_) | | | | (_| | |_| | |_ 
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
- Micronaut (v3.0.0)
+  Micronaut (v3.5.1)
 
-14:50:05.985 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 54ms. Server Running: http://localhost:8080
+22:48:45.066 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 28ms. Server Running: http://localhost:8080
 ```
-
-Running on the same machine as before, the ahead-of-time compiled app boots and is listening on port 8080 in 54ms!
-Thats's much than when running on the JVM.
+Running on the same machine as before, the ahead-of-time compiled app boots and is listening on port 8080 in 28ms!
+Thats's much faster than when running on the JVM.
 
 It's so fast because it doesn't have to do many of the boot-time tasks that the HotSpot JVM has to do like parsing bytecode for JDK and application classes, initialize the JIT compiler, allocating JIT code caches, JIT profile data caches, etc.
 With a GraalVM native executable the application startup cost is neglible.
