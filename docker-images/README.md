@@ -1,32 +1,32 @@
 # Running GraalVM Demos in a Docker Container
 
-Some of the demos (console-based, non-GUI) can be run inside the confinement of a Docker container.
+Some of the demos (console-based, non-GUI) can be run inside a Docker container.
 
-To get started, clone or download GraalVM Demos repository: `git clone https://github.com/graalvm/graalvm-demos.git`. After cloning the repository, but before running any of the demos, do the following.
+To get started, clone or download GraalVM Demos repository: `git clone https://github.com/graalvm/graalvm-demos.git`. After cloning the repository, but before running any of the demos, perform the following steps.
 
-1. Build the GraalVM demo Docker image of choice:
+1. Build your GraalVM demo Docker image of choice:
     ```
     cd docker-images
     ./buildDockerImage.sh "java11-22.2.0"
     ```
 
-    Note: You can find valid tags to specify as parameters [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce).
+    > Note: You can find valid tags to specify as parameters [here](https://github.com/graalvm/container/pkgs/container/graalvm-ce).
 
-2. Return to the root directory of the project and run the GraalVM demo Docker container built above:
+2. Return to the root directory of the project and run the GraalVM demo Docker image built above:
     ```
     ./runDockerImage.sh "java11-22.2.0"
     ```
 
-Once the Docker container is running, go to the folder of the respective demo, and follow the instructions from its README.md.
-Note that GraalVM runtime built with Docker will already contain additional GraalVM components such as Node.JS, Ruby, Python etc., required to run some of the demos.
+Once the Docker container is running, go to the directory of the respective demo, and follow the instructions from its _README.md_ file.
+Note that GraalVM runtime built with Docker will already contain additional GraalVM components (such as Node.JS, Ruby, and Python) required to run some of the demos.
 
-Running GUI-based applications inside a Docker container requires some intermediate VNC Viewer to access the GUI interface.
+Running GUI-based applications inside a Docker container requires a VNC Viewer to access the GUI interface. The following steps describe how to use a VNC Viewer.
 
-1. Download and install any **VNC Viewer**. A number of free or commercial VNC Viewers can be found [here](https://duckduckgo.com/?q=vnc+viewer+download&ia=web).
+1. Download and install any **VNC Viewer**. Free and commercial VNC Viewers can be found [here](https://duckduckgo.com/?q=vnc+viewer+download&ia=web).
 2. Wait for the container to be ready, then run VNC Viewer.
-3. Log onto http://127.0.0.1:5900 (type it in, in case copy-paste does not work) via the VNC Viewer to access the GUI interface. You will get an `xterm` screen, where you can type in your commands just like the Docker console or any other CLI prompt.
+3. Log in to http://127.0.0.1:5900 (enter the URL, in case copy-paste does not work) via the VNC Viewer to access the GUI interface. You will see an `xterm` screen, where you can enter your commands in the same way that you use the Docker console or any other CLI prompt.
 
-Finally, from the root directory of this repository, run a Docker container with the GraalVM runtime in it:
+Finally, from the root directory of this repository, run a Docker container containing the GraalVM runtime:
   ```
   DEMO_TYPE="gui" ./runDockerImage.sh "java11-22.2.0"
   ```

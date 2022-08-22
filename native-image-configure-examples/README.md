@@ -18,7 +18,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, set the GraalVM home directory as the `$JAVA_HOME` environment variable and add `$JAVA_HOME/bin` to the `PATH` environment variable.
 
     On Linux:
     ```bash
@@ -43,7 +43,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
     The `native-image` tool depends on some local native libraries. Ensure you meet the [platform-specific requirements](https://www.graalvm.org/dev/reference-manual/native-image/#prerequisites).
 
-3. Download or clone the demos repository::
+3. Download or clone the demos repository:
     ```
     git clone https://github.com/graalvm/graalvm-demos
     ```
@@ -58,7 +58,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     ```bash
     mvn package
     ```
-3. Once the Maven build succeeds, a native executable called "example" will be generated in the _configure-at-runtime-example/target/_ folder. Execute it:
+3. Once the Maven build succeeds, a native executable called "example" will be generated in the _configure-at-runtime-example/target/_ directory. Run it:
     ```
     ./target/example
     Tue Mar 23 22:17:33 EET 2021
@@ -76,6 +76,6 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     $JAVA_HOME/bin/native-image --server-shutdown
     ```
 
-Loading application configuration during the image build can speed up application startup. See [Class Initialization at Image Build Time](https://www.graalvm.org/dev/reference-manual/native-image/optimizations-and-performance/ClassInitialization/) to learn more. 
+Loading application configuration at executable build time can speed up application startup. See [Build-Time Initialization](https://www.graalvm.org/dev/reference-manual/native-image/optimizations-and-performance/ClassInitialization/) to learn more. 
 
-To read more about classes initialization topic, check this publication [Initialize Once, Start Fast: Application Initializationat Build Time](http://www.christianwimmer.at/Publications/Wimmer19a/Wimmer19a.pdf).
+To read more about the topic of class initialization, see [Initialize Once, Start Fast: Application Initialization at Build Time](http://www.christianwimmer.at/Publications/Wimmer19a/Wimmer19a.pdf).
