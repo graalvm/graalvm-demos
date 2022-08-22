@@ -3,8 +3,8 @@
 This repository contains demo applications and benchmarks written in Java, JavaScript, Python, R, Ruby, and other JVM languages such as Kotlin and Scala.
 These applications illustrate the diverse capabilities of [GraalVM](http://graalvm.org). 
 
-The demos are sorted by framework, by programming language, or by technology.
-Each directory contains demo sources and the instructions on how to run a particular demo are in its _README.md_ file.
+The demos are sorted by a framework, by a programming language, or by a technology.
+Each directory contains demo sources; the instructions on how to run a particular demo are in its _README.md_ file.
 To get started, clone or download this repository, enter the demo directory, and follow steps in the _README.md_ file.
 
 
