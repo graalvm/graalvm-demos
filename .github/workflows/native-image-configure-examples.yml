@@ -26,6 +26,7 @@ jobs:
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'configure-at-runtime-example'
         run: |
           cd native-image-configure-examples/configure-at-runtime-example

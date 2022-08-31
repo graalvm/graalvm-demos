@@ -26,6 +26,7 @@ jobs:
           java-version: '11'
           components: 'js'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'polyglot-debug'
         run: |
           cd polyglot-debug

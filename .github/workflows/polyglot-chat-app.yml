@@ -26,6 +26,7 @@ jobs:
           java-version: '11'
           components: 'python,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'gradle'
       - name: Run 'polyglot-chat-app'
         run: |
           cd polyglot-chat-app

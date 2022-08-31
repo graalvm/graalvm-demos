@@ -26,6 +26,7 @@ jobs:
           java-version: '11'
           components: 'python'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'graalpy-notebook-example'
         run: |
           cd graalpy-notebook-example

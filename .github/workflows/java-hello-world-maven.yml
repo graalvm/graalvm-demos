@@ -24,6 +24,7 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'java-hello-world-maven'
         run: |
           cd java-hello-world-maven

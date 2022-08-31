@@ -26,6 +26,7 @@ jobs:
           java-version: '11'
           components: 'R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'spring-r'
         run: |
           cd spring-r

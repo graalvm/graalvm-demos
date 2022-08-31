@@ -26,6 +26,7 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'spring-native-image'
         run: |
           cd spring-native-image

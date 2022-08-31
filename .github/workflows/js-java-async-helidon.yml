@@ -25,6 +25,7 @@ jobs:
           version: 'dev'
           java-version: '11'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
       - name: Run 'js-java-async-helidon'
         run: |
           cd js-java-async-helidon
