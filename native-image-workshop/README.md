@@ -197,14 +197,14 @@ $ mvn clean package -Pnative
 So far, so good. But say we now we want to add a library, or some code, to our project that
 relies on reflection. A good candidate for testing this out would be to add `log4j`. Let's do that.
 
-We've already added it as a dependency in the `pom.xml` file, and it can be seen in the depencies:
+We've already added it as a dependency in the `pom.xml` file, and it can be found in the dependencies. Please uncomment it:
 
 ```xml
-<dependency>
+<!-- <dependency>
     <groupId>log4j</groupId>
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
-</dependency>
+</dependency> -->
 ```
 
 To add `log4j` all we need to do is to open up the `ListDir.java` file and uncomment some things in order to start using it. Go through and uncomment the various lines that add the imports and the logging code. Uncomment the following lines:
