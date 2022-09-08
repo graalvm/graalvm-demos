@@ -1,0 +1,35 @@
+name: native-image-workshop
+on:
+  push:
+    paths:
+      - 'native-image-workshop/**'
+      - '.github/workflows/native-image-workshop.yml'
+  pull_request:
+    paths:
+      - 'native-image-workshop/**'
+      - '.github/workflows/native-image-workshop.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image-workshop'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '11'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+      - name: Run 'native-image-workshop'
+        run: |
+          cd native-image-workshop
+          mvn --no-transfer-progress package exec:exec -Pjava_agent
+          mvn --no-transfer-progress package -Pnative
+          time ./target/file-count
