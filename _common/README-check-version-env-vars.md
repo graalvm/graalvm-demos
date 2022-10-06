@@ -9,9 +9,9 @@
     The output should be similar to:
 
     ```shell
-    * graalvmeejdk-17.0.4                                    /usr/lib64/graalvm/graalvm22-ee-java17
-      openjdk-11.0.15                   /usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.0.1.el7_9.x86_64
-      openjdk-1.8.0.332                /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.el7_9.x86_64
+    * graalvmeejdk-17.0.4.1                                         /usr/lib64/graalvm/graalvm22-ee-java17
+      openjdk-11.0.16.1                        /usr/lib/jvm/java-11-openjdk-11.0.16.1.1-1.0.1.el7_9.x86_64
+      openjdk-1.8.0.345                       /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.345.b01-1.el7_9.x86_64
     ```
 
 2. Confirm the environment variable `JAVA_HOME` is set correctly:
@@ -35,7 +35,7 @@
     The output should be similar to:
 
     ```shell
-    /usr/lib64/graalvm/graalvm22-ee-java17/bin/:/ggs_client/usr/bin: ...
+    /usr/lib64/graalvm/graalvm22-ee-java17/bin/:...
     ```
 
 4. Confirm the `java` version:
@@ -47,9 +47,9 @@
     The output should be similar to:
 
     ```shell
-    java version "17.0.4" 2022-07-19 LTS   
-    Java(TM) SE Runtime Environment GraalVM EE 22.2.0 (build 17.0.4+11-LTS-jvmci-22.2-b05)   
-    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.2.0 (build 17.0.4+11-LTS-jvmci-22.2-b05, mixed mode, sharing)
+    java version "17.0.4.1" 2022-08-18 LTS
+    Java(TM) SE Runtime Environment GraalVM EE 22.2.0.1 (build 17.0.4.1+1-LTS-jvmci-22.2-b08)
+    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.2.0.1 (build 17.0.4.1+1-LTS-jvmci-22.2-b08, mixed mode, sharing)s
     ```
 
 5. Confirm the `native-image` version:
@@ -61,7 +61,7 @@
     The output should be similar to:
 
     ```shell
-    GraalVM 22.2.0 Java 17 EE (Java Version 17.0.4+11-LTS-jvmci-22.2-b05)
+    GraalVM 22.2.0.1 Java 17 EE (Java Version 17.0.4.1+1-LTS-jvmci-22.2-b08)
     ```
 
 6. Confirm the `Java` used for Maven builds:
@@ -74,7 +74,7 @@
 
     ```shell
     ...
-    Java version: 17.0.4, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
+    Java version: 17.0.4.1, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
     ...
     ```
 
