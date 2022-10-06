@@ -10,14 +10,14 @@
   <parent>
     <groupId>io.micronaut</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>3.6.0</version>
+    <version>3.7.1</version>
   </parent>
 
   <properties>
     <packaging>jar</packaging>
     <jdk.version>17</jdk.version>
     <release.version>17</release.version>
-    <micronaut.version>3.6.0</micronaut.version>
+    <micronaut.version>3.7.1</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>com.example.Application</exec.mainClass>
   </properties>
