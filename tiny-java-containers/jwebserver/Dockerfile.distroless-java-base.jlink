@@ -1,0 +1,5 @@
+FROM gcr.io/distroless/java-base-debian11
+COPY jwebserver-jlink /usr/lib/java
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["/usr/lib/java/bin/jwebserver", "-b", "0.0.0.0", "-d", "/web"]

@@ -1,0 +1,98 @@
+name: tiny-java-containers
+on:
+  push:
+    paths:
+      - 'tiny-java-containers/**'
+      - '.github/workflows/tiny-java-containers.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'tiny-java-containers'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '19'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'tiny-java-containers'
+        run: |
+          cd tiny-java-containers
+          sleep_period=5
+          #
+          # Setup musl toolchain
+          #
+          ./setup-musl.sh
+          #
+          # Hello World
+          #
+          cd helloworld
+          ./build.sh
+          ./hello
+          ./hello.upx
+          docker run --rm hello:upx
+          cd ..
+          #
+          # jwebserver
+          #
+          cd jwebserver
+          #
+          # Dynamic
+          #
+          ./build-dynamic.sh
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.dynamic)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Mostly Static
+          #
+          ./build-mostly.sh
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-base.mostly)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id          
+          #
+          # Static Scratch
+          #
+          ./build-static.sh
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:scratch.static)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Static Scratch UPX
+          #
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:scratch.static-upx)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Distroless Static
+          #
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-static.static)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Alping Static
+          #
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:alpine.static)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # jlink
+          # 
+          ./build-jlink.sh
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.jlink)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id

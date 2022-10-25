@@ -1,0 +1,5 @@
+FROM gcr.io/distroless/java-base-debian11
+COPY jwebserver.dynamic /
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["/jwebserver.dynamic", "-b", "0.0.0.0", "-d", "/web"]
