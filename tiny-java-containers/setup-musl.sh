@@ -10,7 +10,7 @@ rm x86_64-linux-musl-native.tgz
 
 # Download, build, install zlib into TOOLCHAIN_DIR
 echo "zlib version=${ZLIB_VERSION}"
-wget -q https://zlib.net/zlib-${ZLIB_VERSION}.tar.gz
+wget -q https://zlib.net/fossils/zlib-${ZLIB_VERSION}.tar.gz
 tar -xzf zlib-${ZLIB_VERSION}.tar.gz
 rm zlib-${ZLIB_VERSION}.tar.gz
 cd zlib-${ZLIB_VERSION}
