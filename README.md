@@ -24,6 +24,10 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
+      <td align="left" width="30%"><a href="/tiny-java-containers/">tiny-java-containers</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/tiny-java-containers.yml"><img alt="tiny-java-containers" src="https://github.com/graalvm/graalvm-demos/actions/workflows/tiny-java-containers.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to build very small Docker container images with GraalVM Native Image and various lightweight base images. <br><strong>Technologies: </strong> Native Image, musl libc<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/StaticImages/">Static and Mostly Static Images</a></td>
+    </tr>
+    <tr>
       <td align="left" width="30%"><a href="/hello-graal/">hello-graal</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml"><img alt="hello-graal" src="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/#build-a-native-executable">Native Image Getting Started</a></td>
     </tr>

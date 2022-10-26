@@ -1,0 +1,5 @@
+FROM gcr.io/distroless/base-debian11
+COPY jwebserver.mostly /
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["/jwebserver.mostly", "-b", "0.0.0.0", "-d", "/web"]

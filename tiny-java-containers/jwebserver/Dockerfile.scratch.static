@@ -1,0 +1,5 @@
+FROM scratch
+COPY jwebserver.static /
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["/jwebserver.static", "-b", "0.0.0.0", "-d", "/web"]
