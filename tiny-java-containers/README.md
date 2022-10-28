@@ -21,13 +21,12 @@ App](images/youtube.png)](https://youtu.be/6wYrAtngIVo)
 ## Prerequisites
 
 You'll need a GraalVM release supporting **JDK 19** with Native Image installed.
-This code was tested with GraalVM Enterprise Edition 22.3 for JDK 19
-(download [here](https://www.oracle.com/downloads/graalvm-downloads.html)). 
+This code was tested with GraalVM Enterprise Edition 22.3 for JDK 19. GraalVM
+Community Edition 22.3 for JDK 19 works too, but Native Image generated
+executables sizes will differ.  Download either with a single [GraalVM JDK
+Downloader](https://github.com/graalvm/graalvm-jdk-downloader) command.
 
-GraalVM Community Edition 22.3 for JDK 19 works too, but Native Image generated
-executables sizes will differ (download releases
-[here](https://github.com/graalvm/graalvm-ce-builds/releases)).  You'll also
-need Docker installed and running. It should work fine with
+You'll also need Docker installed and running. It should work fine with
 [podman](https://podman.io/) but it has not been tested.
 
 NOTE: These instructions have only been tested on Linux amd64.
