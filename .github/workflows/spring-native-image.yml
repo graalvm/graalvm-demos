@@ -31,7 +31,7 @@ jobs:
         run: |
           cd spring-native-image
           mvn --no-transfer-progress package
-          mvn --no-transfer-progress package -Dnative
-          ./target/jibber &
+          mvn --no-transfer-progress mvn package native:compile -Pnative
+          ./target/benchmark-jibber &
           sleep 5
           curl http://localhost:8080/jibber
