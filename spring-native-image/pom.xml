@@ -16,80 +16,8 @@
 	<description>Jibber benchmark project for Spring Boot</description>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!--
-			Java Version
-		-->
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
-		<!--
-			Required by Spring Native
-		-->
-		<repackage.classifier/>
-		<spring-native.version>0.12.1</spring-native.version>
-		<native-buildtools.version>0.9.13</native-buildtools.version>
-		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-		<!--
-			Using this property you can define other flags you would like to be passed to the native image
-			invocation from the command line as follows: -Dnative-image-extra-flags="..."
-		-->
-		<native-image-extra-flags></native-image-extra-flags>
-		<!-- The output name for the binary executable built by GraalVM Native Image -->
-		<binary-name>jibber</binary-name>
-		<!--
-			Docker Repository
-		-->
-		<docker-repository>jibber-benchmark</docker-repository>
-		<!--
-			Location of the Dockerfile to build the GraalVM JVM Docker Image with
-		-->
-		<docker-file>Dockerfiles/Dockerfile.graalce</docker-file>
-		<!--
-			How to tag the GraalVM JVM Docker Image
-		-->
-		<base-image-tag>graalce</base-image-tag>
 	</properties>
-
-	<profiles>
-		<!-- Default profile : This builds a JVM based container that runs the JAR of the application -->
-		<profile>
-			<id>jvm</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>!native</name>
-				</property>
-			</activation>
-			<properties>
-				<docker-file>Dockerfile.graalce</docker-file>
-				<!-- Turn off the GraalVM Native Image plugin -->
-				<skip-native-build>true</skip-native-build>
-			</properties>
-		</profile>
-		<!-- This builds a native image,. It turns off packaging as a docker image
-		 		Activate this profile as follows:
-		 		mvn package -Dnative
-		 -->
-		<profile>
-			<id>native</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<property>
-					<name>native</name>
-				</property>
-			</activation>
-			<properties>
-				<repackage.classifier>exec</repackage.classifier>
-				<!-- Turn on the GraalVM Native Image plugin -->
-				<skip-native-build>false</skip-native-build>
-				<!-- Switch of building a docker container -->
-				<dockerfile.skip>true</dockerfile.skip>
-			</properties>
-		</profile>
-
-	</profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,54 +46,20 @@
 
 	<build>
 		<plugins>
-			<!--
-				Creates a Jar with dependencies and a manifest
-			-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
 						<buildpacks>
-							<buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:9.9.0-ea</buildpack>
+							<buildpack>gcr.io/paketo-buildpacks/graalvm</buildpack>
 							<buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
 						</buildpacks>
 					</image>
 				</configuration>
 			</plugin>
-			<!--
-				Build a Docker Image - we will use this for packaging our Jar in a docker image.
-				We won't sue this when building a native executable due to the possibility that you are building on something
-				that isn't linux. The resultant executable wouldn't work in side the linux container
-			-->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>${dockerfile-maven-version}</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>${docker-repository}</repository>
-					<tag>${base-image-tag}.${project.version}</tag>
-					<buildArgs>
-						<APP_FILE>${project.build.finalName}.jar</APP_FILE>
-					</buildArgs>
-					<dockerfile>Dockerfiles/${docker-file}</dockerfile>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-
-	<!--
-    Required for Spring Native Support
-	-->
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
