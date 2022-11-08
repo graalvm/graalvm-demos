@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
     name: Run 'streams'
@@ -24,6 +25,8 @@ jobs:
           java-version: '11'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          native-image-pr-reports: 'true'
       - name: Run 'streams'
         run: |
           cd streams

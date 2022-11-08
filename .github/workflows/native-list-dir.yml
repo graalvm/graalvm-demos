@@ -13,6 +13,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
     name: Run 'native-list-dir'
@@ -26,6 +27,8 @@ jobs:
           java-version: '11'
           components: 'native-image,js'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          native-image-pr-reports: 'true'
       - name: Run 'native-list-dir'
         run: |
           cd native-list-dir
