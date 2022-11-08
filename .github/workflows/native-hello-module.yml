@@ -13,6 +13,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
     name: Run 'native-hello-module'
@@ -27,6 +28,8 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
+          native-image-job-reports: 'true'
+          native-image-pr-reports: 'true'
       - name: Run 'native-hello-module'
         run: |
           cd native-hello-module
