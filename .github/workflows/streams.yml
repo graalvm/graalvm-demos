@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
           version: 'latest' # EE dev builds not supported
