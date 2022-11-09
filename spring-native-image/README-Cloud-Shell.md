@@ -117,8 +117,7 @@ This step is optional - [Check software version and environment variables](../_c
 
 ## Step 5: Build and run a native executable
 
-Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image. In this example, we'll use the Maven plugin from [GraalVM Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html) and
-[Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
+Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image.
 
 1. Build the app native executable
 
