@@ -26,24 +26,24 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     csruntimectl java list
     ```
 
-    The output should be similar to:
+    The output should be similar to (versions may vary):
 
     ```shell
-    * graalvmeejdk-17.0.4.1                                         /usr/lib64/graalvm/graalvm22-ee-java17
-      openjdk-11.0.16.1                        /usr/lib/jvm/java-11-openjdk-11.0.16.1.1-1.0.1.el7_9.x86_64
-      openjdk-1.8.0.345                       /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.345.b01-1.el7_9.x86_64
+      graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
+    * oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
+      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
     ```
 
 2. Select GraalVM as the current JDK:
 
     ```shell
-    csruntimectl java set graalvmeejdk-17.0.4.1
+    csruntimectl java set graalvmeejdk-17
     ```
 
     The output should be similar to:
 
     ```shell
-    The current managed java version is set to graalvmeejdk-17.0.4.1.
+    The current managed java version is set to graalvmeejdk-17.
     ```
 
 ## Step 3: [OPTIONAL] Confirm software version and environment variables
@@ -117,24 +117,20 @@ This step is optional - [Check software version and environment variables](../_c
 
 ## Step 5: Build and run a native executable
 
-Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image. In this example, we'll use the Maven plugin from [GraalVM Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html) and
-[Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
+Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image.
 
 1. Build the app native executable
 
     ```shell
-    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-
-    mvn package -Dnative
-
+    mvn -Pnative native:compile
     ```
     
-    This will create a binary executable `target/jibber`.
+    This will create a binary executable `target/benchmark-jibber`.
 
 2. Run the app native executable in the background
 
     ```shell
-    ./target/jibber &
+    ./target/benchmark-jibber &
     ```
 
 3. Test the app native executable

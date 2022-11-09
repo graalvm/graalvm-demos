@@ -64,11 +64,10 @@ To build the native executable version of the application:
 
 ```shell
 # The -Pnative profile is used to turn on building a native executable within the maven file
-mvn package native:compile -Pnative 
+mvn -Pnative native:compile
 ```
 
-This will create a binary executable `target/jibber`. You can run this and test it in the same way as we did the Java
-application:
+This will create a binary executable `target/benchmark-jibber`. You can run this and test it in the same way as we did the Java application:
 
 ```shell
 ./target/benchmark-jibber &

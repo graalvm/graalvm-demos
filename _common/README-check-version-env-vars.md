@@ -6,12 +6,12 @@
     csruntimectl java list
     ```
 
-    The output should be similar to:
+    The output should be similar to (versions may vary):
 
     ```shell
-    * graalvmeejdk-17.0.4.1                                         /usr/lib64/graalvm/graalvm22-ee-java17
-      openjdk-11.0.16.1                        /usr/lib/jvm/java-11-openjdk-11.0.16.1.1-1.0.1.el7_9.x86_64
-      openjdk-1.8.0.345                       /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.345.b01-1.el7_9.x86_64
+    * graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
+      oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
+      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
     ```
 
 2. Confirm the environment variable `JAVA_HOME` is set correctly:
@@ -44,12 +44,12 @@
     java -version
     ```
 
-    The output should be similar to:
+    The output should be similar to (versions may vary):
 
     ```shell
-    java version "17.0.4.1" 2022-08-18 LTS
-    Java(TM) SE Runtime Environment GraalVM EE 22.2.0.1 (build 17.0.4.1+1-LTS-jvmci-22.2-b08)
-    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.2.0.1 (build 17.0.4.1+1-LTS-jvmci-22.2-b08, mixed mode, sharing)s
+    java version "17.0.5" 2022-10-18 LTS
+    Java(TM) SE Runtime Environment GraalVM EE 22.3.0 (build 17.0.5+9-LTS-jvmci-22.3-b07)
+    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.3.0 (build 17.0.5+9-LTS-jvmci-22.3-b07, mixed mode, sharing)
     ```
 
 5. Confirm the `native-image` version:
@@ -58,10 +58,10 @@
     native-image --version
     ```
 
-    The output should be similar to:
+    The output should be similar to (versions may vary):
 
     ```shell
-    GraalVM 22.2.0.1 Java 17 EE (Java Version 17.0.4.1+1-LTS-jvmci-22.2-b08)
+    GraalVM 22.3.0 Java 17 EE (Java Version 17.0.5+9-LTS-jvmci-22.3-b07)
     ```
 
 6. Confirm the `Java` used for Maven builds:
@@ -70,11 +70,11 @@
     mvn --version
     ```
 
-    The output should be similar to:
+    The output should be similar to (versions may vary):
 
     ```shell
     ...
-    Java version: 17.0.4.1, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
+    Java version: 17.0.5, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
     ...
     ```
 
