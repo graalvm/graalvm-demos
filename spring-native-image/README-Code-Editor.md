@@ -127,15 +127,15 @@ Let's build a native executable for our Spring Boot microservice using GraalVM E
 1. Build the app native executable
 
     ```shell
-    mvn package native:compile -Pnative
+    mvn -Pnative native:compile
     ```
     
-    This will create a binary executable `target/jibber`. 
+    This will create a binary executable `target/benchmark-jibber`. 
 
 2. Run the app native executable in the background
 
     ```shell
-    ./target/jibber &
+    ./target/benchmark-jibber &
     ```
 
 3. Test the app native executable
