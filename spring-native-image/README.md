@@ -67,8 +67,7 @@ To build the native executable version of the application:
 mvn package native:compile -Pnative 
 ```
 
-This will create a binary executable `target/jibber`. You can run this and test it in the same way as we did the Java
-application:
+This will create a binary executable `target/benchmark-jibber`. You can run this and test it in the same way as we did the Java application:
 
 ```shell
 ./target/benchmark-jibber &
