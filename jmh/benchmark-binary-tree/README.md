@@ -3,7 +3,7 @@
 This demo shows how to run a Java Microbenchmark Harness (JMH) benchmark as a native executable.
 
 To build a native executable version of this application you need to run the native image tracing agent to supply
-the reflection config to the native iameg builder. This has already been done for you to save time and the generated 
+the reflection config to the native image builder. This has already been done for you to save time and the generated 
 configuration can be found in, `src/main/resources/META-INF/native-image/`.
 
 > **NOTE** To generate the configuration yourself, you will need to ensure that the JMH `fork` parameter is set to 0,
