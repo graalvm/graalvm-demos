@@ -1,0 +1,45 @@
+name: GraalVM Jibber Github Actions Pipeline (EE)
+on:
+  push:
+    paths:
+      - 'jmh/benchmark-binary-tree/**'
+      - '.github/workflows/jmh-binary-tree.yml'
+  pull_request:
+    paths:
+      - 'jmh/benchmark-binary-tree/**'
+      - '.github/workflows/jmh-binary-tree.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    name: GraalVM Binary Tree Benchmark on ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          gds-token: ${{ secrets.GDS_TOKEN }}
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Test Java Code
+        run: |
+          cd jmh/benchmark-binary-tree
+          # build the Java code
+          ./mvnw --no-transfer-progress clean package
+          # build the native exe
+          ./mvnw --no-transfer-progress -Pnative -DskipNativeTests package
+          # Could just replace with a check that the binary exists?
+          ./target/benchmark-binary-tree
+          # build and run the instrumented native exe
+          ./mvnw --no-transfer-progress -Pinstrumented -DskipNativeTests package
+          ./target/benchmark-binary-tree-instr
+          # build and run the optimised native exe
+          ./mvnw --no-transfer-progress -Poptimised -DskipNativeTests package
+          ./target/benchmark-binary-tree-opt
