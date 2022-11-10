@@ -39,7 +39,7 @@ To build the native executable, run the following command:
 ./mvnw package -Pnative
 ```
 
-The to run the native executable, run the following command:
+Then, to run the native executable, run the following command:
 
 ```shell
 ./target/benchmark-binary-tree
