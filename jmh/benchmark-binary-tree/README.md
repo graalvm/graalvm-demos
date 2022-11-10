@@ -21,7 +21,7 @@ Note that within the _pom.xml_ file there are instructions to explicitly turn of
 This means that benchmark will run using the C2 JIT compiler.
 
 The application will run the benchmark and display the results to the terminal. The final result is the most significant. You should see something
-saw:
+like:
 
 ```shell
 Benchmark          (binaryTreesN)   Mode  Cnt    Score    Error  Units
