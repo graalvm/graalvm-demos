@@ -72,8 +72,8 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to debug a Java application, built into a native executable in VS Code<br><strong>Technologies: </strong>Native Image, Maven, GraalVM Tools for Java<br><strong>Reference: </strong><a href="https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1">Native Image Debugging in VS Code</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/jmh/benchmark-binary-tree/">JMH Binary Tree Benchmark with Profile Guided Optimizations</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml"><img alt="JJMH Binary Tree Benchmark with Profile Guided Optimizations" src="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image and hwo to optmise the benchmark using Profile Guided Optimizations<br><strong>Technologies: </strong> Native Image, Profile Guided Optimizations (PGO)<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
+      <td align="left" width="30%"><a href="/jmh/benchmark-binary-tree/">JMH Binary Tree Benchmark with Profile Guided Optimizations</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml"><img alt="JMH Binary Tree Benchmark with Profile Guided Optimizations" src="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image and hwo to optimise the benchmark using Profile Guided Optimizations<br><strong>Technologies: </strong> Native Image, Profile Guided Optimizations (PGO)<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
     </tr>
   </tbody>
 </table>
