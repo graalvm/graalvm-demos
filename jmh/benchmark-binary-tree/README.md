@@ -20,7 +20,7 @@ To build and then run the benchmark as a Java application, run the following com
 Note that within the _pom.xml_ file there are instructions to explicitly turn off GraalVM JIT compiler using the option `-XX:-UseJVMCICompiler`. 
 This means that benchmark will run using the C2 JIT compiler.
 
-The program will run the benchmark and display, to the terminal, the results. We are interested in the final result. This is what we
+The application will run the benchmark and display the results to the terminal. The final result is the most significant. You should see something
 saw:
 
 ```shell
