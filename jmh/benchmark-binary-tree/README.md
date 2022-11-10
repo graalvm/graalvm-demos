@@ -6,7 +6,7 @@ To build a native executable version of this application you need to run the nat
 the reflection config to the native image builder. This has already been done for you to save time and the generated 
 configuration can be found in _src/main/resources/META-INF/native-image/_.
 
-> **NOTE** To generate the configuration yourself, you will need to ensure that the JMH `fork` parameter is set to 0,
+> **NOTE** To generate the configuration yourself, ensure that the JMH `fork` parameter is set to 0,
 > which can be done from the command line with, `-f 0`, and this can also be done within the code using the `@Fork` annotation.
 
 ## Build and Run as a Java Application
