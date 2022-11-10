@@ -7,7 +7,7 @@ the reflection config to the native image builder. This has already been done fo
 configuration can be found in _src/main/resources/META-INF/native-image/_.
 
 > **NOTE** To generate the configuration yourself, ensure that the JMH `fork` parameter is set to 0,
-> which can be done from the command line with, `-f 0`, and this can also be done within the code using the `@Fork` annotation.
+> which can be performed from the command line using the option  `-f 0`. It can also be achieved within the code by using the `@Fork` annotation.
 
 ## Build and Run as a Java Application
 
