@@ -28,7 +28,7 @@ Benchmark          (binaryTreesN)   Mode  Cnt    Score    Error  Units
 BinaryTrees.bench              14  thrpt    3  151.088 ± 15.815  ops/s
 ```
 
-## Build and Run as a Native Image
+## Build and Run as a Native Executable
 
 Now to build a native executable, using Native Image. We are using Native Image Enterprise edition, if you are using Community
 Edition you will probably see lower figures for throughput.
