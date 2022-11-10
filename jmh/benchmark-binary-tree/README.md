@@ -17,7 +17,7 @@ To build and then run the benchmark as a Java application, run the following com
 ./mvnw clean package exec:exec
 ```
 
-Note that within the `pom.xml` file we are explicitly turning off GraalVM JIT compiler, with the flag, `-XX:-UseJVMCICompiler`. 
+Note that within the _pom.xml_ file there are instructions to explicitly turn off GraalVM JIT compiler using the option `-XX:-UseJVMCICompiler`. 
 This means that benchmark will run using the C2 JIT.
 
 The program will run the benchmark and display, to the terminal, the results. We are interested in the final result. This is what we
