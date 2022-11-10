@@ -30,6 +30,7 @@ jobs:
 
       - name: Build and Test Java Code
         run: |
+          cd jmh/benchmark-binary-tree
           # build the Java code
           ./mvnw --no-transfer-progress clean package
           # build the native exe
