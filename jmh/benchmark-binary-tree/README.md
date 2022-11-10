@@ -1,6 +1,6 @@
 # Binary Tree Benchmark 
 
-This demo shows how to run a JMH benchmark as a native image.
+This demo shows how to run a Java Microbenchmark Harness (JMH) benchmark as a native executable.
 
 In order to build a native image of this application we need to run the native image tracing agent to supply
 the reflection config to the native iameg builder. This has already been done for you to save time and the generated 
