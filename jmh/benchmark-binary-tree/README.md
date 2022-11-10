@@ -30,7 +30,7 @@ BinaryTrees.bench              14  thrpt    3  151.088 ± 15.815  ops/s
 
 ## Build and Run as a Native Executable
 
-Now to build a native executable, using Native Image. We are using Native Image Enterprise edition, if you are using Community
+Now to build a native executable using Native Image. This demo uses Native Image Enterprise edition; however, if you are using Community
 Edition you will probably see lower figures for throughput.
 
 To build the native executable, run the following command:
