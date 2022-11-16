@@ -1,8 +1,7 @@
-
-
 # Compiled class file
 target
 *.class
+default.iprof
 
 # Log file
 *.log
