@@ -212,7 +212,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
                                 <!-- Add support for exit handlers : these are not the default. You want for
                                  applications, such as this, but not for shared libs -->
                                 <buildArg>--install-exit-handlers</buildArg>
-                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>--initialize-at-build-time=org.openjdk.jmh.infra,org.openjdk.jmh.util.Utils,org.openjdk.jmh.runner.InfraControl,org.openjdk.jmh.runner.InfraControlL0,org.openjdk.jmh.runner.InfraControlL1,org.openjdk.jmh.runner.InfraControlL2,org.openjdk.jmh.runner.InfraControlL3,org.openjdk.jmh.runner.InfraControlL4</buildArg>
                             </buildArgs>
                        </configuration>
@@ -252,11 +251,8 @@ THE POSSIBILITY OF SUCH DAMAGE.
                                 <!-- Add support for exit handlers : these are not the default. You want for
                                  applications, such as this, but not for shared libs -->
                                 <buildArg>--install-exit-handlers</buildArg>
-                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>--initialize-at-build-time=org.openjdk.jmh.infra,org.openjdk.jmh.util.Utils,org.openjdk.jmh.runner.InfraControl,org.openjdk.jmh.runner.InfraControlL0,org.openjdk.jmh.runner.InfraControlL1,org.openjdk.jmh.runner.InfraControlL2,org.openjdk.jmh.runner.InfraControlL3,org.openjdk.jmh.runner.InfraControlL4</buildArg>
-                                <!--buildArg>- -gc=G1</buildArg-->
                                 <buildArg>--pgo-instrument</buildArg>
-                                <!-- buildArg>- -pgo=${basedir}/default.iprof</buildArg-->
                             </buildArgs>
                         </configuration>
                     </plugin>
@@ -292,12 +288,10 @@ THE POSSIBILITY OF SUCH DAMAGE.
                             <imageName>${binary-name}</imageName>
                             <mainClass>${main.class}</mainClass>
                             <buildArgs>
-                                <!-- Add support for exit handlers : these are not the default. You want for
+                                <!-- Add support for exit handlers: these are not the default. You want for
                                  applications, such as this, but not for shared libs -->
                                 <buildArg>--install-exit-handlers</buildArg>
-                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>--initialize-at-build-time=org.openjdk.jmh.infra,org.openjdk.jmh.util.Utils,org.openjdk.jmh.runner.InfraControl,org.openjdk.jmh.runner.InfraControlL0,org.openjdk.jmh.runner.InfraControlL1,org.openjdk.jmh.runner.InfraControlL2,org.openjdk.jmh.runner.InfraControlL3,org.openjdk.jmh.runner.InfraControlL4</buildArg>
-                                <!--buildArg>- -gc=G1</buildArg-->
                                 <buildArg>--pgo=${basedir}/default.iprof</buildArg>
                             </buildArgs>
                         </configuration>

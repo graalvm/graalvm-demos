@@ -33,7 +33,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-hello-world-maven/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven Plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/code-editor/">GraalVM Enterprise in OCI Code Editor</a></td>
+      <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/code-editor/">GraalVM Enterprise in OCI Code Editor</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-hello-module/">native-hello-module</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml"><img alt="native-hello-module" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml/badge.svg" /></a></td>
@@ -72,8 +72,8 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to debug a Java application, built into a native executable in VS Code<br><strong>Technologies: </strong>Native Image, Maven, GraalVM Tools for Java<br><strong>Reference: </strong><a href="https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1">Native Image Debugging in VS Code</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/jmh/benchmark-binary-tree/">JMH Binary Tree Benchmark with Profile Guided Optimizations</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml"><img alt="JMH Binary Tree Benchmark with Profile Guided Optimizations" src="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image and hwo to optimise the benchmark using Profile Guided Optimizations<br><strong>Technologies: </strong> Native Image, Profile Guided Optimizations (PGO)<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
+      <td align="left" width="30%"><a href="/jmh/benchmark-binary-tree/">jmh/benchmark-binary-tree</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml"><img alt="jmh/benchmark-binary-tree" src="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image, and how to further optimise the benchmark using Profile Guided Optimizations (PGO)<br><strong>Technologies: </strong> Native Image, PGO<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
     </tr>
   </tbody>
 </table>

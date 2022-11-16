@@ -1,4 +1,4 @@
-name: GraalVM Jibber Github Actions Pipeline (EE)
+name: jmh/benchmark-binary-tree
 on:
   push:
     paths:
