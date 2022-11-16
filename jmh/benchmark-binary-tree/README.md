@@ -12,7 +12,7 @@ configuration can be found in _src/main/resources/META-INF/native-image/_.
 To build and then run the benchmark as a Java application, run the following commands:
 
 ```shell
-./mvnw clean package exec:exec
+mvn clean package exec:exec
 ```
 
 Note that within the _pom.xml_ file there are instructions to explicitly turn off GraalVM JIT compiler using the option `-XX:-UseJVMCICompiler`. 
@@ -31,7 +31,7 @@ Now build a native executable using Native Image. This demo uses GraalVM Enterpr
 
 To build a native executable, run the following command:
 ```shell
-./mvnw package -Pnative
+mvn package -Pnative
 ```
 
 Then run the benchmark as a native executable: 
@@ -60,7 +60,7 @@ This file, containing profiling information about the application, will be used 
 
 1. To build the instrumented version of the native executable, run the following command:
     ```shell
-    ./mvnw package -Pinstrumented
+    mvn package -Pinstrumented
     ```
 
 2. Then run it to generate the profile file:
@@ -70,7 +70,7 @@ This file, containing profiling information about the application, will be used 
 
 3. Now that you have generated the profile file, build and run the optimised version of the native executable:
     ```shell
-    ./mvnw package -Poptimised
+    mvn package -Poptimised
     ```
     ```shell
     ./target/benchmark-binary-tree-opt
