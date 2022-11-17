@@ -1,8 +1,8 @@
 # Binary Tree Benchmark 
 
-This demo shows how to run a Java Microbenchmark Harness (JMH) application as a native executable.
+This demo shows how to run a Java Microbenchmark Harness (JMH) benchmark as a native executable.
 
-To build a native executable version of this application you need to run the [Tracing Agent](https://www.graalvm.org/dev/reference-manual/native-image/metadata/AutomaticMetadataCollection/) to supply the reflection configuration to the `native-image` builder. This has already been done for you to save time and the generated 
+To build a native executable version of this benchmark you need to run the [Tracing Agent](https://www.graalvm.org/dev/reference-manual/native-image/metadata/AutomaticMetadataCollection/) to supply the reflection configuration to the `native-image` builder. This has already been done for you to save time and the generated 
 configuration can be found in _src/main/resources/META-INF/native-image/_.
 
 > **Note:** To generate the configuration yourself, ensure that the JMH `fork` parameter is set to `0`, which can be performed from the command line using the option  `-f 0`. It can also be achieved within the code by using the `@Fork` annotation.
@@ -12,7 +12,7 @@ configuration can be found in _src/main/resources/META-INF/native-image/_.
 To build and then run the benchmark as a Java application, run the following commands:
 
 ```shell
-mvn clean package exec:exec
+./mvnw clean package exec:exec
 ```
 
 Note that within the _pom.xml_ file there are instructions to explicitly turn off GraalVM JIT compiler using the option `-XX:-UseJVMCICompiler`. 
@@ -21,8 +21,8 @@ This means that benchmark will run using the C2 JIT compiler.
 The application will run the benchmark and display the results to the terminal. The final result is the most significant. You should see something like:
 
 ```shell
-Benchmark          (binaryTreesN)   Mode  Cnt    Score    Error  Units
-BinaryTrees.bench              14  thrpt    3  151.088 ± 15.815  ops/s
+Benchmark          (binaryTreesN)   Mode  Cnt    Score     Error  Units
+BinaryTrees.bench              14  thrpt    3  124.862 ± 107.086  ops/s
 ```
 
 ## Build and Run as a Native Executable
@@ -31,7 +31,7 @@ Now build a native executable using Native Image. This demo uses GraalVM Enterpr
 
 To build a native executable, run the following command:
 ```shell
-mvn package -Pnative
+./mvnw package -Pnative
 ```
 
 Then run the benchmark as a native executable: 
@@ -39,11 +39,11 @@ Then run the benchmark as a native executable:
 ./target/benchmark-binary-tree
 ```
 
-These are the results obtained with GraalVM Enterprise Native Image 22.2.0:
+These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
 
 ```shell
-Benchmark          (binaryTreesN)   Mode  Cnt    Score    Error  Units
-BinaryTrees.bench              14  thrpt    3  104.281 ± 71.288  ops/s
+Benchmark          (binaryTreesN)   Mode  Cnt   Score    Error  Units
+BinaryTrees.bench              14  thrpt    3  92.375 ± 69.008  ops/s
 ```
 
 ## Optimise the Native Image
@@ -60,7 +60,7 @@ This file, containing profiling information about the application, will be used 
 
 1. To build the instrumented version of the native executable, run the following command:
     ```shell
-    mvn package -Pinstrumented
+    ./mvnw package -Pinstrumented
     ```
 
 2. Then run it to generate the profile file:
@@ -70,21 +70,21 @@ This file, containing profiling information about the application, will be used 
 
 3. Now that you have generated the profile file, build and run the optimised version of the native executable:
     ```shell
-    mvn package -Poptimised
+    ./mvnw package -Poptimised
     ```
     ```shell
     ./target/benchmark-binary-tree-opt
     ```
-    These are the results obtained with GraalVM Enterprise Native Image 22.2.0:
+    These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
     ```shell
-    Benchmark          (binaryTreesN)   Mode  Cnt    Score    Error  Units
-    BinaryTrees.bench              14  thrpt    3  172.042 ± 77.747  ops/s
+    Benchmark          (binaryTreesN)   Mode  Cnt    Score     Error  Units
+    BinaryTrees.bench              14  thrpt    3  179.947 ± 124.627  ops/s
     ```
 
 ## Your Mileage May Vary
 
 The results you see will vary depending on the hardware you are running on. The results above are from a 2019 MacBook Pro, i7, 32 GB RAM
-running GraalVM Enterprise 22.2.0 for JDK 17.
+running GraalVM Enterprise 22.3.0 for JDK 17.
 
 See the previous data collated into a chart:
 
