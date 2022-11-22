@@ -1,8 +1,8 @@
-# GraalVM Demos: Native images for Faster Startup
+# Native Image Logging Configuration Examples
 
 This repository contains the code for a demo application for [GraalVM](http://graalvm.org).
 
-## Prerequisites
+### Prerequisites
 * [GraalVM](http://graalvm.org)
 * [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
 
@@ -26,7 +26,8 @@ This repository contains the code for a demo application for [GraalVM](http://gr
   setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
   ```
 
-2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) and `js` by running:
+2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image):
+
   ```bash
   gu install native-image
   ```
@@ -37,11 +38,13 @@ This repository contains the code for a demo application for [GraalVM](http://gr
   cd graalvm-demos/native-image-logging-examples
   ```
 
-There are two Java classes, one for the Build-Time Logger Initialization and second for Runtime Logger Initialization. The logger can be initialized at executable build time with a custom `logging.properties` configuration file, which is contained in the same directory as `BuildTimeLoggerInit.java` and `RuntimeLoggerInit.java`.
+There are two Java classes, one for the build-time logger initialization and second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _BuildTimeLoggerInit.java_ and _RuntimeLoggerInit.java_.
 
-### Build-Time Logger Initialization
+## Build-Time Logger Initialization
 
-1. Compile `BuildTimeLoggerInit.java` using `javac`:
+In this example, the logger will be initialized at build time with a custom _logging.properties_ configuration file, placed in the same repository as _BuildTimeLoggerInit.java_.
+
+1. Compile _BuildTimeLoggerInit.java_ using `javac`:
 
     ```bash
     javac BuildTimeLoggerInit.java
@@ -60,12 +63,13 @@ There are two Java classes, one for the Build-Time Logger Initialization and sec
      WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
      ```
 
-     Note that you can use any JDK for compiling the Java classes, but in the build script GraalVM's `javac` is used to simplify the prerequisites and not depend on you having another JDK installed.
+The _logging.properties_ file is processed at when the executable is built. `LoggerHolder.LOGGER` is initialized at build time and is available at runtime, therefore improving the startup time. Unless your application needs to process a custom _logging.properties_ configuration file at runtime, this approach is recommended.
 
+## Runtime Logger Initialization
 
-### Runtime Logger Initialization
+The logger can also be initialized at runtime. 
 
-1. Compile `RuntimeLoggerInit.java` using `javac`:
+1. Compile _RuntimeLoggerInit.java_ using `javac`:
 
      ```bash
      javac RuntimeLoggerInit.java
@@ -83,3 +87,6 @@ There are two Java classes, one for the Build-Time Logger Initialization and sec
      ```bash
      WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
      ```
+
+    In this case, the _logging.properties_ file needs to be available for runtime processing and it must be included in the executable via the `-H:IncludeResources=logging.properties` option. For more details, see [Use of Resources in a Native Executable](https://www.graalvm.org/reference-manual/native-image/dynamic-features/Resources/).
+
