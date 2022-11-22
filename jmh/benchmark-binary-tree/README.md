@@ -7,6 +7,17 @@ configuration can be found in _src/main/resources/META-INF/native-image/_.
 
 > **Note:** To generate the configuration yourself, ensure that the JMH `fork` parameter is set to `0`, which can be performed from the command line using the option  `-f 0`. It can also be achieved within the code by using the `@Fork` annotation.
 
+## Important Notes on Using JMH with GraalVM Native Image
+
+In order to make a JMH benchmark run as native executable, built by GraalVM Native Image, you can not fork the benchmark process 
+in the same way as JMH does when running on the JVM. When running on the JVM JMH will fork a new JVM for each benchmark in order
+to ensure there is no interference in the measurements for each benchmark. This forking process is not possible on GraalVM Native Image
+and you should consider the following guidance when building JMH benchmarks that are meant to be run as native executables:
+
+* You should only include a single benchmark in each native executable
+* You need to annotate the benchmark with, `@Fork(0)` to ensure that the benchmark is not forked
+* If you want to profile the benchmark in order to generate an optimised benchmark, you should, obviously, ignore the benchmark results whilst profiling
+
 ## Build and Run as a Java Application
 
 To build and then run the benchmark as a Java application, run the following commands:
@@ -21,8 +32,8 @@ This means that benchmark will run using the C2 JIT compiler.
 The application will run the benchmark and display the results to the terminal. The final result is the most significant. You should see something like:
 
 ```shell
-Benchmark          (binaryTreesN)   Mode  Cnt    Score     Error  Units
-BinaryTrees.bench              14  thrpt    3  124.862 ± 107.086  ops/s
+Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
+BinaryTrees.bench              14  thrpt    6  143.628 ± 9.007  ops/s
 ```
 
 ## Build and Run as a Native Executable
@@ -42,8 +53,8 @@ Then run the benchmark as a native executable:
 These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
 
 ```shell
-Benchmark          (binaryTreesN)   Mode  Cnt   Score    Error  Units
-BinaryTrees.bench              14  thrpt    3  92.375 ± 69.008  ops/s
+Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
+BinaryTrees.bench              14  thrpt    6  107.388 ± 2.038  ops/s
 ```
 
 ## Optimise the Native Image
@@ -77,8 +88,8 @@ This file, containing profiling information about the application, will be used 
     ```
     These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
     ```shell
-    Benchmark          (binaryTreesN)   Mode  Cnt    Score     Error  Units
-    BinaryTrees.bench              14  thrpt    3  179.947 ± 124.627  ops/s
+    Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
+    BinaryTrees.bench              14  thrpt    6  194.215 ± 2.746  ops/s
     ```
 
 ## Your Mileage May Vary

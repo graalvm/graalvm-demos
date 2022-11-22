@@ -73,8 +73,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Warmup(iterations = 3)
-@Measurement(iterations = 3)
+@Warmup(iterations = 3, time = 50, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 6, time = 50, timeUnit = TimeUnit.SECONDS)
 @State(Scope.Benchmark)
 public class BinaryTrees {
 
