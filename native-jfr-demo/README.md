@@ -1,4 +1,4 @@
-# Native Executables with JFR example
+# Native Executables with JFR Example
 
 This example demonstrates how JDK Flight Recorder (JFR) as a tool for collecting diagnostic and profiling data running Java application, built into a JVM. 
 GraalVM Native Image supports JFR events and users can use [`jdk.jfr.Event`](https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Event.html) API with a similar experience to using JFR in the Java HotSpot VM.
@@ -22,10 +22,10 @@ To record JFR events when running a native executable, JFR support and JFR recor
     export PATH=$JAVA_HOME/bin:$PATH
     ```
 
-2. Install [Native Image](https://www.graalvm.org/dev/reference-manual/native-image/#install-native-image) by running:
+2. Install [Native Image](https://www.graalvm.org/dev/reference-manual/native-image/#install-native-image) and VisualVM by running:
     ```bash
-    gu install native-image
-    ```
+    gu install native-image jvisualvm
+    ``` 
 
 3. Download or clone the demos repository:
     ```
