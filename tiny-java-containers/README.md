@@ -91,7 +91,7 @@ noting:
    upx the application self-extracts quickly but does incur a cost of about
    100ms for decompression.  See this blog for a deep dive on [GraalVM Native
    Image and
-   UPX]((https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
+   UPX](https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
 
 ### Container Images
 
