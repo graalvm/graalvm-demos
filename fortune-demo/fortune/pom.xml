@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <native.maven.plugin.version>0.9.12</native.maven.plugin.version>
+        <native.maven.plugin.version>0.9.18</native.maven.plugin.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <maven.compiler.source>${java.specification.version}</maven.compiler.source>
         <maven.compiler.target>${java.specification.version}</maven.compiler.target>
