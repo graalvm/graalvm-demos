@@ -1,15 +1,15 @@
 # Native Executables with JFR Example
 
-This example demonstrates how JDK Flight Recorder (JFR) as a tool for collecting diagnostic and profiling data running Java application, built into a JVM. 
-GraalVM Native Image supports JFR events and users can use [`jdk.jfr.Event`](https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Event.html) API with a similar experience to using JFR in the Java HotSpot VM.
+This example demonstrates how to use the JDK Flight Recorder (JFR) as a tool to collect diagnostic and profiling data in a running Java application, built into a JVM. 
+GraalVM Native Image supports JFR events and users can use the [`jdk.jfr.Event`](https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Event.html) API with a similar experience to using JFR in the Java HotSpot VM.
 
-To record JFR events when running a native executable, JFR support and JFR recording must be enabled, and this guide covers how to do that.
+To record JFR events when running a native executable, enable JFR support and JFR recording as described in this guide.
 
-> Note: JFR events recording is not supported on GraalVM JDK for Windows. JFR is only supported with native executables built on GraalVM JDK 11.
+> Note: JFR event recording is not supported on GraalVM JDK for Windows. JFR is only supported with native executables built on GraalVM JDK 11.
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, set the GraalVM home directory as the `$JAVA_HOME` environment variable and add `$JAVA_HOME/bin` to the `PATH` environment variable.
+1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, set the `$JAVA_HOME` environment variable as your GraalVM home directory  and add `$JAVA_HOME/bin` to your `PATH` environment variable.
 
     On Linux:
     ```bash
@@ -34,17 +34,17 @@ To record JFR events when running a native executable, JFR support and JFR recor
 
 ## Build and Run Native Executables with JFR
 
-1. Change directory to the demo subdirectories: _native-jfr-demo_:
+1. Change directory to the demo subdirectory: _native-jfr-demo_:
     ```
     cd graalvm-demos/native-jfr-demo
     ```
-2. Compile the Java file on GraalVM JDK:
+2. Compile the Java file using the GraalVM JDK:
     ```bash
     javac JFRDemo.java
     ```
     It creates two class files: _JFRDemo$HelloWorldEvent.class_ and _JFRDemo.class_.
 
-3. Build a native executable with the VM inspection enabled:
+3. Build a native executable with VM inspection enabled:
     ```bash
     native-image --enable-monitoring=jfr JFRDemo
     ```
@@ -69,5 +69,10 @@ To record JFR events when running a native executable, JFR support and JFR recor
     ```shell
    jfr print recording.jfr
     ```
-    
     It prints all events recorded by Flight Recorder.
+
+### Related Documentation
+
+- Learn more about [Native Image support for JFR events](../JFR.md) and how to further configure JFR recording and system logging.
+
+- [Create and record your first event with Java](https://docs.oracle.com/en/java/javase/17/jfapi/creating-and-recording-your-first-event.html).
