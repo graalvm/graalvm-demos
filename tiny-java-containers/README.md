@@ -89,9 +89,7 @@ noting:
    start extremely fast as there is minimal startup cost.
 3. The `upx` compressed executable is about 60% smaller, 1.5MB vs. 5.2MB! With
    upx the application self-extracts quickly but does incur a cost of about
-   100ms for decompression.  See this blog for a deep dive on [GraalVM Native
-   Image and
-   UPX]((https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
+   100ms for decompression.  See this blog for a deep dive on [GraalVM Native Image and UPX](https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
 
 ### Container Images
 
