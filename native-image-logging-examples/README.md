@@ -32,7 +32,7 @@ This repository contains the code for a demo application for [GraalVM](http://gr
   gu install native-image
   ```
 
-3. Download or clone the repository and navigate into the `native-image-logging-examples` directory:
+3. Clone the repository (or download it) and change directory into the _native-image-logging-examples_ directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
   cd graalvm-demos/native-image-logging-examples
