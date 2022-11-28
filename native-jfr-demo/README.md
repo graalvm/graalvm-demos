@@ -69,7 +69,7 @@ To record JFR events when running a native executable, enable JFR support and JF
     ```shell
    jfr print recording.jfr
     ```
-    It prints all events recorded by Flight Recorder.
+    It prints all the events recorded by Flight Recorder.
 
 ### Related Documentation
 
