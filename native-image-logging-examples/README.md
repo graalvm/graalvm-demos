@@ -1,6 +1,6 @@
-# Native Image Logging Configuration Examples
+# Configuring Logging in Native Image
 
-This repository contains the code for a demo application for [GraalVM](http://graalvm.org).
+This demo demonstrates how Native Image supports logging, which is using the `java.util.logging.*` API by default. The logger can be initialized at build time with a custom _logging.properties_ configuration file or at runtime. The below examples show both cases.
 
 ### Prerequisites
 * [GraalVM](http://graalvm.org)
@@ -8,37 +8,18 @@ This repository contains the code for a demo application for [GraalVM](http://gr
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$GRAALVM_HOME` and add `$GRAALVM_HOME/bin` to the `PATH` environment variable.
-
-  On Linux:
+1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
   ```bash
-  export GRAALVM_HOME=/home/${current_user}/path/to/graalvm
-  export PATH=$GRAALVM_HOME/bin:$PATH
-  ```
-  On macOS:
-  ```bash
-  export GRAALVM_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-  export PATH=$GRAALVM_HOME/bin:$PATH
-  ```
-  On Windows:
-  ```bash
-  setx /M GRAALVM_HOME "C:\Progra~1\Java\<graalvm>"
-  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+  bash <(curl -sL https://get.graalvm.org/jdk)
   ```
 
-2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image):
-
-  ```bash
-  gu install native-image
-  ```
-
-3. Clone the repository (or download it) and change directory into the _native-image-logging-examples_ directory:
+2. Download or clone the repository and navigate into the `native-image-logging-examples` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
   cd graalvm-demos/native-image-logging-examples
   ```
 
-There are two Java classes, one for the build-time logger initialization and second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _BuildTimeLoggerInit.java_ and _RuntimeLoggerInit.java_.
+There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _BuildTimeLoggerInit.java_ and _RuntimeLoggerInit.java_.
 
 ## Build-Time Logger Initialization
 
@@ -58,12 +39,12 @@ In this example, the logger will be initialized at build time with a custom _log
      ./buildtimeloggerinit
      ```
 
-     It should produce output that looks similar to:
+     It should produce the output that looks similar to:
      ```bash
      WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
      ```
 
-The _logging.properties_ file is processed at when the executable is built. `LoggerHolder.LOGGER` is initialized at build time and is available at runtime, therefore improving the startup time. Unless your application needs to process a custom _logging.properties_ configuration file at runtime, this approach is recommended.
+The _logging.properties_ file is processed when the executable is built. `LoggerHolder.LOGGER` is initialized at build time and is available at runtime, therefore improving the startup time. Unless your application needs to process a custom _logging.properties_ configuration file at runtime, this approach is recommended.
 
 ## Runtime Logger Initialization
 
@@ -83,10 +64,12 @@ The logger can also be initialized at runtime.
      ./runtimeloggerinit
      ```
 
-    It should produce output that looks similar to:
+    It should produce the output that looks similar to:
      ```bash
      WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
      ```
 
     In this case, the _logging.properties_ file needs to be available for runtime processing and it must be included in the executable via the `-H:IncludeResources=logging.properties` option. For more details, see [Use of Resources in a Native Executable](https://www.graalvm.org/reference-manual/native-image/dynamic-features/Resources/).
 
+Native Image supports logging using the `java.util.logging.*` API.
+The logging configuration by default is based on the _logging.properties_ file found in the JDK.
