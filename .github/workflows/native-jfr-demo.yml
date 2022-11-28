@@ -31,6 +31,7 @@ jobs:
           native-image-pr-reports: 'true'
       - name: Run 'native-jfr-demo'
         run: |
+          gu install native-image jvisualvm
           cd native-jfr-demo
           javac JFRDemo.java
           native-image --enable-monitoring=jfr JFRDemo
