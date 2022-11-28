@@ -27,7 +27,7 @@ To record JFR events when running a native executable, enable JFR support and JF
     gu install native-image jvisualvm
     ``` 
 
-3. Download or clone the demos repository:
+3. Download the demos repository or clone it as follows:
     ```
     git clone https://github.com/graalvm/graalvm-demos
     ```
