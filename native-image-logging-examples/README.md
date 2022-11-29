@@ -33,7 +33,7 @@ In this example, the logger will be initialized at build time with a custom _log
 2. Build and run the native executable:
 
     ```bash
-     native-image-logging-examples % native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
+    native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
      ```
      ```bash
      ./buildtimeloggerinit
