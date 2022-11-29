@@ -33,7 +33,7 @@ jobs:
         run: |
           cd native-image-logging-examples
           javac BuildTimeLoggerInit.java
-          native-image-logging-examples % native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
+          native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
           ./buildtimeloggerinit
           javac RuntimeLoggerInit.java
           native-image RuntimeLoggerInit -H:IncludeResources="logging.properties"
