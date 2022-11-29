@@ -23,7 +23,7 @@ jobs:
       - uses: graalvm/setup-graalvm@v1
         with:
           version: 'dev'
-          java-version: '11'
+          java-version: '17'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
       - name: Run 'js-java-async-helidon'

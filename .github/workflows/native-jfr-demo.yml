@@ -1,13 +1,13 @@
-name: java-simple-stream-benchmark
+name: native-jfr-demo
 on:
   push:
     paths:
-      - 'java-simple-stream-benchmark/**'
-      - '.github/workflows/java-simple-stream-benchmark.yml'
+      - 'native-jfr-demo/**'
+      - '.github/workflows/native-jfr-demo.yml'
   pull_request:
     paths:
-      - 'java-simple-stream-benchmark/**'
-      - '.github/workflows/java-simple-stream-benchmark.yml'
+      - 'native-jfr-demo/**'
+      - '.github/workflows/native-jfr-demo.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -16,7 +16,7 @@ permissions:
   pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
-    name: Run 'java-simple-stream-benchmark'
+    name: Run 'native-jfr-demo'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -29,8 +29,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           native-image-pr-reports: 'true'
-      - name: Run 'java-simple-stream-benchmark'
-        run: |
-          cd java-simple-stream-benchmark
-          ./build.sh
-          ./run.sh
+      - name: Run 'native-jfr-demo'
+        run: 
+          gu install visualvm
+          cd native-jfr-demo
+          javac JFRDemo.java
+          native-image --enable-monitoring=jfr JFRDemo
+          ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
+          jfr print recording.jfr

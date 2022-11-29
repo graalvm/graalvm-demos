@@ -22,7 +22,7 @@ jobs:
         with:
           version: 'latest' # EE dev builds not supported
           gds-token: ${{ secrets.GDS_TOKEN }}
-          java-version: '11'
+          java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
