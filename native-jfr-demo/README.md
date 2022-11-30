@@ -50,7 +50,7 @@ To record JFR events when running a native executable, enable JFR support and JF
 
 5. Start [VisualVM](https://visualvm.github.io/) to view the contents of the recording file in a user-friendly way. GraalVM provides VisualVM in the core installation. To start the tool, run:
     ```bash 
-    visualvm
+    jvisualvm
     ```
 
 6. Go to **File**, then **Add JFR Snapshot**, browse _recording.jfr_, and open       the selected file. Confirm the display name and click **OK**. Once opened, there is a bunch of options you can check: Monitoring, Threads, Exceptions, etc., but you should be mostly interested in the events browsing. It will look something like this:
