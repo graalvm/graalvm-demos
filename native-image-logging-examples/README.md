@@ -1,6 +1,6 @@
 # Configuring Logging in Native Image
 
-This demo demonstrates how Native Image supports logging, which is using the `java.util.logging.*` API by default. The logger can be initialized at build time with a custom _logging.properties_ configuration file or at runtime. The below examples show both cases.
+This demo demonstrates how the `java.util.logging.*` API can be used with Native Image. The logger can be initialized at build time with a custom _logging.properties_ configuration file or at run time. The below examples show both cases.
 
 ### Prerequisites
 * [GraalVM](http://graalvm.org)
