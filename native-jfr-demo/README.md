@@ -11,7 +11,7 @@ To record JFR events when running a native executable, enable JFR support and JF
 
 1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Dowloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
     ```
 
 2. Install VisualVM by running:
