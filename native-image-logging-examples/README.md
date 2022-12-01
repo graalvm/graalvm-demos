@@ -21,7 +21,7 @@ This demo demonstrates how the `java.util.logging.*` API can be used with Native
 
 There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _BuildTimeLoggerInit.java_ and _RuntimeLoggerInit.java_.
 
-## Build-Time Logger Initialization
+## Initializing a Logger at Build Time
 
 In this example, the logger will be initialized at build time with a custom _logging.properties_ configuration file, placed in the same repository as _BuildTimeLoggerInit.java_.
 
