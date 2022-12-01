@@ -5,7 +5,7 @@ GraalVM Native Image supports JFR events and users can use the [`jdk.jfr.Event`]
 
 To record JFR events when running a native executable, enable JFR support and JFR recording as described in this guide.
 
-> Note: JFR event recording is not supported on GraalVM JDK for Windows.
+> Note: JFR event recording is not yet supported on GraalVM JDK for Windows.
 
 ## Preparation
 
