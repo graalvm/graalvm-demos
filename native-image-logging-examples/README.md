@@ -28,7 +28,7 @@ In this example, the logger will be initialized at build time with a custom _log
 1. Compile _BuildTimeLoggerInit.java_ using `javac`:
 
     ```bash
-    javac BuildTimeLoggerInit.java
+    $JAVA_HOME/bin/javac BuildTimeLoggerInit.java
     ```
 2. Build and run the native executable:
 
