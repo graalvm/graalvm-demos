@@ -25,7 +25,7 @@ jobs:
         with:
           version: 'dev'
           java-version: '17'
-          components: 'native-image'
+          components: 'native-image,visualvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           native-image-pr-reports: 'true'
