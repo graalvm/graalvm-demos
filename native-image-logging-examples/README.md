@@ -10,7 +10,7 @@ This demo demonstrates how the `java.util.logging.*` API can be used with Native
 
 1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
   ```bash
-  bash <(curl -sL https://get.graalvm.org/jdk)
+  bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
   ```
 
 2. Download or clone the repository and navigate into the `native-image-logging-examples` directory:
@@ -33,16 +33,16 @@ In this example, the logger will be initialized at build time with a custom _log
 2. Build and run the native executable:
 
     ```bash
-    native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
-     ```
-     ```bash
-     ./buildtimeloggerinit
-     ```
+    $JAVA_HOME/bin/native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
+    ```
+    ```bash
+    ./buildtimeloggerinit
+    ```
 
-     It should produce the output that looks similar to:
-     ```bash
-     WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
-     ```
+    It should produce the output that looks similar to:
+    ```bash
+    WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
+    ```
 
 The _logging.properties_ file is processed when the executable is built. `LoggerHolder.LOGGER` is initialized at build time and is available at runtime, therefore improving the startup time. Unless your application needs to process a custom _logging.properties_ configuration file at runtime, this approach is recommended.
 
@@ -52,22 +52,22 @@ The logger can also be initialized at runtime.
 
 1. Compile _RuntimeLoggerInit.java_ using `javac`:
 
-     ```bash
-     javac RuntimeLoggerInit.java
-     ```
+    ```bash
+    $JAVA_HOME/bin/javac RuntimeLoggerInit.java
+    ```
 
 2. Build and run the native executable:
-     ```bash
-     native-image RuntimeLoggerInit -H:IncludeResources="logging.properties"
-     ```
-     ```bash
-     ./runtimeloggerinit
-     ```
+    ```bash
+    $JAVA_HOME/bin/native-image RuntimeLoggerInit -H:IncludeResources="logging.properties"
+    ```
+    ```bash
+    ./runtimeloggerinit
+    ```
 
     It should produce the output that looks similar to:
-     ```bash
-     WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
-     ```
+    ```bash
+    WARNING: Danger, Will Robinson! [Wed May 18 17:22:40 BST 2022]
+    ```
 
     In this case, the _logging.properties_ file needs to be available for runtime processing and it must be included in the executable via the `-H:IncludeResources=logging.properties` option. For more details, see [Use of Resources in a Native Executable](https://www.graalvm.org/reference-manual/native-image/dynamic-features/Resources/).
 
