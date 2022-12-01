@@ -32,7 +32,7 @@ To record JFR events when running a native executable, enable JFR support and JF
     ```
 2. Compile the Java file using the GraalVM JDK:
     ```bash
-    javac JFRDemo.java
+    $JAVA_HOME/bin/javac JFRDemo.java
     ```
     It creates two class files: _JFRDemo$HelloWorldEvent.class_ and _JFRDemo.class_.
 
