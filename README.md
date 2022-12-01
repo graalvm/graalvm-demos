@@ -76,7 +76,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image, and how to further optimise the benchmark using Profile Guided Optimizations (PGO)<br><strong>Technologies: </strong> Native Image, PGO<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-jfr-demo/">jnative-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/blob/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-jfr-demo/">native-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/blob/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image, and how to further optimise the benchmark using Profile Guided Optimizations (PGO)<br><strong>Technologies: </strong> Native Image, PGO<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
     </tr>
   </tbody>
