@@ -26,7 +26,7 @@ jobs:
       - name: Run 'tiny-java-containers'
         run: |
           cd tiny-java-containers
-          sleep_period=5
+          sleep_period=10
           #
           # Setup musl toolchain
           #
@@ -48,52 +48,52 @@ jobs:
           # Dynamic
           #
           ./build-dynamic.sh
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.dynamic)
+          container_id=$(docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8001"
           docker stop $container_id
           #
           # Mostly Static
           #
           ./build-mostly.sh
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-base.mostly)
+          container_id=$(docker run -d --rm -p8002:8000 jwebserver:distroless-base.mostly)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8002"
           docker stop $container_id          
           #
           # Static Scratch
           #
           ./build-static.sh
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:scratch.static)
+          container_id=$(docker run -d --rm -p8003:8000 jwebserver:scratch.static)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8003"
           docker stop $container_id
           #
           # Static Scratch UPX
           #
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:scratch.static-upx)
+          container_id=$(docker run -d --rm -p8004:8000 jwebserver:scratch.static-upx)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8004"
           docker stop $container_id
           #
           # Distroless Static
           #
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-static.static)
+          container_id=$(docker run -d --rm -p8005:8000 jwebserver:distroless-static.static)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8005"
           docker stop $container_id
           #
           # Alping Static
           #
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:alpine.static)
+          container_id=$(docker run -d --rm -p8006:8000 jwebserver:alpine.static)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8006"
           docker stop $container_id
           #
           # jlink
           # 
           ./build-jlink.sh
-          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.jlink)
+          container_id=$(docker run -d --rm -p8007:8000 jwebserver:distroless-java-base.jlink)
           sleep $sleep_period
-          curl "http://localhost:8000"
+          curl "http://localhost:8007"
           docker stop $container_id
