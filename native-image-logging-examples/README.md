@@ -19,24 +19,24 @@ This demo demonstrates how the `java.util.logging.*` API can be used with Native
   cd graalvm-demos/native-image-logging-examples
   ```
 
-There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _BuildTimeLoggerInit.java_ and _RuntimeLoggerInit.java_.
+There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _LoggerBuildTimeInit_ and _LoggerRunTimeInit_.
 
 ## Initializing a Logger at Build Time
 
-In this example, the logger will be initialized at build time with a custom _logging.properties_ configuration file, placed in the same repository as _BuildTimeLoggerInit.java_.
+In this example, the logger will be initialized at build time with a custom _logging.properties_ configuration file, placed in the same repository as _LoggerBuildTimeInit_.
 
-1. Compile _BuildTimeLoggerInit.java_ using `javac`:
+1. Compile _LoggerBuildTimeInit.java_ using `javac`:
 
     ```bash
-    $JAVA_HOME/bin/javac BuildTimeLoggerInit.java
+    $JAVA_HOME/bin/javac LoggerBuildTimeInit.java
     ```
 2. Build and run the native executable:
 
     ```bash
-    $JAVA_HOME/bin/native-image BuildTimeLoggerInit --initialize-at-build-time=BuildTimeLoggerInit
+    $JAVA_HOME/bin/native-image LoggerBuildTimeInit --initialize-at-build-time=LoggerBuildTimeInit
     ```
     ```bash
-    ./buildtimeloggerinit
+    ./loggerbuildtimeinit
     ```
 
     It should produce the output that looks similar to:
@@ -46,22 +46,22 @@ In this example, the logger will be initialized at build time with a custom _log
 
 The _logging.properties_ file is processed when the executable is built. `LoggerHolder.LOGGER` is initialized at build time and is available at runtime, therefore improving the startup time. Unless your application needs to process a custom _logging.properties_ configuration file at runtime, this approach is recommended.
 
-## Runtime Logger Initialization
+## Initializing a Logger at Runtime
 
 The logger can also be initialized at runtime. 
 
-1. Compile _RuntimeLoggerInit.java_ using `javac`:
+1. Compile _LoggerRunTimeInit_ using `javac`:
 
     ```bash
-    $JAVA_HOME/bin/javac RuntimeLoggerInit.java
+    $JAVA_HOME/bin/javac LoggerRunTimeInit.java
     ```
 
 2. Build and run the native executable:
     ```bash
-    $JAVA_HOME/bin/native-image RuntimeLoggerInit -H:IncludeResources="logging.properties"
+    $JAVA_HOME/bin/native-image LoggerRunTimeInit -H:IncludeResources="logging.properties"
     ```
     ```bash
-    ./runtimeloggerinit
+    ./loggerruntimeinit 
     ```
 
     It should produce the output that looks similar to:
