@@ -22,8 +22,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
-          java-version: '17'
+          version: '22.2.0' # temporarily locked because demo does not run on 22.3.0+/JDK17+ yet
+          java-version: '11'
           components: 'espresso,native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'espresso-jshell'
