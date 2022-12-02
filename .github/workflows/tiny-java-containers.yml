@@ -12,7 +12,7 @@ permissions:
 jobs:
   run:
     name: Run 'tiny-java-containers'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
@@ -47,18 +47,11 @@ jobs:
           #
           # Dynamic
           #
-          # ./build-dynamic.sh
-          # docker images
-          # #container_id=$(docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic)
-          # docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic &
-          # docker ps 
-          # container_id=$(docker ps -q)
-          # docker logs -f $container_id
-          # sleep $sleep_period
-          # docker ps 
-          # docker logs $container_id
-          # curl "http://localhost:8001"
-          # docker stop $container_id
+          ./build-dynamic.sh
+          container_id=$(docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic)
+          sleep $sleep_period
+          curl "http://localhost:8001"
+          docker stop $container_id
           #
           # Mostly Static
           #
