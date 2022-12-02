@@ -50,6 +50,8 @@ jobs:
           ./build-dynamic.sh
           container_id=$(docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic)
           sleep $sleep_period
+          docker ps 
+          docker logs $container_id
           curl "http://localhost:8001"
           docker stop $container_id
           #
