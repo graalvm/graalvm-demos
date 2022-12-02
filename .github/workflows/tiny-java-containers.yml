@@ -48,7 +48,9 @@ jobs:
           # Dynamic
           #
           ./build-dynamic.sh
+          docker images
           container_id=$(docker run -d --rm -p8001:8000 jwebserver:distroless-java-base.dynamic)
+          echo "jwebserver:distroless-java-base.dynamic container id: $container_id"
           sleep $sleep_period
           docker ps 
           docker logs $container_id
