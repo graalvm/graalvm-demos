@@ -18,12 +18,15 @@ jobs:
     name: Run 'polyglot-chat-app'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      matrix:
+        version: [latest, dev]
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'dev'
-          java-version: '11'
+          version: ${{ matrix.version }}
+          java-version: '17'
           components: 'python,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'gradle'
