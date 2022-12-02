@@ -18,11 +18,14 @@ jobs:
     name: Run 'polyglot-javascript-java-r'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        version: [latest, dev]
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest'
+          version: ${{ matrix.version }}
           java-version: '19'
           components: 'nodejs,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
