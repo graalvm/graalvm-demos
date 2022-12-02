@@ -38,19 +38,19 @@ To record JFR events when running a native executable, enable JFR support and JF
 
 3. Build a native executable with VM inspection enabled:
     ```bash
-    native-image --enable-monitoring=jfr JFRDemo
+    $JAVA_HOME/bin/native-image --enable-monitoring=jfr JFRDemo
     ```
     The `--enable-monitoring=jfr` option enables features such as JFR that can be used to inspect the VM.
 
 4. Run the executable and start recording:
     ```bash
-    ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
+    ./jfrdemo -XX:StartFlightRecording="filename=recording.jfr"
     ```
     This command runs the application as a native executable. The `-XX:StartFlightRecording` option enables the built-in Flight Recorder and starts recording to a specified binary file, _recording.jfr_.
 
 5. Start [VisualVM](https://visualvm.github.io/) to view the contents of the recording file in a user-friendly way. GraalVM provides VisualVM in the core installation. To start the tool, run:
     ```bash 
-    jvisualvm
+    $JAVA_HOME/bin/jvisualvm
     ```
 
 6. Go to **File**, then **Add JFR Snapshot**, browse _recording.jfr_, and open the selected file. Confirm the display name and click **OK**. Once opened, there is a bunch of options you can check: Monitoring, Threads, Exceptions, etc., but you should be mostly interested in the events browsing. It will look something like this:
@@ -59,7 +59,7 @@ To record JFR events when running a native executable, enable JFR support and JF
 
     Alternatively, you can view the contents of the recording file in the console window by running this command:
     ```shell
-   jfr print recording.jfr
+   $JAVA_HOME/bin/jfr print recording.jfr
     ```
     It prints all the events recorded by Flight Recorder.
 
