@@ -75,6 +75,10 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/native-image-logging-examples/">native-image-logging-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-logging-demo/.github/workflows/native-image-logging-examples.yml"><img alt="native-image-logging-examples" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-logging-examples.yml/badge.svg" /></a></td>
       <td align="left" width="70%">This demo demonstrates how you can initialize Loggers with Native Image at the executable build or run time<br><strong>Technologies: </strong> Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/add-logging-to-native-executable/">Add Logging to a Native Executable</a></td>
     </tr>
+    <tr>
+      <td align="left" width="30%"><a href="/native-jfr-demo/">native-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-jfr-demo.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">Demonstrates how to create a custom JDK Flight Recorder (JFR) event and use that in a native executable<br><strong>Technologies: </strong> Native Image, JFR, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-and-run-native-executable-with-jfr/">Build and Run Native Executables with JFR</a></td>
+    </tr>  
   </tbody>
 </table>
 
