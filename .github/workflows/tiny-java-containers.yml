@@ -12,7 +12,7 @@ permissions:
 jobs:
   run:
     name: Run 'tiny-java-containers'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04 # Docker has changed its behavior on Ubuntu 22.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
