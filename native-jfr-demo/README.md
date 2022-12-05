@@ -1,9 +1,17 @@
 # Recording JFR events with Native Image
 
-This example demonstrates how to use the JDK Flight Recorder (JFR) as a tool to collect diagnostic and profiling data in a running Java application, built into a JVM. 
-GraalVM Native Image supports JFR events and users can use the [`jdk.jfr.Event`](https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Event.html) API with a similar experience to using JFR in the Java HotSpot VM.
+This demo shows how to create a custom JDK Flight Recorder (JFR) event and use that in a native executable.
+JFR is a tool to collect diagnostic and profiling data in a running Java application, built into a JVM. 
+GraalVM Native Image supports JFR events and users can use the [`jdk.jfr.Event`](https://docs.oracle.com/en/java/javase/11/docs/api/jdk.jfr/jdk/jfr/Event.html) API with a similar experience to using JFR in the JVM. For example, to emit standard JFR events for the `jwebserver` application, you would run:
 
-To record JFR events when running a native executable, enable JFR support and JFR recording as described in this guide.
+```bash
+$JAVA_HOME/bin/native-image --enable-monitoring=jfr -m jdk.httpserver
+```
+```bash
+./jdk.httpserver -XX:+FlightRecorder -XX:StartFlightRecording="duration=10s,filename=recording.jfr"
+```
+
+Follow the steps below to record JFR events when running a native executable, enable JFR support, and JFR recording.
 
 > Note: JFR event recording is not yet supported on GraalVM JDK for Windows.
 
