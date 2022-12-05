@@ -75,6 +75,10 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/jmh/benchmark-binary-tree/">jmh/benchmark-binary-tree</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml"><img alt="jmh/benchmark-binary-tree" src="https://github.com/graalvm/graalvm-demos/actions/workflows/jmh-binary-tree.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to run a JMH benchmark on Native Image, and how to further optimise the benchmark using Profile Guided Optimizations (PGO)<br><strong>Technologies: </strong> Native Image, PGO<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/PGO/">Native Image Profile Guided Optimizations</a></td>
     </tr>
+    <tr>
+      <td align="left" width="30%"><a href="/native-jfr-demo/">native-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-jfr-demo.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">Demonstrates how to create a custom JDK Flight Recorder (JFR) event and use that in a native executable<br><strong>Technologies: </strong> Native Image,JFR,VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-and-run-native-executable-with-jfr/">Build and Run Native Executables with JFR</a></td>
+    </tr>
   </tbody>
 </table>
 
