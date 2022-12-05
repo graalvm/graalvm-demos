@@ -35,5 +35,5 @@ jobs:
           cd native-jfr-demo
           javac JFRDemo.java
           native-image --enable-monitoring=jfr JFRDemo
-          ./jfrdemo -XX:StartFlightRecording="filename=recording.jfr"
+          ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
           jfr print recording.jfr
