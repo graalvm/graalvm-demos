@@ -52,7 +52,7 @@ Follow the steps below to record JFR events when running a native executable, en
 
 4. Run the executable and start recording:
     ```bash
-    ./jfrdemo -XX:StartFlightRecording="filename=recording.jfr"
+    ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
     ```
     This command runs the application as a native executable. The `-XX:+FlightRecorder` and `-XX:StartFlightRecording` options enable the built-in Flight Recorder and start recording to a specified binary file, _recording.jfr_.
 
