@@ -19,12 +19,15 @@ jobs:
     name: Run 'native-shared-library'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      matrix:
+        version: [latest, dev]
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'dev'
-          java-version: '17'
+          version: ${{ matrix.version }}
+          java-version: '19'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
@@ -34,6 +37,6 @@ jobs:
           gu install llvm-toolchain
           cd native-shared-library
           javac LibEnvMap.java
-          native-image -H:Name=LibEnvMap --shared 
+          native-image -H:Name=libenvmap --shared 
           clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c
           ./main USER

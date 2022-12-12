@@ -19,26 +19,22 @@ This examples demonstrates how to use the **Native Image C API**. You will:
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
-    ```
-2. Install LLVM toolchain support to GraalVM, as follows:
-    ```bash
-    $JAVA_HOME/bin/gu install llvm-toolchain
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'llvm-toolchain'
     ```
 
     > Note: The `llvm-toolchain` GraalVM component is not available on Microsoft Windows.
 
-3. Download or clone GraalVM demos repository and navigate into the `native-shared-library` directory:
+2. Download or clone GraalVM demos repository and navigate into the `native-shared-library` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     cd graalvm-demos/native-shared-library
     ```
-4. Compile _LibEnvMap.java_ and build a native shared library, as follows:
+3. Compile _LibEnvMap.java_ and build a native shared library, as follows:
     ```bash
     $JAVA_HOME/bin/javac LibEnvMap.java
     ```
     ```bash
-    $JAVA_HOME/bin/native-image -H:Name=LibEnvMap --shared 
+    $JAVA_HOME/bin/native-image -H:Name=libenvmap --shared 
     ``` 
 
     It will produce the following artifacts:
@@ -72,11 +68,11 @@ This examples demonstrates how to use the **Native Image C API**. You will:
     native-image -jar <jarfile> --shared
     ```   
 
-5. Compile the _main.c_ using `clang`.  
+4. Compile the _main.c_ using `clang`.  
     ```bash
     $JAVA_HOME/languages/llvm/native/bin/clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c 
     ```
-6. Run the C application by passing a string as an argument. For example:
+5. Run the C application by passing a string as an argument. For example:
     ```bash
     ./main USER
     ```
