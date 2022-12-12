@@ -1,4 +1,4 @@
-#  Build a Native Shared Library
+# Build a Shared Library with Native Image
 
 This demo shows how to create a small Java class library, use `native-image` to create a native shared library, and then create a small C application that uses that shared library.
 
