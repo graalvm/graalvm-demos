@@ -46,7 +46,6 @@ This example demonstrates how to use the **Native Image C API**. We will:
     /demo/graal_isolate.h (header)
     /demo/libenvmap_dynamic.h (header)
     /demo/graal_isolate_dynamic.h (header)
-    /demo/libenvmap.build_artifacts.txt
     ==================================================
     ```
     In the result of this process the native shared library will have the `main()` method of the given Java class as its **entrypoint** method.
@@ -62,8 +61,7 @@ This example demonstrates how to use the **Native Image C API**. We will:
     ```
     ```bash
     native-image --shared -jar <jarfile> -H:Name=<libraryname>
-    ```
-    ```   
+    ```  
 
 4. Compile the _main.c_ using `clang`.  
     ```bash

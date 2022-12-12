@@ -34,7 +34,6 @@ jobs:
           native-image-pr-reports: 'true'
       - name: Run 'native-shared-library'
         run: |
-          gu install llvm-toolchain
           cd native-shared-library
           javac LibEnvMap.java
           native-image -H:Name=libenvmap --shared 
