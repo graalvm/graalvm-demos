@@ -5,7 +5,7 @@ This demo shows how to create a small Java class library, use `native-image` to 
 GraalVM makes it easy to use C to call into a native shared library.
 There are two primary mechanisms for calling a method (function) embedded in a native shared library: the [Native Image C API](https://www.graalvm.org/latest/reference-manual/native-image/native-code-interoperability/C-API/) and the [JNI Invocation API](https://www.graalvm.org/latest/reference-manual/native-image/native-code-interoperability/JNIInvocationAPI/).
 
-This examples demonstrates how to use the **Native Image C API**. You will:
+This example demonstrates how to use the **Native Image C API**. We will:
 
 1. Create and compile a Java class library containing at least one entrypoint method.
 2. Use the `native-image` tool to create a shared library from the Java class library.
