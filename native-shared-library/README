@@ -63,9 +63,6 @@ This example demonstrates how to use the **Native Image C API**. We will:
     ```bash
     native-image --shared -jar <jarfile> -H:Name=<libraryname>
     ```
-    Also, native shared library can be created from a JAR file using the following syntax:
-    ```bash
-    native-image -jar <jarfile> --shared
     ```   
 
 4. Compile the _main.c_ using `clang`.  
