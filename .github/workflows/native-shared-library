@@ -1,0 +1,39 @@
+name: native-shared-library
+on:
+  push:
+    paths:
+      - 'native-shared-library/**'
+      - '.github/workflows/native-shared-library.yml'
+  pull_request:
+    paths:
+      - 'native-shared-library/**'
+      - '.github/workflows/native-shared-library.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write # for `native-image-pr-reports` option
+jobs:
+  run:
+    name: Run 'native-shared-library'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          native-image-pr-reports: 'true'
+      - name: Run 'native-shared-library'
+        run: |
+          gu install llvm-toolchain
+          cd native-shared-library
+          javac LibEnvMap.java
+          native-image -H:Name=LibEnvMap --shared 
+          clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c
+          ./main USER

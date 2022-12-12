@@ -1,0 +1,100 @@
+#  Build a Native Shared Library
+
+This demo shows, how to create a small Java class library (containing one class), use `native-image` to create a shared library from the class library and then create a small C application that uses the shared library.
+
+GraalVM makes it easy to use C to call into a native shared library.
+There are two primary mechanisms for calling a method (function) embedded in a native shared library: the [Native Image C API](../C-API.md) and the [JNI Invocation API](https://docs.oracle.com/en/java/javase/17/docs/specs/jni/invocation.html).
+
+This demo describes how to use the **Native Image C API**.
+
+### Prerequisites
+* [GraalVM](http://graalvm.org)
+* [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
+
+## Preparation
+
+1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+    ```
+2. Install LLVM toolchain support to GraalVM, as follows:
+    ```bash
+    $JAVA_HOME/bin/gu install llvm-toolchain
+    ```
+>Note: The llvm-toolchain GraalVM component is not available on Microsoft Windows.
+
+3. Download or clone the repository and navigate into the `native-shared-library` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    cd graalvm-demos/native-shared-library
+    ```
+4. Compile the _LibEnvMap.java_ and build a native shared library, as follows:
+    ```bash
+    $JAVA_HOME/bin/javac LibEnvMap.java
+    ```
+    ```bash
+    $JAVA_HOME/bin/native-image -H:Name=LibEnvMap --shared 
+    ``` 
+
+    It will produce the following artifacts:
+    ```
+    --------------------------------------------------
+    Produced artifacts:
+    /demo/libenvmap.dylib (shared_lib)
+    /demo/libenvmap.h (header)
+    /demo/graal_isolate.h (header)
+    /demo/libenvmap_dynamic.h (header)
+    /demo/graal_isolate_dynamic.h (header)
+    /demo/libenvmap.build_artifacts.txt
+    ==================================================
+    ```
+    In the result of this process native shared library will have the `main()` method of the given Java class as its **entrypoint** method.
+ 
+    If you work with C or C++, use these header files directly. For other languages, such as Java, use the function declarations in the headers to set up your foreign call bindings. 
+
+If your library doesn't include a `main()` method, use the `-H:Name=` command-line option to specify the library name, as follows:
+
+```bash
+native-image --shared -H:Name=<libraryname> <class name>
+```
+```bash
+native-image --shared -jar <jarfile> -H:Name=<libraryname>
+```
+Also, native shared library can be created from a JAR file using the following syntax:
+```bash
+native-image -jar <jarfile> --shared
+```   
+
+5. Compile the _main.c_ using `clang`.  
+    ```bash
+    $GRAALVM_HOME/languages/llvm/native/bin/clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c 
+    ```
+6. Run the C application by passing a string as an argument. For example:
+    ```bash
+    ./main USER
+    ```
+    It will correctly print out the name and value of the matching environment variable(s).    
+
+### Tips and Tricks
+
+The shared library must have at least one **entrypoint** method.
+By default, only a method named `main()`, originating from a `public static void main()` method, is identified as an **entrypoint** and callable from a C application.
+
+To export any other Java method:
+
+* Declare the method as static.
+* Annotate the method with `@CEntryPoint` (`org.graalvm.nativeimage.c.function.CEntryPoint`).
+* Make one of the method's parameters of type `IsolateThread` or `Isolate`, for example, the first parameter (`org.graalvm.nativeimage.IsolateThread`) in the method below. This parameter provides the current thread's execution context for the call.
+* Restrict your parameter and return types to non-object types. These are Java primitive types including pointers, from the `org.graalvm.nativeimage.c.type` package.
+* Provide a unique name for the method. If you give two exposed methods the same name, the `native-image` builder will fail with the `duplicate symbol` message. If you do not specify the name in the annotation, you must provide the `-H:Name=libraryName` flag at build time.
+
+The advantage of using the Native Image C API is that you can determine what your API will look like. 
+The restriction is that your parameter and return types must be non-object types.
+If you want to manage Java objects from C, you should consider [JNI Invocation API](../JNI.md). 
+
+### Related Documentation
+
+* [Embedding Truffle Languages](https://nirvdrum.com/2022/05/09/truffle-language-embedding.html)-- a blog post by Kevin Menard where he compares both mechanisms for exposing Java methods.
+* [Interoperability with Native Code](../InteropWithNativeCode.md)
+* [Java Native Interface (JNI) in Native Image](../JNI.md)
+* [Native Image C API](../C-API.md)
