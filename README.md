@@ -80,7 +80,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to create a custom JDK Flight Recorder (JFR) event and use that in a native executable<br><strong>Technologies: </strong> Native Image, JFR, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-and-run-native-executable-with-jfr/">Build and Run Native Executables with JFR</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-shared-library/">native-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/ni-shared-lib/.github/workflows/native-shared-library.yml"><img alt="native-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-shared-library/">native-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml"><img alt="native-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo shows how to create a Java class library, use Native Image to create a native shared library, and then create a small C application that uses that shared library<br><strong>Technologies: </strong> Native Image, LLVM toolchain <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-shared-library/">Build a Native Shared Library</a></td>
     </tr>  
   </tbody>
