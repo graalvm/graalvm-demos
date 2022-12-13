@@ -1,0 +1,5 @@
+*.h
+*.txt
+*.class
+*.dylib
+main
