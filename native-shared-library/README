@@ -51,7 +51,7 @@ This example demonstrates how to use the **Native Image C API**. We will:
     If you work with C or C++, use these header files directly. For other languages, such as Java, use the function declarations in the headers to set up your foreign call bindings. 
 
     In the result of this process the native shared library will have the `main()` method of the given Java class as its **entrypoint** method.
-    
+
     If your library does not include a `main()` method, use the `-H:Name=` command-line option to specify the library name, as follows:
 
     ```bash
@@ -107,7 +107,7 @@ If you want to manage Java objects from C, you should consider [JNI Invocation A
 
 ### Related Documentation
 
-* [Embedding Truffle Languages](https://nirvdrum.com/2022/05/09/truffle-language-embedding.html)-- a blog post by Kevin Menard where he compares both mechanisms for exposing Java methods.
+* Reading the [Embedding Truffle Languages](https://nirvdrum.com/2022/05/09/truffle-language-embedding.html) blog post by Kevin Menard where he compares both mechanisms for exposing Java methods.
 * [Interoperability with Native Code](https://www.graalvm.org/latest/reference-manual/native-image/native-code-interoperability/)
 * [Java Native Interface (JNI) in Native Image](https://www.graalvm.org/latest/reference-manual/native-image/native-code-interoperability/JNIInvocationAPI/)
 * [Native Image C API](https://www.graalvm.org/latest/reference-manual/native-image/native-code-interoperability/C-API/)
