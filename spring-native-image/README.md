@@ -1,4 +1,4 @@
-# Spring Boot Native Image Microservice example
+# Spring Boot Native Image Microservice Example
 
 ## Overview
 
@@ -12,16 +12,16 @@ You will learn how to build, package and run a simple Spring Boot microservice u
 
 - [GraalVM Enterprise in OCI Code Editor](./README-Code-Editor.md)
 - [GraalVM Enterprise in OCI Cloud Shell](./README-Cloud-Shell.md)
-- On other machines with Linux or macOS or Windows, follow the instuctions given below.
+- On other machines with Linux or macOS or Windows, follow the instructions given below.
 
-## Other machines with Linux or macOS or Windows
+### Other Machines with Linux or macOS or Windows
 
 ### Note on building Docker images with native executables inside on MAC
 
 If you are using macOS or Windows in order to build a Docker image containing your native executable you will need
 to build the native executable within a Docker container. How to do this is discussed later. 
 
-### Build and run as a JAR
+### Build and Run as JAR
 
 This project is built using Maven. To build the application so that it can be run on-top of a JVM:
 
@@ -52,7 +52,7 @@ docker run --rm --name graalce -d -p 8080:8080 jibber-benchmark:graalce.0.0.1-SN
 You can then test the container suing `curl` exactly as you did before - remember to allow a little time for the application to 
 start up.
 
-### Build and run a native executable
+### Build and Run a Native Executable
 
 We can also build a native executable of our Spring Boot microservice, using GraalVM Native Image. In order to do this
 the Maven file makes use of plugins from [GraalVM Native Build Tools](https://github.com/graalvm/native-build-tools) and
@@ -91,7 +91,7 @@ And once that is built, you can test it as follows:
 docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
 ```
 
-### Build A Native Image Container on Something Other than Linux
+### Build a Native Image Container on Something Other than Linux
 
 If you are not using linux as your OS, you will need to do the native image build within a docker container. To do this
 we have supplied a two-stage Docker build file. 
@@ -107,7 +107,7 @@ And once that is built, you can test it as follows:
 docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
 ```
 
-### Metrics And Measuring the Performance of the Application
+### Metrics and Measuring the Performance of the Application
 
 The Spring Actuator dependency has been added to the project, along with support for Prometheus. If you
 want to test the performance of either the JVM version, or the native executable version of the application you can
