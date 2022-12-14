@@ -1,0 +1,49 @@
+name: build-with-reflection-example
+on:
+  push:
+    paths:
+      - 'build-with-reflection-example/**'
+      - '.github/workflows/build-with-reflection-example.yml'
+  pull_request:
+    paths:
+      - 'build-with-reflection-example/**'
+      - '.github/workflows/build-with-reflection-example.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write # for `native-image-pr-reports` option
+jobs:
+  run:
+    name: Run 'build-with-reflection-example'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        version: [latest, dev]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: ${{ matrix.version }}
+          java-version: '19'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          native-image-pr-reports: 'true'
+      - name: Run 'build-with-reflection-example'
+        run: |
+          cd build-with-reflection-example
+          javac ReflectionExample.java
+          java ReflectionExample StringReverser reverse "hello"
+          java ReflectionExample StringCapitalizer capitalize "hello"
+          native-image --no-fallback ReflectionExample
+          ./reflectionexample StringReverser reverse "hello"
+          java -agentlib:native-image-agent=config-output-dir=META-INF/native-image ReflectionExample StringReverser reverse "hello"
+          native-image ReflectionExample
+          ./reflectionexample StringReverser reverse "hello"
+          ./reflectionexample StringCapitalizer capitalize "hello"
+          java -agentlib:native-image-agent=config-merge-dir=META-INF/native-image ReflectionExample StringCapitalizer capitalize "hello"
+          native-image ReflectionExample
+          ./reflectionexample StringCapitalizer capitalize "hello"
