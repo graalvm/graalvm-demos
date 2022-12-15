@@ -1,24 +1,20 @@
 # Spring Boot Microservice with GraalVM Enterprise in OCI Cloud Shell
 
-This example shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This example uses a Spring Boot application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
-
-## What is GraalVM?
-
-[GraalVM](https://www.oracle.com/in/java/graalvm/) is a high-performance JDK distribution that accelerates Java workloads. GraalVM Native Image ahead-of-time compilation builds your Java application into a native executable that is small, starts fast, and uses less memory and CPU. Leading Java microservices frameworks such as Spring Boot, Micronaut, Quarkus and Helidon support GraalVM Native Image.
+This part shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructure (OCI) Cloud Shell using the Spring Boot 3 microservice example.
 
 GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
 
 ## What is Cloud Shell?
 
-[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a preauthenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
+[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a pre-authenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
-GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
+GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you do not have to install and configure a development machine to get started.
 
 ## Step 1: Launch Cloud Shell 
 
-1. [Login to OCI Console and launch Cloud Shell](https://cloud.oracle.com/?bdcstate=maximized&cloudshell=true).
+[Login to OCI Console and launch Cloud Shell](https://cloud.oracle.com/?bdcstate=maximized&cloudshell=true).
 
-## Step 2: Select GraalVM as the current JDK 
+## Step 2: Select GraalVM as the Current JDK 
 
 1. List the installed JDKs:
 
@@ -39,19 +35,17 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     ```shell
     csruntimectl java set graalvmeejdk-17
     ```
-
     The output should be similar to:
 
     ```shell
     The current managed java version is set to graalvmeejdk-17.
     ```
 
-## Step 3: [OPTIONAL] Confirm software version and environment variables
+## Step 3: (Optional) Confirm Software Version and Environment Variables
 
 This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
-
-## Step 4: Set up your project, build and run a JAR
+## Step 4: Set up Your Project, Build and Run a JAR
 
 1. Git clone this example.
 
@@ -114,10 +108,9 @@ This step is optional - [Check software version and environment variables](../_c
 
 6. Once the app is running in the foreground, press CTRL+C to stop it.
 
+## Step 5: Build and Run a Native Executable
 
-## Step 5: Build and run a native executable
-
-Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image.
+Now build a native executable for your Spring Boot microservice using GraalVM Enterprise Native Image.
 
 1. Build the app native executable
 
