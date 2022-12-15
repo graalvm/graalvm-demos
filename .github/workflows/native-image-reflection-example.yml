@@ -36,15 +36,9 @@ jobs:
         run: |
           cd native-image-reflection-example
           javac ReflectionExample.java
-          java ReflectionExample StringReverser reverse "hello"
-          java ReflectionExample StringCapitalizer capitalize "hello"
-          native-image --no-fallback ReflectionExample
-          ./reflectionexample StringReverser reverse "hello"
           mkdir -p META-INF/native-image
           java -agentlib:native-image-agent=config-output-dir=META-INF/native-image ReflectionExample StringReverser reverse "hello"
+          java -agentlib:native-image-agent=config-merge-dir=META-INF/native-image ReflectionExample StringCapitalizer capitalize "hello" 
           native-image ReflectionExample
           ./reflectionexample StringReverser reverse "hello"
-          ./reflectionexample StringCapitalizer capitalize "hello"
-          java -agentlib:native-image-agent=config-merge-dir=META-INF/native-image ReflectionExample StringCapitalizer capitalize "hello"
-          native-image ReflectionExample
           ./reflectionexample StringCapitalizer capitalize "hello"

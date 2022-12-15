@@ -1,4 +1,5 @@
-# Build a Native Executable with Reflection 
+# Native Image Support for Java Reflection
+<!-- # Building a Native Executable with Java Reflection -->
 
 [Reflection](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html) is a feature of the Java programming language that enables a running Java program to examine and modify attributes of its classes, interfaces, fields, and methods.
 
