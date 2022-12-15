@@ -4,6 +4,8 @@ Reflection is a feature of the Java programming language that enables a running 
 
 The `native-image` utility provides partial support for reflection. It uses static analysis to detect the elements of your application that are accessed using the Java Reflection API. However, because the analysis is static, it cannot always completely predict all usages of the API when the program runs. In these cases, you must provide a configuration file to the native-image utility to specify the program elements that use the API.
 
+The following application demonstrates the use of Java reflection.
+
 ## Preparation
 
 1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
@@ -14,13 +16,10 @@ The `native-image` utility provides partial support for reflection. It uses stat
 2. Download or clone the repository and navigate into the `build-with-reflection-example` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/build-with-reflection-example
+  cd graalvm-demos/native-image-reflection-example
   ```
 
 ## Example with No Configuration
-The following application demonstrates the use of Java reflection.
-
-This Java application uses command-line arguments to determine the operation to be performed.
 
 1. Compile the _ReflectionExample.java_ and then run each command below.
     ```shell
@@ -84,6 +83,7 @@ The following steps demonstrate how to use the javaagent tool, and its output, t
     ```shell
     $JAVA_HOME/bin/native-image ReflectionExample
     ```
+    
     The `native-image` tool automatically uses configuration files in the _META-INF/native-image_ directory.
     However, we recommend that the _META-INF/native-image_ directory is on the class path, either via a JAR file or using the `-cp` flag. (This avoids confusion for IDE users where a directory structure is defined by the IDE itself.)
 
@@ -104,6 +104,7 @@ The following steps demonstrate how to use the javaagent tool, and its output, t
 	    at java.lang.Class.forName(DynamicHub.java:1313)
 	    at ReflectionExample.main(ReflectionExample.java:25)
     ```
+
     Neither the tracing agent nor the `native-image` tool can ensure that the configuration file is complete.
     The agent observes and records which program elements are accessed using reflection when you run the program. In this case, the `native-image` tool has not been configured to include references to class `StringCapitalizer`.
 
@@ -130,6 +131,8 @@ The following steps demonstrate how to use the javaagent tool, and its output, t
 6. Rebuild a native executable and run the resulting file.
     ```shell
     $JAVA_HOME/bin/native-image ReflectionExample
+    ```
+    ```shell
     ./reflectionexample StringCapitalizer capitalize "hello"
     ```
    

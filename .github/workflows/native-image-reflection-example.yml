@@ -1,13 +1,13 @@
-name: build-with-reflection-example
+name: native-image-reflection-example
 on:
   push:
     paths:
-      - 'build-with-reflection-example/**'
-      - '.github/workflows/build-with-reflection-example.yml'
+      - 'native-image-reflection-example/**'
+      - '.github/workflows/native-image-reflection-example.yml'
   pull_request:
     paths:
-      - 'build-with-reflection-example/**'
-      - '.github/workflows/build-with-reflection-example.yml'
+      - 'native-image-reflection-example/**'
+      - '.github/workflows/native-image-reflection-example.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -16,7 +16,7 @@ permissions:
   pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
-    name: Run 'build-with-reflection-example'
+    name: Run 'native-image-reflection-example'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -32,9 +32,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           native-image-pr-reports: 'true'
-      - name: Run 'build-with-reflection-example'
+      - name: Run 'native-image-reflection-example'
         run: |
-          cd build-with-reflection-example
+          cd native-image-reflection-example
           javac ReflectionExample.java
           java ReflectionExample StringReverser reverse "hello"
           java ReflectionExample StringCapitalizer capitalize "hello"
