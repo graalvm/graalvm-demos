@@ -89,7 +89,7 @@ With the built-in support for GraalVM Native Image in Spring Boot 3, superseding
 
 2. Run this native executable and put it into the background, by appending `&`:
     ```shell
-    ./target/jibber &
+    ./target/benchmark-jibber &
     ```
 
 3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or call the endpoint using `curl`:
