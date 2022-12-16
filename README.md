@@ -83,6 +83,10 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/native-shared-library/">native-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml"><img alt="native-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo shows how to create a Java class library, use Native Image to create a native shared library, and then create a small C application that uses that shared library<br><strong>Technologies: </strong> Native Image, LLVM toolchain <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-shared-library/">Build a Native Shared Library</a></td>
     </tr>  
+    <tr>
+      <td align="left" width="30%"><a href="/native-image-reflection-example/">native-image-reflection-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml"><img alt="native-image-reflection-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">The following application demonstrates the use of Java reflection and how to provide metadata for Native Image using a JSON configuration file.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-with-reflection/">Build a Native Executable with Reflection</a></td>
+    </tr>  
   </tbody>
 </table>
 
