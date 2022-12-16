@@ -18,7 +18,7 @@ public class ReflectionExample {
 
     public static void main(String[] args) throws ReflectiveOperationException {
         if (args.length == 0) {
-            System.err.println("You must provide the name of a class, the name of its method and input for the method");
+            System.err.println("Please provide a class name, a method name, and input for the method (for example: StringCapitalizer capitalize \"hello\")");
             return;
         }
         String className = args[0];
