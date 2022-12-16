@@ -1,0 +1,4 @@
+reflectionexample
+META-INF/native-image
+*.class
+*.txt
