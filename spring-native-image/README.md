@@ -1,13 +1,13 @@
 # Spring Boot Native Image Microservice Example
 
-This demo shows how to build, package, and run a simple Spring Boot 3 microservice from a JAR file with GraalVM JDK, and from a native executable with GraalVM Native Image. 
-The benefits of using a native executable are much smaller size, faster start-up times and reduced memory consumption.
-It also demontrates how to run the application and build the native executable within a Docker container. 
+This demo shows how to build, package, and run a simple Spring Boot 3 microservice from a JAR file with the GraalVM JDK, and from a native executable with GraalVM Native Image. 
+The benefits of using a native executable are much smaller size, faster start-up times, and reduced memory consumption.
+It also demonstrates how to run the application and build the native executable within a Docker container. 
 
 There are two ways to generate a native executable from a Spring Boot application:
 
 - [Using Buildpacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks)
-- [Using GraalVM Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html)
+- [Using GraalVM Native Build Tools](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.native-build-tools)
 
 ### Note on a Sample Application
 
@@ -23,21 +23,21 @@ This model generates a new text.
 The example application provides the text of the poem, then generates a model of the text, which the application then uses to generate a new text that is similar to the original text. 
 The application uses the [RiTa library](https://rednoise.org/rita/) as an external dependency to build and use Markov Chains.
 
-By default, the demo uses the Native Build Tools Maven plugin to perform the tasks.
-If you would like to run this demo using BuildPacks, there is a build configuration file provided for you: _pom-build-pack.xml_. Rename it to _pom.xml_ and run the same commands.
-For more information about using BuildPacks to create a native executable, see [Building a Native Image Using Buildpacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks).
-
+By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to perform the tasks.
+If you would like to run this demo using [BuildPacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks), the build configuration is provided for you too.
 ## Preparation
 
-1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Dowloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
     bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
     ```
-2. Download the demos repository or clone it as follows:
+2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
+
+3. Download the demos repository or clone it as follows:
     ```
     git clone https://github.com/graalvm/graalvm-demos
     ```
-3. Change directory to the demo subdirectory:
+4. Change directory to the demo subdirectory:
     ```
     cd spring-native-image
     ```
@@ -82,10 +82,12 @@ With the built-in support for GraalVM Native Image in Spring Boot 3, superseding
 1. Run the following command:
 
     ```shell
-    ./mvnw native:compile -Pnative
+    mvn native:compile -Pnative
     ```
     The `-Pnative` profile is used to turn on building a native executable.
     It will generate a native executable for your platform in the _target_ directory, called _benchmark-jibber_.
+
+    To build using BuildPacks, run the `mvn spring-boot:build-image -Pnative` command to generate a native executable. For more information about using BuildPacks to create a native executable, see [Building a Native Image Using Buildpacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks).
 
 2. Run this native executable and put it into the background, by appending `&`:
     ```shell
@@ -169,6 +171,6 @@ If you are hosting the application locally, it is available on port 8080:
 ## Related Documentation
 
 - Run an interactive lab: [GraalVM Native Image, Spring and Containerisation](https://luna.oracle.com/lab/fdfd090d-e52c-4481-a8de-dccecdca7d68)
-- [OCI Code Editor](https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/code-editor/)
 - [OCI Cloud Shell](https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/cloud-shell/)
 - [Native Build Tools](https://graalvm.github.io/native-build-tools/)
+- [Spring Boot GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.native-build-tools)
