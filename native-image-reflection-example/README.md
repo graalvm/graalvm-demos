@@ -13,7 +13,7 @@ The following application demonstrates the use of Java reflection and how to pro
     bash <(curl -sL https://get.graalvm.org/jdk)
     ```
 
-2. Download or clone the repository and navigate into the `build-with-reflection-example` directory:
+2. Download or clone the repository and navigate into the `native-image-reflection-example` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     cd graalvm-demos/native-image-reflection-example
