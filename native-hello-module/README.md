@@ -1,8 +1,8 @@
-# Build Java Module into a Native Executable
+# Build a Java Module into a Native Executable
 
 GraalVM Native Image supports the Java Platform Module System, introduced in Java 9, which means you can convert a modularized Java application into a native executable.
 
-The native-image tool accepts the module-related arguments like `--module (-m)`, `--module-path (-p)`, `--add-opens`, `--add-exports` (same as for the java launcher). When such a module-related argument is used, the native-image tool itself is used as a module too.
+The `native-image` tool accepts the module-related arguments like `--module (-m)`, `--module-path (-p)`, `--add-opens`, `--add-exports` (same as for the java launcher). When such a module-related argument is used, the native-image tool itself is used as a module too.
 
 In addition to supporting `--add-reads` and `--add-modules`, all module related options are considered prior to scanning the modulepath. This helps prevent class loading errors and allow for better module introspection at run time.
 
@@ -11,11 +11,6 @@ The command to build a native executable from a Java module is:
 native-image [options] --module <module>[/<mainclass>] [options]
 ```
 The example below shows how to build a modular Java application into a native executable. 
-
-## Prerequisites
-* [GraalVM](http://graalvm.org)
-* [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
-* Maven
 
 ## Preparation
 
@@ -27,6 +22,8 @@ The example below shows how to build a modular Java application into a native ex
 2. Download or clone the repository and navigate into the `native-hello-module` directory:
     ```bush
     git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bush
     cd graalvm-demos/native-hello-module
     ```
 
@@ -68,9 +65,8 @@ For the demo, you will use a simple _HelloWorld_ Java module gathered with Maven
 3. Build this module into a native executable:
     ```bush 
     $JAVA_HOME/bin/native-image --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
-    ```
-                                      
-    It builds the modular Java application into a native executable called `hellomodule` in the project root directory that you can execute:
+    ```                                 
+    It builds the modular Java application into a native executable called `hellomodule` in the project root. Run it:
     ```bush
     ./hellomodule 
     ```
