@@ -17,7 +17,7 @@ Follow the steps below to record JFR events when running a native executable, en
 
 ## Preparation
 
-1. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Dowloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
     bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
     ```
