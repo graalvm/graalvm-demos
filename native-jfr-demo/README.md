@@ -17,7 +17,7 @@ Follow the steps below to record JFR events when running a native executable, en
 
 ## Preparation
 
-1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Dowloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Dowloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
     bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
     ```
@@ -28,14 +28,14 @@ Follow the steps below to record JFR events when running a native executable, en
     ``` 
 
 3. Download the demos repository or clone it as follows:
-    ```
+    ```bush
     git clone https://github.com/graalvm/graalvm-demos
     ```
 
 ## Build and Run Native Executables with JFR
 
 1. Change directory to the demo subdirectory: _native-jfr-demo_:
-    ```
+    ```bash
     cd graalvm-demos/native-jfr-demo
     ```
 2. Compile the Java file using the GraalVM JDK:
@@ -73,7 +73,7 @@ Follow the steps below to record JFR events when running a native executable, en
 
 ### Related Documentation
 
-- Learn more about [Native Image support for JFR events](../JFR.md) and how to further configure JFR recording and system logging.
+- Learn more about [Native Image support for JFR events](https://www.graalvm.org/latest/reference-manual/native-image/debugging-and-diagnostics/JFR/) and how to further configure JFR recording and system logging.
 
 - [Create and record your first event with Java](https://docs.oracle.com/en/java/javase/17/jfapi/creating-and-recording-your-first-event.html).
 

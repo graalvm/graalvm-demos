@@ -11,22 +11,19 @@ This example demonstrates how to use the **Native Image C API**. We will:
 2. Use the `native-image` tool to create a shared library from the Java class library.
 3. Create and compile a C application that calls an entrypoint method in the shared library.
 
-## Prerequisites
-* [GraalVM](http://graalvm.org)
-* [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
-
 ## Preparation
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
     bash <(curl -sL https://get.graalvm.org/jdk) -c 'llvm-toolchain'
     ```
-
     > Note: The `llvm-toolchain` GraalVM component is not available on Microsoft Windows.
 
 2. Download or clone GraalVM demos repository and navigate into the `native-shared-library` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
     cd graalvm-demos/native-shared-library
     ```
 3. Compile _LibEnvMap.java_ and build a native shared library, as follows:
