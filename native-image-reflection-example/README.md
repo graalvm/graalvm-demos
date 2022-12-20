@@ -6,16 +6,19 @@
 GraalVM Native Image provides partial support for reflection. It uses static analysis to detect the elements of your application that are accessed using the [Java Reflection API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html). However, because the analysis is static, it cannot always completely predict all usages of the API when the program runs. Undetected usages must be provided to the `native-image` tool in the form of metadata (precomputed in code or as JSON configuration files).
 
 The following application demonstrates the use of Java reflection and how to provide metadata for `native-image` using a JSON configuration file.
+
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
     ```
 
 2. Download or clone the repository and navigate into the `native-image-reflection-example` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
     cd graalvm-demos/native-image-reflection-example
     ```
 
@@ -33,6 +36,7 @@ The following application demonstrates the use of Java reflection and how to pro
     ```
 
     The output of each command should be `"olleh"` and `"HELLO"`, respectively. (An exception is thrown if you provide any other string to identify the class or method.)
+    
 2. Use the `native-image` utility to create a native executable as follows:
     ```shell
     $JAVA_HOME/bin/native-image --no-fallback ReflectionExample

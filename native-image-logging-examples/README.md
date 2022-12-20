@@ -2,20 +2,18 @@
 
 This demo shows how the `java.util.logging.*` API can be used with Native Image. If your application requires additional logging handlers, you can register them with a custom configuration file, _logging.properties_ , and initialize at build time. This reduces the size of the resulting executable file and improves startup time. Unless your application needs to process _logging.properties_ at run time, this approach is recommended. Both approaches are demonstrated in the examples. 
 
-### Prerequisites
-* [GraalVM](http://graalvm.org)
-* [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
-
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
   ```bash
-  bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+  bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image' 
   ```
 
 2. Download or clone the repository and navigate into the `native-image-logging-examples` directory:
   ```bash
   git clone https://github.com/graalvm/graalvm-demos
+  ```
+  ```bash
   cd graalvm-demos/native-image-logging-examples
   ```
 
@@ -73,3 +71,8 @@ The logger can also be initialized at runtime.
 
 Native Image supports logging using the `java.util.logging.*` API.
 The logging configuration by default is based on the _logging.properties_ file found in the JDK.
+
+### Related Documentation
+
+* [Reachability Metadata: Reflection](https://www.graalvm.org/latest/reference-manual/native-image/metadata/#reflection)
+* [Native Image Build Configuration](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildConfiguration/)
