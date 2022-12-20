@@ -29,7 +29,7 @@ If you would like to run this demo using [BuildPacks](https://docs.spring.io/spr
 
 1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
     ```
 2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
 
