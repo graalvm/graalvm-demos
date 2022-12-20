@@ -1,13 +1,8 @@
 # Spring Boot Microservice with GraalVM Enterprise in OCI Code Editor
 
-This example shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Code Editor. This example uses a Spring Boot application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
-
-## What is GraalVM?
-
-[GraalVM](https://www.oracle.com/in/java/graalvm/) is a high-performance JDK distribution that accelerates Java workloads. GraalVM Native Image ahead-of-time compilation builds your Java application into a native executable that is small, starts fast, and uses less memory and CPU. Leading Java microservices frameworks such as Spring Boot, Micronaut, Quarkus and Helidon support GraalVM Native Image.
+This part shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructure (OCI) Code Editor using the Spring Boot 3 microservice example.
 
 GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
-
 ## What is Code Editor?
 
 [Code Editor](https://www.oracle.com/devops/code-editor/) enables you to edit and deploy code directly from the Oracle Cloud Console. You can develop applications, service workflows, and scripts entirely from a browser. This makes it easy to rapidly prototype cloud solutions, try new services, and accomplish quick coding tasks.
@@ -21,8 +16,7 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
 2. Open a `New Terminal` in Code Editor. Use this Terminal window to run the commands shown in this sample.
 ![](./images/oci-ce-terminal.png)
 
-
-## Step 2: Select GraalVM as the current JDK 
+## Step 2: Select GraalVM as the Current JDK 
 
 1. List the installed JDKs:
 
@@ -50,13 +44,11 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The current managed java version is set to graalvmeejdk-17.
     ```
 
-## Step 3: [OPTIONAL] Confirm software version and environment variables
+## Step 3: (Optional) Confirm Software Version and Environment Variables
 
 This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
-
-
-## Step 4: Set up your project, build and run as a JAR
+## Step 4: Set up Your Project, Build and Run as a JAR
 
 1. Git clone this example.
 
@@ -119,17 +111,15 @@ This step is optional - [Check software version and environment variables](../_c
 
 6. Once the app is running in the foreground, press CTRL+C to stop it.
 
+## Step 5: Build and Run a Native Executable
 
-## Step 5: Build and run a native executable
-
-Let's build a native executable for our Spring Boot microservice using GraalVM Enterprise Native Image.
+Now build a native executable for your Spring Boot microservice using GraalVM Enterprise Native Image.
 
 1. Build the app native executable
 
     ```shell
     mvn -Pnative native:compile
     ```
-    
     This will create a binary executable `target/benchmark-jibber`. 
 
 2. Run the app native executable in the background
@@ -143,7 +133,6 @@ Let's build a native executable for our Spring Boot microservice using GraalVM E
     ```shell
     curl http://localhost:8080/jibber
     ```
-
     It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. The output should be similar to:
 
     ```shell

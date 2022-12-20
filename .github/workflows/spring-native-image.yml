@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        version: [latest, dev]
+        version: [22.3.0] # temporarily locked to 22.3.0 for Spring Boot 3 compatibility
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1

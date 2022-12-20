@@ -1,119 +1,176 @@
-# Spring Boot Native Image Microservice example
+# Spring Boot Native Image Microservice Example
 
-## Overview
+This demo shows how to build, package, and run a simple Spring Boot 3 microservice from a JAR file with the GraalVM JDK, and from a native executable with GraalVM Native Image. 
+The benefits of using a native executable are much smaller size, faster start-up times, and reduced memory consumption.
+It also demonstrates how to run the application and build the native executable within a Docker container. 
 
-This example shows you how to build, package and run a simple Spring Boot microservice as a JAR with GraalVM JDK, and as a native executable with GraalVM Native Image. The benefits of using a native executable are much smaller size, faster start-up times and reduced memory consumption.
+There are two ways to generate a native executable from a Spring Boot application:
 
-We will make use of [GraalVM](https://www.graalvm.org), the [Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/) project and the [GraalVM Native Build Tools](https://github.com/graalvm/native-build-tools).
+- [Using Buildpacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks)
+- [Using GraalVM Native Build Tools](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.native-build-tools)
 
-Our microservice generates a random nonsense verse in the style of the poem Jabberwocky (by Lewis Carrol). To achieve this remarkable feat, we use a Markov chain to model the text of the original poem and this model then generates random text that appears like the original.
+### Note on a Sample Application
 
-You will learn how to build, package and run a simple Spring Boot microservice using:
+The example is a minimal REST-based API application, built on top of Spring Boot 3. It consists of:
 
-- [GraalVM Enterprise in OCI Code Editor](./README-Code-Editor.md)
-- [GraalVM Enterprise in OCI Cloud Shell](./README-Cloud-Shell.md)
-- On other machines with Linux or macOS or Windows, follow the instuctions given below.
+- `com.example.jibber.JibberApplication`: the main Spring Boot class.
+- `com.example.jibber.Jabberwocky`: a utility class that implements the logic of the application.
+- `com.example.jibber.JibberController`: a REST controller which serves as an entry-point for HTTP requests.
 
-## Other machines with Linux or macOS or Windows
+If you call the HTTP endpoint, `/jibber`, it will return some nonsense verse generated in the style of the Jabberwocky poem, by Lewis Carroll. 
+The program achieves this by using a Markov Chain to model the original poem (this is essentially a statistical model). 
+This model generates a new text.
+The example application provides the text of the poem, then generates a model of the text, which the application then uses to generate a new text that is similar to the original text. 
+The application uses the [RiTa library](https://rednoise.org/rita/) as an external dependency to build and use Markov Chains.
 
-### Note on building Docker images with native executables inside on MAC
+By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to perform the tasks.
+If you would like to run this demo using [BuildPacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks), the build configuration is provided for you too.
+## Preparation
 
-If you are using macOS or Windows in order to build a Docker image containing your native executable you will need
-to build the native executable within a Docker container. How to do this is discussed later. 
+1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,visualvm'
+    ```
+2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
 
-### Build and run as a JAR
+3. Download the demos repository or clone it as follows:
+    ```
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+4. Change directory to the demo subdirectory:
+    ```
+    cd spring-native-image
+    ```
+## Build and Run as a JAR
 
-This project is built using Maven. To build the application so that it can be run on-top of a JVM:
+This project is built using Maven. 
 
-```shell
-mvn clean package
-```
+1. Build the application on top of a JVM:
+    ```shell
+    mvn clean package
+    ```
+    It generates a runnable JAR file that contains all of the application’s dependencies and also a correctly configured `MANIFEST` file.
 
-As well as building the application packaged as a`jar`, this will also build a Docker image containing the `jar` that
-uses GraalVM Enterprise Edition as the JVM.
+2. Test running this application from a JAR:
+    ```shell
+    java -jar ./target/benchmark-jibber-0.0.1-SNAPSHOT.jar &
+    ```
+    where `&` brings the application to the background. 
+    
+3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or call the endpoint using `curl`:
+    ```shell
+    curl http://localhost:8080/jibber
+    ```
+    It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. 
+    To terminate it, first bring the application to the foreground using `fg`, and then enter `<CTRL-c>`.
 
-And to run from the command line:
+## Run in a Docker Container
 
-```shell
-java -jar ./target/benchmark-jibber-0.0.1-SNAPSHOT.jar &
-# Add a short sleep to allow the JVM to startup
-sleep 4
-# Call the endpoint
-curl http://localhost:8080/jibber
-# Bring the app back to the foreground - you can kill it now
-fg
-```
+As a nice extra, there is a Dockerfile provided with this demo. So, besides building the application JAR, you see a Docker image built at the `mvn clean package` step, pulling the GraalVM container image, `ghcr.io/graalvm/jdk:ol8-java17`, as the JVM.
 
-To run as a Docker container, the Docker image has been generated by running Maven:
-
+Run the Docker image in a container:
 ```shell
 docker run --rm --name graalce -d -p 8080:8080 jibber-benchmark:graalce.0.0.1-SNAPSHOT
 ```
-You can then test the container suing `curl` exactly as you did before - remember to allow a little time for the application to 
-start up.
 
-### Build and run a native executable
+You can then test the container suing `curl` exactly as you did before - remember to allow a little time for the application to start up.
 
-We can also build a native executable of our Spring Boot microservice, using GraalVM Native Image. In order to do this
-the Maven file makes use of plugins from [GraalVM Native Build Tools](https://github.com/graalvm/native-build-tools) and
-[Spring Native](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/).
+## Build and Run as a Native Executable
 
-When we build it will also generate a Docker image with our native application in it.
+With the built-in support for GraalVM Native Image in Spring Boot 3, superseding the experimental [Spring Native project](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#overview), it has become much easier to compile a Spring Boot 3 application into a native executable.
 
-To build the native executable version of the application:
+1. Run the following command:
 
-```shell
-# The -Pnative profile is used to turn on building a native executable within the maven file
-mvn -Pnative native:compile
-```
+    ```shell
+    mvn native:compile -Pnative
+    ```
+    The `-Pnative` profile is used to turn on building a native executable.
+    It will generate a native executable for your platform in the _target_ directory, called _benchmark-jibber_.
 
-This will create a binary executable `target/benchmark-jibber`. You can run this and test it in the same way as we did the Java application:
+    To build using BuildPacks, run the `mvn spring-boot:build-image -Pnative` command to generate a native executable. For more information about using BuildPacks to create a native executable, see [Building a Native Image Using Buildpacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks).
 
-```shell
-./target/benchmark-jibber &
-curl http://localhost:8080/jibber
-fg
-```
+2. Run this native executable and put it into the background, by appending `&`:
+    ```shell
+    ./target/benchmark-jibber &
+    ```
 
-From the log output that the executable outputs, you can see that it starts much faster than the Java version.
+3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or call the endpoint using `curl`:
 
-### Containerizing the Native Executable
+    ```shell
+    curl http://localhost:8080/jibber
+    ```
+    You should get some nonsense verse back. 
+    Terminate it, first bring the application to the foreground using `fg`, and then enter `<CTRL-c>`.
 
-If you are linux you can now easily containerise this using the following commands:
+From the log output, notice how much quicker the native executable version of this Spring Boot application starts. It also uses fewer resources than running from a JAR file.
+### Configure Native Build Tools Maven Plugin
 
+You can configure the Maven plugin for GraalVM Native Image using the `<buildArgs>` elements. 
+In individual `<buildArg>` elements, you can pass all Native Image options as you would pass them to the `native-image` tool on the command line. 
+For example, pass the `-Ob` (capital “O”, lower case “b”) option which enables the quick build mode for development purposes. 
+Also change the resulting binary name to "new-jibber".
+
+1. Open _pom.xml_ and modify the `native-maven-plugin` configuration as follows:
+
+    ```xml
+    <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+            <imageName>new-jibber</imageName>
+            <buildArgs>
+                <buildArg>-Ob</buildArg>
+            </buildArgs>
+        </configuration>
+    </plugin>
+    ```
+
+2. Now re-build the native executable using the `native` profile:
+
+    ```shell
+    ./mvnw native:compile -Pnative
+    ```
+    
+    Notice that a native executable, now named `new-jibber`, was generated in less time: the compiler operated in economy mode with fewer optimizations, resulting in much faster compilation times. (The quick build mode is not recommended for production.)
+
+See the [Native Build Tools Maven plugin documentation](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to learn more. 
+## Containerize the Native Executable
+
+If you are using macOS or Windows, to build a Docker image containing your native executable you need to build the native executable within a Docker container. How to do this is described below. 
+
+If you are a Linux user, you can easily containerise the native executable using the following command:
 ```shell
 docker build -f Dockerfiles/Dockerfile.native --build-arg APP_FILE=benchmark-jibber -t jibber-benchmark:native.0.0.1-SNAPSHOT .
 ```
 
-And once that is built, you can test it as follows:
-
+Once that is built, you can test it as follows:
 ```shell
 docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
 ```
+### Build a Native Image Container on Something Other than Linux
 
-### Build A Native Image Container on Something Other than Linux
+If you are not using Linux as your operating system, you need to build the native executable within a Docker container. To do this we provided a two-stage Docker build file. 
 
-If you are not using linux as your OS, you will need to do the native image build within a docker container. To do this
-we have supplied a two-stage Docker build file. 
+1. Run this command to build the native executable within a Docker container:
+    ```shell
+    docker build -f Dockerfiles/Dockerfile -t jibber-benchmark:native.0.0.1-SNAPSHOT .
+    ```
 
-To build:
+2. Once that is built, you can test it as follows:
+    ```shell
+    docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
+    ```
+## Measure the Performance of the Application and Metrics
 
-```shell
-docker build -f Dockerfiles/Dockerfile -t jibber-benchmark:native.0.0.1-SNAPSHOT .
-```
-And once that is built, you can test it as follows:
-
-```shell
-docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
-```
-
-### Metrics And Measuring the Performance of the Application
-
-The Spring Actuator dependency has been added to the project, along with support for Prometheus. If you
-want to test the performance of either the JVM version, or the native executable version of the application you can
-make use of the prometheus support. It will be available on the URL, say if you are hosting it locally on port 8080:
+The Spring Actuator dependency has been added to the project, along with support for Prometheus. 
+If you want to test the performance of either the JVM version, or the native executable version of the application, you can make use of the Prometheus support. 
+If you are hosting the application locally, it is available on port 8080:
 
 [http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 
-And we are done!
+## Related Documentation
 
+- Run an interactive lab: [GraalVM Native Image, Spring and Containerisation](https://luna.oracle.com/lab/fdfd090d-e52c-4481-a8de-dccecdca7d68)
+- [OCI Cloud Shell](https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/cloud-shell/)
+- [Native Build Tools](https://graalvm.github.io/native-build-tools/)
+- [Spring Boot GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.native-build-tools)
