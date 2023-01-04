@@ -5,17 +5,17 @@ This demo shows how the `java.util.logging.*` API can be used with Native Image.
 ## Preparation
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
-  ```bash
-  bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image' 
-  ```
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image' 
+    ```
 
 2. Download or clone the repository and navigate into the `native-image-logging-examples` directory:
-  ```bash
-  git clone https://github.com/graalvm/graalvm-demos
-  ```
-  ```bash
-  cd graalvm-demos/native-image-logging-examples
-  ```
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/native-image-logging-examples
+    ```
 
 There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _LoggerBuildTimeInit.java_ and _LoggerRunTimeInit.java_.
 

@@ -12,6 +12,11 @@ native-image [options] --module <module>[/<mainclass>] [options]
 ```
 The example below shows how to build a modular Java application into a native executable. 
 
+### Prerequisites
+
+- [GraalVM](http://graalvm.org)
+- [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
+
 ## Preparation
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
@@ -20,10 +25,10 @@ The example below shows how to build a modular Java application into a native ex
     ```
 
 2. Download or clone the repository and navigate into the `native-hello-module` directory:
-    ```bush
+    ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
-    ```bush
+    ```bash
     cd graalvm-demos/native-hello-module
     ```
 
@@ -54,7 +59,7 @@ For the demo, you will use a simple _HelloWorld_ Java module gathered with Maven
     This creates a JAR file with all dependencies embedded: `target/HelloModule-1.0-SNAPSHOT.jar`
 
 2. Test running it on GraalVM’s JDK:
-    ```bush    
+    ```bash    
     $JAVA_HOME/bin/java --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
     ```
     You should see the next  output:
@@ -63,11 +68,11 @@ For the demo, you will use a simple _HelloWorld_ Java module gathered with Maven
     ```
 
 3. Build this module into a native executable:
-    ```bush 
+    ```bash 
     $JAVA_HOME/bin/native-image --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
     ```                                 
     It builds the modular Java application into a native executable called `hellomodule` in the project root. Run it:
-    ```bush
+    ```bash
     ./hellomodule 
     ```
     You should see the same output:
