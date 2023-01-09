@@ -11,7 +11,7 @@ The following application demonstrates the use of Java reflection and how to pro
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+    bash <(curl -sL https://get.graalvm.org/jdk)
     ```
 
 2. Download or clone the repository and navigate into the `native-image-reflection-example` directory:

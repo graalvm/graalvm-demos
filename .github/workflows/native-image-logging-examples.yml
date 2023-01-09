@@ -19,12 +19,15 @@ jobs:
     name: Run 'native-image-logging-examples'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      matrix:
+        version: [latest, dev]
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'dev'
-          java-version: '17'
+          version: ${{ matrix.version }}
+          java-version: '19'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'

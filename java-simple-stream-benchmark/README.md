@@ -1,49 +1,37 @@
-# GraalVM Demos: Simple Java Stream Benchmark
+# Simple Java Stream Benchmark
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
 ## Prerequisites
-* [GraalVM](http://graalvm.org)
+- [GraalVM](http://graalvm.org)
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
-
-  On Linux:
-  ```bash
-  export JAVA_HOME=/home/${current_user}/path/to/graalvm
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On macOS:
-  ```bash
-  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On Windows:
-  ```bash
-  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
-  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
-  ```
+1. Download and install the latest GraalVM JDK using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
 
 2. Download or clone the repository and navigate into the `java-simple-stream-benchmark` directory:
-  ```bash
-  git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/java-simple-stream-benchmark
-  ```
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/java-simple-stream-benchmark
+    ```
 
-3. Build the benchmark. You can manually execute `mvn package`, but there is also a `build.sh` script included for your convenience.
-  ```bash
-  ./build.sh
-  ```
+## Build and Run the Benchmark
 
-Now you are all set to execute the benchmark and compare the results between different JVMs.
+1. Build the benchmark. You can manually execute `mvn package`, but there is also a `build.sh` script included for your convenience.
+    ```bash
+    ./build.sh
+    ```
+    Now you are all set to execute the benchmark and compare the results between different JVMs.
 
-## Running the Benchmark
-
-To run the benchmark, you need to execute the `target/benchmarks.jar` file. You can run it with the following command:
-```bash
-$JAVA_HOME/bin/java -jar target/benchmarks.jar
-```
+2. To run the benchmark, you need to execute the `target/benchmarks.jar` file. You can run it with the following command:
+    ```bash
+    $JAVA_HOME/bin/java -jar target/benchmarks.jar
+    ```
 
 If you would like to run the benchmark on a different JVM, you can run it with whatever `java` you have.
 However, if you want to run it on the same JVM, just without the GraalVM compiler, you can simply add the `-XX:-UseJVMCICompiler`

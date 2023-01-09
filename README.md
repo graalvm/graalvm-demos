@@ -87,6 +87,10 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/native-image-reflection-example/">native-image-reflection-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml"><img alt="native-image-reflection-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml/badge.svg"/></a></td>
       <td align="left" width="70%">The following application demonstrates the use of Java reflection and how to provide metadata for Native Image using a JSON configuration file.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-with-reflection/">Build a Native Executable with Reflection</a></td>
     </tr>  
+    <tr>
+      <td align="left" width="30%"><a href="/native-static-images/">native-static-images</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml"><img alt="native-static-images" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">This demo demonstrates how to build a fully static and mostly-static native executable.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Build a Statically Linked or Mostly-Statically Linked Native Executable</a></td>
+    </tr>  
   </tbody>
 </table>
 

@@ -7,32 +7,32 @@ As you make your way through this example, look out for this icon:
 ![](keyboard.jpg)
 Whenever you see it, it's time for you to perform an action.
 
-## Environment Setup
+## Preparation
 
 To run this example you'll need GraalVM and the Micronaut CLI installed on a machine with Docker.
 
-### Download the Latest GraalVM
+1. Download and install the latest GraalVM JDK using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+    
+2. Install Micronaut:
 
-You can use either [GraalVM Enterprise](https://www.oracle.com/downloads/graalvm-downloads.html) or [GraalVM Community](https://www.graalvm.org/downloads).
-GraalVM Enterprise offers smaller and faster applications.
+    You can download Micronaut and [install it manually](https://micronaut.io/download) or you can use one of the popular package managers:
+    * Linux: [SDKman instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installSdkman)
+    * macOS: [Homebrew instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installHomebrew)
+    * Windows: [Chocolatey instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installChocolatey)
 
-### Install GraalVM Native Image
+    NOTE: If you've previously installed Micronaut you should upgrade to the latest release (3.x) to ensure it includes GraalVM Native Image support.
 
-GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities.
-To install Native Image, run this single command:
-
-![](keyboard.jpg) `gu install native-image`
-
-NOTE: If you are using GraalVM Enterprise, you will be asked to accept the licence agreement.
-
-### Install Micronaut
-
-You can download Micronaut and [install it manually](https://micronaut.io/download) or you can use one of the popular package managers:
-* Linux: [SDKman instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installSdkman)
-* macOS: [Homebrew instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installHomebrew)
-* Windows: [Chocolatey instructions](https://micronaut-projects.github.io/micronaut-starter/latest/guide/index.html#installChocolatey)
-
-NOTE: If you've previously installed Micronaut you should upgrade to the latest release (3.x) to ensure it includes GraalVM Native Image support.
+3. Download or clone GraalVM demos repository and navigate into the `micronaut-nativeimage` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/micronaut-nativeimage
+    ```
+   NOTE: If you are using GraalVM Enterprise, you will be asked to accept the licence agreement.
 
 ## Running the Example
 
@@ -40,7 +40,10 @@ NOTE: If you've previously installed Micronaut you should upgrade to the latest 
 
 To avoid lots of typing, we can use the Micronaut `mn` CLI to create a sample application:
 
-![](keyboard.jpg) `mn create-app hello`
+![](keyboard.jpg) 
+```bash
+mn create-app hello
+```
 
 This will create a `hello` folder with a complete Micronaut application skeleton.
 It uses Gradle by default, but you can create a Maven project using the appropriate `mn` command line args.
@@ -76,7 +79,9 @@ Let's `cd` into this directory and add a rest endpoint that will return a simple
 
 ![](keyboard.jpg) <br>
 `cd hello`<br>
-`mn create-controller hello`
+```bash
+mn create-controller hello
+```
 
 This creates a `HelloController` that exposes an endpoint at `/hello`:
 
@@ -101,11 +106,17 @@ We won't dwell on application details here, but Micronaut has [great docs and sa
 
 Use Gradle to compile the application code and build a fat JAR that includes all its dependencies:
 
-![](keyboard.jpg) `./gradlew assemble`
+![](keyboard.jpg)
+```bash
+./gradlew assemble
+```
 
 When complete, let's launch the app using the `java -jar` command which will start up a web server on the HotSpot JVM.
 
-![](keyboard.jpg) `java -jar build/libs/hello-0.1-all.jar`
+![](keyboard.jpg) 
+```bash
+java -jar build/libs/hello-0.1-all.jar
+```
 
 You can see the app starts in few hundred milliseconds.  How many will depend on the speed of your machine.
 In this run it took 486ms, about half a second, to boot up:
@@ -122,20 +133,28 @@ In this run it took 486ms, about half a second, to boot up:
 ```
 To exercise the `HelloController` we created, either `curl http://localhost:8080/hello` or open it in a browser:
 
-![](keyboard.jpg) `curl http://localhost:8080/hello`
+![](keyboard.jpg)
+```bash
+curl http://localhost:8080/hello
+```
 
 The response should be `Example Response`. Stop the application and we'll continue on to native executable generation.
 
-![](keyboard.jpg) `CTRL-C`
+![](keyboard.jpg) 
+```
+CTRL-C
+```
 
 ## Compile with GraalVM Native Image
 
 With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with GraalVM Native Image.
 It even includes build support for Native Image in Gradle and Maven projects created by `mn` so we can compile with a single command:
 
-![](keyboard.jpg) `./gradlew nativeCompile`
+![](keyboard.jpg) 
+```bash
+./gradlew nativeCompile
+```
   
-
 Compilation can take a few minutes, but more cores and more memory reduces the required time!
 
 ```
@@ -214,7 +233,10 @@ The result is a 54M standalone executable placed in the `build/native/nativeComp
     
     For Micronaught 3.0 and an older GraalVM distribution this executable was 63M, which is a 14% reduction in size!
 
-![](keyboard.jpg) `ls -lh build/native/nativeCompile`
+![](keyboard.jpg)
+```bash
+ls -lh build/native/nativeCompile
+```
 
 ```sh
 total 55352
@@ -224,7 +246,10 @@ total 55352
 
 Let's startup the application.  It's a native executable, so we just invoke it:
 
-![](keyboard.jpg) `./build/native/nativeCompile/hello`
+![](keyboard.jpg) 
+```bash
+./build/native/nativeCompile/hello
+```
 
 ```sh
  __  __ _                                  _   
@@ -263,7 +288,10 @@ ENTRYPOINT ["/app/hello"]
 We simply copy the native executable into the container image and expose port 8080--that's it!
 Let's build a container image:
 
-![](keyboard.jpg) `docker build . -t hello`
+![](keyboard.jpg)
+```bash
+docker build . -t hello
+```
 
 ```sh
 Sending build context to Docker daemon    158MB
@@ -285,7 +313,10 @@ Successfully tagged hello:latest
 
 We can see the container image we built is about 94MB, which makes sense because the Alpine with `glibc` base image is about 18MB and our application binary is about 71MB.
 
-![](keyboard.jpg) `docker images`
+![](keyboard.jpg)
+```bash
+doker images
+```
 
 ```sh
 REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
@@ -295,9 +326,15 @@ frolvlad/alpine-glibc   alpine-3.12         d955957758ab        3 months ago    
 
 We can run the container image and use it just like we did when running the application directly:
 
-![](keyboard.jpg) `docker run -p8080:8080 --rm hello`
+![](keyboard.jpg) 
+```bash
+docker run -p8080:8080 --rm hello
+```
 
-![](keyboard.jpg) `curl http://localhost:8080/hello`
+![](keyboard.jpg)  
+```bash
+curl http://localhost:8080/hello
+```
 
 ```sh
 Example Response
