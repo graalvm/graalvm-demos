@@ -7,41 +7,30 @@ This is a polyglot Helidon HTTP web service that demonstrates how multiple JavaS
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
-
-  On Linux:
-  ```bash
-  export JAVA_HOME=/home/${current_user}/path/to/graalvm
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On macOS:
-  ```bash
-  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On Windows:
-  ```bash
-  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
-  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
-  ```
-
+1. Download and install the latest GraalVM JDK using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+    
 2. Download or clone the repository and navigate into the `js-java-async-helidon` directory:
-  ```bash
-  git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/js-java-async-helidon
-  ```
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/js-java-async-helidon
+    ```
 
 3. Build the application using Maven:
-  ```bash
-  mvn clean package
-  ```
+    ```bash
+    mvn clean package
+    ```
 
 Now you are all set to run the polyglot Helidon Web service.
 
 ## Running the Application
 
 You can run this Helidon HTTP web service with the following command:
-```
+```bash
 $JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar
 ```
 

@@ -18,61 +18,52 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 ## Preparation
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, set the GraalVM home directory as the `$JAVA_HOME` environment variable and add `$JAVA_HOME/bin` to the `PATH` environment variable.
-
-    On Linux:
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    export JAVA_HOME=/home/${current_user}/path/to/graalvm
-    export PATH=$JAVA_HOME/bin:$PATH
-    ```
-    On macOS:
-    ```bash
-    export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-    export PATH=$JAVA_HOME/bin:$PATH
-    ```
-    On Windows:
-    ```bash
-    setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
-    setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
+    bash <(curl -sL https://get.graalvm.org/jdk) 
     ```
 
-2. Install [Native Image](https://www.graalvm.org/dev/reference-manual/native-image/#install-native-image) by running:
+2. Download or clone the repository and navigate into the `native-image-configure-examples` directory:
     ```bash
-    gu install native-image
-    ```
-
-    The `native-image` tool depends on some local native libraries. Ensure you meet the [platform-specific requirements](https://www.graalvm.org/dev/reference-manual/native-image/#prerequisites).
-
-3. Download or clone the demos repository:
-    ```
     git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/native-image-configure-examples
     ```
 
 ## Build and run examples
 
-1. Change to one of the demo subdirectories, for example, _configure-at-runtime-example_:
-    ```
+1. Change to one of the demo subdirectories, for example, `configure-at-runtime-example`:
+    ```bash
     cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
     ```
+
 2. Build the project:
     ```bash
     mvn package
     ```
-3. Once the Maven build succeeds, a native executable called "example" will be generated in the _configure-at-runtime-example/target/_ directory. Run it:
-    ```
+3. Once the Maven build succeeds, a native executable called "example" will be generated in the `configure-at-runtime-example/target/` directory. Run it:
+    ```bash
     ./target/example
     Tue Mar 23 22:17:33 EET 2021
     ```
 4. Repeat the same steps for the other sub-demo:
-    ```
+    ```bash
     cd ..
     cd configure-at-buildtime-example
+    ```
+    ```bash
     mvn package
+    ```
+    ```bash
     ./target/example
+    ```
+    You will see the next output:
+    ```
     Hello, world!
     ```
 5. Finally, you may shutdown the `native-image` server:
-    ```
+    ```bash
     $JAVA_HOME/bin/native-image --server-shutdown
     ```
 
