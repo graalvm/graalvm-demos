@@ -1,4 +1,5 @@
-# Introduction
+
+# Galaaz Demo
 
 Galaaz is a system for tightly coupling Ruby and R. Ruby is a powerful language,
 with a large community, a very large set of libraries and great for web
@@ -14,15 +15,11 @@ that removes the isolation between programming languages and enables
 interoperability in a shared runtime. TruffleRuby is the implementation of Ruby,
 and FastR is the implementation of R on top of GraalVM.
 
-
-## Galaaz Demo
-
 ### Prerequisites
--------------
 
-- [GraalVM](http://graalvm.org)
-- [TruffleRuby](https://www.graalvm.org/reference-manual/ruby/)
-- [FastR](https://www.graalvm.org/reference-manual/r/)
+- GraalVM
+- [Ruby support](https://www.graalvm.org/latest/reference-manual/ruby/)
+- [R support](https://www.graalvm.org/latest/eference-manual/r/)
 
 The following R packages will be automatically installed when necessary, but could be installed prior to the demo if desired:
 
@@ -34,11 +31,17 @@ The installation of R packages requires a development environment. In Linux, the
 gem install rspec
 ```
 
-### Preparation
-Install Galaaz:
-```
-gem install galaaz
-```
+## Preparation
+
+1. Download and install the latest GraalVM JDK with TruffleRuby and FastR support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+  ```bash
+  bash <(curl -sL https://get.graalvm.org/jdk) -c 'R,ruby'
+  ```
+
+2. Install Galaaz:
+  ```
+  gem install galaaz
+  ```
 
 ### Running the Demo
 

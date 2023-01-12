@@ -2,10 +2,11 @@
 
 This sample code helps to demonstrate simplicity of debugging and developing GraalVM Polyglot applications using __VS Code extensions__.
 
-## Prerequisities
+## Prerequisites
+
 1. VS Code has to be installed.
 2. Then go to VS Code Extensions activity panel and search for _GraalVM Extension Pack_, install it. The GraalVM Extension Pack will install all required extensions.
-3. Navigate to __Gr__ activity panel in VS Code and install some of the latest GraalVMs from the list.
+3. [Install GraalVM in VS Code](https://www.graalvm.org/latest/tools/vscode/graalvm-extension/#graalvm-installation-wizard): Navigate to Gr activity panel in VS Code and install some of the latest GraalVM __Enterprise Edition__ versions available from the list.
 4. Confirm to set this as _Active GraalVM_ for VS Code.
 5. Install the `js` component.
 

@@ -33,40 +33,57 @@ The plugin will also gather the diagnostic information during the native image b
 </plugin>
 ```
 
-To build and run the projects, you can either use [GraalVM](https://www.graalvm.org/downloads/), or any other JDK distribution.
+To build and run the projects, you can either use [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader), or any other JDK distribution.
+
+## Preparation
+
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk)
+    ```
+
+2. Download or clone the repository and navigate into the `multithreading-demo/multithreading-demo-oversized_` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd multithreading-demo/multithreading-demo-oversized
+    ```
 
 ## Multithreading Demo Oversized
 
-1. Download or clone the repository and navigate into the _multithreading-demo/multithreading-demo-oversized_ directory:
-  ```
-  git clone https://github.com/graalvm/graalvm-demos
-  cd multithreading-demo/multithreading-demo-oversized
-  ```
-2. Build the project:
-  ```
-  mvn package
-  ```
-3. Run the project on a JVM or as a native image:
-  ```
-  java -jar target/multithreading-1.0-jar-with-dependencies.jar
-  ./target/multithreading-image-oversized
-  ```
+1. Build the project:
+    ```bash
+    mvn package
+    ```
+
+2. Run the project on a JVM or as a native image:
+    ```bash
+    java -jar target/multithreading-1.0-jar-with-dependencies.jar
+    ./target/multithreading-image-oversized
+    ```
 
 ## Multithreading Demo Improved
 
 Multithreading Demo Improved contains an enhanced version of the same program.
 
 1. Change to the project directory:
-  ```
-  cd ..
-  multithreading-demo-improved
-  ```
+    ```bash
+    cd ..
+    multithreading-demo-improved
+    ```
+
 2. Build the project:
-  ```
-  mvn package
-  ```
+    ```bash
+    mvn package
+    ```
+
 3. Run the project on a JVM or as a native image:
-  ```
-  java -jar target/multithreading-1.0-jar-with-dependencies.jar
-  ./target/multithreading-image-improved
-  ```
+    ```bash
+    java -jar target/multithreading-1.0-jar-with-dependencies.jar
+    ./target/multithreading-image-improved
+    ```
+
+### Learn More
+
+Learn more about GraalVM tooling for Native Image on the [website](https://www.graalvm.org/latest/reference-manual/native-image/debugging-and-diagnostics/).

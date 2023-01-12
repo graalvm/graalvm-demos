@@ -25,20 +25,21 @@ The application uses the [RiTa library](https://rednoise.org/rita/) as an extern
 
 By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to perform the tasks.
 If you would like to run this demo using [BuildPacks](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/native-image.html#native-image.developing-your-first-application.buildpacks), the build configuration is provided for you too.
+
 ## Preparation
 
-1. Download and  install the latest GraalVM JDK with Native Image using [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+    bash <(curl -sL https://get.graalvm.org/jdk) 
     ```
 2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
 
 3. Download the demos repository or clone it as follows:
-    ```
+    ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
 4. Change directory to the demo subdirectory:
-    ```
+    ```bash
     cd spring-native-image
     ```
 ## Build and Run as a JAR

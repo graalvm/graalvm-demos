@@ -1,33 +1,33 @@
-# GraalVM Demos: FunctionGraph Demo - Polyglot JavaScript, Java, R application
+# FunctionGraph Demo - Polyglot JavaScript, Java, R application
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
-## Prerequisites
+### Prerequisites
 
-- GraalVM for Java 11 or higher
-- Node.js support
-- R support
-- Ruby support
+- GraalVM
+- [Node.js support](https://www.graalvm.org/latest/reference-manual/js/NodeJS/)
+- [Ruby support](https://www.graalvm.org/latest/reference-manual/ruby/)
+- [R support](https://www.graalvm.org/latest/eference-manual/r/)
 
 ## Preparation
 
-1. Download and [install GraalVM](https://www.graalvm.org/docs/getting-started/#install-graalvm). You can download the latest GraalVM [here](https://www.graalvm.org/downloads/).
+1. Download and install the latest GraalVM JDK with Node.js, R, and Ruby languages support, using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'nodejs,R,ruby'
+    ```
 
-2. Add Node.js and R runtime support. GraalVM comes with `gu` which is a command line utility to install and manage additional functionalities, and to install Node.js and R, run this single command:
-  ```bash
-  <graalvm>/bin/gu install nodejs R ruby
-  ```
-  Check the Node.js version:
-  ```bash
-  node -v
-  ```
+2. Download or clone GraalVM demos repository and navigate into the `functionGraphDemo` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/functionGraphDemo
+    ```
 
-3. Download or clone the repository and navigate into the `functionGraphDemo` directory:
-  ```bash
-  git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/functionGraphDemo
-  ```
-4. Build the application by running `npm install`.
+3. Build the application by running `npm install`.
+    ```bash
+   $JAVA_HOME/bin/npm install
+    ```
 
 Now you are all set to run the polyglot JavaScript, Java, R application.
 
@@ -35,7 +35,7 @@ Now you are all set to run the polyglot JavaScript, Java, R application.
 
 To run the application, you need to execute the `server.js` file providing  `--jvm` and `--polyglot` flags:
 
-```
+```bash
 $JAVA_HOME/bin/node --jvm --polyglot server.js
 ```
 

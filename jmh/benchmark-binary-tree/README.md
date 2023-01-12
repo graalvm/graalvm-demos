@@ -18,6 +18,21 @@ and you should consider the following guidance when building JMH benchmarks that
 * You need to annotate the benchmark with, `@Fork(0)` to ensure that the benchmark is not forked
 * If you want to profile the benchmark in order to generate an optimised benchmark, you should, obviously, ignore the benchmark results whilst profiling
 
+## Preparation
+
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+
+2. Download or clone the repository and navigate into the `jmh/benchmark-binary-tree` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/jmh/benchmark-binary-tree
+    ```
+
 ## Build and Run as a Java Application
 
 To build and then run the benchmark as a Java application, run the following commands:
@@ -40,22 +55,20 @@ BinaryTrees.bench              14  thrpt    6  143.628 ± 9.007  ops/s
 
 Now build a native executable using Native Image. This demo uses GraalVM Enterprise Native Image, however, if you are using GraalVM Community, you will probably see lower figures for throughput.
 
-To build a native executable, run the following command:
-```shell
-./mvnw package -Pnative
-```
+1. Build a native executable, run the following command:
+    ```shell
+    ./mvnw package -Pnative
+    ```
+2. Run the benchmark as a native executable: 
+    ```shell
+    ./target/benchmark-binary-tree
+    ```
+    These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
 
-Then run the benchmark as a native executable: 
-```shell
-./target/benchmark-binary-tree
-```
-
-These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
-
-```shell
-Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
-BinaryTrees.bench              14  thrpt    6  107.388 ± 2.038  ops/s
-```
+    ```shell
+    Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
+    BinaryTrees.bench              14  thrpt    6  107.388 ± 2.038  ops/s
+    ```
 
 ## Optimise the Native Image
 

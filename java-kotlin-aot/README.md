@@ -1,59 +1,43 @@
-# GraalVM Demos: Java Kotlin Interoperability and AOT Compilation Demo
+# Java Kotlin Interoperability and AOT Compilation Demo
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
-## Prerequisites
-* [GraalVM](http://graalvm.org)
-* [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/)
-* Maven
+### Prerequisites
+
+- [GraalVM](http://graalvm.org)
+- [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
+- Maven
 
 ## Preparation
 
 This is a simple Java/Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class.
 This example demonstrates how easy it is to interop between Java and Kotlin.
 
-1. [Download GraalVM](https://www.graalvm.org/downloads/), unzip the archive, export the GraalVM home directory as the `$JAVA_HOME` and add `$JAVA_HOME/bin` to the `PATH` environment variable.
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader): 
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
 
-  On Linux:
-  ```bash
-  export JAVA_HOME=/home/${current_user}/path/to/graalvm
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On macOS:
-  ```bash
-  export JAVA_HOME=/Users/${current_user}/path/to/graalvm/Contents/Home
-  export PATH=$JAVA_HOME/bin:$PATH
-  ```
-  On Windows:
-  ```bash
-  setx /M JAVA_HOME "C:\Progra~1\Java\<graalvm>"
-  setx /M PATH "C:\Progra~1\Java\<graalvm>\bin;%PATH%"
-  ```
-
-2. Install [Native Image](https://www.graalvm.org/docs/reference-manual/native-image/#install-native-image) by running:
-  ```bash
-  gu install native-image
-  ```
-
-3. Download or clone the repository and navigate into the `java-kotlin-aot` directory:
-  ```bash
-  git clone https://github.com/graalvm/graalvm-demos
-  cd graalvm-demos/java-kotlin-aot
-  ```
+2. Download or clone the repository and navigate into the `java-kotlin-aot` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/java-kotlin-aot
+    ```
 
 ## Build the Application
 
-Before running this example, you need to build the application:
+To build the application use this command:
 ```bash
 ./build.sh
 ```
-
-Look at the important line of the `build.sh` which creates a native executable for the Java application.
-The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
+Look at this important line of the `build.sh` which creates a native executable for the Java application.
 
 ```bash
 $JAVA_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
 ```
+The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
 
 It takes a couple of parameters, the class path, the main class of the application with the `-H:Class=...`, and the name of the resulting executable with `-H:Name=...`.
 
@@ -73,7 +57,7 @@ time ./helloworld
 
 The `run.sh` script produces approximately the following output:
 ```bash
-→ ./run.sh
+./run.sh
 + java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
 Hello from Kotlin!
 Hello from Java!
