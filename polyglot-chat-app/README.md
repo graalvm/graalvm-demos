@@ -11,7 +11,7 @@ This example demonstrates how to integrate Python on GraalVM with a Java applica
 
 1. Download and install the latest GraalVM JDK with Native Image, Python and R support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'python,R"
+    bash <(curl -sL https://get.graalvm.org/jdk) -c 'python,R'
     ```
 
 ## Building and Running the application:

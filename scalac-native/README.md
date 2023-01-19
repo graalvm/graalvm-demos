@@ -38,9 +38,9 @@ This demo demonstrates how to build a native executable version of the Scala com
     ./scalac-image.sh
     ```
 
-The produced native image is called `scalac` and has no dependencies on the JDK.
+    The produced native image is called `scalac` and has no dependencies on the JDK.
 
-The script `scalac-native` calls the generated compiler and passes all the required parameters (just like `scala` does).
+    The script `scalac-native` calls the generated compiler and passes all the required parameters (just like `scala` does).
 
 Compare to the JVM on the first run:
 ```bash

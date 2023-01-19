@@ -82,9 +82,10 @@ Arrays.stream(persons)
     ```bash
     ./streams 10000 200
     ```
-  Profiles collected from this run are now stored in the `default.iprof` file.
-  Note that we run the profiling with a much smaller data size.
-
+    Profiles collected from this run are now stored in the _default.iprof_ file.
+    
+    Note that we run the profiling with a much smaller data size.
+    
 4. Now you can use the collected profiles to build an optimized native image:
     ```bash
     $JAVA_HOME/bin/native-image --pgo Streams
