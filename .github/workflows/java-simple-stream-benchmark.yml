@@ -13,7 +13,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
     name: Run 'java-simple-stream-benchmark'
@@ -31,7 +30,6 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-          native-image-pr-reports: 'true'
       - name: Run 'java-simple-stream-benchmark'
         run: |
           cd java-simple-stream-benchmark
