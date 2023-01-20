@@ -1,0 +1,34 @@
+name: Copyright Check
+
+on: [push, pull_request]
+
+env:
+  JAVA_HOME: ${{ github.workspace }}/jdk
+  MX_PATH: ${{ github.workspace }}/mx
+  MX_PYTHON: python3.8
+
+jobs:
+  check-copyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up GraalVM JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'latest'
+          java-version: '17'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out graalvm/mx
+        uses: actions/checkout@v3
+        with:
+          ref: '6.14.16' # keep in sync with mx.graalvm-demos/suite.py
+          repository: graalvm/mx
+          path: ${{ env.MX_PATH }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - name: Check Copyright
+        run: |
+          git ls-tree -r HEAD --name-only | grep -v '[^\.java]$' > all-java-files.txt
+          ${MX_PATH}/mx checkcopyright -- --file-list all-java-files.txt
