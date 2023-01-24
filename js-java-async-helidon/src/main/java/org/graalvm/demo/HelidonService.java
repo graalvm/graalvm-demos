@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -53,11 +53,13 @@ class HelidonService {
 
     /**
      * The actual JavaScript code executed by this Web service. The
-     * <code>requestId</code> variable is received from Java and corresponds to the
-     * value parsed from the request's URL.
+     * <code>requestId</code> variable is received from Java and corresponds to
+     * the value parsed from the request's URL.
      * <p>
      * The code awaits for some asynchronous computation (performed in Java).
-     * {@see createJavaInteropComputeFunction}.
+     * {
+     *
+     * @see createJavaInteropComputeFunction}.
      */
     private static final String jsCode = "(async function(requestId) {"
             + "  try {"

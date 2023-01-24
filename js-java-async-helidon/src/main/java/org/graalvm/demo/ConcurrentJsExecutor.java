@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -85,7 +85,8 @@ class ConcurrentJsExecutor {
     private final Engine sharedEngine = Engine.newBuilder().build();
 
     /**
-     * A Thread-local used to ensure that we have one JavaScript context per Helidon thread.
+     * A Thread-local used to ensure that we have one JavaScript context per
+     * Helidon thread.
      */
     private final ThreadLocal<ContextProvider> jsContext = ThreadLocal.withInitial(() -> {
         /*
@@ -107,8 +108,8 @@ class ConcurrentJsExecutor {
     }
 
     /**
-     * Returns the Java implementation of <code>computeFromJava</code> exposed to
-     * JavaScript.
+     * Returns the Java implementation of <code>computeFromJava</code> exposed
+     * to JavaScript.
      */
     private Function<?, ?> createJavaInteropComputeFunction(ContextProvider cx) {
         /*
@@ -158,8 +159,9 @@ class ConcurrentJsExecutor {
     }
 
     /**
-     * Submit a new request to the JavaScript engine. Returns a `CompletionStage`
-     * instance that will complete when GraalVM JavaScript produces a value.
+     * Submit a new request to the JavaScript engine. Returns a
+     * `CompletionStage` instance that will complete when GraalVM JavaScript
+     * produces a value.
      */
     public CompletionStage<Object> callJavaScriptAsyncFunction(int requestId) {
         /*
@@ -201,11 +203,12 @@ class ConcurrentJsExecutor {
     }
 
     /**
-     * An arbitrary "thenable" interface. Used to expose Java methods to JavaScript
-     * Promise objects.
+     * An arbitrary "thenable" interface. Used to expose Java methods to
+     * JavaScript Promise objects.
      */
     @FunctionalInterface
     public interface ComputeFromJavaFunction {
+
         void then(Value onResolve, Value onReject);
     }
 
