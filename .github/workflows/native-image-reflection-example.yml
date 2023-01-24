@@ -13,7 +13,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  pull-requests: write # for `native-image-pr-reports` option
 jobs:
   run:
     name: Run 'native-image-reflection-example'
@@ -31,7 +30,6 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-          native-image-pr-reports: 'true'
       - name: Run 'native-image-reflection-example'
         run: |
           cd native-image-reflection-example
