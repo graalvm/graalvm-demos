@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -52,14 +52,14 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 public class JavaSimpleStreamBenchmark {
 
-  static int[] values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static int[] values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-  @Benchmark
-  public int testMethod() {
-    return Arrays.stream(values)
-      .map(x -> x + 1)
-      .map(x -> x * 2)
-      .map(x -> x + 2)
-      .reduce(0, Integer::sum);
-  }
+    @Benchmark
+    public int testMethod() {
+        return Arrays.stream(values)
+                .map(x -> x + 1)
+                .map(x -> x * 2)
+                .map(x -> x + 2)
+                .reduce(0, Integer::sum);
+    }
 }
