@@ -35,7 +35,7 @@ This can be useful to identify which objects the `native-image` build process al
 For a HelloWorld example, use the option as follows:
 
 ```shell
-$JAVA_HOME/bin/native-image HelloWorld --enable-monitoring=heapdump
+$GRAALVM_HOME/bin/native-image HelloWorld --enable-monitoring=heapdump
 ```
 ```shell
 ./helloworld -XX:+DumpHeapAndExit
