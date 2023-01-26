@@ -48,7 +48,7 @@ The native `espresso-jshell` is not fully standalone, it does not bundle _jars/j
 `jshell` was first introduced in Java 9, but thanks to Java's excellent backwards compatibility, it's possible to run `jshell` on a Java 8 environment.
 
 ```bash
-export $JAVA_HOME="/path/to/graalvm"
+export JAVA_HOME="/path/to/graalvm"
 ```
 ```bash
 export JDK8_HOME="/path/to/jdk8"
