@@ -3,11 +3,11 @@
 # Exit on error
 set -e
 
-# GRAALVM_HOME="/usr/lib/jvm/java-11-graalvm/"
+# JAVA_HOME="/usr/lib/jvm/java-11-graalvm/"
 # JDK8_HOME="/usr/lib/jvm/java-8-openjdk"
 
-if [[ -z "$GRAALVM_HOME" ]]; then
-    echo "GRAALVM_HOME is not set"
+if [[ -z "$JAVA_HOME" ]]; then
+    echo "JAVA_HOME is not set"
     exit 1
 fi
 
@@ -24,7 +24,7 @@ fi
 JAVAC_BOOT_CLASSPATH="$JDK8_JRE/lib/resources.jar:$JDK8_JRE/lib/rt.jar:$JDK8_JRE/lib/sunrsasign.jar:$JDK8_JRE/lib/jsse.jar:$JDK8_JRE/lib/jce.jar:$JDK8_JRE/lib/charsets.jar:$JDK8_JRE/lib/jfr.jar:$JDK8_JRE/classes"
 
 ./espresso-jshell \
-    -Dorg.graalvm.home="$GRAALVM_HOME" \
+    -Dorg.graalvm.home="$JAVA_HOME" \
     -Rjava.JavaHome="$JDK8_HOME" \
     -Rjava.BootClasspathAppend="./jshell8.jar" \
     -C-source -C8 \

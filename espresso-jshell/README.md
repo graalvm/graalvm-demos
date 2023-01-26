@@ -36,8 +36,8 @@ For further discussions and questions please join our `#espresso` channel on the
     ```
     It generates a native executable `espresso-jshell` in the working directory which starts instantaneously, and you can pass the options to (the same way as you would pass the options to `jshell`).
 
-2. Launch `./espresso-jshell -Dorg.graalvm.home="$GRAALVM_HOME"`, execute some Java code and see the output immediately.
-    Specifying a `GRAALVM_HOME` is the easiest way for Espresso and `jshell` to find all these dependencies e.g. `./espresso-jshell -Dorg.graalvm.home="$GRAALVM_HOME"`.  
+2. Launch `./espresso-jshell -Dorg.graalvm.home="$JAVA_HOME"`, execute some Java code and see the output immediately.
+    Specifying a `JAVA_HOME` is the easiest way for Espresso and `jshell` to find all these dependencies e.g. `./espresso-jshell -Dorg.graalvm.home="$JAVA_HOME"`.  
 
 3. To exit the shell, type `/exit`.
 
@@ -48,7 +48,7 @@ The native `espresso-jshell` is not fully standalone, it does not bundle _jars/j
 `jshell` was first introduced in Java 9, but thanks to Java's excellent backwards compatibility, it's possible to run `jshell` on a Java 8 environment.
 
 ```bash
-export GRAALVM_HOME="/path/to/graalvm"
+export $JAVA_HOME="/path/to/graalvm"
 ```
 ```bash
 export JDK8_HOME="/path/to/jdk8"
