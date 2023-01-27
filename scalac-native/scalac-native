@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ -z "$JAVA_HOME" ] && echo "JAVA_HOME is currently not set. This script will not work." && exit 1
-[ ! -f "$GRAALVM_HOME/bin/native-image" ] && echo "Can't find native-image in $GRAALVM_HOME. Check that the directory is valid." && exit 1
+[ ! -f "$JAVA_HOME/bin/native-image" ] && echo "Can't find native-image in $JAVA_HOME. Check that the directory is valid." && exit 1
 [ ! -f "$JAVA_HOME/jre/lib/rt.jar" ] && echo "This demo works only with Java 8. Set your JAVA_HOME to a JDK 8 version." && exit 1
 [ -z "$SCALA_HOME" ] && echo "SCALA_HOME is currently not set. This script will not work." && exit 1
 SCALA_LIB="$SCALA_HOME/lib"
