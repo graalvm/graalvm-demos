@@ -3,7 +3,7 @@
 # Exit on error
 set -e
 
-# $JAVA_HOME="/home/mukel/Desktop/graal/graal/sdk/mxbuild/linux-amd64/GRAALVM_C152252C1A_JAVA11/graalvm-c152252c1a-java11-21.0.0-dev"
+# JAVA_HOME="/home/mukel/Desktop/graal/graal/sdk/mxbuild/linux-amd64/GRAALVM_C152252C1A_JAVA11/graalvm-c152252c1a-java11-21.0.0-dev"
 SCRATCH=./out
 
 if [[ -z "$JAVA_HOME" ]]; then
