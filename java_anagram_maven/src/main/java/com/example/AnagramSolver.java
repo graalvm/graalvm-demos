@@ -50,24 +50,23 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class AnagramSolver {
-    
+
     private static final Map<Integer, Set> WORD_MAP = new HashMap<>();
-    
+
     static {
         //Scan the list of words
-        long startTime = System.currentTimeMillis(); 
+        long startTime = System.currentTimeMillis();
         Scanner s = new Scanner(new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("words_alpha.txt"))));
-        //s.useDelimiter(SEPARATOR);
         while (s.hasNext()) {
             addWord(s.next());
         }
         System.out.println("Time taken to load words: " + (System.currentTimeMillis() - startTime));
     }
-    
+
     private final static void addWord(String nextWord) {
         int len = nextWord.length();
         Set<String> wordsOfLength = WORD_MAP.get(len);
-        if (wordsOfLength == null)  {
+        if (wordsOfLength == null) {
             wordsOfLength = new HashSet<>();
             WORD_MAP.put(len, wordsOfLength);
         }
@@ -75,17 +74,26 @@ public class AnagramSolver {
     }
 
     public final static void main(String[] args) {
-        try {
-            if (args.length != 1) {
-                throw new AnagramSolverException("Invalid arguments");
+        AnagramSolver solver = new AnagramSolver();
+        Scanner scanner = new Scanner(System.in);
+        String readLine = new String();
+        boolean done = false;
+        while (!done) {
+            System.out.println("Enter an anagram");
+            readLine = scanner.nextLine();
+            if (readLine.isEmpty()) {
+                done = true;
+                System.out.println("Done!");
+            } else {
+                try {
+                    long startTime = System.currentTimeMillis();
+                    Set<String> results = solver.solve(readLine);
+                    System.out.println("Time taken to find anagrams: " + (System.currentTimeMillis() - startTime));
+                    System.out.println(String.join("\n", results));
+                } catch (AnagramSolverException ase) {
+                    System.err.println(ase.getMessage());
+                }
             }
-            AnagramSolver solver = new AnagramSolver();
-            long startTime = System.currentTimeMillis(); 
-            Set<String> results = solver.solve(args[0]);
-            System.out.println("Time taken to find anagrams: " + (System.currentTimeMillis() - startTime));
-            System.out.println(String.join("\n", results));
-        } catch (AnagramSolverException ase) {
-            System.err.println(ase.getMessage());
         }
     }
 
