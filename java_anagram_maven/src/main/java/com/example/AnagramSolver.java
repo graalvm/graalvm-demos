@@ -97,7 +97,7 @@ public class AnagramSolver {
         }
     }
 
-    private final Set<String> solve(String anagram) throws AnagramSolverException {
+    final Set<String> solve(String anagram) throws AnagramSolverException {
         int len = anagram.length();
         if (len == 0) {
             throw new AnagramSolverException("Empty anagram");
