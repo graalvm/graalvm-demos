@@ -19,6 +19,11 @@ mvn clean package
 java -jar target/java_anagram_maven-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
+Time taken to create instance: 931
+Tests run: 11565
+Time taken: 53094
+
+
 ## 2. Build and Run the Native Executable 
 
 1. Run your application with the agent enabled:
@@ -44,6 +49,12 @@ When the command completes a native executable, `AnagramSolver`, is created in t
 ./target/AnagramSolver
 ```
 
+
+
+Time taken to create instance: 465
+Tests run: 11565
+Time taken: 56463
+
 ## 3. Use Profile-Guided Optimization to Improve Performance
 
 1. Instrument the native executable
@@ -67,6 +78,10 @@ mvn -Ppgo -Dagent package
 4. Run the native executable -- it should start more quickly and produce anagrams more quickly
 
 
+Time taken to create instance: 494
+Tests run: 11565
+Time taken: 65142
+
 ## 4. Build and Run the Native Executable with Static Initializer
 
 1. Build a native executable using the results of the instrumentation and initialize the main class
@@ -80,3 +95,7 @@ mvn -Pstatic-pgo -Dagent package
 ```bash
 ./target/AnagramSolver
 ```
+
+Time taken to create instance: 0
+Tests run: 11565
+Time taken: 64952
