@@ -76,10 +76,10 @@ public class AnagramSolver {
     public final static void main(String[] args) {
         AnagramSolver solver = new AnagramSolver();
         Scanner scanner = new Scanner(System.in);
-        String readLine = new String();
+        String readLine;
         boolean done = false;
         while (!done) {
-            System.out.println("Enter an anagram");
+            System.out.println("Enter an anagram:");
             readLine = scanner.nextLine();
             if (readLine.isEmpty()) {
                 done = true;
@@ -91,7 +91,7 @@ public class AnagramSolver {
                     System.out.println("Time taken to find anagrams: " + (System.currentTimeMillis() - startTime));
                     System.out.println(String.join("\n", results));
                 } catch (AnagramSolverException ase) {
-                    System.err.println(ase.getMessage());
+                    System.out.println(ase.getMessage());
                 }
             }
         }
@@ -108,6 +108,8 @@ public class AnagramSolver {
         }
         char[] anagramChars = anagram.toCharArray();
         Set<String> results = matchAnagram(wordsOfLength, anagramChars);
+        // Remove the original anagram from the results, if it exists
+        results.remove(anagram);
         if (results.isEmpty()) {
             throw new AnagramSolverException("No Results");
         }
