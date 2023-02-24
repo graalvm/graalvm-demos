@@ -51,7 +51,7 @@ import java.util.Set;
 
 public class AnagramSolver {
 
-    private static final Map<Integer, Set> WORD_MAP = new HashMap<>();
+    private static final Map<Integer, Set<String>> WORD_MAP = new HashMap<>();
 
     static {
         //Scan the list of words
