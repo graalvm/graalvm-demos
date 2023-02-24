@@ -53,6 +53,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -63,6 +64,7 @@
                 </configuration>
             </plugin>
 
+            <!-- JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -77,9 +79,11 @@
                 </configuration>
             </plugin>
 
+            <!-- Package -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -111,6 +115,7 @@
     </build>
     
     <profiles>
+        <!-- Native profile -->
         <profile>
             <id>native</id>
             <build>
@@ -140,7 +145,6 @@
                             <imageName>${imageName}</imageName>
                             <buildArgs>
                                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                                <buildArg>--verbose</buildArg>
                             </buildArgs>
                         </configuration>
                     </plugin>
@@ -176,6 +180,37 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Native static initializer -->
+        <profile>
+            <id>native-static</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${native.maven.plugin.version}</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>                           
+                            <imageName>${imageName}</imageName>
+                            <buildArgs>
+                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                                <buildArg>--initialize-at-build-time=com.example.AnagramSolver</buildArg>
+                            </buildArgs>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

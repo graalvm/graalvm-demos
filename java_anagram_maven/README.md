@@ -46,3 +46,10 @@ When the command completes a native executable, `AnagramSolver`, is created in t
 
 ## 3. Build and Run the Native Executable with Static Initializer
 
+```bash
+mvn -Pnative-static -Dagent package
+```
+
+```bash
+./target/AnagramSolver
+```
