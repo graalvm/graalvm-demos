@@ -83,7 +83,7 @@ public class AnagramSolverTests {
     @Test
     @DisplayName("Throw an exception with too many chars")
     void testTooManyChars() {
-        String char64 = new String(new char[64]).replace('\0', ' ');
+        String char64 = new String(new char[64]).replace('\0', 'z');
         assertThrows(AnagramSolverException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
