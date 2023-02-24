@@ -140,7 +140,6 @@
                             <imageName>${imageName}</imageName>
                             <buildArgs>
                                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                                <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
                                 <buildArg>--verbose</buildArg>
                             </buildArgs>
                         </configuration>
