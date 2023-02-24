@@ -33,7 +33,7 @@ The agent collects the metadata and generates the configuration files in a subdi
 2. Now build a native executable with the Maven profile:
 
 ```bash
-mvn -DskipTests=true -Pnative -Dagent package
+mvn -Pnative -Dagent package
 ```
 
 When the command completes a native executable, `AnagramSolver`, is created in the _target_ directory of the project and ready for use.
@@ -44,11 +44,38 @@ When the command completes a native executable, `AnagramSolver`, is created in t
 ./target/AnagramSolver
 ```
 
-## 3. Build and Run the Native Executable with Static Initializer
+## 3. Use Profile-Guided Optimization to Improve Performance
+
+1. Instrument the native executable
 
 ```bash
-mvn -Pnative-static -Dagent package
+mvn -Ppgo-instrument -Dagent package
 ```
+
+2. Run the application and provide some examples
+
+```bash
+./target/AnagramSolver
+```
+
+3. Build a native executable using the results of the instrumentation
+
+```bash
+mvn -Ppgo -Dagent package
+```
+
+4. Run the native executable -- it should start more quickly and produce anagrams more quickly
+
+
+## 4. Build and Run the Native Executable with Static Initializer
+
+1. Build a native executable using the results of the instrumentation and initialize the main class
+
+```bash
+mvn -Pstatic-pgo -Dagent package
+```
+
+2. Run the native executable -- it should start instantly and produce anagrams quickly
 
 ```bash
 ./target/AnagramSolver

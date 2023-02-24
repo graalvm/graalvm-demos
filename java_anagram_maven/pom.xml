@@ -115,7 +115,7 @@
     </build>
     
     <profiles>
-        <!-- Native profile -->
+        <!-- Build a Native Executable-->
         <profile>
             <id>native</id>
             <build>
@@ -132,13 +132,6 @@
                                     <goal>build</goal>
                                 </goals>
                                 <phase>package</phase>
-                            </execution>
-                            <execution>
-                                <id>test-native</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>test</phase>
                             </execution>
                         </executions>
                         <configuration>                           
@@ -185,9 +178,72 @@
             </build>
         </profile>
         
-        <!-- Native static initializer -->
+        <!-- Build an instrumented Native Exexcutable -->
         <profile>
-            <id>native-static</id>
+            <id>pgo-instrument</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${native.maven.plugin.version}</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>                           
+                            <imageName>${imageName}</imageName>
+                            <buildArgs>
+                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                                <buildArg>--pgo-instrument</buildArg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Build a Native Executable with results of PGO instrumentation -->
+        <profile>
+            <id>pgo</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${native.maven.plugin.version}</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>                           
+                            <imageName>${imageName}</imageName>
+                            <buildArgs>
+                                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                                <buildArg>--pgo=${project.basedir}/default.iprof</buildArg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        
+        <!-- Build a Native Executable with a Static initializer & Results of PGO-->
+        <profile>
+            <id>static-pgo</id>
             <build>
                 <plugins>
                     <plugin>
@@ -209,11 +265,14 @@
                             <buildArgs>
                                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                                 <buildArg>--initialize-at-build-time=com.example.AnagramSolver</buildArg>
+                                <buildArg>--pgo=${project.basedir}/default.iprof</buildArg>
                             </buildArgs>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+        
+        
     </profiles>
 </project>
