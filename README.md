@@ -41,11 +41,11 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-list-dir/">native-list-dir</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml"><img alt="native-list-dir" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable. The second part demonstrates how to build a polyglot (Java and JS) native executable.<br><strong>Technologies: </strong>Native Image, JavaScript<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/examples/native-image-examples/">Ahead-of-Time Compilation of Java and Polyglot Applications</a></td>
+      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable. The second part demonstrates how to build a polyglot (Java and JS) native executable.<br><strong>Technologies: </strong>Native Image, JavaScript<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-polyglot-native-executable/">Ahead-of-Time Compilation of Java and Polyglot Applications</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-simple-stream-benchmark/">java-simple-stream-benchmark</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml"><img alt="java-simple-stream-benchmark" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas<br><strong>Technologies: </strong>Graal compiler, C2<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/examples/java-simple-stream-benchmark/">Simple Java Stream Benchmark</a></td>
+      <td align="left" width="70%">Demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas<br><strong>Technologies: </strong>Graal compiler, C2<br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/d502417b-df66-45be-9fed-a3ac8e3f09b1/steps#task-2-run-demos-java-microbenchmark-harness-jmh">Simple Java Stream Benchmark</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/streams/">streams</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
@@ -85,7 +85,7 @@ cd graalvm-demos
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/native-image-reflection-example/">native-image-reflection-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml"><img alt="native-image-reflection-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">The following application demonstrates the use of Java reflection and how to provide metadata for Native Image using a JSON configuration file.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-with-reflection/">Build a Native Executable with Reflection</a></td>
+      <td align="left" width="70%">The following application demonstrates the use of Java reflection and how to provide metadata for Native Image using a JSON configuration file.<br><strong>Technologies: </strong> Native Image</td>
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/native-static-images/">native-static-images</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml"><img alt="native-static-images" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml/badge.svg"/></a></td>
@@ -200,7 +200,7 @@ cd graalvm-demos
   <tbody>
     <tr>
       <td align="left" width="30%"><a href="/java-kotlin-aot/">java-kotlin-aot</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml"><img alt="java-kotlin-aot" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to interoperate between Java and Kotlin and build a native executable <br><strong>Technologies: </strong>Native Image, Kotlin, Maven <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/examples/java-kotlin-aot/">Build a Native Image of a Java and Kotlin Application</a></td>
+      <td align="left" width="70%">Demonstrates how to interoperate between Java and Kotlin and build a native executable <br><strong>Technologies: </strong>Native Image, Kotlin, Maven</td>
     </tr>
   </tbody>
 </table>
