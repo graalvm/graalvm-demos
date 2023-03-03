@@ -73,31 +73,6 @@ public class AnagramSolver {
         wordsOfLength.add(nextWord);
     }
 
-    public final static void main(String[] args) {
-        AnagramSolver solver = new AnagramSolver();
-        Scanner scanner = new Scanner(System.in);
-        String readLine;
-        boolean done = false;
-        while (!done) {
-            System.out.println("Enter an anagram:");
-            readLine = scanner.nextLine();
-            if (readLine.isEmpty()) {
-                done = true;
-                System.out.println("Done!");
-            } else {
-                long startTime = System.currentTimeMillis();
-                try {
-                    Set<String> results = solver.solve(readLine);
-                    System.out.println("Time taken to find anagrams: " + (System.currentTimeMillis() - startTime));
-                    System.out.println(String.join("\n", results));
-                } catch (AnagramSolverException ase) {
-                    System.out.println("Time taken to fail: " + (System.currentTimeMillis() - startTime));
-                    System.out.println(ase.getMessage());
-                }
-            }
-        }
-    }
-
     final Set<String> solve(String anagram) throws AnagramSolverException {
         int len = anagram.length();
         if (len == 0) {
