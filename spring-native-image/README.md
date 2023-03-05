@@ -67,9 +67,12 @@ This project is built using Maven.
 
 ## Run in a Docker Container
 
-As a nice extra, there is a Dockerfile provided with this demo. So, besides building the application JAR, you see a Docker image built at the `mvn clean package` step, pulling the GraalVM container image, `ghcr.io/graalvm/jdk:ol8-java17`, as the JVM.
+you can easily containerise the native executable using the following command:
+```shell
+docker build -f Dockerfiles/Dockerfile --build-arg APP_FILE=benchmark-jibber -t jibber-benchmark:graalce.0.0.1-SNAPSHOT .
+```
 
-Run the Docker image in a container:
+Then, run the Docker image in a container:
 ```shell
 docker run --rm --name graalce -d -p 8080:8080 jibber-benchmark:graalce.0.0.1-SNAPSHOT
 ```
