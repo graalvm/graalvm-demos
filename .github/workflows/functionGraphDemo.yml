@@ -20,13 +20,17 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        version: [latest, dev]
+        include:
+          - version: 'latest'
+            java-version: '17'
+          - version: 'dev'
+            java-version: 'dev'
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
           version: ${{ matrix.version }}
-          java-version: '19'
+          java-version: ${{ matrix.java-version }}
           components: 'nodejs,R,ruby'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'functionGraphDemo'
