@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        version: [latest]
+        version: [latest, dev]
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
