@@ -21,10 +21,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - version: 'latest'
+          - version: '22.3.1' # temporarily locked to 22.3.1
             java-version: '17'
-          - version: 'dev'
-            java-version: 'dev'
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
