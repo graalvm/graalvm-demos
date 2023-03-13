@@ -35,10 +35,14 @@ jobs:
         run: |
           cd native-netty-plot
           mvn --no-transfer-progress package
-          java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar &
+          java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image/com.oracle.substratevm/netty-plot -jar target/netty-plot-0.1-jar-with-dependencies.jar &
           pid=$!
           sleep 10
+          # query service without isolate to trigger AWT code, so that it gets picked up by the agent
+          curl -i http://127.0.0.1:8080/?useIsolate=false
           kill $pid
+          # re-package project to include new reachability metadata collected by agent
+          mvn --no-transfer-progress package
           native-image -jar target/netty-plot-0.1-jar-with-dependencies.jar
           du -h netty-plot
           ./netty-plot &
