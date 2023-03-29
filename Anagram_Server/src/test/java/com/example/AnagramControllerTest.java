@@ -71,7 +71,7 @@ public class AnagramControllerTest {
         String body = client.toBlocking().retrieve(request);
 
         assertNotNull(body);
-        assertEquals("Provide an anagram", body);
+        assertEquals("Provide an anagram clue", body);
     }
     
     /**
