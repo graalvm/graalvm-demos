@@ -38,71 +38,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.example;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.function.Executable;
+@Controller
+public class AnagramController {
+    
+    private final static AnagramSolver SOLVER = new AnagramSolver();
+    
+    @Get 
+    @Produces(MediaType.TEXT_PLAIN) 
+    public String index() {
+        return "Provide an anagram"; 
+    }
 
-
-public class AnagramSolverTests {
-    
-    AnagramSolver SOLVER = new AnagramSolver();
-    
-    /**
-     * Test that the AnagramSolver returns an expected result
-     */
-    @Test
-    @DisplayName("Return an expected result")
-    void testSolve() {
-        assertTrue(SOLVER.solve("redrum").contains("murder"), "Failed to return `murder`");
-    }
-    
-    
-    /**
-     * Test that the AnagramSolver throws an exception with an empty string
-     */
-    @Test
-    @DisplayName("Throw an exception with an empty string")
-    void testEmptyString() {
-        assertThrows(AnagramSolverException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                SOLVER.solve("");
-            }
-        }, "Failed to throw an exception with empty string");
-    }
-    
-    /**
-     * Test that the AnagramSolver throws an exception with an empty string
-     */
-    @Test
-    @DisplayName("Throw an exception with too many chars")
-    void testTooManyChars() {
-        String char64 = new String(new char[64]).replace('\0', 'z');
-        assertThrows(AnagramSolverException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                SOLVER.solve(char64);
-            }
-        }, "Failed to throw an exception with too many chars");
-    }
-    
-    /**
-     * Test that the AnagramSolver throws an exception with no results
-     */
-    @Test
-    @DisplayName("Throw an exception with no results")
-    void testNoResults() {
-        assertThrows(AnagramSolverException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                SOLVER.solve("foobarbaz");
-            }
-        }, "Failed to throw an exception with no results");
+    @Get ("/{clue}")
+    @Produces(MediaType.TEXT_PLAIN) 
+    public String index(String clue) {
+        try {
+            Set<String> results = SOLVER.solve(clue); 
+            return String.join("\n", results);
+        } catch (AnagramSolverException ase) {
+            return ase.getMessage();
+        }
     }
 }

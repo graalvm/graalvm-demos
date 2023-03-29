@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: anagram_Server
+netty:
+  default:
+    allocator:
+      max-order: 3
