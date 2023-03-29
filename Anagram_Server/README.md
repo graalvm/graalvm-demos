@@ -1,103 +1,111 @@
+# Anagram server
 
-Uses https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html
+A simple HTTP server to suggest anagrams in response to a request.
 
-Words taken from https://github.com/dwyl/english-words
+Example usage: _[http://localhost:8080/redrum](http://localhost:8080/redrum)_
+
+(Words are taken from from [https://github.com/dwyl/english-words](https://github.com/dwyl/english-words).)
 
 
-## 1. Build and Test the Java Application
+## 1. Build and Run the Java Application
 
-```bash
-./mvnw test
-```
-
-## 2. Build and Run the Java Application
-
-1. Compile the project on the JVM to create a runnable JAR with all dependencies. 
-Open a terminal window and, from the root application directory, run:
+Build and run the project on the JVM. Open a terminal window and, from the root application directory, run the following command.
+(Use `&` to put the process into the background.)
 
 ```bash
-mvn clean package
+./mvnw mn:run &
 ```
 
-2. Run the Java application
+The Resident Set Size for the process is 255580 bytes (from `ps -o rss= -p #{pid}`).
+
+Test the application using a browser or `curl`, as follows:
 
 ```bash
-./mvnw mn:run
+curl http://localhost:8080/redrum
 ```
 
+You should see output similar to the following:
+```
+Time taken to load words: 589
+murder
+```
 
-## 2. Build and Run the Native Executable 
+(The time taken is measure in milliseconds.)
 
-1. Run your application with the agent enabled:
+## 2. Build and Run a Native Executable 
+
+1. Build a native executable using the following command. The java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
+
+    ```bash
+    ./mvnw package -Dpackaging=native-image 
+    ```
+
+    When the command completes a native executable, `Anagram_Server`, is created in the _target_ directory of the project and ready for use.
+The file size is 74557760 bytes.
+
+2. Run the native executable in the background, as follows:
+
+    ```bash
+    ./target/AnagramSolver &
+    ```
+
+    The Resident Set Size for the process is 113212 bytes (from `ps -o rss= -p #{pid}`). That's less than 50% of the RSS of the Java application.
+
+3. Test the application using a browser or `curl`, as follows:
+
+    ```bash
+    curl http://localhost:8080/redrum
+    ```
+
+    ```
+    Time taken to load words: 678
+    murder
+    ```
+
+## 3. Use Static Initializer to improve Startup Time
+
+1. Build a native executable using the following command. Again the java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
+
+    ```bash
+    ./mvnw package -Dpackaging=native-image -Pstatic
+    ```
+
+    This relies on the "static" profile in the _pom.xml_ file, which includes the following element:
+
+    ```xml
+    <buildArgs>
+      <buildArg>--initialize-at-build-time=com.example.AnagramSolver</buildArg>
+    </buildArgs>
+    ```
+
+    In the output you should see something similar to 
+
+    ```
+    ========================================================================================================================
+    GraalVM Native Image: Generating 'Anagram_Server' (executable)...
+    ========================================================================================================================
+    Time taken to load words: 654
+    ```
+
+    When the command completes a native executable, `Anagram_Server`, is again created in the _target_ directory of the project and ready for use.
+    The file size is 74557760 bytes.
+
+2. Run the native executable in the background, as follows:
 
 ```bash
-mvn -Pnative -Dagent exec:exec@java-agent
+./target/AnagramSolver &
 ```
 
-The agent collects the metadata and generates the configuration files in a subdirectory of _target/native/agent-output_. Those files will be automatically used by the native-image tool if you pass the appropriate options.
+    The Resident Set Size for the process is 113212 bytes (from `ps -o rss= -p #{pid}`). That's less than 50% of the RSS of the Java application.
 
 
-2. Now build a native executable:
+3. Test the application using a browser or `curl`, as follows:
 
-```bash
-./mvnw package -Dpackaging=native-image 
-```
+    ```bash
+    curl http://localhost:8080/redrum
+    ```
 
-When the command completes a native executable, `Anagram_Server`, is created in the _target_ directory of the project and ready for use.
-
-3. Run the native executable
-
-```bash
-./target/AnagramSolver
-```
-
-
-
-Time taken to create instance: 465
-Tests run: 11565
-Time taken: 56463
-
-## 3. Use Profile-Guided Optimization to Improve Performance
-
-1. Instrument the native executable
-
-```bash
-mvn -Ppgo-instrument -Dagent package
-```
-
-2. Run the application and provide some examples
-
-```bash
-./target/AnagramSolver
-```
-
-3. Build a native executable using the results of the instrumentation
-
-```bash
-mvn -Ppgo -Dagent package
-```
-
-4. Run the native executable -- it should start more quickly and produce anagrams more quickly
-
-
-Time taken to create instance: 494
-Tests run: 11565
-Time taken: 65142
-
-## 4. Build and Run the Native Executable with Static Initializer
-
-1. Build a native executable using the results of the instrumentation and initialize the main class
-
-```bash
-mvn -Pstatic-pgo -Dagent package
-```
-
-2. Run the native executable -- it should start instantly and produce anagrams quickly
-
-```bash
-./target/AnagramSolver
-```
-
-Time taken to create instance: 0
-Tests run: 11565
-Time taken: 64952
+    ```
+    Time taken to load words: 678
+    murder
+    ```
