@@ -114,6 +114,8 @@
   
     <profiles>
         <profile>
+        <!--Run static initializer at build time to load words into heap -->
+        <!-- ??How do I omit the resource file (_words_alpha.txt_) from the resulting executable?? -->
             <id>static</id>
             <build>
                 <plugins>
