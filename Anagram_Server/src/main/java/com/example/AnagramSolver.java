@@ -48,10 +48,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AnagramSolver {
 
     private static final Map<Integer, Set<String>> WORD_MAP = new HashMap<>();
+    private static final Logger LOG = LoggerFactory.getLogger(AnagramSolver.class);
 
     static {
         //Scan the list of words
@@ -60,7 +63,7 @@ public class AnagramSolver {
         while (s.hasNext()) {
             addWord(s.next());
         }
-        System.out.println("Time taken to load words: " + (System.currentTimeMillis() - startTime));
+        LOG.info("Time taken to load words: " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     private final static void addWord(String nextWord) {

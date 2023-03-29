@@ -16,7 +16,12 @@ Build and run the project on the JVM. Open a terminal window and, from the root 
 ./mvnw mn:run &
 ```
 
-HOW TO GET RSS?
+You should see output similar to the following, indicating the time taken to startup the application.
+```
+12:24:19.507 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 1223ms. Server Running: http://localhost:8080
+```
+
+>HOW TO GET RSS?
 
 Test the application using a browser or `curl`, as follows:
 
@@ -26,22 +31,20 @@ curl http://localhost:8080/redrum
 
 You should see output similar to the following:
 ```
-Time taken to load words: 589
+12:24:41.352 [default-nioEventLoopGroup-1-2] INFO  com.example.AnagramSolver - Time taken to load words: 798ms
 murder
 ```
 
-(The time taken is measure in milliseconds.)
-
 ## 2. Build and Run a Native Executable 
 
-1. Build a native executable using the following command. The java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
+1. Build a native executable using the following command. The Java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
 
     ```bash
     ./mvnw package -Dpackaging=native-image 
     ```
 
     When the command completes a native executable, `Anagram_Server`, is created in the _target_ directory of the project and ready for use.
-The file size is 74557760 bytes.
+The size of the file is 74557792 bytes.
 
 2. Run the native executable in the background, as follows:
 
@@ -49,7 +52,12 @@ The file size is 74557760 bytes.
     ./target/Anagram_Server &
     ```
 
-    HOW TO GET RSS?
+    You should see output similar to the following, indicating the time taken to startup the application.
+    ```
+    12:49:25.025 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 66ms. Server Running: http://localhost:8080
+    ```
+
+    > HOW TO GET RSS?
 
 3. Test the application using a browser or `curl`, as follows:
 
@@ -58,7 +66,7 @@ The file size is 74557760 bytes.
     ```
 
     ```
-    Time taken to load words: 678
+    12:50:01.320 [default-nioEventLoopGroup-1-2] INFO  com.example.AnagramSolver - Time taken to load words: 501ms
     murder
     ```
 

@@ -54,7 +54,7 @@ public class AnagramController {
     @Get 
     @Produces(MediaType.TEXT_PLAIN) 
     public String index() {
-        return "Provide an anagram"; 
+        return "Provide an anagram clue"; 
     }
 
     @Get ("/{clue}")

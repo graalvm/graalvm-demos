@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: anagram_Server
+    name: Anagram_Server
 netty:
   default:
     allocator:
