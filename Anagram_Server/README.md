@@ -92,7 +92,8 @@ The size of the file is 74557792 bytes.
     ========================================================================================================================
     GraalVM Native Image: Generating 'Anagram_Server' (executable)...
     ========================================================================================================================
-    Time taken to load words: 495
+    ...
+    12:52:37.311 [main] INFO  com.example.AnagramSolver - Time taken to load words: 508ms
     ```
 
     When the command completes a native executable, `Anagram_Server`, is again created in the _target_ directory of the project and ready for use.
@@ -104,8 +105,12 @@ The size of the file is 74557792 bytes.
     ./target/Anagram_Server &
     ```
 
-    HOW TO GET RSS?
+    You should see output similar to the following, indicating the time taken to startup the application.
+    ```
+    13:03:58.931 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 66ms. Server Running: http://localhost:8080
+    ``` 
 
+    > HOW TO GET RSS?
 
 3. Test the application using a browser or `curl`, as follows:
 
@@ -117,4 +122,5 @@ The size of the file is 74557792 bytes.
     murder
     ```
 
-    Note that the application responded instantly: the words had already been loaded at build time.
+    Note that the application responded instantly, with no log message: the words had already been loaded at build time.
+    
