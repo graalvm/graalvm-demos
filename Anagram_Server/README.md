@@ -16,7 +16,7 @@ Build and run the project on the JVM. Open a terminal window and, from the root 
 ./mvnw mn:run &
 ```
 
-The Resident Set Size for the process is 255580 bytes (from `ps -o rss= -p #{pid}`).
+HOW TO GET RSS?
 
 Test the application using a browser or `curl`, as follows:
 
@@ -46,10 +46,10 @@ The file size is 74557760 bytes.
 2. Run the native executable in the background, as follows:
 
     ```bash
-    ./target/AnagramSolver &
+    ./target/Anagram_Server &
     ```
 
-    The Resident Set Size for the process is 113212 bytes (from `ps -o rss= -p #{pid}`). That's less than 50% of the RSS of the Java application.
+    HOW TO GET RSS?
 
 3. Test the application using a browser or `curl`, as follows:
 
@@ -62,12 +62,12 @@ The file size is 74557760 bytes.
     murder
     ```
 
-## 3. Use Static Initializer to improve Startup Time
+## 3. Use Static Initializer to improve Initial Response Time
 
 1. Build a native executable using the following command. Again the java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
 
     ```bash
-    ./mvnw package -Dpackaging=native-image -Pstatic
+    ./mvnw -Pstatic package
     ```
 
     This relies on the "static" profile in the _pom.xml_ file, which includes the following element:
@@ -84,19 +84,19 @@ The file size is 74557760 bytes.
     ========================================================================================================================
     GraalVM Native Image: Generating 'Anagram_Server' (executable)...
     ========================================================================================================================
-    Time taken to load words: 654
+    Time taken to load words: 495
     ```
 
     When the command completes a native executable, `Anagram_Server`, is again created in the _target_ directory of the project and ready for use.
-    The file size is 74557760 bytes.
+    The file size is 107702592 bytes: over 40% bigger than the original native executable, because the heap now contains the words that were loaded.
 
 2. Run the native executable in the background, as follows:
 
-```bash
-./target/AnagramSolver &
-```
+    ```bash
+    ./target/Anagram_Server &
+    ```
 
-    The Resident Set Size for the process is 113212 bytes (from `ps -o rss= -p #{pid}`). That's less than 50% of the RSS of the Java application.
+    HOW TO GET RSS?
 
 
 3. Test the application using a browser or `curl`, as follows:
@@ -106,6 +106,7 @@ The file size is 74557760 bytes.
     ```
 
     ```
-    Time taken to load words: 678
     murder
     ```
+
+    Note that the application responded instantly: the words had already been loaded at build time.
