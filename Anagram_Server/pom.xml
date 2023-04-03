@@ -113,10 +113,9 @@
     </build>
   
     <profiles>
+        <!-- Produce native executable -->
         <profile>
-        <!--Run static initializer at build time to load words into heap -->
-        <!-- ??How do I omit the resource file (_words_alpha.txt_) from the resulting executable?? -->
-            <id>static</id>
+            <id>native</id>
             <build>
                 <plugins>
                     <plugin>
@@ -124,9 +123,12 @@
                         <artifactId>native-maven-plugin</artifactId>
                         <configuration>
                             <imageName>${project.artifactId}</imageName>
-                            <buildArgs>
-                                <buildArg>--initialize-at-build-time=com.example.AnagramSolver</buildArg>
+                            <buildArgs combine.children="append">
+                                <!-- <buildArg>-H:DashboardDump=anagram -H:+DashboardAll</buildArg> -->
+                                <buildArg>--verbose</buildArg>
                             </buildArgs>
+                            <!-- comment this out later -->
+                            <quickBuild>true</quickBuild>
                         </configuration>
                         <executions>
                             <execution>
@@ -137,6 +139,46 @@
                                 <phase>package</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!--Run static initializer at build time to load words into heap -->
+            <!-- ??How do I omit the resource file (_words_alpha.txt_) from the resulting executable?? -->
+            <id>native-static</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <imageName>${project.artifactId}-static</imageName>
+                            <buildArgs combine.children="append">
+                                <buildArg>--initialize-at-build-time=com.example.AnagramSolver</buildArg>
+                                <!-- <buildArg>-H:ExcludeResources="words_alpha.txt" -H:DashboardDump=static-anagram -H:+DashboardAll</buildArg> -->
+                                <buildArg>--verbose</buildArg>
+                            </buildArgs>
+                            <!-- comment this out later -->
+                            <quickBuild>true</quickBuild>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                      <groupId>io.micronaut.build</groupId>
+                      <artifactId>micronaut-maven-plugin</artifactId>
+                      
+                      <configuration>
+                          <nativeImageSkipResources>true</nativeImageSkipResources>
+                      </configuration>
                     </plugin>
                 </plugins>
             </build>

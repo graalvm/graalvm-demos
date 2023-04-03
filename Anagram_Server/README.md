@@ -40,10 +40,13 @@ murder
 1. Build a native executable using the following command. The Java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
 
     ```bash
-    ./mvnw package -Dpackaging=native-image 
+    ./mvnw -X -Pnative -DskipTests package 
     ```
 
     When the command completes a native executable, `Anagram_Server`, is created in the _target_ directory of the project and ready for use.
+
+    This file contains the resource file and runs from another location.
+
 The size of the file is 74557792 bytes.
 
 2. Run the native executable in the background, as follows:
@@ -75,7 +78,7 @@ The size of the file is 74557792 bytes.
 1. Build a native executable using the following command. Again the java agent collects metadata and generates the configuration files in the _target/classes/META-INF/native-image_ directory.
 
     ```bash
-    ./mvnw -Pstatic package
+    ./mvnw -X -Pnative-static -DskipTests package 
     ```
 
     This relies on the "static" profile in the _pom.xml_ file, which includes the following element:
@@ -90,7 +93,7 @@ The size of the file is 74557792 bytes.
 
     ```
     ========================================================================================================================
-    GraalVM Native Image: Generating 'Anagram_Server' (executable)...
+    GraalVM Native Image: Generating 'Anagram_Server-static' (executable)...
     ========================================================================================================================
     ...
     12:52:37.311 [main] INFO  com.example.AnagramSolver - Time taken to load words: 508ms
