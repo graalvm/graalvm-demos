@@ -1,0 +1,41 @@
+name: natve-image-jmx-demo
+on:
+  push:
+    paths:
+      - 'natve-image-jmx-demo/**'
+      - '.github/workflows/natve-image-jmx-demo.yml'
+  pull_request:
+    paths:
+      - 'natve-image-jmx-demo/**'
+      - '.github/workflows/natve-image-jmx-demo.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'natve-image-jmx-demo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+          version: 'dev'
+          java-version: '17'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: ${{ matrix.version }}
+          java-version: ${{ matrix.java-version }}
+          components: 'native-image,visualvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run 'natve-image-jmx-demo'
+        run: |
+          cd natve-image-jmx-demo
+          javac SimpleJmx.java
+          native-image --enable-monitoring=jmxserver,jvmstat  -H:DynamicProxyConfigurationFiles=proxy-config.json SimpleJmx
+          ./simplejmx -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=9996 -Dcom.sun.management.jmxremote.ssl=false
+          gu install visualvm
+          jvisualvm
