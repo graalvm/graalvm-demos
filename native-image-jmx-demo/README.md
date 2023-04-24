@@ -19,7 +19,7 @@ It also shows you how to register a custom managed bean (MBean), with the JMX se
     git clone https://github.com/graalvm/graalvm-demos
     ```
     ```bash
-    cd graalvm-demos/natve-image-jmx-demo
+    cd graalvm-demos/native-image-jmx-demo
     ```
    
 ## Step 2: Compile to Java Bytecode

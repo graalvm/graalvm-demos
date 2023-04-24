@@ -1,13 +1,13 @@
-name: natve-image-jmx-demo
+name: native-image-jmx-demo
 on:
   push:
     paths:
-      - 'natve-image-jmx-demo/**'
-      - '.github/workflows/natve-image-jmx-demo.yml'
+      - 'native-image-jmx-demo/**'
+      - '.github/workflows/native-image-jmx-demo.yml'
   pull_request:
     paths:
-      - 'natve-image-jmx-demo/**'
-      - '.github/workflows/natve-image-jmx-demo.yml'
+      - 'native-image-jmx-demo/**'
+      - '.github/workflows/native-image-jmx-demo.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,13 +15,13 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'natve-image-jmx-demo'
+    name: Run 'native-image-jmx-demo'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       matrix:
-          version: 'dev'
-          java-version: '17'
+        - version: 'dev'
+        - java-version: 'dev'
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -31,9 +31,9 @@ jobs:
           components: 'native-image,visualvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'natve-image-jmx-demo'
+      - name: Run 'native-image-jmx-demo'
         run: |
-          cd natve-image-jmx-demo
+          cd native-image-jmx-demo
           javac SimpleJmx.java
           native-image --enable-monitoring=jmxserver,jvmstat  -H:DynamicProxyConfigurationFiles=proxy-config.json SimpleJmx
           ./simplejmx -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=9996 -Dcom.sun.management.jmxremote.ssl=false
