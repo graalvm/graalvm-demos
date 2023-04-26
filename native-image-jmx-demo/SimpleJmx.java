@@ -50,9 +50,11 @@ public class SimpleJmx {
         simple.setName("someName");
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         server.registerMBean(simple, objectName);
-        while (true) {
+        int counter = 10;
+        while (counter > 0) {
             Thread.sleep(1000);
             System.out.println("JMX server running...");
+            counter--;
         }
     }
 
