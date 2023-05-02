@@ -1,15 +1,13 @@
 # Build and Run Native Executables with Remote JMX
 
-Remote management using [Java Management Extensions (JMX)](https://www.oracle.com/java/technologies/javase/javamanagement.html) is possible in executables built with GraalVM Native Image.
-
-This guide covers the steps required to build, run, and interact with such a native executable using JMX.
+Remote management using [Java Management Extensions (JMX)](https://www.oracle.com/java/technologies/javase/javamanagement.html) is possible in executables built with GraalVM Native Image. This demo shows how to build, run, and interact with such a native executable using JMX.
 It also shows you how to register a custom managed bean (MBean), with the JMX server and the additional steps required for it to work with Native Image.
 
 > Note: This demo works with GraalVM for JDK 17 and later.
 
 ## Step 1: Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
     ```bash
     bash <(curl -sL https://get.graalvm.org/jdk)
     ```
@@ -35,9 +33,7 @@ The `main()` method in _SimpleJmx.java_ registers a custom MBean, then loop endl
 
 ### Dynamic Proxy Configuration
 
-JMX uses dynamic proxies, a [dynamic feature](../DynamicFeatures.md) of Java, to access MBeans.
-To be able to interact with the custom `SimpleMBean` at run time, you need to provide Native Image with additional [dynamic proxy configuration](../DynamicProxy.md) for the MBean interface.
-For this, you can see a JSON file in working directory named _proxy-config.json_ with the following contents:
+JMX uses dynamic proxies to access MBeans. To be able to interact with the custom `SimpleMBean` at run time, you need to provide Native Image with additional [dynamic proxy configuration](https://www.graalvm.org/dev/reference-manual/native-image/dynamic-features/DynamicProxy/) for the MBean interface. For this, you can see a JSON file in a working directory named _proxy-config.json_ with the following contents:
 
 ```json
 [
