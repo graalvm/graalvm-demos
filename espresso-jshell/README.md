@@ -41,7 +41,7 @@ For further discussions and questions please join our `#espresso` channel on the
 
 3. To exit the shell, type `/exit`.
 
-The native `espresso-jshell` is not fully standalone, it does not bundle _jars/jmods_ nor the core Java native libraries. `jshell` also needs a `java.home` for the host Java compiler. `espresso-jshell` does not require a full-blown GraalVM distribution to run. It can run with a minimal/jlink-ed `JAVA_HOME` that includes the Espresso home (`$GRAALVM_HOME/languages/java`), mimicking the same folder structure as GraalVM.
+The native `espresso-jshell` is not fully standalone, it does not bundle _jars/jmods_ nor the core Java native libraries. `jshell` also needs a `java.home` for the host Java compiler. `espresso-jshell` does not require a full-blown GraalVM distribution to run. It can run with a minimal/jlink-ed `JAVA_HOME` that includes the Espresso home (`$JAVA_HOME/languages/java`), mimicking the same folder structure as GraalVM.
 
 ## Running `jshell` on Java 8
 

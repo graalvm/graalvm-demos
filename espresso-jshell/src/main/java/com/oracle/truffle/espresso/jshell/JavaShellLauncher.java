@@ -48,16 +48,16 @@ public final class JavaShellLauncher {
      * The following sources are checked:
      * <ul type=1>
      * <li>{@code org.graalvm.home} property
-     * <li>{@code GRAALVM_HOME} environment variable
+     * <li>{@code JAVA_HOME} environment variable
      * <li>{@code HomeFinder.getInstance().getHomeFolder()}
      * </ul>
      */
     private static void findJavaHome() {
         String javaHome = System.getProperty("java.home");
         if (javaHome == null) {
-            System.err.println("java.home (required by javac) is not defined; trying fallback to 'org.graalvm.home' and $GRAALVM_HOME");
+            System.err.println("java.home (required by javac) is not defined; trying fallback to 'org.graalvm.home' and $JAVA_HOME");
             if (System.getProperty("org.graalvm.home") == null) {
-                String envVariable = System.getenv("GRAALVM_HOME");
+                String envVariable = System.getenv("JAVA_HOME");
                 if (envVariable != null) {
                     System.err.println("Setting org.graalvm.home=" + envVariable);
                     System.setProperty("org.graalvm.home", envVariable);
@@ -68,7 +68,7 @@ public final class JavaShellLauncher {
                 System.err.println("Setting java.home=" + graalvmHome);
                 System.setProperty("java.home", graalvmHome.toString());
             } else {
-                System.err.println("Cannot find GraalVM home; 'org.graalvm.home' nor $GRAALVM_HOME are defined.");
+                System.err.println("Cannot find GraalVM home; 'org.graalvm.home' nor $JAVA_HOME are defined.");
                 System.exit(-1);
             }
         }
