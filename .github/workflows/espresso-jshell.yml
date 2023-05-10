@@ -18,12 +18,19 @@ jobs:
     name: Run 'espresso-jshell'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        include:
+          - version: 'latest'
+            java-version: '17'
+          - version: 'dev'
+            java-version: 'dev'
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.2.0' # temporarily locked because demo does not run on 22.3.0+/JDK17+ yet
-          java-version: '11'
+          version: ${{ matrix.version }}
+          java-version: ${{ matrix.java-version }}
           components: 'espresso,native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'espresso-jshell'
