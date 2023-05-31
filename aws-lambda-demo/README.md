@@ -23,7 +23,7 @@ Deploying a Java 17 Application (.jar)
 ```
 cd graalvm-demos/aws-lambda-demo
 ```
-3. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
+2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
 ```
 mvn package
 ```
