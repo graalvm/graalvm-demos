@@ -4,15 +4,26 @@ This demo will walk you through the processes for deploying both Java 17 and Nat
 
 Prerequisites
 ----------------------
-1.	GraalVM – Installation instructions: https://www.graalvm.org/22.2/docs/getting-started/
-2.	Native Image – Installation instructions: https://www.graalvm.org/22.2/reference-manual/native-image/
-3.	Docker – Installation instructions: https://docs.docker.com/desktop/
-4.	Apache Maven – Installation instructions: https://maven.apache.org/install.html
+Ensure that you have the following installed and follow the linked instructions for any that you are missing:
+- Docker: https://docs.docker.com/desktop/
+- Apache Maven: https://maven.apache.org/install.html
+
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+2. Download or clone GraalVM demos repository:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
 
 Deploying a Java 17 Application (.jar)
 ----------------------
-1. Clone this repository to your machine and open a terminal window to navigate to the location of this demo (/graalvm-demos/aws-lambda-demo)
-2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
+1. Navigate to the directory for this demo:
+```
+cd graalvm-demos/aws-lambda-demo
+```
+3. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
 ```
 mvn package
 ```
@@ -44,8 +55,11 @@ mvn package
 
 Deploying a Native Image Application
 ----------------------------------
-1. Clone this repository to your machine and open a terminal window to navigate to the location of this demo (/graalvm-demos/aws-lambda-demo)
-2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes, generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target):
+1. Navigate to the directory for this demo:
+```
+cd graalvm-demos/aws-lambda-demo
+```
+2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target):
 ```
 mvn package -Dpackaging=docker-native
 ```
