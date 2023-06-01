@@ -102,6 +102,10 @@ cd graalvm-demos
     <tr>
       <td align="left" width="30%"><a href="/aws-lambda-demo/">aws-lambda-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml"><img alt="aws-lambda-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to deploy native executables on AWS Lambda.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Lambda <br>
+    </tr>  
+    <tr>
+      <td align="left" width="30%"><a href="/google-cloud-run/">google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml"><img alt="google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native executables on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
   </tbody>
 </table>
 
