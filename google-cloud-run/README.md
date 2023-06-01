@@ -1,6 +1,6 @@
 GraalVM on Google Cloud Run Demo
 ================================
-This demo will walk you through the processes for deploying Native Image applications onto the Google Cloud Run platform. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about it's performance.
+This demo will walk you through the processes for deploying Native Image applications onto the Google Cloud Run platform. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about its performance.
 
 Prerequisites
 ----------------------
