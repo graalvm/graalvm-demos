@@ -101,5 +101,8 @@ To prevent incurring additional charges after you are finished with the demo you
 2. Under Actions select "Deregister"
 3. Change the drop-down view menu to show "Inactive task definitions"
 4. Select the task definition and under Actions select "Delete"
-5. Return to the cluster that you created and delete the task currently running
-6. Use the button on the top-right of the screen to delete the cluster itself
+![Delete task](https://github.com/egadbois/graalvm-demos/assets/134104678/5bc8120c-2303-4bb1-9d8d-cb59e883fca5)
+
+6. Return to the cluster that you created and delete the task currently running
+7. Use the button on the top-right of the screen to delete the cluster itself
+![Delete cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/5ce61747-30f4-423a-aff7-82c0d43492df)
