@@ -30,6 +30,9 @@ cd graalvm-demos/aws-fargate
 ```
 mvn -Pnative spring-boot:build-image
 ```
+<img width="695" alt="Build-image" src="https://github.com/egadbois/graalvm-demos/assets/134104678/cba8378b-1fa5-46ad-aeca-1b79a4b49201">
+
+
 3. Create a new ECR repository to store the image:
 ```
 aws ecr create-repository --repository-name native-fargate-repo
@@ -53,26 +56,41 @@ Deploy the Service on AWS Fargate
 2. In the “Services” drop-down menu on the top-left of the page, select “All services” and navigate to the “Elastic Container Service” page
 3. Click on "Clusters" on th left-side pane
 4. Create a new cluster using the button on the top-right of the page
-5. Choose a name for the cluster and leave the remaining settings as their default
+![Clusters](https://github.com/egadbois/graalvm-demos/assets/134104678/5d0e044b-a778-47d1-a57f-81474c51b646)
+
+6. Choose a name for the cluster and leave the remaining settings as their default
     - If you would like to be able to view insights about the container image perforamance, activate Container Insights under "Monitoring"
-6. Once you have created the new cluster, navigate to "Task definitions" by selecting it on the left-side pane
-7. Create a new task definition by clicking the button on the top-right corner
-8. Choose names for the Task Definition Family and Container
-9. Paste the REPOSITORYURI used in the prior section into the "Image URI" text box
+
+     ![New cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/24cbafd1-6ebe-4452-b53d-02b8eb564708)
+
+7. Once you have created the new cluster, navigate to "Task definitions" by selecting it on the left-side pane
+8. Create a new task definition by clicking the button on the top-right corner
+![Task definitions](https://github.com/egadbois/graalvm-demos/assets/134104678/c673da9d-cd0e-4970-824b-d597928b5e1b)
+
+10. Choose names for the Task Definition Family and Container
+11. Paste the REPOSITORYURI used in the prior section into the "Image URI" text box
     - To find the URI again click the "Amazon ECR" link on the left-side pane and select "Repositories". Your repository will appear along with the corresponding URI
-10. Leave the remaining options as their default and create the new Task Definition
-11. Return to the list of Clusters and select the Cluster that you created
-12. Under "Services" click the "Create" button
-13. Choose "Task" as the Application Type
-14. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
-15. Under "Networking" -> "Security Group" select "Create a new security group"
-16. Choose a name and description for the new group
-17. For "Type" select "All traffic" and for "Source" select "Anywhere"
-18. Click "Create" to create and deploy the service
-19. Select the new service that you created and navigate to the "Tasks" tab
-20. Select the task currently running and copy the public IP address displayed on the right side of the page
-21. In a new browser tab, type the IP address in the format: http://PUBLICIP:80/hello
-22. You should see a "Hello World" message displayed!
+12. Leave the remaining options as their default and create the new Task Definition
+13. Return to the list of Clusters and select the Cluster that you created
+14. Under "Services" click the "Create" button
+![Services](https://github.com/egadbois/graalvm-demos/assets/134104678/8466d774-3d2f-4932-b587-7d9849b2d4b6)
+
+16. Choose "Task" as the Application Type
+17. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
+18. Under "Networking" -> "Security Group" select "Create a new security group"
+19. Choose a name and description for the new group
+20. For "Type" select "All traffic" and for "Source" select "Anywhere"
+![Security group](https://github.com/egadbois/graalvm-demos/assets/134104678/db30659b-01f8-4281-b8ad-78803250786e)
+
+22. Click "Create" to create and deploy the service
+23. Select the new service that you created and navigate to the "Tasks" tab
+![Tasks](https://github.com/egadbois/graalvm-demos/assets/134104678/b4e1b4ca-4ec8-40fd-91e1-9f6ef87c368e)
+
+25. Select the task currently running and copy the public IP address displayed on the right side of the page
+![Public IP](https://github.com/egadbois/graalvm-demos/assets/134104678/f1121247-f942-49e3-b706-f182a3d99db2)
+
+27. In a new browser tab, type the IP address in the format: http://PUBLICIP:80/hello
+28. You should see a "Hello World" message displayed!
 
 Clean-Up
 -----------------
@@ -81,5 +99,5 @@ To prevent incurring additional charges after you are finished with the demo you
 2. Under Actions select "Deregister"
 3. Change the drop-down view menu to show "Inactive task definitions"
 4. Select the task definition and under Actions select "Delete"
-5. Return to the cluster that you created and delete the service currently running
+5. Return to the cluster that you created and delete the task currently running
 6. Use the button on the top-right of the screen to delete the cluster itself
