@@ -72,8 +72,8 @@ Deploy the Service on AWS Fargate
     - To find the URI again click the "Amazon ECR" link on the left-side pane and select "Repositories". Your repository will appear along with the corresponding URI
 10. Leave the remaining options as their default and create the new Task Definition
 11. Return to the list of Clusters and select the Cluster that you created
-12. Under "Services" click the "Create" button
-![Services](https://github.com/egadbois/graalvm-demos/assets/134104678/8466d774-3d2f-4932-b587-7d9849b2d4b6)
+12. Under "Task" click the "Run new task" button
+![New Task](https://github.com/egadbois/graalvm-demos/assets/134104678/f7250fe2-7f5b-4416-8413-2f2387d74ac4)
 
 13. Choose "Task" as the Application Type
 14. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
