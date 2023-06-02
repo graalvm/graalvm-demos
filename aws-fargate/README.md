@@ -72,7 +72,7 @@ Deploy the Service on AWS Fargate
     - To find the URI again click the "Amazon ECR" link on the left-side pane and select "Repositories". Your repository will appear along with the corresponding URI
 10. Leave the remaining options as their default and create the new Task Definition
 11. Return to the list of Clusters and select the Cluster that you created
-12. Under "Task" click the "Run new task" button
+12. Under "Tasks" click the "Run new task" button
 ![New Task](https://github.com/egadbois/graalvm-demos/assets/134104678/f7250fe2-7f5b-4416-8413-2f2387d74ac4)
 
 13. Choose "Task" as the Application Type
@@ -84,15 +84,13 @@ Deploy the Service on AWS Fargate
 17. For "Type" select "All traffic" and for "Source" select "Anywhere"
 ![Security group](https://github.com/egadbois/graalvm-demos/assets/134104678/db30659b-01f8-4281-b8ad-78803250786e)
 
-18. Click "Create" to create and deploy the service
-19. Select the new service that you created and navigate to the "Tasks" tab
-![Tasks](https://github.com/egadbois/graalvm-demos/assets/134104678/0b59239c-88f6-462d-8345-d247d2a00a29)
-
-20. Select the task currently running and copy the public IP address displayed on the right side of the page
+18. Click "Create" to create and deploy the task
+19. Select the task currently running and copy the public IP address displayed on the right side of the page
 ![Public IP](https://github.com/egadbois/graalvm-demos/assets/134104678/d382fab0-c6e7-42ed-bf1b-5980d1f6e953)
 
-21. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
-22. You should see a "Hello World" message displayed!
+20. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
+21. You should see a "Hello World" message displayed!
+
 ![Hello world](https://github.com/egadbois/graalvm-demos/assets/134104678/23955a8b-166d-4a55-8617-5e312a38c191)
 
 
