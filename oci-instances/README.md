@@ -59,18 +59,29 @@ docker push <region-key>.ocir.io/<tenancy-namespace>/<repo-name>:latest
 5. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
 6. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
 7. Ensure that the Access type is "Public"; if it is not, click "Actions" in the top-right corner and select "Change to public"
+<img width="888" alt="Screen Shot 2023-06-06 at 4 57 54 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/c9ec8364-5aea-40f0-8348-79339dc6578f">
 
 Create an OCI Container Instance
 -------------------------
 1. From the main OCI dashboard, open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Instances"
+<img width="278" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
+
 2. Click "Create container instance"
 3. Input a name and compartment location for the instance
 4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (For this demo, 4 OCPUs and 128 GBs will be plenty)
+<img width="1002" alt="Screen Shot 2023-06-06 at 4 29 11 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d71fd5a4-e6db-401e-b205-8e814b1e9091">
+
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one
 6. Leave the remaining options as their default and click "Next"
 7. Choose a name for the container (or leave as default) and in the "Image" section click "Select image"
+<img width="987" alt="Screen Shot 2023-06-06 at 4 31 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a47b09da-838a-4674-98ed-2935ad151529">
+
 8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose
-9. Create the container and allow it a moment to intialize; a successful deployment will result in the large icon box turning green and the status "ACTIVE" displayed beneath it
+9. Create the container and allow it a moment to intialize
+<img width="1282" alt="Screen Shot 2023-06-06 at 4 31 55 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/3ea80a66-585d-41b3-8678-35e8f78dd869">
+
+10. A successful deployment will result in the large icon box turning green and the status "ACTIVE" displayed beneath it
+<img width="1493" alt="Screen Shot 2023-06-07 at 12 12 57 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/1884d443-a97e-46b9-aa60-7f9775024135">
 
 Configure the Security Group
 ------------------------
@@ -79,10 +90,14 @@ Configure the Security Group
 3. Click "Network Security Groups" and then "Create Network Security Group"
 4. Choose a name and compartment for the new group then click "Next"
 5. Select "Ingress" as the Direction, CIDR for Source Type, "0.0.0.0/0" for Source CIDR, and leave the remaining fields as their default - then click "Create"
+<img width="1493" alt="Screen Shot 2023-06-07 at 12 28 43 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/4099ec70-1b73-43ab-8f83-5813dbc71dac">
+
 6. Return to the page for your container instance and click "Edit" beside "Network security groups"
 7. Locate the newly created security group and click "Save changes"
 8. To test the deployment, copy the Public IP address and input it into your web browser in the format:
 ```
 http://<public-ip-address>:8080/hello
 ```
-If you have completed the demo successfully, a "Hello World!" message will be displayed!
+9. If you have completed the demo successfully, a "Hello World!" message will be displayed!
+
+![Hello World!](https://github.com/egadbois/graalvm-demos/assets/134104678/1035cf33-a53a-4f12-af5d-ee88e83244c8)
