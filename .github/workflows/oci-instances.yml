@@ -1,13 +1,13 @@
-name: oci-instance
+name: oci-instances
 on:
   push:
     paths:
-      - 'oci-instance/**'
-      - '.github/workflows/oci-instance.yml'
+      - 'oci-instances/**'
+      - '.github/workflows/oci-instances.yml'
   pull_request:
     paths:
-      - 'oci-instance/**'
-      - '.github/workflows/oci-instance.yml'
+      - 'oci-instances/**'
+      - '.github/workflows/oci-instances.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'oci-instance'
+    name: Run 'oci-instances'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -33,7 +33,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'oci-instance'
+      - name: Run 'oci-instances'
         run: |
-          cd oci-instance
+          cd oci-instances
           mvn -Pnative spring-boot:build-image
