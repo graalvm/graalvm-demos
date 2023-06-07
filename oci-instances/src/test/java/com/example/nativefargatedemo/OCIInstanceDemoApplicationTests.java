@@ -1,10 +1,10 @@
-package com.example.nativefargatedemo;
+package com.example.ociinstancedemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NativeFargateDemoApplicationTests {
+class OCIInstanceDemoApplicationTests {
 
 	@Test
 	void contextLoads() {

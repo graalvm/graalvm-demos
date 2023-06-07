@@ -1,13 +1,13 @@
-package com.example.nativefargatedemo;
+package com.example.ociinstancedemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NativeFargateDemoApplication {
+public class OCIInstanceDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NativeFargateDemoApplication.class, args);
+		SpringApplication.run(OCIInstanceDemoApplication.class, args);
 	}
 
 }
