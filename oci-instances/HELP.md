@@ -1,7 +1,6 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.example.native-fargate-demo' is invalid and this project uses 'com.example.nativefargatedemo' instead.
 
 # Getting Started
 
@@ -44,7 +43,7 @@ $ ./mvnw spring-boot:build-image -Pnative
 Then, you can run the app like any other container:
 
 ```
-$ docker run --rm -p 8080:8080 native-fargate-demo:0.0.1-SNAPSHOT
+$ docker run --rm -p 8080:8080 oci-instance-demo:0.0.1-SNAPSHOT
 ```
 
 ### Executable with Native Build Tools
@@ -61,7 +60,7 @@ $ ./mvnw native:compile -Pnative
 
 Then, you can run the app as follows:
 ```
-$ target/native-fargate-demo
+$ target/oci-instance-demo
 ```
 
 You can also run your existing tests suite in a native image.
