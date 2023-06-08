@@ -1,0 +1,39 @@
+name: aws-fargate
+on:
+  push:
+    paths:
+      - 'aws-fargate/**'
+      - '.github/workflows/aws-fargate.yml'
+  pull_request:
+    paths:
+      - 'aws-fargate/**'
+      - '.github/workflows/aws-fargate.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'aws-fargate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        include:
+          - version: 'latest'
+            java-version: '17'
+          - version: 'dev'
+            java-version: '17'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: ${{ matrix.version }}
+          java-version: ${{ matrix.java-version }}
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'aws-fargate'
+        run: |
+          cd aws-fargate
+          mvn -Pnative spring-boot:build-image
