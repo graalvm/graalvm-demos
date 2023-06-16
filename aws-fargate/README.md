@@ -1,69 +1,108 @@
-GraalVM on Google Cloud Run Demo
-================================
-This demo will walk you through the processes for deploying Native Image applications onto the Google Cloud Run platform. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about its performance.
+GraalVM on AWS Fargate Demo
+=============================
+This demo will walk you through the process of containerizing a Native Image application and then launching the image on the AWS platform by using the Amazon Elastic Container Registry and AWS Fargate. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about its performance.
 
 Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
-- Google Cloud CLI: https://cloud.google.com/sdk/docs/install#linux
-- GraalVM: https://www.graalvm.org/downloads/
+- Apache Maven: https://maven.apache.org/install.html
+- Amazon Web Service CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+    - Once installed, configure your AWS credentials: https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html#cli-authentication-user-configure-wizard
+- Amazon Elastic Container Service: https://docs.aws.amazon.com/AmazonECR/latest/userguide/get-set-up-for-amazon-ecr.html
 
-Download or clone GraalVM demos repository:
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+2. Download or clone GraalVM demos repository:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
-
-Deploying a Native Image Application
+    
+Deploy a Native Image Container on Amazon ECR
 ----------------------
 1. Navigate to the directory for this demo:
 ```bash
-cd graalvm-demos/google-cloud-run
+cd graalvm-demos/aws-fargate
 ```
-2. Login to your Google account using the Google Cloud CLI:
+2. Build the container image:
 ```
-gcloud auth login
+mvn -Pnative spring-boot:build-image
 ```
-3. Run the following command to configure Docker credentuals for the CLI:
-```
-gcloud auth configure-docker
-```
-4. Create a new project using the following command, where "xxxxxx" denotes the 6-digit identifier you choose for your project:
-```
-gcloud projects create graal-demo-xxxxxx
-```
-5. Set your newly created project to be currently selected:
-```
-gcloud config set project graal-demo-xxxxxx
-```
-To see a list of all projects use:
-```
-gcloud projects list
-```
-6. Use a browser to login to the Google Cloud dashboard and navigate to the [Billing](https://console.cloud.google.com/billing/projects) tab
-7. Ensure that you have a billing account set up and enable billing for the newly created project by clicking on the dots beside the project name and selecting "Change billing"
-<img width="1478" alt="Screen Shot 2023-05-16 at 12 52 19 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/f598f19e-6e64-4170-a1d8-f78733b9c44c">
+<img width="695" alt="Build-image" src="https://github.com/egadbois/graalvm-demos/assets/134104678/cba8378b-1fa5-46ad-aeca-1b79a4b49201">
 
-8. Back on your terminal interface, activate the required project APIs:
-```
-gcloud services enable run.googleapis.com container.googleapis.com
-```
-9. Push the application image to Google Cloud Container Registry (once again replacing "xxxxxx" as appropriate):
-```
-./mvnw deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/graaldemo:latest
-```
-<img width="891" alt="Screen Shot 2023-05-16 at 12 47 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/78047411-d8b1-46d2-b61c-24d50d6c817e">
 
-10. Deploy the application to Google Cloud Run:
+3. Create a new ECR repository to store the image:
 ```
-gcloud run deploy --image=gcr.io/graal-demo-xxxxxx/graaldemo:latest --platform managed --allow-unauthenticated
+aws ecr create-repository --repository-name native-fargate-repo
 ```
-<img width="1010" alt="Screen Shot 2023-05-16 at 12 46 05 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/b29ce6b1-304a-441c-8846-4c921f293a7a">
+4. Use the outputted *repositoryUri* to tag the image:
+```
+docker tag native-fargate-demo:0.0.1-SNAPSHOT REPOSITORYURI
+```
+5. Authenticate the Uri for the repository with your credentials:
+```
+docker login -u AWS -p $(aws ecr get-login-password) REPOSITORYURI
+```
+6. Use the Uri once again to push the image to the Amazon ECR:
+```
+docker push REPOSITORYURI
+```
 
-11. Once the application is successfully deployed, a Service URL will be outputted. Use that URL in the following command to test the application - a success will return the string "Hello World":
-```
-curl SERVICE_URL/hello
-```
-<img width="634" alt="Screen Shot 2023-05-16 at 12 45 40 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/16bcc0cb-7c4d-4663-a088-3cc3428b5329">
+Deploy the Service on AWS Fargate
+-------------------------
+1. Login to the [Amazon Web Service dashboard](http://console.aws.amazon.com/)
+2. In the “Services” drop-down menu on the top-left of the page, select “All services” and navigate to the “Elastic Container Service” page
+3. Click on "Clusters" on the left-side pane
+4. Create a new cluster using the button on the top-right of the page
+![Clusters](https://github.com/egadbois/graalvm-demos/assets/134104678/5d0e044b-a778-47d1-a57f-81474c51b646)
 
-12. To view detailed information about the application performace such as build & response times, visit the [Google Cloud Logging](https://console.cloud.google.com/logs/) page
+5. Choose a name for the cluster and leave the remaining settings as their default
+    - If you would like to be able to view insights about the container image perforamance, activate Container Insights under "Monitoring"
+
+     ![New cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/24cbafd1-6ebe-4452-b53d-02b8eb564708)
+
+6. Once you have created the new cluster, navigate to "Task definitions" by selecting it on the left-side pane
+7. Create a new task definition by clicking the button on the top-right corner
+![Task definitions](https://github.com/egadbois/graalvm-demos/assets/134104678/c673da9d-cd0e-4970-824b-d597928b5e1b)
+
+8. Choose names for the Task Definition Family and Container
+9. Paste the REPOSITORYURI used in the prior section into the "Image URI" text box
+    - To find the URI again click the "Amazon ECR" link on the left-side pane and select "Repositories". Your repository will appear along with the corresponding URI
+10. Leave the remaining options as their default and create the new Task Definition
+11. Return to the list of Clusters and select the Cluster that you created
+12. Under "Tasks" click the "Run new task" button
+![New Task](https://github.com/egadbois/graalvm-demos/assets/134104678/f7250fe2-7f5b-4416-8413-2f2387d74ac4)
+
+13. Choose "Task" as the Application Type
+14. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
+![Create task](https://github.com/egadbois/graalvm-demos/assets/134104678/06babf2b-7a12-4373-8533-b34d06a96960)
+
+15. Under "Networking" -> "Security Group" select "Create a new security group"
+16. Choose a name and description for the new group
+17. For "Type" select "All traffic" and for "Source" select "Anywhere"
+![Security group](https://github.com/egadbois/graalvm-demos/assets/134104678/db30659b-01f8-4281-b8ad-78803250786e)
+
+18. Click "Create" to create and deploy the task
+19. Select the task currently running and copy the public IP address displayed on the right side of the page
+![Public IP](https://github.com/egadbois/graalvm-demos/assets/134104678/d382fab0-c6e7-42ed-bf1b-5980d1f6e953)
+
+20. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
+21. You should see a "Hello World" message displayed!
+
+![Hello world](https://github.com/egadbois/graalvm-demos/assets/134104678/23955a8b-166d-4a55-8617-5e312a38c191)
+
+
+Clean-Up
+-----------------
+To prevent incurring additional charges after you are finished with the demo you first need to stop the service that you created. To do so, follow these instructions:
+1. Visit the Task Definitions page and select the task currently running
+2. Under Actions select "Deregister"
+3. Change the drop-down view menu to show "Inactive task definitions"
+4. Select the task definition and under Actions select "Delete"
+![Delete task](https://github.com/egadbois/graalvm-demos/assets/134104678/5bc8120c-2303-4bb1-9d8d-cb59e883fca5)
+
+6. Return to the cluster that you created and delete the task currently running
+7. Use the button on the top-right of the screen to delete the cluster itself
+![Delete cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/5ce61747-30f4-423a-aff7-82c0d43492df)
