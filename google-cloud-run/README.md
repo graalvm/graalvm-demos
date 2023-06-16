@@ -7,12 +7,9 @@ Prerequisites
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
 - Google Cloud CLI: https://cloud.google.com/sdk/docs/install#linux
+- GraalVM: https://www.graalvm.org/downloads/
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
-    ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
-    ```
-2. Download or clone GraalVM demos repository:
+Download or clone GraalVM demos repository:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
