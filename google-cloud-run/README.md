@@ -54,7 +54,7 @@ gcloud services enable run.googleapis.com container.googleapis.com
 ```
 9. Push the application image to Google Cloud Container Registry (once again replacing "xxxxxx" as appropriate):
 ```
-mvn deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/graaldemo:latest
+./mvnw deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/graaldemo:latest
 ```
 <img width="891" alt="Screen Shot 2023-05-16 at 12 47 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/78047411-d8b1-46d2-b61c-24d50d6c817e">
 
