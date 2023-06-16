@@ -35,6 +35,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'aws-fargate'
         run: |
-          pwd
           cd aws-fargate
-          mvn -Pnative spring-boot:build-image
+          ./mvnw package -Dpackaging=docker-native
