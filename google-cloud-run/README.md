@@ -66,7 +66,7 @@ gcloud run deploy --image=gcr.io/graal-demo-xxxxxx/graaldemo:latest --platform m
 
 11. Once the application is successfully deployed, a Service URL will be outputted. Use that URL in the following command to test the application - a success will return the string "Hello World":
 ```
-curl -i SERVICE_URL/hello
+curl SERVICE_URL/hello
 ```
 <img width="634" alt="Screen Shot 2023-05-16 at 12 45 40 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/16bcc0cb-7c4d-4663-a088-3cc3428b5329">
 
