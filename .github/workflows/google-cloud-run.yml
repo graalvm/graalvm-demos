@@ -36,4 +36,4 @@ jobs:
       - name: Run 'google-cloud-run'
         run: |
           cd google-cloud-run
-          mvn package -Dpackaging=docker-native
+          ./mvnw package -Dpackaging=docker-native
