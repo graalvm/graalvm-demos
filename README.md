@@ -101,7 +101,7 @@ cd graalvm-demos
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/google-cloud-run/">google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml"><img alt="google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to deploy native executables on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
+      <td align="left" width="70%">This demo covers the steps required to deploy native executables on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Docker, Google Cloud CLI, Google Cloud Run <br>
   </tbody>
 </table>
 
