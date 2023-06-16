@@ -6,16 +6,12 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
-- Apache Maven: https://maven.apache.org/install.html
 - Amazon Web Service CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
     - Once installed, configure your AWS credentials: https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html#cli-authentication-user-configure-wizard
 - Amazon Elastic Container Service: https://docs.aws.amazon.com/AmazonECR/latest/userguide/get-set-up-for-amazon-ecr.html
+- GraalVM: https://www.graalvm.org/downloads/
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
-    ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
-    ```
-2. Download or clone GraalVM demos repository:
+Download or clone GraalVM demos repository:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
@@ -26,28 +22,17 @@ Deploy a Native Image Container on Amazon ECR
 ```bash
 cd graalvm-demos/aws-fargate
 ```
-2. Build the container image:
-```
-mvn -Pnative spring-boot:build-image
-```
-<img width="695" alt="Build-image" src="https://github.com/egadbois/graalvm-demos/assets/134104678/cba8378b-1fa5-46ad-aeca-1b79a4b49201">
-
-
-3. Create a new ECR repository to store the image:
+2. Create a new ECR repository to store the image:
 ```
 aws ecr create-repository --repository-name native-fargate-repo
 ```
-4. Use the outputted *repositoryUri* to tag the image:
-```
-docker tag native-fargate-demo:0.0.1-SNAPSHOT REPOSITORYURI
-```
-5. Authenticate the Uri for the repository with your credentials:
+3. Authenticate the Uri for the repository with your credentials:
 ```
 docker login -u AWS -p $(aws ecr get-login-password) REPOSITORYURI
 ```
-6. Use the Uri once again to push the image to the Amazon ECR:
+4. Use the Uri once again to push the image to the Amazon ECR:
 ```
-docker push REPOSITORYURI
+./mvnw deploy -Dpackaging=docker-native -Djib.to.image=REPOSITORYURI
 ```
 
 Deploy the Service on AWS Fargate
