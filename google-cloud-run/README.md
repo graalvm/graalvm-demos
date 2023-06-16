@@ -60,7 +60,7 @@ mvn deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/gra
 
 10. Deploy the application to Google Cloud Run:
 ```
-gcloud run deploy --image=gcr.io/graal-demo-xxxxxx/graaldemo:latest --platform managed --allow-unauthenicated
+gcloud run deploy --image=gcr.io/graal-demo-xxxxxx/graaldemo:latest --platform managed --allow-unauthenticated
 ```
 <img width="1010" alt="Screen Shot 2023-05-16 at 12 46 05 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/b29ce6b1-304a-441c-8846-4c921f293a7a">
 
