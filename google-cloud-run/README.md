@@ -6,7 +6,6 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
-- Apache Maven: https://maven.apache.org/install.html
 - Google Cloud CLI: https://cloud.google.com/sdk/docs/install#linux
 
 1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
