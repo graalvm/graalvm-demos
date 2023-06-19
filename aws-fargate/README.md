@@ -16,6 +16,22 @@ Download or clone GraalVM demos repository:
     git clone https://github.com/graalvm/graalvm-demos
     ```
     
+Micronaut "Hello World" Application
+----------------------
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+
+**Application.java**
+
+<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+
+This is the location of the main() function and entry point for the application.
+
+**HelloController.java**
+
+<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+
+This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
+
 Deploy a Native Image Container on Amazon ECR
 ----------------------
 1. Navigate to the directory for this demo:
@@ -26,11 +42,14 @@ cd graalvm-demos/aws-fargate
 ```
 aws ecr create-repository --repository-name native-fargate-repo
 ```
-3. Authenticate the Uri for the repository with your credentials:
+<img width="705" alt="output" src="https://github.com/egadbois/graalvm-demos/assets/134104678/19b51978-8286-4dff-a7b3-3f21c9a53071">
+
+3. A successful repository creation will return an output similar to above; note the "repositoryUri" that is outputted as this will be the location you will use to store your image
+4. Authenticate the Uri for the repository with your credentials:
 ```
 docker login -u AWS -p $(aws ecr get-login-password) REPOSITORYURI
 ```
-4. Use the Uri once again to push the image to the Amazon ECR:
+5. Use the Uri once again to push the image to the Amazon ECR:
 ```
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=REPOSITORYURI
 ```
