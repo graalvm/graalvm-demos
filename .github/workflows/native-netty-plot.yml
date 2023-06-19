@@ -17,17 +17,16 @@ jobs:
   run:
     name: Run 'native-netty-plot'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       matrix:
-        version: [latest, dev]
+        java-version: ['17', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
-          java-version: '17'
-          components: 'native-image'
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'

@@ -39,7 +39,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
- */
 import java.awt.Button;
 import java.awt.Canvas;
 import java.awt.Component;
