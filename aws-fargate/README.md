@@ -49,6 +49,12 @@ aws ecr create-repository --repository-name native-fargate-repo
 ```
 docker login -u AWS -p $(aws ecr get-login-password) REPOSITORYURI
 ```
+OPTIONAL: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
+```
+./mvnw mn:dockerfile -Dpackaging=docker-native
+```
+The newly created Dockerfile will be automatically stored in the "target" directory
+
 5. Use the Uri once again to push the image to the Amazon ECR:
 ```
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=REPOSITORYURI
