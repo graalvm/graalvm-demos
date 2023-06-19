@@ -17,7 +17,7 @@ jobs:
   run-static:
     name: Run static 'native-static-images'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       matrix:
         include:
@@ -43,21 +43,16 @@ jobs:
   run-mostly-static:
     name: Run mostly-static 'native-static-images'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       matrix:
-        include:
-          - version: 'latest'
-            java-version: '17'
-          - version: 'dev'
-            java-version: 'dev'
+        java-version: ['17', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
           java-version: ${{ matrix.java-version }}
-          components: 'native-image'
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
       - name: Run mostly-static 'mostly-static-image'

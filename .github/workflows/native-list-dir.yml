@@ -17,21 +17,17 @@ jobs:
   run:
     name: Run 'native-list-dir'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       matrix:
-        include:
-          - version: 'latest'
-            java-version: '17'
-          - version: 'dev'
-            java-version: 'dev'
+        java-version: ['17', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
           java-version: ${{ matrix.java-version }}
-          components: 'native-image,js'
+          distribution: 'graalvm'
+          components: 'js'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
       - name: Run 'native-list-dir'
