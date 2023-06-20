@@ -14,6 +14,22 @@ Download or clone GraalVM demos repository:
     git clone https://github.com/graalvm/graalvm-demos
     ```
 
+Micronaut "Hello World" Application
+----------------------
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+
+**Application.java**
+
+<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+
+This is the location of the main() function and entry point for the application.
+
+**HelloController.java**
+
+<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+
+This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
+
 Deploying a Native Image Application
 ----------------------
 1. Navigate to the directory for this demo:
@@ -48,6 +64,12 @@ gcloud projects list
 ```
 gcloud services enable run.googleapis.com container.googleapis.com
 ```
+__OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
+```
+./mvnw mn:dockerfile -Dpackaging=docker-native
+```
+The newly created Dockerfile will be automatically stored in the "target" directory
+
 9. Push the application image to Google Cloud Container Registry (once again replacing "xxxxxx" as appropriate):
 ```
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/graaldemo:latest
