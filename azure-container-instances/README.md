@@ -36,7 +36,23 @@ Deploy a Native Image Container on Azure Container Registry
 ```bash
 cd graalvm-demos/azure-container-instances
 ```
-2. Create a new ACR repository to store the image:
+2. Create a new Azure resource group that will store all resources for this demo:
+```
+az group create --name nativeResourceGroup --location <REGION>
+```
+
+**NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
+```
+az account list-locations
+```
+
+3. Create a container registry within the resource group (Chosen name must be unique across Azure and contain 5-50 lowercase alphanumeric characters):
+```
+az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
+```
+
+A successful creation will output something similar to that shown in the screenshot; take note of the "loginServer" value as this is the fully qualified registry name.
+4. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
 
 
 
