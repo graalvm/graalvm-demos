@@ -51,13 +51,14 @@ az account list-locations
 az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
 ```
 
-A successful creation will output something similar to that shown in the screenshot; take note of the "loginServer" value as this is the fully qualified registry name.
+A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
+
 4. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
 
 
 
 
-
+-------------------------------------------------
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
 ```
