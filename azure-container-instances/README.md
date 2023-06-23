@@ -54,11 +54,14 @@ az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku 
 A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
 
 4. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
-
-
-
-
--------------------------------------------------
+5. Use the search bar at the top of the page to navigate to the "Container registries" page
+6. Select the registry you previously created and select "Access keys" on the left side of the page
+7. Toggle the "Admin User" switch so that it is enabled - a username and password(s) will appear that you will use to login to the registry on the CLI
+8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
+```
+docker login <REGISTRY-NAME>.azurecr.io
+``
+A successful authentication will return a "Login Succeeded" message
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
 ```
@@ -66,7 +69,7 @@ __OPTIONAL__: In the next step you will use a single command to build the applic
 ```
 The newly created Dockerfile will be automatically stored in the "target" directory
 
-5. Use the Uri once again to push the image to the Amazon ECR:
+5. Use the Uri once again to push the image to the ACR:
 ```
-./mvnw deploy -Dpackaging=docker-native -Djib.to.image=REPOSITORYURI
+./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
 ```
