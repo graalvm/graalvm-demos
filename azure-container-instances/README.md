@@ -10,9 +10,9 @@ Ensure that you have the following installed and follow the linked instructions 
 - GraalVM: https://www.graalvm.org/downloads/
 
 Download or clone GraalVM demos repository:
-    ```sh
-    git clone https://github.com/graalvm/graalvm-demos
-    ```
+```sh
+git clone https://github.com/graalvm/graalvm-demos
+```
     
 Micronaut "Hello World" Application
 ----------------------
