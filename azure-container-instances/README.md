@@ -60,7 +60,7 @@ A successful creation will output something similar to that shown in the screens
 8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
 ```
 docker login <REGISTRY-NAME>.azurecr.io
-``
+```
 A successful authentication will return a "Login Succeeded" message
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
