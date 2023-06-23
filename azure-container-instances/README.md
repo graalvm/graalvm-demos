@@ -40,6 +40,7 @@ cd graalvm-demos/azure-container-instances
 ```
 az group create --name nativeResourceGroup --location <REGION>
 ```
+<img width="766" alt="Screen Shot 2023-06-20 at 12 38 21 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/2f24f009-303a-431d-8b38-3903cab771f0">
 
 **NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
 ```
@@ -50,6 +51,8 @@ az account list-locations
 ```
 az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
 ```
+<img width="1185" alt="Screen Shot 2023-06-20 at 12 47 46 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/17de8157-f9cb-49f9-ac44-5dbc797ec3cc">
+
 
 A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
 
@@ -57,11 +60,15 @@ A successful creation will output something similar to that shown in the screens
 5. Use the search bar at the top of the page to navigate to the "Container registries" page
 6. Select the registry you previously created and select "Access keys" on the left side of the page
 7. Toggle the "Admin User" switch so that it is enabled - a username and password(s) will appear that you will use to login to the registry on the CLI
+
+![Screen Shot 2023-06-20 at 12 50 39 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/c732cb96-14d1-428c-a23a-0637b22ee8ee)
+
+
 8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
 ```
 docker login <REGISTRY-NAME>.azurecr.io
 ```
-A successful authentication will return a "Login Succeeded" message
+<img width="613" alt="Screen Shot 2023-06-20 at 12 51 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d2950b52-02bd-4b9e-906d-5629024c707e">
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
 ```
@@ -69,7 +76,8 @@ __OPTIONAL__: In the next step you will use a single command to build the applic
 ```
 The newly created Dockerfile will be automatically stored in the "target" directory
 
-5. Use the Uri once again to push the image to the ACR:
+9. Use the Uri once again to push the image to the ACR:
 ```
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
 ```
+<img width="613" alt="Screen Shot 2023-06-20 at 1 09 02 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/94d1ae3b-a8ea-485c-98c7-4070e92a9aa8">
