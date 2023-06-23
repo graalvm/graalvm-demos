@@ -10,7 +10,7 @@ Ensure that you have the following installed and follow the linked instructions 
 - GraalVM: https://www.graalvm.org/downloads/
 
 Download or clone GraalVM demos repository:
-    ```bash
+    ```sh
     git clone https://github.com/graalvm/graalvm-demos
     ```
     
@@ -33,22 +33,22 @@ This code implements the actual RESTful "Hello World" functionality. It produces
 Deploy a Native Image Container on Azure Container Registry
 ----------------------
 1. Navigate to the directory for this demo:
-```bash
+```sh
 cd graalvm-demos/azure-container-instances
 ```
 2. Create a new Azure resource group that will store all resources for this demo:
-```
+```sh
 az group create --name nativeResourceGroup --location <REGION>
 ```
 <img width="766" alt="Screen Shot 2023-06-20 at 12 38 21 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/2f24f009-303a-431d-8b38-3903cab771f0">
 
 **NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
-```
+```sh
 az account list-locations
 ```
 
 3. Create a container registry within the resource group (Chosen name must be unique across Azure and contain 5-50 lowercase alphanumeric characters):
-```
+```sh
 az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
 ```
 <img width="1185" alt="Screen Shot 2023-06-20 at 12 47 46 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/17de8157-f9cb-49f9-ac44-5dbc797ec3cc">
@@ -65,19 +65,52 @@ A successful creation will output something similar to that shown in the screens
 
 
 8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
-```
+```sh
 docker login <REGISTRY-NAME>.azurecr.io
 ```
 <img width="613" alt="Screen Shot 2023-06-20 at 12 51 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d2950b52-02bd-4b9e-906d-5629024c707e">
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
-```
+```sh
 ./mvnw mn:dockerfile -Dpackaging=docker-native
 ```
 The newly created Dockerfile will be automatically stored in the "target" directory
 
 9. Use the Uri once again to push the image to the ACR:
-```
+```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
 ```
 <img width="613" alt="Screen Shot 2023-06-20 at 1 09 02 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/94d1ae3b-a8ea-485c-98c7-4070e92a9aa8">
+
+Deploy the application on Azure Container Instances
+----------------------
+1. Create a container within the same resource group that you created in the last section (When prompted, enter the registry username and password as you did in the previous section):
+```sh
+az container create --resource-group nativeResourceGroup --name nativecontainer --image <REGISTRY-NAME>.azurecr.io/nativedemo --dns-name-label nativeapp --ports 8080
+```
+<img width="1192" alt="Screen Shot 2023-06-20 at 1 29 47 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a4a47ca0-9d3d-424e-b47b-4cbbe3b5ec28">
+
+2. Ensure that the provision has been successful:
+```sh
+az container show --resource-group nativeResourceGroup --name nativecontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+```
+<img width="1289" alt="Screen Shot 2023-06-23 at 3 38 32 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/66a3a6b4-0ded-42db-9cda-2953d43a1173">
+
+3. If the ProvisioningState is "Succeeded" then you have properly deployed the application; to test it out use the outputted FQDN in your internet browser in the format:
+```sh
+<FQDN>:8080/hello
+```
+
+You should see a "Hello World" message displayed on the webpage:
+
+![Screen Shot 2023-06-20 at 1 31 20 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/d902babc-8516-4b3d-a177-51261c6820fb)
+
+Clean-up
+---------------------
+Once you are completed with this demo, follow these steps to clean-up the resources created and ensure that you do not incur any charges:
+1. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
+2. Use the search bar at the top of the screen to navigate to the "Resource groups" page
+3. Select the resource group that you created, click "Delete resource group", and then follow the on-screen instructions to confirm the deletion
+
+![Screen Shot 2023-06-23 at 3 43 31 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/a53da96b-5ba1-46ea-a071-7b3dd756080f)
+
