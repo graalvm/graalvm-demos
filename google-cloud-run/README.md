@@ -91,3 +91,13 @@ curl SERVICE_URL/hello
 <img width="634" alt="Screen Shot 2023-05-16 at 12 45 40 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/16bcc0cb-7c4d-4663-a088-3cc3428b5329">
 
 12. To view detailed information about the application performace such as build & response times, visit the [Google Cloud Logging](https://console.cloud.google.com/logs/) page
+
+Clean-Up
+-----------------------
+Once you are finished with the demo, follow these steps to delete the created resources:
+1. Use a browser to login to the Google Cloud dashboard and navigate to the [Resource Manager](https://console.cloud.google.com/cloud-resource-manager?previousPage=%2Fprojectselector2&organizationId=0)
+2. Check the box next to the name of the project you wish to delete
+
+![Screen Shot 2023-06-26 at 3 27 51 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/c0521d4f-136a-49cf-99b0-dc3f35094225)
+
+3. Click the "DELETE" button on the top bar and follow the on-screen instructions
