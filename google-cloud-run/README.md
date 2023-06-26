@@ -36,7 +36,7 @@ Deploying a Native Image Application
 ----------------------
 1. Navigate to the directory for this demo:
 ```sh
-cd graalvm-demos/google-cloud-run
+cd graalvm-demos/native-google-cloud-run
 ```
 2. Login to your Google account using the Google Cloud CLI:
 ```sh
