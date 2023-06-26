@@ -105,6 +105,23 @@ cd graalvm-demos
   </tbody>
 </table>
 
+### Native Image on Cloud Platforms
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left" width="30%"><a href="/native-aws-fargate/">native-aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml"><img alt="native-aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy a native image application on the Amazon Web Service Fargate platform.<br><strong>Technologies: </strong> Native Image, Docker, AWS Fargate <br></td>
+    </tr>
+  </tbody>
+</table>
+
 ### Java on Truffle (Espresso)
 
 <table>
