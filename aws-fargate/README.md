@@ -11,10 +11,12 @@ Ensure that you have the following installed and follow the linked instructions 
 - Amazon Elastic Container Service: https://docs.aws.amazon.com/AmazonECR/latest/userguide/get-set-up-for-amazon-ecr.html
 - GraalVM: https://www.graalvm.org/downloads/
 
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+
 Download or clone GraalVM demos repository:
-    ```bash
-    git clone https://github.com/graalvm/graalvm-demos
-    ```
+```sh
+git clone https://github.com/graalvm/graalvm-demos
+```
     
 Micronaut "Hello World" Application
 ----------------------
@@ -35,28 +37,28 @@ This code implements the actual RESTful "Hello World" functionality. It produces
 Deploy a Native Image Container on Amazon ECR
 ----------------------
 1. Navigate to the directory for this demo:
-```bash
+```sh
 cd graalvm-demos/aws-fargate
 ```
 2. Create a new ECR repository to store the image:
-```
+```sh
 aws ecr create-repository --repository-name native-fargate-repo
 ```
 <img width="705" alt="output" src="https://github.com/egadbois/graalvm-demos/assets/134104678/19b51978-8286-4dff-a7b3-3f21c9a53071">
 
 3. A successful repository creation will return an output similar to above; note the "repositoryUri" that is outputted as this will be the location you will use to store your image
 4. Authenticate the Uri for the repository with your credentials:
-```
+```sh
 docker login -u AWS -p $(aws ecr get-login-password) REPOSITORYURI
 ```
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
-```
+```sh
 ./mvnw mn:dockerfile -Dpackaging=docker-native
 ```
 The newly created Dockerfile will be automatically stored in the "target" directory
 
 5. Use the Uri once again to push the image to the Amazon ECR:
-```
+```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=REPOSITORYURI
 ```
 
