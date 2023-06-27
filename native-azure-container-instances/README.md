@@ -9,6 +9,8 @@ Ensure that you have the following installed and follow the linked instructions 
 - Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 - GraalVM: https://www.graalvm.org/downloads/
 
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+
 Download or clone GraalVM demos repository:
 ```sh
 git clone https://github.com/graalvm/graalvm-demos
