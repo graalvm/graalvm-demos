@@ -1,118 +1,103 @@
-GraalVM on Azure Container Instances Demo
+GraalVM on OCI Container Instances Demo
 =============================
-This demo will walk you through the process of containerizing a Native Image application and then launching the image on the Azure platform by using the Azure Container Registry and Azure Container Instances. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about its performance.
+This demo will walk you through the process of containerizing a Native Image application and then launching the image on the OCI platform by using the Container Instance service. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to see details about its performance.
 
 Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
-- Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-- GraalVM: https://www.graalvm.org/downloads/
+- Apache Maven: https://maven.apache.org/install.html
+- Your OCI account also must have the proper permissions to create container instances; follow this guide to grant access: https://docs.oracle.com/en-us/iaas/Content/container-instances/permissions/policy-reference.htm#examples__let-users-create-container-instances
 
-**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+    ```bash
+    bash <(curl -sL https://get.graalvm.org/jdk) 
+    ```
+2. Download or clone GraalVM demos repository:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
 
-Download or clone GraalVM demos repository:
-```sh
-git clone https://github.com/graalvm/graalvm-demos
-```
-    
-Micronaut "Hello World" Application
+Configure authentication
 ----------------------
-The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+1. Open the OCI [dashboard](https://cloud.oracle.com/) and login to your profile
+2. Open the Profile menu on the top-right of the screen and click "User Settings"
+3. Under "Auth Tokens", click "Generate Token"
+4. After choosing a description, the token will be presented to you. Immediately copy the token to a secure location because you will not be able to view it again in the console
+5. On your local machine's terminal (where Docker is installed), login to the Registry:
+```
+docker login <region-key>.ocir.io
+```
+For a list of all region keys, [click here](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#regional-availability)
 
-**Application.java**
+6. When prompted for a username, provide yours in the format:
+```
+<tenancy-namespace>/<username>
+```
+Tenancy namespace can be found on the [Tenancy Information](https://cloud.oracle.com/tenancy) page if you do not know it
 
-<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+7. Use the authorization token to created previously as the password when prompted
 
-This is the location of the main() function and entry point for the application.
-
-**HelloController.java**
-
-<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
-
-This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
-
-Deploy a Native Image Container on Azure Container Registry
+Deploy a Native Image Container on OCI Container Registry
 ----------------------
 1. Navigate to the directory for this demo:
-```sh
-cd graalvm-demos/native-azure-container-instances
+```bash
+cd graalvm-demos/oci-instances
 ```
-2. Create a new Azure resource group that will store all resources for this demo:
-```sh
-az group create --name nativeResourceGroup --location <REGION>
+2. Build the container image:
 ```
-<img width="766" alt="Screen Shot 2023-06-20 at 12 38 21 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/2f24f009-303a-431d-8b38-3903cab771f0">
-
-**NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
-```sh
-az account list-locations
+mvn -Pnative spring-boot:build-image
 ```
-
-3. Create a container registry within the resource group (Chosen name must be unique across Azure and contain 5-50 lowercase alphanumeric characters):
-```sh
-az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
+3. Tag the image with the location for it to be stored (```<repo-name>``` may be an existing repository or any name for a repository that will be created upon pushing the image):
 ```
-<img width="1185" alt="Screen Shot 2023-06-20 at 12 47 46 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/17de8157-f9cb-49f9-ac44-5dbc797ec3cc">
-
-
-A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
-
-4. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
-5. Use the search bar at the top of the page to navigate to the "Container registries" page
-6. Select the registry you previously created and select "Access keys" on the left side of the page
-7. Toggle the "Admin User" switch so that it is enabled - a username and password(s) will appear that you will use to login to the registry on the CLI
-
-![Screen Shot 2023-06-20 at 12 50 39 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/c732cb96-14d1-428c-a23a-0637b22ee8ee)
-
-
-8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
-```sh
-docker login <REGISTRY-NAME>.azurecr.io
+docker tag oci-instance-demo:0.0.1-SNAPSHOT <region-key>.ocir.io/<tenancy-namespace>/<repo-name>
 ```
-<img width="613" alt="Screen Shot 2023-06-20 at 12 51 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d2950b52-02bd-4b9e-906d-5629024c707e">
-
-__OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
-```sh
-./mvnw mn:dockerfile -Dpackaging=docker-native
+4. Push the image to the registry:
 ```
-The newly created Dockerfile will be automatically stored in the "target" directory
-
-9. Use the Uri once again to push the image to the ACR:
-```sh
-./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
+docker push <region-key>.ocir.io/<tenancy-namespace>/<repo-name>:latest
 ```
-<img width="613" alt="Screen Shot 2023-06-20 at 1 09 02 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/94d1ae3b-a8ea-485c-98c7-4070e92a9aa8">
+5. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
+6. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
+7. Ensure that the Access type is "Public"; if it is not, click "Actions" in the top-right corner and select "Change to public"
+<img width="888" alt="Screen Shot 2023-06-06 at 4 57 54 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/c9ec8364-5aea-40f0-8348-79339dc6578f">
 
-Deploy the application on Azure Container Instances
-----------------------
-1. Create a container within the same resource group that you created in the last section (When prompted, enter the registry username and password as you did in the previous section):
-```sh
-az container create --resource-group nativeResourceGroup --name nativecontainer --image <REGISTRY-NAME>.azurecr.io/nativedemo --dns-name-label nativeapp --ports 8080
+Create an OCI Container Instance
+-------------------------
+1. From the main OCI dashboard, open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Instances"
+<img width="278" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
+
+2. Click "Create container instance"
+3. Input a name and compartment location for the instance
+4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (For this demo, 4 OCPUs and 128 GBs will be plenty)
+<img width="1002" alt="Screen Shot 2023-06-06 at 4 29 11 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d71fd5a4-e6db-401e-b205-8e814b1e9091">
+
+5. In the "Networking" section, you may either use a pre-existing VCN or create a new one
+6. Leave the remaining options as their default and click "Next"
+7. Choose a name for the container (or leave as default) and in the "Image" section click "Select image"
+<img width="987" alt="Screen Shot 2023-06-06 at 4 31 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a47b09da-838a-4674-98ed-2935ad151529">
+
+8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose
+9. Create the container and allow it a moment to intialize
+<img width="1282" alt="Screen Shot 2023-06-06 at 4 31 55 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/3ea80a66-585d-41b3-8678-35e8f78dd869">
+
+10. A successful deployment will result in the large icon box turning green and the status "ACTIVE" displayed beneath it
+<img width="1493" alt="Screen Shot 2023-06-07 at 12 12 57 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/1884d443-a97e-46b9-aa60-7f9775024135">
+
+Configure the Security Group
+------------------------
+1. On the OCI platform, open the side menu and click on "Networking" -> "Virtual cloud networks"
+2. Click on the VCN that your container instance is using (If you do not see the VCN, ensure that you are in the correct compartment via the drop-down menu on the left side of the screen)
+3. Click "Network Security Groups" and then "Create Network Security Group"
+4. Choose a name and compartment for the new group then click "Next"
+5. Select "Ingress" as the Direction, CIDR for Source Type, "0.0.0.0/0" for Source CIDR, and leave the remaining fields as their default - then click "Create"
+<img width="1493" alt="Screen Shot 2023-06-07 at 12 28 43 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/4099ec70-1b73-43ab-8f83-5813dbc71dac">
+
+6. Return to the page for your container instance and click "Edit" beside "Network security groups"
+7. Locate the newly created security group and click "Save changes"
+8. To test the deployment, copy the Public IP address and input it into your web browser in the format:
 ```
-<img width="1192" alt="Screen Shot 2023-06-20 at 1 29 47 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a4a47ca0-9d3d-424e-b47b-4cbbe3b5ec28">
-
-2. Ensure that the provision has been successful:
-```sh
-az container show --resource-group nativeResourceGroup --name nativecontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+http://<public-ip-address>:8080/hello
 ```
-<img width="1289" alt="Screen Shot 2023-06-23 at 3 38 32 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/66a3a6b4-0ded-42db-9cda-2953d43a1173">
+9. If you have completed the demo successfully, a "Hello World!" message will be displayed!
 
-3. If the ProvisioningState is "Succeeded" then you have properly deployed the application; to test it out use the outputted FQDN in your internet browser in the format:
-```sh
-<FQDN>:8080/hello
-```
-
-You should see a "Hello World" message displayed on the webpage:
-
-![Screen Shot 2023-06-20 at 1 31 20 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/d902babc-8516-4b3d-a177-51261c6820fb)
-
-Clean-up
----------------------
-Once you are completed with this demo, follow these steps to clean-up the resources created and ensure that you do not incur any charges:
-1. On an internet browser, open the [Azure dashboard](https://portal.azure.com/#home)
-2. Use the search bar at the top of the screen to navigate to the "Resource groups" page
-3. Select the resource group that you created, click "Delete resource group", and then follow the on-screen instructions to confirm the deletion
-
-![Screen Shot 2023-06-23 at 3 43 31 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/a53da96b-5ba1-46ea-a071-7b3dd756080f)
-
+![Hello World!](https://github.com/egadbois/graalvm-demos/assets/134104678/1035cf33-a53a-4f12-af5d-ee88e83244c8)
