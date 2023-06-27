@@ -98,22 +98,24 @@ cd graalvm-demos
     <tr>
       <td align="left" width="30%"><a href="/native-image-jmx-demo/">native-image-jmx-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml"><img alt="nnative-image-jmx-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to build, run, and interact with a native executable using JMX.<br><strong>Technologies: </strong> Native Image, JMX, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-and-run-native-executable-with-remote-jmx/">Build and Run Native Executables with Remote JMX</a></td>
-    </tr>  
+    </tr>
+  </tbody>
+</table>
+
+### Native Image on Cloud Platforms
+
+<table>
+  <thead>
     <tr>
-      <td align="left" width="30%"><a href="/aws-lambda-demo/">aws-lambda-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml"><img alt="aws-lambda-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to deploy native executables on AWS Lambda.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Lambda <br>
-    </tr>  
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/google-cloud-run/">google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml"><img alt="google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to deploy native executables on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
-    </tr>  
-    <tr>
-      <td align="left" width="30%"><a href="/oci-instances/">oci-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/oci-instances.yml"><img alt="oci-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/oci-instances.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image onto OCI Container Instances.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances <br>
-    </tr>  
-    <tr>
-      <td align="left" width="30%"><a href="/aws-fargate/">aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-fargate.yml"><img alt="aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-fargate.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image onto AWS Fargate.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Fargate <br>
+      <td align="left" width="30%"><a href="/native-aws-lambda/">native-aws-lambda</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml"><img alt="native-aws-lambda" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the Amazon Web Service Lambda platform.<br><strong>Technologies: </strong> Native Image, Docker, AWS Lambda<br></td>
+    </tr>
   </tbody>
 </table>
 
