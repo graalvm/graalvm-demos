@@ -111,9 +111,9 @@ Configure the Security Group
 ```sh
 http://<public-ip-address>:8080/hello
 ```
-9. If you have completed the demo successfully, a "Hello World!" message will be displayed!
+9. If you have completed the demo successfully, a "Hello World" message will be displayed!
 
-![Hello World!](https://github.com/egadbois/graalvm-demos/assets/134104678/1035cf33-a53a-4f12-af5d-ee88e83244c8)
+![Hello World](https://github.com/egadbois/graalvm-demos/assets/134104678/593016fb-6623-4757-aeab-723d93c010ad)
 
 Clean-Up
 ---------------------------
