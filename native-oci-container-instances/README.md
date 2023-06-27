@@ -58,21 +58,20 @@ Deploy a Native Image Container on OCI Container Registry
 ```sh
 cd graalvm-demos/native-oci-instances
 ```
-2. Build the container image:
+
+__OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
 ```sh
-mvn -Pnative spring-boot:build-image
+./mvnw mn:dockerfile -Dpackaging=docker-native
 ```
-3. Tag the image with the location for it to be stored (```<repo-name>``` may be an existing repository or any name for a repository that will be created upon pushing the image):
+The newly created Dockerfile will be automatically stored in the "target" directory
+
+2. Build the container image and push it to the OCI registry (```<repo-name>``` may be an existing repository or any name for a repository that will be created upon pushing the image):
 ```sh
-docker tag oci-instance-demo:0.0.1-SNAPSHOT <region-key>.ocir.io/<tenancy-namespace>/<repo-name>
+./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<region-key>.ocir.io/<tenancy-namespace>/<repo-name>
 ```
-4. Push the image to the registry:
-```sh
-docker push <region-key>.ocir.io/<tenancy-namespace>/<repo-name>:latest
-```
-5. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
-6. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
-7. Ensure that the Access type is "Public"; if it is not, click "Actions" in the top-right corner and select "Change to public"
+3. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
+4. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
+5. Ensure that the Access type is "Public"; if it is not, click "Actions" in the top-right corner and select "Change to public"
 <img width="888" alt="Screen Shot 2023-06-06 at 4 57 54 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/c9ec8364-5aea-40f0-8348-79339dc6578f">
 
 Create an OCI Container Instance
@@ -115,3 +114,6 @@ http://<public-ip-address>:8080/hello
 9. If you have completed the demo successfully, a "Hello World!" message will be displayed!
 
 ![Hello World!](https://github.com/egadbois/graalvm-demos/assets/134104678/1035cf33-a53a-4f12-af5d-ee88e83244c8)
+
+Clean-Up
+---------------------------
