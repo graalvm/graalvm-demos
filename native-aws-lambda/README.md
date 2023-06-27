@@ -33,7 +33,7 @@ cd graalvm-demos/aws-lambda-demo
 ```
 2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
 ```sh
-mvn package
+./mvnw package
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
 ![AWS dashboard](https://github.com/egadbois/graalvm-demos/assets/134104678/b57492af-1205-4ff9-b498-c5e610688292)
@@ -69,7 +69,7 @@ cd graalvm-demos/aws-lambda-demo
 ```
 2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target):
 ```sh
-mvn package -Dpackaging=docker-native
+./mvnw package -Dpackaging=docker-native
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
 ![AWS dashboard](https://github.com/egadbois/graalvm-demos/assets/134104678/b57492af-1205-4ff9-b498-c5e610688292)
@@ -95,3 +95,12 @@ mvn package -Dpackaging=docker-native
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
 ![Test result](https://github.com/egadbois/graalvm-demos/assets/134104678/cc11c441-4fc0-4873-bba4-a5a96f78f8cd)
+
+Clean-Up
+--------------------------
+After completing this demo, follow these steps to delete the resources created:
+1. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
+2. Check the box next to the function(s) that you created
+3. Click "Delete" under the "Actions" dropdown and follow the on-screen instructions
+
+<img width="1235" alt="Screen Shot 2023-06-27 at 4 07 47 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/6c5111c4-4f70-4533-abd5-193c1f7fd269">
