@@ -6,17 +6,31 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - Docker: https://docs.docker.com/desktop/
-- Apache Maven: https://maven.apache.org/install.html
+- GraalVM: https://www.graalvm.org/downloads/
 - Your OCI account also must have the proper permissions to create container instances; follow this guide to grant access: https://docs.oracle.com/en-us/iaas/Content/container-instances/permissions/policy-reference.htm#examples__let-users-create-container-instances
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
-    ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
-    ```
-2. Download or clone GraalVM demos repository:
-    ```bash
-    git clone https://github.com/graalvm/graalvm-demos
-    ```
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+
+Download or clone GraalVM demos repository:
+```sh
+git clone https://github.com/graalvm/graalvm-demos
+```
+
+Micronaut "Hello World" Application
+----------------------
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+
+**Application.java**
+
+<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+
+This is the location of the main() function and entry point for the application.
+
+**HelloController.java**
+
+<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+
+This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
 
 Configure authentication
 ----------------------
@@ -25,13 +39,13 @@ Configure authentication
 3. Under "Auth Tokens", click "Generate Token"
 4. After choosing a description, the token will be presented to you. Immediately copy the token to a secure location because you will not be able to view it again in the console
 5. On your local machine's terminal (where Docker is installed), login to the Registry:
-```
+```sh
 docker login <region-key>.ocir.io
 ```
 For a list of all region keys, [click here](https://docs.oracle.com/en-us/iaas/Content/Registry/Concepts/registryprerequisites.htm#regional-availability)
 
 6. When prompted for a username, provide yours in the format:
-```
+```sh
 <tenancy-namespace>/<username>
 ```
 Tenancy namespace can be found on the [Tenancy Information](https://cloud.oracle.com/tenancy) page if you do not know it
@@ -41,19 +55,19 @@ Tenancy namespace can be found on the [Tenancy Information](https://cloud.oracle
 Deploy a Native Image Container on OCI Container Registry
 ----------------------
 1. Navigate to the directory for this demo:
-```bash
-cd graalvm-demos/oci-instances
+```sh
+cd graalvm-demos/native-oci-instances
 ```
 2. Build the container image:
-```
+```sh
 mvn -Pnative spring-boot:build-image
 ```
 3. Tag the image with the location for it to be stored (```<repo-name>``` may be an existing repository or any name for a repository that will be created upon pushing the image):
-```
+```sh
 docker tag oci-instance-demo:0.0.1-SNAPSHOT <region-key>.ocir.io/<tenancy-namespace>/<repo-name>
 ```
 4. Push the image to the registry:
-```
+```sh
 docker push <region-key>.ocir.io/<tenancy-namespace>/<repo-name>:latest
 ```
 5. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
@@ -95,7 +109,7 @@ Configure the Security Group
 6. Return to the page for your container instance and click "Edit" beside "Network security groups"
 7. Locate the newly created security group and click "Save changes"
 8. To test the deployment, copy the Public IP address and input it into your web browser in the format:
-```
+```sh
 http://<public-ip-address>:8080/hello
 ```
 9. If you have completed the demo successfully, a "Hello World!" message will be displayed!
