@@ -113,8 +113,8 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/native-azure-container-instances/">native-azure-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml"><img alt="native-azure-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the Azure Container Instances platform.<br><strong>Technologies: </strong> Native Image, Docker, Azure CLI, Azure Container Instances<br></td>
+      <td align="left" width="30%"><a href="/native-oci-container-instances/">native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml"><img alt="native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the OCI Container Instances platform.<br><strong>Technologies: </strong> Native Image, Docker, OCI Container Instances<br></td>
     </tr>
   </tbody>
 </table>
