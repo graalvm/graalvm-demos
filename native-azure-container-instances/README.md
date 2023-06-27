@@ -34,7 +34,7 @@ Deploy a Native Image Container on Azure Container Registry
 ----------------------
 1. Navigate to the directory for this demo:
 ```sh
-cd graalvm-demos/azure-container-instances
+cd graalvm-demos/native-azure-container-instances
 ```
 2. Create a new Azure resource group that will store all resources for this demo:
 ```sh
