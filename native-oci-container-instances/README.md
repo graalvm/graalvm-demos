@@ -117,3 +117,23 @@ http://<public-ip-address>:8080/hello
 
 Clean-Up
 ---------------------------
+Once you have completed this demo, follow these instructions to delete the created resources:
+1. Visit the OCI [dashboard](https://cloud.oracle.com/)
+2. Open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
+3. Select the container image that you uploaded and under the "Actions" drop down select "Delete repository"
+
+![Delete repository](https://github.com/egadbois/graalvm-demos/assets/134104678/da43004b-d017-49c4-8273-5bf0a4acc2cd)
+
+4. On the left side of the page, select "Container Instances"
+5. Select the container instance that you created and under the "More actions" drop down select "Delete"
+
+![Delete instance](https://github.com/egadbois/graalvm-demos/assets/134104678/5289230a-1a19-4f71-b4bb-1669e1c6f671)
+
+6. Open the side menu and click on "Networking" -> "Virtual cloud networks"
+7. Select the VCN that you created for your container instance
+8. Click the red "Delete" button
+
+![Delete VCN](https://github.com/egadbois/graalvm-demos/assets/134104678/a45cbb7e-59ec-4952-9a54-899907a9e094)
+
+9. Click "Scan" - this will return a list of any lingering resources that are referencing the VCN
+10. Click "Delete all" to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages)
