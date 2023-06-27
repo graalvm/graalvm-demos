@@ -1,13 +1,13 @@
-name: native-azure-container-instances
+name: native-oci-container-instances
 on:
   push:
     paths:
-      - 'native-azure-container-instances/**'
-      - '.github/workflows/native-azure-container-instances.yml'
+      - 'native-oci-container-instances/**'
+      - '.github/workflows/native-oci-container-instances.yml'
   pull_request:
     paths:
-      - 'native-azure-container-instances/**'
-      - '.github/workflows/native-azure-container-instances.yml'
+      - 'native-oci-container-instances/**'
+      - '.github/workflows/native-oci-container-instances.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-azure-container-instances'
+    name: Run 'native-oci-container-instances'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -25,7 +25,7 @@ jobs:
           java-version: '17.0.7'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'native-azure-container-instances'
+      - name: Run 'native-oci-container-instances'
         run: |
-          cd native-azure-container-instances
+          cd native-oci-container-instances
           ./mvnw package -Dpackaging=docker-native
