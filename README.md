@@ -98,6 +98,24 @@ cd graalvm-demos
     <tr>
       <td align="left" width="30%"><a href="/native-image-jmx-demo/">native-image-jmx-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml"><img alt="nnative-image-jmx-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to build, run, and interact with a native executable using JMX.<br><strong>Technologies: </strong> Native Image, JMX, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-and-run-native-executable-with-remote-jmx/">Build and Run Native Executables with Remote JMX</a></td>
+    </tr>
+  </tbody>
+</table>
+
+### Native Image on Cloud Platforms
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left" width="30%"><a href="/native-oci-container-instances/">native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml"><img alt="native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the OCI Container Instances platform.<br><strong>Technologies: </strong> Native Image, Docker, OCI Container Instances<br></td>
+    </tr>
   </tbody>
 </table>
 
