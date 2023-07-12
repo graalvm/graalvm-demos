@@ -82,8 +82,9 @@ Create an OCI Container Instance
 
 2. Click "Create container instance"
 3. Input a name and compartment location for the instance
-4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (For this demo, 4 OCPUs and 128 GBs will be plenty)
-<img width="1002" alt="Screen Shot 2023-06-06 at 4 29 11 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d71fd5a4-e6db-401e-b205-8e814b1e9091">
+4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (1 CPU and 1 GB of memory will be enough thanks to the power of native image!)
+![Screen Shot 2023-07-12 at 12 45 27 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/393de70f-3ed4-4b62-9816-639566edb874)
+
 
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one
 6. Leave the remaining options as their default and click "Next"
