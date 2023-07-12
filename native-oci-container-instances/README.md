@@ -56,7 +56,7 @@ Deploy a Native Image Container on OCI Container Registry
 ----------------------
 1. Navigate to the directory for this demo:
 ```sh
-cd graalvm-demos/native-oci-instances
+cd graalvm-demos/native-oci-container-instances
 ```
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
@@ -72,12 +72,13 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 3. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
 4. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
 5. Ensure that the Access type is "Public"; if it is not, click "Actions" in the top-right corner and select "Change to public"
-<img width="888" alt="Screen Shot 2023-06-06 at 4 57 54 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/c9ec8364-5aea-40f0-8348-79339dc6578f">
+<img width="888" alt="public repo" src="https://github.com/graalvm/graalvm-demos/assets/134104678/c57e9470-e455-401d-857d-40eb8c042591">
+
 
 Create an OCI Container Instance
 -------------------------
 1. From the main OCI dashboard, open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Instances"
-<img width="278" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
+<img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
 
 2. Click "Create container instance"
 3. Input a name and compartment location for the instance
@@ -87,14 +88,17 @@ Create an OCI Container Instance
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one
 6. Leave the remaining options as their default and click "Next"
 7. Choose a name for the container (or leave as default) and in the "Image" section click "Select image"
-<img width="987" alt="Screen Shot 2023-06-06 at 4 31 31 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a47b09da-838a-4674-98ed-2935ad151529">
+<img width="987" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/092d4a12-426d-4617-b8a7-3e069d9c1550">
+
 
 8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose
 9. Create the container and allow it a moment to intialize
-<img width="1282" alt="Screen Shot 2023-06-06 at 4 31 55 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/3ea80a66-585d-41b3-8678-35e8f78dd869">
+<img width="1282" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/dba8c624-1fff-4c2c-883e-0287b910ff95">
+
 
 10. A successful deployment will result in the large icon box turning green and the status "ACTIVE" displayed beneath it
-<img width="1493" alt="Screen Shot 2023-06-07 at 12 12 57 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/1884d443-a97e-46b9-aa60-7f9775024135">
+<img width="1493" alt="Successful deployment" src="https://github.com/graalvm/graalvm-demos/assets/134104678/69c46d53-1e42-451d-a2fd-b1a2b812ec35">
+
 
 Configure the Security Group
 ------------------------
@@ -122,18 +126,18 @@ Once you have completed this demo, follow these instructions to delete the creat
 2. Open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
 3. Select the container image that you uploaded and under the "Actions" drop down select "Delete repository"
 
-![Delete repository](https://github.com/egadbois/graalvm-demos/assets/134104678/da43004b-d017-49c4-8273-5bf0a4acc2cd)
+![Delete registry](https://github.com/graalvm/graalvm-demos/assets/134104678/b8135869-fd64-48f9-989a-83c188e8b5eb)
 
 4. On the left side of the page, select "Container Instances"
 5. Select the container instance that you created and under the "More actions" drop down select "Delete"
 
-![Delete instance](https://github.com/egadbois/graalvm-demos/assets/134104678/5289230a-1a19-4f71-b4bb-1669e1c6f671)
+![Delete instance](https://github.com/graalvm/graalvm-demos/assets/134104678/cb439c80-6155-47de-956f-031469741e1f)
 
 6. Open the side menu and click on "Networking" -> "Virtual cloud networks"
 7. Select the VCN that you created for your container instance
 8. Click the red "Delete" button
 
-![Delete VCN](https://github.com/egadbois/graalvm-demos/assets/134104678/a45cbb7e-59ec-4952-9a54-899907a9e094)
+![Delete VCN](https://github.com/graalvm/graalvm-demos/assets/134104678/34ed6396-73f1-4f2d-9ec7-409b463b295a)
 
 9. Click "Scan" - this will return a list of any lingering resources that are referencing the VCN
 10. Click "Delete all" to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages)
