@@ -44,7 +44,7 @@ cd graalvm-demos/aws-fargate
 ```sh
 aws ecr create-repository --repository-name native-fargate-repo
 ```
-<img width="705" alt="output" src="https://github.com/egadbois/graalvm-demos/assets/134104678/19b51978-8286-4dff-a7b3-3f21c9a53071">
+<img width="705" alt="Create repo" src="https://github.com/egadbois/graalvm-demos/assets/134104678/b1ea38f6-f7cc-4c03-b016-2cd1b47a5f95">
 
 3. A successful repository creation will return an output similar to above; note the "repositoryUri" that is outputted as this will be the location you will use to store your image
 4. Authenticate the Uri for the repository with your credentials:
