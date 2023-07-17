@@ -14,15 +14,13 @@ jobs:
   run:
     name: Run 'java-hello-world-maven'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: 'latest' # EE dev builds not supported
-          gds-token: ${{ secrets.GDS_TOKEN }}
-          java-version: '17'
-          components: 'native-image'
+          java-version: '17.0.7'
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'

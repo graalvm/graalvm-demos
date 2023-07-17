@@ -17,21 +17,13 @@ jobs:
   run:
     name: Run 'fortune-demo'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    strategy:
-      matrix:
-        include:
-          - version: 'latest'
-            java-version: '17'
-          - version: 'dev'
-            java-version: '17'
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
-          java-version: ${{ matrix.java-version }}
-          components: 'native-image'
+          java-version: '17.0.7'
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'fortune'
         run: |
