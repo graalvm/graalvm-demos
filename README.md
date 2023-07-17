@@ -113,24 +113,25 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/native-oci-container-instances/">native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml"><img alt="native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the OCI Container Instances platform.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances<br></td>
+      <td align="left" width="30%"><a href="/native-aws-fargate/">native-aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml"><img alt="native-aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml/badge.svg"/></a></td>
+      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image onto AWS Fargate.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Fargate <br>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/aws-lambda-demo/">aws-lambda-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml"><img alt="aws-lambda-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-lambda-demo.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-aws-lambda/">native-aws-lambda</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml"><img alt="native-aws-lambda" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to deploy native executables on AWS Lambda.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Lambda <br>
-    </tr>  
+    </tr>
     <tr>
-      <td align="left" width="30%"><a href="/google-cloud-run/">google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml"><img alt="google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/google-cloud-run.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-azure-container-instances/">native-azure-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml"><img alt="native-azure-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the Azure Container Instances platform.<br><strong>Technologies: </strong> Native Image, Docker, Azure CLI, Azure Container Instances<br></td>
+    </tr>
+    <tr>
+      <td align="left" width="30%"><a href="/native-google-cloud-run/">native-google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml"><img alt="native-google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to deploy native executables on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
-    </tr>  
+    </tr>
     <tr>
-      <td align="left" width="30%"><a href="/oci-instances/">oci-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/oci-instances.yml"><img alt="oci-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/oci-instances.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image onto OCI Container Instances.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances <br>
-    </tr>  
-    <tr>
-      <td align="left" width="30%"><a href="/aws-fargate/">aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-fargate.yml"><img alt="aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/aws-fargate.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image onto AWS Fargate.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Fargate <br>
+      <td align="left" width="30%"><a href="/native-oci-container-instances/">native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml"><img alt="native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">This demo covers the steps required to deploy native image applications on the OCI Container Instances platform.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances<br></td>
+    </tr>   
   </tbody>
 </table>
 
