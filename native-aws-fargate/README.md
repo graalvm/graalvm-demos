@@ -25,7 +25,7 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **Application.java**
 
-<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/blob/master/native-aws-fargate/img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
+<img width="469" alt="Application.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
 
 This is the location of the main() function and entry point for the application.
 
