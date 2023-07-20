@@ -22,7 +22,7 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **HelloController.java**
 
-<img width="509" alt="Code snippet" src="https://github.com/egadbois/graalvm-demos/assets/134104678/4d2ee700-8f9c-4016-8afc-0eabc7f62485">
+<img width="509" alt="Code snippet" src="img/249303699-4d2ee700-8f9c-4016-8afc-0eabc7f62485.png">
 
 This code implements the actual RESTful "Hello World" functionality and is the code that snippet which is executed when a request is made to Lambda function. It produces the "Hello World" string when a GET request is made to the function's URL.
 
@@ -37,15 +37,23 @@ cd graalvm-demos/aws-lambda-demo
 ./mvnw package
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
-![AWS dashboard](https://github.com/egadbois/graalvm-demos/assets/134104678/b57492af-1205-4ff9-b498-c5e610688292)
+
+![AWS dashboard](img/Screen%20Shot%202023-05-11%20at%2012.16.14%20PM.png)
+
 4.	Select the “Create function” button in the top-right corner
 5.	Select “Author from scratch”, choose a name for your function, select “Java 17” as the runtime, and select “x86_64” as the architecture
-![Create function](https://github.com/egadbois/graalvm-demos/assets/134104678/fbf949cd-fc99-4a2b-a649-541912d44aca)
+
+![Create function](img/Screen%20Shot%202023-05-31%20at%2012.44.55%20PM.png)
+
 6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip or.jar file” button
-![Code upload](https://github.com/egadbois/graalvm-demos/assets/134104678/13827b9c-c09e-45b2-ac49-2c39b56d33ff)
+
+![Code upload](img/Screen%20Shot%202023-05-11%20at%2012.18.22%20PM.png)
+
 7.	Click upload and navigate to where you stored the function.jar file that you downloaded then select “upload” and “save”
 8.	Under “Runtime settings”, click “Edit” and input “io.micronaut.function.aws.proxy.MicronautLambdaHandler” as the Handler
-![Runtime settings](https://github.com/egadbois/graalvm-demos/assets/134104678/fdb57a3b-fe59-406a-9664-3e83f6595f19)
+
+![Runtime settings](img/Screen%20Shot%202023-05-31%20at%2012.46.52%20PM.png)
+
 9.	Now you can go ahead and test the function. To do so, navigate to the “Test” tab and select “Create new event”. Choose a name for your test and input the following as the contents of the “Event JSON” box:
 ```sh
 {
@@ -56,10 +64,11 @@ cd graalvm-demos/aws-lambda-demo
   }
 }
 ```
-![Test code](https://github.com/egadbois/graalvm-demos/assets/134104678/a23629d4-c91b-4a19-9e36-a156f5992101)
+![Test code](img/Screen%20Shot%202023-05-11%20at%2012.21.02%20PM.png)
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
-![Test result](https://github.com/egadbois/graalvm-demos/assets/134104678/4c73886a-a955-4631-be83-60308223ec75)
+
+![Test result](img/Screen%20Shot%202023-05-11%20at%2012.15.18%20PM.png)
 
 
 Deploying as a Native Image Application
@@ -73,15 +82,22 @@ cd graalvm-demos/aws-lambda-demo
 ./mvnw package -Dpackaging=docker-native
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
-![AWS dashboard](https://github.com/egadbois/graalvm-demos/assets/134104678/b57492af-1205-4ff9-b498-c5e610688292)
+
+![AWS dashboard](img/Screen%20Shot%202023-05-11%20at%2012.16.14%20PM.png)
+
 4.	Select the “Create function” button in the top-right corner
 5.	Select “Author from scratch”, choose a name for your function, select “Provide your own bootstrap on Amazon Linux 2” as the runtime, and choose “x86_64” as the architecture
-![Create function](https://github.com/egadbois/graalvm-demos/assets/134104678/ad5c9018-423c-4f29-b299-06fa9b3ad0f6)
+
+![Create function](img/Screen%20Shot%202023-05-11%20at%2012.47.17%20PM.png)
+
 6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip or.jar file” button
-![Code upload](https://github.com/egadbois/graalvm-demos/assets/134104678/1f50b29d-ba91-45a8-beeb-7960c4712ebd)
+
+![Code upload](img/Screen%20Shot%202023-05-11%20at%2012.18.22%20PM.png)
+
 7.	Click upload and navigate to where you stored the function.zip file that you downloaded then select “upload” and “save”
 8.	Under “Runtime settings”, click “Edit” and input “io.micronaut.function.aws.proxy.MicronautLambdaHandler” as the Handler
-![Runtime settings](https://github.com/egadbois/graalvm-demos/assets/134104678/5487b1b3-0086-4b34-aea9-a4eecfa313a9)
+
+![Runtime settings](img/Screen%20Shot%202023-05-11%20at%2012.50.45%20PM.png)
 9.	Now you can go ahead and test the function. To do so, navigate to the “Test” tab and select “Create new event”. Choose a name for your test and input the following as the contents of the “Event JSON” box:
 ```sh
 {
@@ -92,10 +108,11 @@ cd graalvm-demos/aws-lambda-demo
   }
 }
 ```
-![Test code](https://github.com/egadbois/graalvm-demos/assets/134104678/a23629d4-c91b-4a19-9e36-a156f5992101)
+![Test code](img/Screen%20Shot%202023-05-11%20at%2012.21.02%20PM.png)
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
-![Test result](https://github.com/egadbois/graalvm-demos/assets/134104678/cc11c441-4fc0-4873-bba4-a5a96f78f8cd)
+
+![Test result](img/Screen%20Shot%202023-05-11%20at%2012.52.27%20PM.png)
 
 Clean-Up
 --------------------------
@@ -104,4 +121,4 @@ After completing this demo, follow these steps to delete the resources created:
 2. Check the box next to the function(s) that you created
 3. Click "Delete" under the "Actions" dropdown and follow the on-screen instructions
 
-<img width="1235" alt="Screen Shot 2023-06-27 at 4 07 47 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/6c5111c4-4f70-4533-abd5-193c1f7fd269">
+<img width="1235" alt="Screen Shot 2023-06-27 at 4 07 47 PM" src="img/249304425-6c5111c4-4f70-4533-abd5-193c1f7fd269.png">
