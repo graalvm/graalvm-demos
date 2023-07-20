@@ -31,7 +31,7 @@ This is the location of the main() function and entry point for the application.
 
 **HelloController.java**
 
-<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+<img width="497" alt="HelloController.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.33%20PM.png">
 
 This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
 
@@ -45,7 +45,7 @@ cd graalvm-demos/aws-fargate
 ```sh
 aws ecr create-repository --repository-name native-fargate-repo
 ```
-<img width="705" alt="Create repo" src="https://github.com/egadbois/graalvm-demos/assets/134104678/b1ea38f6-f7cc-4c03-b016-2cd1b47a5f95">
+<img width="705" alt="Create repo" src="img/246945696-19b51978-8286-4dff-a7b3-3f21c9a53071-2.png">
 
 3. A successful repository creation will return an output similar to above; note the "repositoryUri" that is outputted as this will be the location you will use to store your image
 4. Authenticate the Uri for the repository with your credentials:
@@ -69,16 +69,16 @@ Deploy the Service on AWS Fargate
 2. In the “Services” drop-down menu on the top-left of the page, select “All services” and navigate to the “Elastic Container Service” page
 3. Click on "Clusters" on the left-side pane
 4. Create a new cluster using the button on the top-right of the page
-![Clusters](https://github.com/egadbois/graalvm-demos/assets/134104678/5d0e044b-a778-47d1-a57f-81474c51b646)
+![Clusters](img/Screen%20Shot%202023-05-31%20at%204.13.22%20PM.png)
 
 5. Choose a name for the cluster and leave the remaining settings as their default
     - If you would like to be able to view insights about the container image perforamance, activate Container Insights under "Monitoring"
 
-     ![New cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/24cbafd1-6ebe-4452-b53d-02b8eb564708)
+     ![New cluster](img/Screen%20Shot%202023-05-31%20at%204.15.55%20PM.png)
 
 6. Once you have created the new cluster, navigate to "Task definitions" by selecting it on the left-side pane
 7. Create a new task definition by clicking the button on the top-right corner
-![Task definitions](https://github.com/egadbois/graalvm-demos/assets/134104678/c673da9d-cd0e-4970-824b-d597928b5e1b)
+![Task definitions](img/Screen%20Shot%202023-05-31%20at%204.20.07%20PM.png)
 
 8. Choose names for the Task Definition Family and Container
 9. Paste the REPOSITORYURI used in the prior section into the "Image URI" text box
@@ -86,20 +86,20 @@ Deploy the Service on AWS Fargate
 10. Leave the remaining options as their default and create the new Task Definition
 11. Return to the list of Clusters and select the Cluster that you created
 12. Under "Tasks" click the "Run new task" button
-![New Task](https://github.com/egadbois/graalvm-demos/assets/134104678/f7250fe2-7f5b-4416-8413-2f2387d74ac4)
+![New Task](img/Screen%20Shot%202023-05-31%20at%204.28.49%20PM.png)
 
 13. Choose "Task" as the Application Type
 14. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
-![Create task](https://github.com/egadbois/graalvm-demos/assets/134104678/06babf2b-7a12-4373-8533-b34d06a96960)
+![Create task](img/Screen%20Shot%202023-06-02%20at%2012.48.45%20PM.png)
 
 15. Under "Networking" -> "Security Group" select "Create a new security group"
 16. Choose a name and description for the new group
 17. For "Type" select "All traffic" and for "Source" select "Anywhere"
-![Security group](https://github.com/egadbois/graalvm-demos/assets/134104678/db30659b-01f8-4281-b8ad-78803250786e)
+![Security group](img/Screen%20Shot%202023-05-31%20at%204.32.21%20PM.png)
 
 18. Click "Create" to create and deploy the task
 19. Select the task currently running and copy the public IP address displayed on the right side of the page
-![Public IP](https://github.com/egadbois/graalvm-demos/assets/134104678/d382fab0-c6e7-42ed-bf1b-5980d1f6e953)
+![Public IP](img/Screen%20Shot%202023-06-02%20at%201.14.46%20PM.png)
 
 20. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
 21. You should see a "Hello World" message displayed!
@@ -114,8 +114,8 @@ To prevent incurring additional charges after you are finished with the demo you
 2. Under Actions select "Deregister"
 3. Change the drop-down view menu to show "Inactive task definitions"
 4. Select the task definition and under Actions select "Delete"
-![Delete task](https://github.com/egadbois/graalvm-demos/assets/134104678/5bc8120c-2303-4bb1-9d8d-cb59e883fca5)
+![Delete task](img/Screen%20Shot%202023-06-02%20at%202.58.34%20PM.png)
 
 6. Return to the cluster that you created and delete the task currently running
 7. Use the button on the top-right of the screen to delete the cluster itself
-![Delete cluster](https://github.com/egadbois/graalvm-demos/assets/134104678/5ce61747-30f4-423a-aff7-82c0d43492df)
+![Delete cluster](img/Screen%20Shot%202023-06-02%20at%203.01.29%20PM.png)
