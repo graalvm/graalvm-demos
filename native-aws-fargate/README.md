@@ -104,7 +104,7 @@ Deploy the Service on AWS Fargate
 20. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
 21. You should see a "Hello World" message displayed!
 
-![Hello world](https://github.com/egadbois/graalvm-demos/assets/134104678/23955a8b-166d-4a55-8617-5e312a38c191)
+![Hello world](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
 
 
 Clean-Up
