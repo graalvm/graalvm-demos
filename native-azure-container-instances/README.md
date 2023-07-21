@@ -23,13 +23,13 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **Application.java**
 
-<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+<img width="469" alt="Application.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
 
 This is the location of the main() function and entry point for the application.
 
 **HelloController.java**
 
-<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+<img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
 
 This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
 
@@ -43,7 +43,7 @@ cd graalvm-demos/native-azure-container-instances
 ```sh
 az group create --name nativeResourceGroup --location <REGION>
 ```
-<img width="766" alt="Create resource group" src="https://github.com/egadbois/graalvm-demos/assets/134104678/42cc4730-5909-4cde-8bed-42e4f13cde73">
+<img width="766" alt="Create resource group" src="img/248108829-2f24f009-303a-431d-8b38-3903cab771f0-2.png">
 
 
 **NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
@@ -55,7 +55,7 @@ az account list-locations
 ```sh
 az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
 ```
-<img width="1185" alt="Create container instance" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a7c6fc1a-f746-41f3-a774-c16688e0a3cf">
+<img width="1185" alt="Create container instance" src="img/248108931-17de8157-f9cb-49f9-ac44-5dbc797ec3cc-2.png">
 
 
 A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
@@ -65,14 +65,14 @@ A successful creation will output something similar to that shown in the screens
 6. Select the registry you previously created and select "Access keys" on the left side of the page
 7. Toggle the "Admin User" switch so that it is enabled - a username and password(s) will appear that you will use to login to the registry on the CLI
 
-![Screen Shot 2023-06-20 at 12 50 39 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/c732cb96-14d1-428c-a23a-0637b22ee8ee)
+![Access Keys](img/Screen%20Shot%202023-06-20%20at%2012.50.39%20PM.png)
 
 
 8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
 ```sh
 docker login <REGISTRY-NAME>.azurecr.io
 ```
-<img width="613" alt="Login success" src="https://github.com/egadbois/graalvm-demos/assets/134104678/eede8bfc-a461-4b87-8ad8-1f31612929ea">
+<img width="613" alt="Login success" src="img/248109366-d2950b52-02bd-4b9e-906d-5629024c707e-2.png">
 
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
@@ -85,7 +85,7 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 ```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
 ```
-<img width="613" alt="Screen Shot 2023-06-20 at 1 09 02 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/94d1ae3b-a8ea-485c-98c7-4070e92a9aa8">
+<img width="613" alt="Build success" src="img/Screen%20Shot%202023-06-20%20at%201.09.02%20PM.png">
 
 Deploy the application on Azure Container Instances
 ----------------------
@@ -93,14 +93,14 @@ Deploy the application on Azure Container Instances
 ```sh
 az container create --resource-group nativeResourceGroup --name nativecontainer --image <REGISTRY-NAME>.azurecr.io/nativedemo --dns-name-label nativeapp --ports 8080
 ```
-<img width="1192" alt="Create container" src="https://github.com/egadbois/graalvm-demos/assets/134104678/f0ee6551-e6e0-42b8-9ca8-c9702b230331">
+<img width="1192" alt="Create container" src="img/248396235-a4a47ca0-9d3d-424e-b47b-4cbbe3b5ec28-2.png">
 
 
 2. Ensure that the provision has been successful:
 ```sh
 az container show --resource-group nativeResourceGroup --name nativecontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
 ```
-<img width="1289" alt="Successful provision" src="https://github.com/egadbois/graalvm-demos/assets/134104678/d14c5c81-2959-4eec-bccc-303f440c0630">
+<img width="1289" alt="Successful provision" src="img/248420660-66a3a6b4-0ded-42db-9cda-2953d43a1173-2.png">
 
 
 3. If the ProvisioningState is "Succeeded" then you have properly deployed the application; to test it out use the outputted FQDN in your internet browser in the format:
@@ -110,7 +110,7 @@ az container show --resource-group nativeResourceGroup --name nativecontainer --
 
 You should see a "Hello World" message displayed on the webpage:
 
-![Screen Shot 2023-06-20 at 1 31 20 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/d902babc-8516-4b3d-a177-51261c6820fb)
+![Hello World](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
 
 Clean-up
 ---------------------
@@ -119,5 +119,5 @@ Once you are completed with this demo, follow these steps to clean-up the resour
 2. Use the search bar at the top of the screen to navigate to the "Resource groups" page
 3. Select the resource group that you created, click "Delete resource group", and then follow the on-screen instructions to confirm the deletion
 
-![Screen Shot 2023-06-23 at 3 43 31 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/a53da96b-5ba1-46ea-a071-7b3dd756080f)
+![Delete resource group](img/Screen%20Shot%202023-06-23%20at%203.43.31%20PM.png)
 
