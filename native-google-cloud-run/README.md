@@ -47,7 +47,7 @@ gcloud auth login
 ```sh
 gcloud auth configure-docker
 ```
-4. Create a new project using the following command, where "xxxxxx" denotes the 6-digit identifier you choose for your project:
+4. Create a new project using the following command, where "xxxxxx" denotes the 6-digit identifier you chose for your project:
 ```sh
 gcloud projects create graal-demo-xxxxxx
 ```
