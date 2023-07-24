@@ -97,7 +97,7 @@ Create an OCI Container Instance
 <img width="1282" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/dba8c624-1fff-4c2c-883e-0287b910ff95">
 
 
-10. A successful deployment will result in the large icon box turning green and the status "ACTIVE" displayed beneath it
+10. A successful deployment will result in the large icon box becoming green and the status "ACTIVE" displayed beneath it.
 <img width="1493" alt="Successful deployment" src="https://github.com/graalvm/graalvm-demos/assets/134104678/69c46d53-1e42-451d-a2fd-b1a2b812ec35">
 
 
