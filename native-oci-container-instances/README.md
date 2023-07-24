@@ -87,7 +87,7 @@ Create an OCI Container Instance
 
 
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one
-6. Leave the remaining options as their default and click "Next"
+6. Leave the remaining options as their defaults and click **Next**.
 7. Choose a name for the container (or leave as default) and in the "Image" section click "Select image"
 <img width="987" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/092d4a12-426d-4617-b8a7-3e069d9c1550">
 
