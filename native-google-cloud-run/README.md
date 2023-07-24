@@ -65,7 +65,7 @@ gcloud projects list
 <img width="1478" alt="Billing" src="img/242710009-f598f19e-6e64-4170-a1d8-f78733b9c44c-2.png">
 
 
-8. Back on your terminal interface, activate the required project APIs:
+8. Return to your terminal and activate the required project APIs using the following command:
 ```sh
 gcloud services enable run.googleapis.com container.googleapis.com
 ```
