@@ -69,7 +69,7 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 ```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<region-key>.ocir.io/<tenancy-namespace>/<repo-name>
 ```
-3. On a browser, visit the OCI dashboard and open the side menu to locate "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
+3. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 4. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` that you tagged the image with)
 5. Ensure that the Access type is "Public"; if it is not, click **Actions** in the top-right corner and select "Change to public".
 <img width="888" alt="public repo" src="https://github.com/graalvm/graalvm-demos/assets/134104678/c57e9470-e455-401d-857d-40eb8c042591">
