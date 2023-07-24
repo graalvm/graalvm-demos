@@ -124,7 +124,7 @@ Clean-Up
 ---------------------------
 Once you have completed this demo, follow these instructions to delete the created resources:
 1. Visit the OCI [dashboard](https://cloud.oracle.com/)
-2. Open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Registry"
+2. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 3. Select the container image that you uploaded and under the "Actions" drop down select "Delete repository"
 
 ![Delete registry](https://github.com/graalvm/graalvm-demos/assets/134104678/b8135869-fd64-48f9-989a-83c188e8b5eb)
