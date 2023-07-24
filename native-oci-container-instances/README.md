@@ -77,7 +77,7 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 
 Create an OCI Container Instance
 -------------------------
-1. From the main OCI dashboard, open the side menu and click on "Developer Services" -> "Containers & Artifacts" -> "Container Instances"
+1. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Instances**.
 <img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
 
 2. Click "Create container instance"
