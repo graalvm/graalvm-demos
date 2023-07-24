@@ -81,7 +81,7 @@ Create an OCI Container Instance
 <img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
 
 2. Click **Create container instance**.
-3. Input a name and compartment location for the instance
+3. Enter a name and compartment location for the instance.
 4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (1 CPU and 1 GB of memory will be enough thanks to the power of native image!)
 ![Screen Shot 2023-07-12 at 12 45 27 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/393de70f-3ed4-4b62-9816-639566edb874)
 
