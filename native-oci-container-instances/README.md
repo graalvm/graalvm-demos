@@ -93,7 +93,7 @@ Create an OCI Container Instance
 
 
 8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose.
-9. Create the container and allow it a moment to intialize
+9. Create the container and allow it a moment to intialize.
 <img width="1282" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/dba8c624-1fff-4c2c-883e-0287b910ff95">
 
 
