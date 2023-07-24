@@ -43,7 +43,7 @@ cd graalvm-demos/native-google-cloud-run
 ```sh
 gcloud auth login
 ```
-3. Run the following command to configure Docker credentuals for the CLI:
+3. Run the following command to configure Docker credentials for the CLI:
 ```sh
 gcloud auth configure-docker
 ```
