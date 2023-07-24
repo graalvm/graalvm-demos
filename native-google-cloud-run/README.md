@@ -60,7 +60,7 @@ To see a list of all projects use:
 gcloud projects list
 ```
 6. Use a browser to login to the Google Cloud dashboard and navigate to the [Billing](https://console.cloud.google.com/billing/projects) tab
-7. Ensure that you have a billing account set up and enable billing for the newly created project by clicking on the dots beside the project name and selecting "Change billing"
+7. Ensure that you have a billing account set up and enable billing for the newly created project by clicking the ellipsis beside the project name and selecting **Change billing**
 
 <img width="1478" alt="Billing" src="img/242710009-f598f19e-6e64-4170-a1d8-f78733b9c44c-2.png">
 
