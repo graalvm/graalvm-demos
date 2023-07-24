@@ -130,15 +130,15 @@ Once you have completed this demo, follow these instructions to delete the creat
 ![Delete registry](https://github.com/graalvm/graalvm-demos/assets/134104678/b8135869-fd64-48f9-989a-83c188e8b5eb)
 
 4. On the left side of the page, click **Container Instances**.
-5. Select the container instance that you created and under the "More actions" drop down select "Delete"
+5. Select the container instance that you created and from the **More actions** drop-down list select **Delete **.
 
 ![Delete instance](https://github.com/graalvm/graalvm-demos/assets/134104678/cb439c80-6155-47de-956f-031469741e1f)
 
-6. Open the side menu and click on "Networking" -> "Virtual cloud networks"
-7. Select the VCN that you created for your container instance
-8. Click the red "Delete" button
+6. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**and then click **Virtual cloud networks**.
+7. Select the VCN that you created for your container instance.
+8. Click **Delete**.
 
 ![Delete VCN](https://github.com/graalvm/graalvm-demos/assets/134104678/34ed6396-73f1-4f2d-9ec7-409b463b295a)
 
-9. Click "Scan" - this will return a list of any lingering resources that are referencing the VCN
-10. Click "Delete all" to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages)
+9. Click **Scan** - this returns a list of any lingering resources that reference the VCN.
+10. Click **Delete all** to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages).
