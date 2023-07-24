@@ -129,7 +129,7 @@ Once you have completed this demo, follow these instructions to delete the creat
 
 ![Delete registry](https://github.com/graalvm/graalvm-demos/assets/134104678/b8135869-fd64-48f9-989a-83c188e8b5eb)
 
-4. On the left side of the page, select "Container Instances"
+4. On the left side of the page, click **Container Instances**.
 5. Select the container instance that you created and under the "More actions" drop down select "Delete"
 
 ![Delete instance](https://github.com/graalvm/graalvm-demos/assets/134104678/cb439c80-6155-47de-956f-031469741e1f)
