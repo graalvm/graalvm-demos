@@ -103,4 +103,4 @@ Once you are finished with the demo, follow these steps to delete the created re
 
 ![Manage resources](img/Screen%20Shot%202023-06-26%20at%203.27.51%20PM.png)
 
-3. Click the "DELETE" button on the top bar and follow the on-screen instructions
+3. Click **DELETE** on the top bar and follow the on-screen instructions
