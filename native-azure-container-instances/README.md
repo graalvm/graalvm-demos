@@ -5,21 +5,21 @@ This demo will walk you through the process of containerizing a Native Image app
 Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
-- Docker: https://docs.docker.com/desktop/
+- A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
 - Azure CLI: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 - Apache Maven: https://maven.apache.org/install.html
 - GraalVM: https://www.graalvm.org/downloads/
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
-Download or clone GraalVM demos repository:
+Download or clone the GraalVM demos repository:
 ```sh
 git clone https://github.com/graalvm/graalvm-demos
 ```
     
 Micronaut "Hello World" Application
 ----------------------
-The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut &reg; framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
 
 **Application.java**
 
@@ -31,7 +31,7 @@ This is the location of the main() function and entry point for the application.
 
 <img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
 
-This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
+This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the _/hello_ URL.
 
 Deploy a Native Image Container on Azure Container Registry
 ----------------------
