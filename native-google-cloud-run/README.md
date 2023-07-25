@@ -31,7 +31,7 @@ This is the location of the main() function and entry point for the application.
 
 <img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
 
-This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the "/hello" URL.
+This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the _/hello_ URL.
 
 Deploying a Native Image Application
 ----------------------
