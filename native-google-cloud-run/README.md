@@ -19,7 +19,7 @@ git clone https://github.com/graalvm/graalvm-demos
 
 Micronaut "Hello World" Application
 ----------------------
-The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut &reg; framework. To understand what the code is doing, take a look at the _Application.java_ and _HelloController.java_ files:
 
 **Application.java**
 
