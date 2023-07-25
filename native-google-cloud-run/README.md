@@ -5,7 +5,7 @@ This demo will walk you through the processes for deploying Native Image applica
 Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
-- Docker: https://docs.docker.com/desktop/
+- A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
 - Google Cloud CLI: https://cloud.google.com/sdk/docs/install#linux
 - Apache Maven: https://maven.apache.org/install.html
 - GraalVM: https://www.graalvm.org/downloads/
