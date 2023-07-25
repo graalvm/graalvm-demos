@@ -10,7 +10,7 @@ Ensure that you have the following installed and follow the linked instructions 
 - Apache Maven: https://maven.apache.org/install.html
 - GraalVM: https://www.graalvm.org/downloads/
 
-**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
 Download or clone GraalVM demos repository:
 ```sh
