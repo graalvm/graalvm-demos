@@ -93,7 +93,7 @@ curl SERVICE_URL/hello
 ```
 <img width="634" alt="Hello World" src="img/242710966-16bcc0cb-7c4d-4663-a088-3cc3428b5329-2.png">
 
-12. To view detailed information about the application performace such as build & response times, visit the [Google Cloud Logging](https://console.cloud.google.com/logs/) page
+12. To view detailed information about the application performance such as build and response times, visit [Google Cloud Logging](https://console.cloud.google.com/logs/)
 
 Clean-Up
 -----------------------
