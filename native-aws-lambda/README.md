@@ -5,20 +5,20 @@ This demo will walk you through the processes for deploying both Java 17 and Nat
 Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
-- Docker: https://docs.docker.com/desktop/
+- A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
 - Apache Maven: https://maven.apache.org/install.html
 - GraalVM: https://www.graalvm.org/downloads/
 
-**COMPATIBILITY**: Please note that this demo must be performed on an x86-based system in order to properly function. Working through this demo on an ARM-based system will result in the generation of a native image executable that is not compatible with the platform.
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
-Download or clone GraalVM demos repository:
+Download or clone the GraalVM demos repository:
 ```sh
 git clone https://github.com/graalvm/graalvm-demos
 ```
 
 Micronaut "Hello World" Application
 ----------------------
-The code provided in this demo is a simple "Hello World" REST application created using the Micronaut framework. To understand what the code is doing, take a look at the _HelloController.java_ file:
+The code provided in this demo is a simple "Hello World" REST application created using the Micronaut &reg; framework. To understand what the code is doing, take a look at the _HelloController.java_ file:
 
 **HelloController.java**
 
