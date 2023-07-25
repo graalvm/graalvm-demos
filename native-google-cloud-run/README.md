@@ -73,7 +73,7 @@ __OPTIONAL__: In the next step you will use a single command to build the applic
 ```sh
 ./mvnw mn:dockerfile -Dpackaging=docker-native
 ```
-The newly created Dockerfile will be automatically stored in the "target" directory
+The newly created Dockerfile will be automatically stored in the _target_ directory
 
 9. Push the application image to Google Cloud Container Registry (once again replacing "xxxxxx" as appropriate):
 ```sh
