@@ -12,7 +12,7 @@ Ensure that you have the following installed and follow the linked instructions 
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
-Download or clone GraalVM demos repository:
+Download or clone the GraalVM demos repository:
 ```sh
 git clone https://github.com/graalvm/graalvm-demos
 ```
