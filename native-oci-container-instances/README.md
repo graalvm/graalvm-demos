@@ -22,13 +22,13 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **Application.java**
 
-<img width="469" alt="Application.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/a330ab66-c3d0-43ac-91ce-4abf11685234">
+<img width="469" alt="Application.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
 
 This is the location of the main() function and entry point for the application.
 
 **HelloController.java**
 
-<img width="497" alt="HelloController.java" src="https://github.com/egadbois/graalvm-demos/assets/134104678/e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd">
+<img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
 
 This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the _/hello_ URL.
 
@@ -72,33 +72,33 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 3. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 4. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` with which you tagged the image).
 5. Ensure that the Access type is "Public"; if it is not, click **Actions** in the top-right corner and select "Change to public".
-<img width="888" alt="public repo" src="https://github.com/graalvm/graalvm-demos/assets/134104678/c57e9470-e455-401d-857d-40eb8c042591">
+<img width="888" alt="public repo" src="img/244188881-c9ec8364-5aea-40f0-8348-79339dc6578f-2.png">
 
 
 Create an OCI Container Instance
 -------------------------
 1. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Instances**.
-<img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/5aea839b-ab79-4eec-a0b5-74927ffde179">
+<img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="img/Screen%20Shot%202023-06-06%20at%204.28.20%20PM.png">
 
 2. Click **Create container instance**.
 3. Enter a name and compartment location for the instance.
 4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (1 CPU and 1 GB of memory will be enough thanks to the power of native image!)
-![Screen Shot 2023-07-12 at 12 45 27 PM](https://github.com/egadbois/graalvm-demos/assets/134104678/393de70f-3ed4-4b62-9816-639566edb874)
+![Configure](img/Screen%20Shot%202023-07-12%20at%2012.45.27%20PM.png)
 
 
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one.
 6. Leave the remaining options as their defaults and click **Next**.
 7. Choose a name for the container (or leave as default) and in the "Image" section click **Select image**.
-<img width="987" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/092d4a12-426d-4617-b8a7-3e069d9c1550">
+<img width="987" alt="Create container" src="img/Screen_Shot_2023-06-06_at_4_31_31_PM.png">
 
 
 8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose.
 9. Create the container and allow it a moment to intialize.
-<img width="1282" alt="Create container" src="https://github.com/graalvm/graalvm-demos/assets/134104678/dba8c624-1fff-4c2c-883e-0287b910ff95">
+<img width="1282" alt="Create container" src="img/Screen_Shot_2023-06-06_at_4_31_55_PM.png">
 
 
 10. A successful deployment will result in the large icon box becoming green and the status "ACTIVE" displayed beneath it.
-<img width="1493" alt="Successful deployment" src="https://github.com/graalvm/graalvm-demos/assets/134104678/69c46d53-1e42-451d-a2fd-b1a2b812ec35">
+<img width="1493" alt="Successful deployment" src="img/Screen_Shot_2023-06-07_at_12_12_57_PM.png">
 
 
 Configure the Security Group
@@ -108,7 +108,7 @@ Configure the Security Group
 3. Click "Network Security Groups" and then "Create Network Security Group"
 4. Choose a name and compartment for the new group then click "Next"
 5. Select "Ingress" as the Direction, CIDR for Source Type, "0.0.0.0/0" for Source CIDR, and leave the remaining fields as their default - then click "Create"
-<img width="1493" alt="Screen Shot 2023-06-07 at 12 28 43 PM" src="https://github.com/egadbois/graalvm-demos/assets/134104678/4099ec70-1b73-43ab-8f83-5813dbc71dac">
+<img width="1493" alt="Create security group" src="img/Screen%20Shot%202023-06-07%20at%2012.28.43%20PM.png">
 
 6. Return to the page for your container instance and click "Edit" beside "Network security groups"
 7. Locate the newly created security group and click "Save changes"
@@ -118,7 +118,7 @@ http://<public-ip-address>:8080/hello
 ```
 9. If you have completed the demo successfully, a "Hello World" message will be displayed!
 
-![Hello World](https://github.com/egadbois/graalvm-demos/assets/134104678/593016fb-6623-4757-aeab-723d93c010ad)
+![Hello World](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
 
 Clean-Up
 ---------------------------
@@ -127,18 +127,18 @@ Once you have completed this demo, follow these instructions to delete the creat
 2. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 3. Select the container image that you uploaded and from the **Actions** drop-down list select **Delete repository**.
 
-![Delete registry](https://github.com/graalvm/graalvm-demos/assets/134104678/b8135869-fd64-48f9-989a-83c188e8b5eb)
+![Delete registry](img/249277786-da43004b-d017-49c4-8273-5bf0a4acc2cd-2.png)
 
 4. On the left side of the page, click **Container Instances**.
 5. Select the container instance that you created and from the **More actions** drop-down list select **Delete **.
 
-![Delete instance](https://github.com/graalvm/graalvm-demos/assets/134104678/cb439c80-6155-47de-956f-031469741e1f)
+![Delete instance](img/249277606-5289230a-1a19-4f71-b4bb-1669e1c6f671-2.png)
 
 6. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**and then click **Virtual cloud networks**.
 7. Select the VCN that you created for your container instance.
 8. Click **Delete**.
 
-![Delete VCN](https://github.com/graalvm/graalvm-demos/assets/134104678/34ed6396-73f1-4f2d-9ec7-409b463b295a)
+![Delete VCN](img/249277902-a45cbb7e-59ec-4952-9a54-899907a9e094-2.png)
 
 9. Click **Scan** - this returns a list of any lingering resources that reference the VCN.
 10. Click **Delete all** to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages).
