@@ -6,10 +6,11 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
+  - Ensure that the daemon is actively running before beginning the demo
 - GraalVM: https://www.graalvm.org/downloads/
 - Your OCI account also must have the proper permissions to create container instances; follow this guide to grant access: https://docs.oracle.com/en-us/iaas/Content/container-instances/permissions/policy-reference.htm#examples__let-users-create-container-instances
 
-**COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
+**COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the OCI platform.
 
 Download or clone the GraalVM demos repository:
 ```sh
@@ -22,19 +23,46 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **Application.java**
 
-<img width="469" alt="Application.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
+```java
+package example.micronaut;
+
+import io.micronaut.runtime.Micronaut;
+
+public class Application {
+
+    public static void main(String[] args) {
+        Micronaut.run(Application.class, args);
+    }
+}
+```
 
 This is the location of the main() function and entry point for the application.
 
 **HelloController.java**
 
-<img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
+```java
+package example.micronaut;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+
+@Controller("/hello") 
+public class HelloController {
+    @Get 
+    @Produces(MediaType.TEXT_PLAIN) 
+    public String index() {
+        return "Hello World"; 
+    }
+}
+```
 
 This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the _/hello_ URL.
 
 Configure authentication
 ----------------------
-1. Open the OCI [dashboard](https://cloud.oracle.com/) and login to your profile
+1. Open the OCI [console](https://cloud.oracle.com/) and login to your profile
 2. Open the Profile menu on the top-right of the screen and click "User Settings"
 3. Under "Auth Tokens", click "Generate Token"
 4. After choosing a description, the token will be presented to you. Immediately copy the token to a secure location because you will not be able to view it again in the console
@@ -69,8 +97,12 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 ```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<region-key>.ocir.io/<tenancy-namespace>/<repo-name>
 ```
+Example:
+```sh
+./mnvw deploy -Dpackaging=docker-native -Djib.to.image=phx.ocir.io/developer/test-repo
+```
 3. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
-4. Select the directory in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` with which you tagged the image).
+4. Select the repository in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` with which you tagged the image).
 5. Ensure that the Access type is "Public"; if it is not, click **Actions** in the top-right corner and select "Change to public".
 <img width="888" alt="public repo" src="img/244188881-c9ec8364-5aea-40f0-8348-79339dc6578f-2.png">
 
@@ -123,7 +155,7 @@ http://<public-ip-address>:8080/hello
 Clean-Up
 ---------------------------
 Once you have completed this demo, follow these instructions to delete the created resources:
-1. Visit the OCI [dashboard](https://cloud.oracle.com/)
+1. Visit the OCI [console](https://cloud.oracle.com/)
 2. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 3. Select the container image that you uploaded and from the **Actions** drop-down list select **Delete repository**.
 
