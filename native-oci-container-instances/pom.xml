@@ -15,8 +15,8 @@
 
   <properties>
     <packaging>jar</packaging>
-    <jdk.version>11</jdk.version>
-    <release.version>11</release.version>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
     <micronaut.version>3.9.1</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>example.micronaut.Application</exec.mainClass>
