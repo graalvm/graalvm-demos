@@ -99,7 +99,7 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 ```
 Example:
 ```sh
-./mnvw deploy -Dpackaging=docker-native -Djib.to.image=phx.ocir.io/developer/test-repo
+./mvnw deploy -Dpackaging=docker-native -Djib.to.image=phx.ocir.io/developer/test-repo
 ```
 3. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 4. Select the repository in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` with which you tagged the image).
