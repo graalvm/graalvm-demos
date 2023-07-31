@@ -19,6 +19,8 @@
     <release.version>17</release.version>
     <micronaut.version>3.9.1</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
+    <micronaut.aot.enabled>true</micronaut.aot.enabled>
+    <micronaut.aot.packageName>example.micronaut.aot.generated</micronaut.aot.packageName>
     <exec.mainClass>example.micronaut.Application</exec.mainClass>
   </properties>
 
@@ -77,6 +79,9 @@
       <plugin>
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
+          <configuration>
+            <configFile>aot-${packaging}.properties</configFile>
+          </configuration>
       </plugin>
       
       <plugin>
