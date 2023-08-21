@@ -7,7 +7,6 @@ Prerequisites
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
   - Ensure that the daemon is actively running before beginning the demo
-- GraalVM: https://www.graalvm.org/downloads/
 - Your OCI account also must have the proper permissions to create container instances; follow this guide to grant access: https://docs.oracle.com/en-us/iaas/Content/container-instances/permissions/policy-reference.htm#examples__let-users-create-container-instances
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the OCI platform.
@@ -106,6 +105,21 @@ Example:
 5. Ensure that the Access type is "Public"; if it is not, click **Actions** in the top-right corner and select "Change to public".
 <img width="888" alt="public repo" src="img/244188881-c9ec8364-5aea-40f0-8348-79339dc6578f-2.png">
 
+**OPTIONAL:** If you wish to keep the repository as "Private", complete the following steps (your account must have permissions to create dynamic groups and policies):
+- If your image is stored in the root compartment, move it to the desired compartment by selecting "Move Compartment"
+- In the navigation menu, click **Identity & Security**. Under **Identity**, click **Dynamic Groups**.
+- Create a new dynamic group, choosing a name and inputting the following as a rule (replacing the OCID with that of the compartment where the image is stored):
+```
+ALL {resource.type='computecontainerinstance', resource.compartment.id = 'ocid1.compartment.oc1..aaaqba'}
+```
+![Dynamic Group](img/dynamic.png)
+- In the navigation menu, click **Identity & Security**. Under **Identity**, click **Policies**.
+- Create a new policy with a name of your choosing and ensure it is created in your compartment.
+- Toggle the "Show manual editor" switch and input the following into the text box that appears (using the names of your dynamic group and compartment):
+```
+Allow dynamic-group <dynamic-group-name> to read repos in compartment <container-instance-compartment-name>
+```
+![Policy](img/policy.png)
 
 Create an OCI Container Instance
 -------------------------
