@@ -32,7 +32,7 @@ Deploying as a Java 17 Application (.jar)
 ```sh
 cd graalvm-demos/aws-lambda-demo
 ```
-2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target):
+2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target/lambda-demo-0.1.jar):
 ```sh
 ./mvnw package
 ```
@@ -41,7 +41,7 @@ cd graalvm-demos/aws-lambda-demo
 ![AWS dashboard](img/Screen%20Shot%202023-05-11%20at%2012.16.14%20PM.png)
 
 4.	Select the “Create function” button in the top-right corner
-5.	Select “Author from scratch”, choose a name for your function, select “Java 17” as the runtime, and select “x86_64” as the architecture
+5.	Select “Author from scratch”, choose a name for your function, select “Java 17” as the runtime, and select “x86_64” as the architecture, then click the "Create function" button
 
 ![Create function](img/Screen%20Shot%202023-05-31%20at%2012.44.55%20PM.png)
 
@@ -77,7 +77,7 @@ Deploying as a Native Image Application
 ```sh
 cd graalvm-demos/aws-lambda-demo
 ```
-2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target):
+2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target/function.zip):
 ```sh
 ./mvnw package -Dpackaging=docker-native
 ```
@@ -90,14 +90,15 @@ cd graalvm-demos/aws-lambda-demo
 
 ![Create function](img/Screen%20Shot%202023-05-11%20at%2012.47.17%20PM.png)
 
-6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip or.jar file” button
+6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip file” button
 
-![Code upload](img/Screen%20Shot%202023-05-11%20at%2012.18.22%20PM.png)
+![Code upload](img/Screen%20Shot%202023-08-21%20at%202.50.00%20PM.png)
 
-7.	Click upload and navigate to where you stored the function.zip file that you downloaded then select “upload” and “save”
+7.	Click upload and navigate to where you stored the function.zip file that you created then select “upload” and “save”
 8.	Under “Runtime settings”, click “Edit” and input “io.micronaut.function.aws.proxy.MicronautLambdaHandler” as the Handler
 
 ![Runtime settings](img/Screen%20Shot%202023-05-11%20at%2012.50.45%20PM.png)
+
 9.	Now you can go ahead and test the function. To do so, navigate to the “Test” tab and select “Create new event”. Choose a name for your test and input the following as the contents of the “Event JSON” box:
 ```sh
 {

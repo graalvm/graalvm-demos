@@ -15,11 +15,12 @@
 
   <properties>
     <packaging>jar</packaging>
-    <jdk.version>11</jdk.version>
-    <release.version>11</release.version>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
     <micronaut.version>3.9.1</micronaut.version>
     <exec.mainClass>io.micronaut.function.aws.runtime.MicronautLambdaRuntime</exec.mainClass>
     <micronaut.runtime>lambda</micronaut.runtime>
+    <graal.version>22.3.3</graal.version>
   </properties>
 
   <repositories>
