@@ -6,8 +6,6 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
-- Apache Maven: https://maven.apache.org/install.html
-- GraalVM: https://www.graalvm.org/downloads/
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
@@ -68,7 +66,14 @@ cd graalvm-demos/aws-lambda-demo
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
 
-![Test result](img/Screen%20Shot%202023-05-11%20at%2012.15.18%20PM.png)
+**Cold Start**
+
+![Cold Start](img/Screen%20Shot%202023-08-21%20at%204.50.17%20PM.png)
+
+**Warm Start**
+
+![Warm Start](img/Screen%20Shot%202023-08-21%20at%204.50.50%20PM.png)
+
 
 
 Deploying as a Native Image Application
@@ -113,7 +118,15 @@ cd graalvm-demos/aws-lambda-demo
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
 
-![Test result](img/Screen%20Shot%202023-05-11%20at%2012.52.27%20PM.png)
+**Cold Start**
+
+![Cold Start](img/Screen%20Shot%202023-08-21%20at%204.35.04%20PM.png)
+
+**Warm Start**
+
+![Warm Start](img/Screen%20Shot%202023-08-21%20at%204.35.54%20PM.png)
+
+*Note that compared to the .jar version in the first section, the native executable performs a massively faster cold start performance and an overall reduction in memory usage!*
 
 Clean-Up
 --------------------------
