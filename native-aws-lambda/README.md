@@ -51,22 +51,22 @@ cd graalvm-demos/aws-lambda-demo
 ./mvnw package
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
-
-![AWS dashboard](img/Screen%20Shot%202023-05-11%20at%2012.16.14%20PM.png)
-
 4.	Select the “Create function” button in the top-right corner
+
+![AWS dashboard](img/Create%20function.png)
+
 5.	Select “Author from scratch”, choose a name for your function, select “Java 17” as the runtime, and select “x86_64” as the architecture, then click the "Create function" button
 
-![Create function](img/Screen%20Shot%202023-05-31%20at%2012.44.55%20PM.png)
+![Create function](img/myFunction.png)
 
 6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip or.jar file” button
 
-![Code upload](img/Screen%20Shot%202023-05-11%20at%2012.18.22%20PM.png)
+![Code upload](img/JAR%20upload.png)
 
 7.	Click upload and navigate to where you stored the function.jar file that you downloaded then select “upload” and “save”
 8.	Under “Runtime settings”, click “Edit” and input “io.micronaut.function.aws.proxy.MicronautLambdaHandler” as the Handler
 
-![Runtime settings](img/Screen%20Shot%202023-05-31%20at%2012.46.52%20PM.png)
+![Runtime settings](img/handler%20java.png)
 
 9.	Now you can go ahead and test the function. To do so, navigate to the “Test” tab and select “Create new event”. Choose a name for your test and input the following as the contents of the “Event JSON” box:
 ```sh
@@ -78,17 +78,17 @@ cd graalvm-demos/aws-lambda-demo
   }
 }
 ```
-![Test code](img/Screen%20Shot%202023-05-11%20at%2012.21.02%20PM.png)
+![Test code](img/myTest.png)
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
 
 **Cold Start**
 
-![Cold Start](img/Screen%20Shot%202023-08-21%20at%204.50.17%20PM.png)
+![Cold Start](img/java%20cold.png)
 
 **Warm Start**
 
-![Warm Start](img/Screen%20Shot%202023-08-21%20at%204.50.50%20PM.png)
+![Warm Start](img/java%20warm.png)
 
 
 
@@ -104,21 +104,21 @@ cd graalvm-demos/aws-lambda-demo
 ```
 3. Sign-in to [Amazon Web Services](https://ca-central-1.console.aws.amazon.com/lambda/home?region=ca-central-1#/discover) and navigate to the Lambda dashboard
 
-![AWS dashboard](img/Screen%20Shot%202023-05-11%20at%2012.16.14%20PM.png)
+![AWS dashboard](img/Create%20function.png)
 
 4.	Select the “Create function” button in the top-right corner
 5.	Select “Author from scratch”, choose a name for your function, select “Provide your own bootstrap on Amazon Linux 2” as the runtime, and choose “x86_64” as the architecture
 
-![Create function](img/Screen%20Shot%202023-05-11%20at%2012.47.17%20PM.png)
+![Create function](img/myNativeImageFunc.png)
 
 6.	On the page for your newly created function, navigate to the section titled “Code source” and select the “Upload from .zip file” button
 
-![Code upload](img/Screen%20Shot%202023-08-21%20at%202.50.00%20PM.png)
+![Code upload](img/zip%20upload.png)
 
 7.	Click upload and navigate to where you stored the function.zip file that you created then select “upload” and “save”
 8.	Under “Runtime settings”, click “Edit” and input “io.micronaut.function.aws.proxy.MicronautLambdaHandler” as the Handler
 
-![Runtime settings](img/Screen%20Shot%202023-05-11%20at%2012.50.45%20PM.png)
+![Runtime settings](img/handler%20linux.png)
 
 9.	Now you can go ahead and test the function. To do so, navigate to the “Test” tab and select “Create new event”. Choose a name for your test and input the following as the contents of the “Event JSON” box:
 ```sh
@@ -130,17 +130,17 @@ cd graalvm-demos/aws-lambda-demo
   }
 }
 ```
-![Test code](img/Screen%20Shot%202023-05-11%20at%2012.21.02%20PM.png)
+![Test code](img/myTest.png)
 
 10.	Click “Save” in the top-right corner to save your test and click “Test” to ensure that the application works correctly. You should receive an output that indicates a success and provides information about the performance of the application:
 
 **Cold Start**
 
-![Cold Start](img/Screen%20Shot%202023-08-21%20at%204.35.04%20PM.png)
+![Cold Start](img/native%20cold.png)
 
 **Warm Start**
 
-![Warm Start](img/Screen%20Shot%202023-08-21%20at%204.35.54%20PM.png)
+![Warm Start](img/native%20warm.png)
 
 *Note that compared to the .jar version in the first section, the native executable performs a massively faster cold start performance and an overall reduction in memory usage!*
 
