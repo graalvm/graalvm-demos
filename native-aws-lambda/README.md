@@ -6,6 +6,7 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
+  - Ensure that the daemon is actively running before beginning the demo
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
 
@@ -20,7 +21,22 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **HelloController.java**
 
-<img width="509" alt="Code snippet" src="img/249303699-4d2ee700-8f9c-4016-8afc-0eabc7f62485.png">
+```java
+package example.micronaut;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import java.util.Collections;
+import java.util.Map;
+
+@Controller
+public class HomeController {
+
+    @Get
+    public Map<String, Object> index() {
+        return Collections.singletonMap("message", "Hello World");
+    }
+}
+```
 
 This code implements the actual RESTful "Hello World" functionality and is the code that snippet which is executed when a request is made to Lambda function. It produces the "Hello World" string when a GET request is made to the function's URL.
 

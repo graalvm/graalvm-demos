@@ -22,6 +22,7 @@
     <micronaut.aot.enabled>true</micronaut.aot.enabled>
     <micronaut.aot.packageName>example.micronaut.aot.generated</micronaut.aot.packageName>
     <exec.mainClass>example.micronaut.Application</exec.mainClass>
+    <graal.version>22.3.3</graal.version>
   </properties>
 
   <repositories>

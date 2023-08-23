@@ -6,8 +6,8 @@ Prerequisites
 ----------------------
 Ensure that you have the following installed and follow the linked instructions for any that you are missing:
 - A Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or [Docker](https://www.docker.io/gettingstarted/)
+    - Ensure that the daemon is actively running before beginning the demo
 - Google Cloud CLI: https://cloud.google.com/sdk/docs/install#linux
-- Apache Maven: https://maven.apache.org/install.html
 - GraalVM: https://www.graalvm.org/downloads/
 
 **COMPATIBILITY**: Please note that this demo must be performed on an x86-based platform in order to properly function. Working through this demo on an ARM-based platform will result in the generation of a native executable that is not compatible with the platform.
@@ -23,13 +23,40 @@ The code provided in this demo is a simple "Hello World" REST application create
 
 **Application.java**
 
-<img width="469" alt="Application.java" src="img/Screen%20Shot%202023-06-19%20at%203.27.17%20PM.png">
+```java
+package example.micronaut;
+
+import io.micronaut.runtime.Micronaut;
+
+public class Application {
+
+    public static void main(String[] args) {
+        Micronaut.run(Application.class, args);
+    }
+}
+```
 
 This is the location of the main() function and entry point for the application.
 
 **HelloController.java**
 
-<img width="497" alt="HelloController.java" src="img/246946908-e48d3a98-99e0-44ca-8b6c-2abdd07fa5dd.png">
+```java
+package example.micronaut;
+
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+
+@Controller("/hello") 
+public class HelloController {
+    @Get 
+    @Produces(MediaType.TEXT_PLAIN) 
+    public String index() {
+        return "Hello World"; 
+    }
+}
+```
 
 This code implements the actual RESTful "Hello World" functionality. It produces the "Hello World" string when a GET request is made to the _/hello_ URL.
 
