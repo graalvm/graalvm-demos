@@ -71,7 +71,8 @@ cd graalvm-demos/native-azure-container-instances
 ```sh
 az group create --name nativeResourceGroup --location <REGION>
 ```
-<img width="766" alt="Create resource group" src="img/248108829-2f24f009-303a-431d-8b38-3903cab771f0-2.png">
+
+![Create resource group](img/create%20group.png)
 
 
 **NOTE**: Available regions will be dependent on your current subscription, use the following command to see a list of those available to you:
@@ -83,8 +84,8 @@ az account list-locations
 ```sh
 az acr create --resource-group nativeResourceGroup --name <REGISTRY-NAME> --sku Basic
 ```
-<img width="1185" alt="Create container instance" src="img/248108931-17de8157-f9cb-49f9-ac44-5dbc797ec3cc-2.png">
 
+![Create registry](img/create%20registry.png)
 
 A successful creation will output something similar to that shown in the screenshot above. Take note of the "loginServer" value as this is the fully qualified registry name.
 
@@ -93,15 +94,15 @@ A successful creation will output something similar to that shown in the screens
 6. Select the registry you previously created and select "Access keys" on the left side of the page
 7. Toggle the "Admin User" switch so that it is enabled - a username and password(s) will appear that you will use to login to the registry on the CLI
 
-![Access Keys](img/Screen%20Shot%202023-06-20%20at%2012.50.39%20PM.png)
+![Access Keys](img/access%20keys.png)
 
 
 8. To provide your credentials to Docker, run the following command and use the Username and Password from the previous step when prompted:
 ```sh
 docker login <REGISTRY-NAME>.azurecr.io
 ```
-<img width="613" alt="Login success" src="img/248109366-d2950b52-02bd-4b9e-906d-5629024c707e-2.png">
 
+![Login success](img/docker%20login.png)
 
 __OPTIONAL__: In the next step you will use a single command to build the application into a container image and deploy it to the repository you have created; if you would like to first view the Docker file that will be used to create the image, run the following command:
 ```sh
@@ -113,7 +114,8 @@ The newly created Dockerfile will be automatically stored in the "target" direct
 ```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=<REGISTRY-NAME>.azurecr.io/nativedemo
 ```
-<img width="613" alt="Build success" src="img/Screen%20Shot%202023-06-20%20at%201.09.02%20PM.png">
+
+![Build success](img/build%20success.png)
 
 Deploy the application on Azure Container Instances
 ----------------------
@@ -121,15 +123,15 @@ Deploy the application on Azure Container Instances
 ```sh
 az container create --resource-group nativeResourceGroup --name nativecontainer --image <REGISTRY-NAME>.azurecr.io/nativedemo --dns-name-label nativeapp --ports 8080
 ```
-<img width="1192" alt="Create container" src="img/248396235-a4a47ca0-9d3d-424e-b47b-4cbbe3b5ec28-2.png">
 
+![Create container](img/container%20create.png)
 
 2. Ensure that the provision has been successful:
 ```sh
 az container show --resource-group nativeResourceGroup --name nativecontainer --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
 ```
-<img width="1289" alt="Successful provision" src="img/248420660-66a3a6b4-0ded-42db-9cda-2953d43a1173-2.png">
 
+![Show containers](img/container%20show.png)
 
 3. If the ProvisioningState is "Succeeded" then you have properly deployed the application; to test it out use the outputted FQDN in your internet browser in the format:
 ```sh
@@ -138,7 +140,7 @@ az container show --resource-group nativeResourceGroup --name nativecontainer --
 
 You should see a "Hello World" message displayed on the webpage:
 
-![Hello World](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
+![Hello World](img/hello%20world.png)
 
 Clean-up
 ---------------------
@@ -147,5 +149,5 @@ Once you are completed with this demo, follow these steps to clean-up the resour
 2. Use the search bar at the top of the screen to navigate to the "Resource groups" page
 3. Select the resource group that you created, click "Delete resource group", and then follow the on-screen instructions to confirm the deletion
 
-![Delete resource group](img/Screen%20Shot%202023-06-23%20at%203.43.31%20PM.png)
+![Delete resource group](img/delete.png)
 
