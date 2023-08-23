@@ -103,7 +103,8 @@ Example:
 3. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 4. Select the repository in which you stored your image (the location corresponds to the ```<tenancy-namespace>``` with which you tagged the image).
 5. Ensure that the Access type is "Public"; if it is not, click **Actions** in the top-right corner and select "Change to public".
-<img width="888" alt="public repo" src="img/244188881-c9ec8364-5aea-40f0-8348-79339dc6578f-2.png">
+
+![Make public](img/actions%20public.png)
 
 **OPTIONAL:** If you wish to keep the repository as "Private", complete the following steps (your account must have permissions to create dynamic groups and policies):
 - If your image is stored in the root compartment, move it to the desired compartment by selecting "Move Compartment"
@@ -112,40 +113,46 @@ Example:
 ```
 ALL {resource.type='computecontainerinstance', resource.compartment.id = 'ocid1.compartment.oc1..aaaqba'}
 ```
-![Dynamic Group](img/dynamic.png)
+
+![Dynamic Group](img/create%20dynamic%20group.png)
+
 - In the navigation menu, click **Identity & Security**. Under **Identity**, click **Policies**.
 - Create a new policy with a name of your choosing and ensure it is created in your compartment.
 - Toggle the "Show manual editor" switch and input the following into the text box that appears (using the names of your dynamic group and compartment):
 ```
 Allow dynamic-group <dynamic-group-name> to read repos in compartment <container-instance-compartment-name>
 ```
-![Policy](img/policy.png)
+
+![Policy](img/create%20policy.png)
 
 Create an OCI Container Instance
 -------------------------
 1. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Instances**.
-<img width="450" alt="Screen Shot 2023-06-06 at 4 28 20 PM" src="img/Screen%20Shot%202023-06-06%20at%204.28.20%20PM.png">
+
+![Navigation](img/container%20instances.png)
 
 2. Click **Create container instance**.
 3. Enter a name and compartment location for the instance.
 4. In the "Shape" section, adjust the sliders to your desired amounts of OCPUs and Memory (1 CPU and 1 GB of memory will be enough thanks to the power of native image!)
-![Configure](img/Screen%20Shot%202023-07-12%20at%2012.45.27%20PM.png)
+
+![Configure](img/shape.png)
 
 
 5. In the "Networking" section, you may either use a pre-existing VCN or create a new one.
 6. Leave the remaining options as their defaults and click **Next**.
 7. Choose a name for the container (or leave as default) and in the "Image" section click **Select image**.
-<img width="987" alt="Create container" src="img/Screen_Shot_2023-06-06_at_4_31_31_PM.png">
 
+![Select Image](img/select%20image.png)
 
 8. Locate the image that you pushed in the previous section according to the ```<tenancy-namespace>``` directory that you chose.
 9. Create the container and allow it a moment to intialize.
-<img width="1282" alt="Create container" src="img/Screen_Shot_2023-06-06_at_4_31_55_PM.png">
+
+![Create container](img/create%20container%20instance.png)
 
 
 10. A successful deployment will result in the large icon box becoming green and the status "ACTIVE" displayed beneath it.
-<img width="1493" alt="Successful deployment" src="img/Screen_Shot_2023-06-07_at_12_12_57_PM.png">
 
+![Active deployment](img/active%20container%20instance.png)
 
 Configure the Security Group
 ------------------------
@@ -154,7 +161,8 @@ Configure the Security Group
 3. Click "Network Security Groups" and then "Create Network Security Group"
 4. Choose a name and compartment for the new group then click "Next"
 5. Select "Ingress" as the Direction, CIDR for Source Type, "0.0.0.0/0" for Source CIDR, and leave the remaining fields as their default - then click "Create"
-<img width="1493" alt="Create security group" src="img/Screen%20Shot%202023-06-07%20at%2012.28.43%20PM.png">
+
+![Create security group](img/create%20security%20group.png)
 
 6. Return to the page for your container instance and click "Edit" beside "Network security groups"
 7. Locate the newly created security group and click "Save changes"
@@ -164,7 +172,7 @@ http://<public-ip-address>:8080/hello
 ```
 9. If you have completed the demo successfully, a "Hello World" message will be displayed!
 
-![Hello World](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
+![Hello World](img/hello%20world.png)
 
 Clean-Up
 ---------------------------
@@ -173,18 +181,18 @@ Once you have completed this demo, follow these instructions to delete the creat
 2. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**. Under **Containers & Artifacts**, click **Container Registry**.
 3. Select the container image that you uploaded and from the **Actions** drop-down list select **Delete repository**.
 
-![Delete registry](img/249277786-da43004b-d017-49c4-8273-5bf0a4acc2cd-2.png)
+![Delete registry](img/delete%20repository.png)
 
 4. On the left side of the page, click **Container Instances**.
 5. Select the container instance that you created and from the **More actions** drop-down list select **Delete **.
 
-![Delete instance](img/249277606-5289230a-1a19-4f71-b4bb-1669e1c6f671-2.png)
+![Delete instance](img/delete%20instance.png)
 
 6. In the Oracle Cloud Console, open the navigation menu, click **Developer Services**and then click **Virtual cloud networks**.
 7. Select the VCN that you created for your container instance.
 8. Click **Delete**.
 
-![Delete VCN](img/249277902-a45cbb7e-59ec-4952-9a54-899907a9e094-2.png)
+![Delete VCN](img/delete%20VCN.png)
 
 9. Click **Scan** - this returns a list of any lingering resources that reference the VCN.
 10. Click **Delete all** to remove the listed resources (if this fails you can select each resource individually to delete them on their own pages).
