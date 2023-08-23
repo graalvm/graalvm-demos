@@ -89,7 +89,7 @@ gcloud projects list
 6. Use a browser to login to the Google Cloud dashboard and navigate to the [Billing](https://console.cloud.google.com/billing/projects) tab
 7. Ensure that you have a billing account set up and enable billing for the newly created project by clicking the ellipsis beside the project name and selecting **Change billing**
 
-<img width="1478" alt="Billing" src="img/242710009-f598f19e-6e64-4170-a1d8-f78733b9c44c-2.png">
+![Change billing](img/change%20billing.png)
 
 
 8. Return to your terminal and activate the required project APIs using the following command:
@@ -106,19 +106,22 @@ The newly created Dockerfile will be automatically stored in the _target_ direct
 ```sh
 ./mvnw deploy -Dpackaging=docker-native -Djib.to.image=gcr.io/graal-demo-xxxxxx/graaldemo:latest
 ```
-<img width="891" alt="Build and deploy" src="img/242710614-78047411-d8b1-46d2-b61c-24d50d6c817e-2.png">
+
+![Deploy to registry](img/deploy.png)
 
 10. Deploy the application to Google Cloud Run:
 ```sh
 gcloud run deploy --image=gcr.io/graal-demo-xxxxxx/graaldemo:latest --platform managed --allow-unauthenticated
 ```
-<img width="1010" alt="Deploy on Run" src="img/242710845-b29ce6b1-304a-441c-8846-4c921f293a7a-2.png">
+
+![Deploy to Run](img/run%20deploy.png)
 
 11. Once the application is successfully deployed, a Service URL will be outputted. Use that URL in the following command to test the application - a success will return the string "Hello World":
 ```sh
 curl SERVICE_URL/hello
 ```
-<img width="634" alt="Hello World" src="img/242710966-16bcc0cb-7c4d-4663-a088-3cc3428b5329-2.png">
+
+![Hello World](img/curl.png)
 
 12. To view detailed information about the application performance such as build and response times, visit [Google Cloud Logging](https://console.cloud.google.com/logs/)
 
@@ -127,7 +130,6 @@ Clean-Up
 Once you are finished with the demo, follow these steps to delete the created resources:
 1. Use a browser to login to the Google Cloud dashboard and navigate to the [Resource Manager](https://console.cloud.google.com/cloud-resource-manager?previousPage=%2Fprojectselector2&organizationId=0)
 2. Check the box next to the name of the project you wish to delete
-
-![Manage resources](img/Screen%20Shot%202023-06-26%20at%203.27.51%20PM.png)
-
 3. Click **DELETE** on the top bar and follow the on-screen instructions
+
+![Delete](img/delete.png)
