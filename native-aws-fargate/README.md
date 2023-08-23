@@ -72,7 +72,7 @@ cd graalvm-demos/native-aws-fargate
 ```sh
 aws ecr create-repository --repository-name native-fargate-repo
 ```
-<img width="705" alt="Create repo" src="img/246945696-19b51978-8286-4dff-a7b3-3f21c9a53071-2.png">
+![Create Repo](img/create%20repo.png)
 
 3. A successful repository creation will return an output similar to above; note the "repositoryUri" that is outputted as this will be the location you will use to store your image
 4. Login to the [Amazon Web Service dashboard](http://console.aws.amazon.com/)
@@ -105,19 +105,19 @@ Deploy the Service on AWS Fargate
 3. Click on "Clusters" on the left-side pane
 4. Create a new cluster using the button on the top-right of the page
 
-![Clusters](img/Screen%20Shot%202023-05-31%20at%204.13.22%20PM.png)
+![Clusters](img/create%20cluster.png)
 
 5. Choose a name for the cluster and leave the remaining settings as their default
     - If you would like to be able to view insights about the container image performance, activate Container Insights under "Monitoring"
 
-![New cluster](img/Screen%20Shot%202023-05-31%20at%204.15.55%20PM.png)
+![New cluster](img/Cluster%20name.png)
 
-![Architecture](img/image.png)
+![Infrastructure](img/infrastructure.png)
 
 6. Once you have created the new cluster, navigate to "Task definitions" by selecting it on the left-side pane
 7. Create a new task definition by clicking the button on the top-right corner
 
-![Task definitions](img/Screen%20Shot%202023-05-31%20at%204.20.07%20PM.png)
+![Task definitions](img/create%20task%20def.png)
 
 8. Choose names for the Task Definition Family and Container
 
@@ -134,23 +134,23 @@ Deploy the Service on AWS Fargate
 13. Choose "Task" as the Application Type
 14. Choose the newly created Task Definition under the "Family" drop-down menu and choose a name for the service
 
-![Create task](img/Screen%20Shot%202023-06-02%20at%2012.48.45%20PM.png)
+![Create task](img/new%20task.png)
 
 15. Under "Networking" -> "Security Group" select "Create a new security group"
 16. Choose a name and description for the new group
 17. For "Type" select "All traffic" and for "Source" select "Anywhere"
 
-![Security group](img/Screen%20Shot%202023-05-31%20at%204.32.21%20PM.png)
+![Security group](img/security%20group.png)
 
 18. Click "Create" to create and deploy the task
 19. Select the task currently running and copy the public IP address displayed on the right side of the page
 
-![Public IP](img/Screen%20Shot%202023-06-02%20at%201.14.46%20PM.png)
+![Public IP](img/public%20ip.png)
 
 20. In a new browser tab, type the IP address in the format: http://PUBLICIP:8080/hello
 21. You should see a "Hello World" message displayed!
 
-![Hello world](img/Screen%20Shot%202023-06-16%20at%203.43.35%20PM.png)
+![Hello world](img/hello%20world.png)
 
 
 Clean-Up
@@ -161,9 +161,9 @@ To prevent incurring additional charges after you are finished with the demo you
 3. Change the drop-down view menu to show "Inactive task definitions"
 4. Select the task definition and under Actions select "Delete"
 
-![Delete task](img/Screen%20Shot%202023-06-02%20at%202.58.34%20PM.png)
+![Delete task](img/delete.png)
 
 6. Return to the cluster that you created and delete the task currently running
 7. Use the button on the top-right of the screen to delete the cluster itself
 
-![Delete cluster](img/Screen%20Shot%202023-06-02%20at%203.01.29%20PM.png)
+![Delete cluster](img/confirm%20delete.png)
