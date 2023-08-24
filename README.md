@@ -121,10 +121,6 @@ cd graalvm-demos
       <td align="left" width="70%">This demo covers the steps required to deploy a native executable application on AWS Lambda.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Lambda <br>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-azure-container-instances/">native-azure-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml"><img alt="native-azure-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-azure-container-instances.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on Azure Container Instances.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Azure CLI, Azure Container Instances<br></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/native-google-cloud-run/">native-google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml"><img alt="native-google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
     </tr>
