@@ -44,9 +44,9 @@ Deploying as a Java 17 Application (.jar)
 ----------------------
 1. Navigate to the directory for this demo:
 ```sh
-cd graalvm-demos/aws-lambda-demo
+cd graalvm-demos/native-aws-lambda
 ```
-2. Generate the .jar application file by executing the following command (the file will be created in aws-lambda-demo/target/lambda-demo-0.1.jar):
+2. Generate the .jar application file by executing the following command (the file will be created in native-aws-lambda/target/lambda-demo-0.1.jar):
 ```sh
 ./mvnw package
 ```
@@ -96,9 +96,9 @@ Deploying as a Native Image Application
 ----------------------------------
 1. Navigate to the directory for this demo:
 ```sh
-cd graalvm-demos/aws-lambda-demo
+cd graalvm-demos/native-aws-lambda
 ```
-2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in aws-lambda-demo/target/function.zip):
+2. AWS Lambda requires a bootstrap file that provides instructions for running applications with custom runtimes. Generate a zip file containing the Native Image executable and a corresponding bootstrap file with the following command (the file will be created in native-aws-lambda/target/function.zip):
 ```sh
 ./mvnw package -Dpackaging=docker-native
 ```
