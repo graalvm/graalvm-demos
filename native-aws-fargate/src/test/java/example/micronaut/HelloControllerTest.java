@@ -38,19 +38,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package example.micronaut;
 
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Produces;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Controller("/hello") 
-public class HelloController {
-    @Get 
-    @Produces(MediaType.TEXT_PLAIN) 
-    public String index() {
-        return "Hello World"; 
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.annotation.Client;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+
+import jakarta.inject.Inject;
+
+@MicronautTest 
+public class HelloControllerTest {
+
+    @Inject
+    @Client("/")  
+    HttpClient client;
+
+    @Test
+    public void testHello() {
+        HttpRequest<String> request = HttpRequest.GET("/hello");  
+        String body = client.toBlocking().retrieve(request);
+
+        assertNotNull(body);
+        assertEquals("Hello World", body);
     }
 }

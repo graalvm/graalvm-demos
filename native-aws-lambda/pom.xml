@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>example.micronaut</groupId>
-  <artifactId>micronautguide</artifactId>
+  <artifactId>lambda-demo</artifactId>
   <version>0.1</version>
   <packaging>${packaging}</packaging>
 
@@ -18,8 +18,8 @@
     <jdk.version>17</jdk.version>
     <release.version>17</release.version>
     <micronaut.version>3.9.1</micronaut.version>
-    <micronaut.runtime>netty</micronaut.runtime>
-    <exec.mainClass>example.micronaut.Application</exec.mainClass>
+    <exec.mainClass>io.micronaut.function.aws.runtime.MicronautLambdaRuntime</exec.mainClass>
+    <micronaut.runtime>lambda</micronaut.runtime>
     <graal.version>22.3.3</graal.version>
   </properties>
 
@@ -38,12 +38,22 @@
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-http-server-netty</artifactId>
+      <artifactId>micronaut-jackson-databind</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>io.micronaut</groupId>
-      <artifactId>micronaut-jackson-databind</artifactId>
+      <groupId>io.micronaut.aws</groupId>
+      <artifactId>micronaut-function-aws-api-proxy</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.aws</groupId>
+      <artifactId>micronaut-function-aws-api-proxy-test</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.aws</groupId>
+      <artifactId>micronaut-function-aws-custom-runtime</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -96,7 +106,7 @@
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-Amicronaut.processing.group=example.micronaut</arg>
-            <arg>-Amicronaut.processing.module=micronautguide</arg>
+            <arg>-Amicronaut.processing.module=lambda-demo</arg>
           </compilerArgs>
         </configuration>
       </plugin>
