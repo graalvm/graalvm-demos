@@ -1,5 +1,5 @@
 # Using Oracle GraalVM for JDK 17 Community Edition
-FROM ghcr.io/graalvm/native-image-community:17-ol8 AS builder
+FROM container-registry.oracle.com/graalvm/native-image-community:17-ol8 AS builder
 
 # Set the working directory to /home/app
 WORKDIR /build
@@ -11,7 +11,7 @@ COPY . /build
 RUN ./mvnw --no-transfer-progress native:compile -Pnative
 
 # The deployment Image
-FROM docker.io/oraclelinux:8-slim
+FROM container-registry.oracle.com/os/oraclelinux:8-slim
 
 EXPOSE 8080
 

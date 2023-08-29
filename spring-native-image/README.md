@@ -75,7 +75,7 @@ You can easily containerise the JAR using the GraalVM container image `container
     docker build -f Dockerfiles/Dockerfile.jvm --build-arg APP_FILE=benchmark-jibber-0.0.1-SNAPSHOT.jar -t jibber-benchmark:jvm.0.0.1-SNAPSHOT .
     ```
 
-2. Run the Docker image in a container:
+2. Run the container:
     ```shell
     docker run --rm --name graal -p 8080:8080 jibber-benchmark:jvm.0.0.1-SNAPSHOT
     ```
@@ -151,6 +151,7 @@ Also change the resulting binary name to "new-jibber".
     Notice that a native executable, now named `new-jibber`, was generated in less time: the compiler operated in economy mode with fewer optimizations, resulting in much faster compilation times. (The quick build mode is not recommended for production.)
 
 See the [Native Build Tools Maven plugin documentation](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to learn more. 
+
 ## Containerize the Native Executable
 
 If you are using macOS or Windows, to build a Docker image containing your native executable you need to build the native executable within a Docker container. How to do this is described below. 
@@ -164,19 +165,31 @@ Once that is built, you can test it as follows:
 ```shell
 docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
 ```
-### Build a Native Image Container on Something Other than Linux
+### Use Multistage Docker Builds to Build a Native Image and Package it in a Lightweight Container
 
-If you are not using Linux as your operating system, you need to build the native executable within a Docker container. To do this we provided a two-stage Docker build file. 
+If you are not using Linux as your operating system, you need to build the native executable within a Docker container. To do this, we provided a multistage Docker build file. 
 
 1. Run this command to build the native executable within a Docker container:
     ```shell
     docker build -f Dockerfiles/Dockerfile -t jibber-benchmark:native.0.0.1-SNAPSHOT .
     ```
 
-2. Once that is built, you can test it as follows:
+2. Run the container:
     ```shell
-    docker run --rm --name native -d -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
+    docker run --rm --name native -p 8080:8080 jibber-benchmark:native.0.0.1-SNAPSHOT
     ```
+
+3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or from a new terminal window, call the endpoint using `curl`:
+    ```shell
+    curl http://localhost:8080/jibber
+    ```
+    It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. 
+
+4. To stop the application, first get the container id using `docker ps`, and then run:
+    ```shell
+    docker rm -f <container_id>
+    ```
+
 ## Measure the Performance of the Application and Metrics
 
 The Spring Actuator dependency has been added to the project, along with support for Prometheus. 
