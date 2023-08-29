@@ -28,9 +28,9 @@ If you would like to run this demo using [BuildPacks](https://docs.spring.io/spr
 
 ## Preparation
 
-1. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest Oracle GraalVM with Native Image from [Download Oracle GraalVM](https://www.graalvm.org/downloads/). 
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 17.0.8-graal 
     ```
 2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
 
@@ -48,7 +48,7 @@ This project is built using Maven.
 
 1. Build the application on top of a JVM:
     ```shell
-    mvn clean package
+    ./mvnw clean package
     ```
     It generates a runnable JAR file that contains all of the application’s dependencies and also a correctly configured `MANIFEST` file.
 
@@ -65,25 +65,38 @@ This project is built using Maven.
     It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. 
     To terminate it, first bring the application to the foreground using `fg`, and then enter `<CTRL-c>`.
 
-## Run in a Docker Container
+## Containerize the JAR
 
-As a nice extra, there is a Dockerfile provided with this demo. So, besides building the application JAR, you see a Docker image built at the `mvn clean package` step, pulling the GraalVM container image, `ghcr.io/graalvm/jdk:ol8-java17`, as the JVM.
+You can easily containerise the JAR using the GraalVM container image `ghcr.io/graalvm/jdk-community:17-ol8` as the JVM.
 
-Run the Docker image in a container:
-```shell
-docker run --rm --name graalce -d -p 8080:8080 jibber-benchmark:graalce.0.0.1-SNAPSHOT
-```
+1. Run this command to package the JAR as a Docker container:
+    ```shell
+    docker build -f Dockerfiles/Dockerfile.jvm --build-arg APP_FILE=benchmark-jibber-0.0.1-SNAPSHOT.jar -t jibber-benchmark:jvm.0.0.1-SNAPSHOT .
+    ```
 
-You can then test the container suing `curl` exactly as you did before - remember to allow a little time for the application to start up.
+2. Run the Docker image in a container:
+    ```shell
+    docker run --rm --name graal -p 8080:8080 jibber-benchmark:jvm.0.0.1-SNAPSHOT
+    ```
+
+3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or from a new terminal window, call the endpoint using `curl`:
+    ```shell
+    curl http://localhost:8080/jibber
+    ```
+    It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. 
+
+4. To stop the application, first get the container id using `docker ps`, and then run:
+    ```shell
+    docker rm -f <container_id>
+    ```
 
 ## Build and Run as a Native Executable
 
-With the built-in support for GraalVM Native Image in Spring Boot 3, superseding the experimental [Spring Native project](https://docs.spring.io/spring-native/docs/current/reference/htmlsingle/#overview), it has become much easier to compile a Spring Boot 3 application into a native executable.
+With the built-in support for GraalVM Native Image in Spring Boot 3, it has become much easier to compile a Spring Boot 3 application into a native executable.
 
 1. Run the following command:
-
     ```shell
-    mvn native:compile -Pnative
+    ./mvnw native:compile -Pnative
     ```
     The `-Pnative` profile is used to turn on building a native executable.
     It will generate a native executable for your platform in the _target_ directory, called _benchmark-jibber_.
@@ -101,9 +114,11 @@ With the built-in support for GraalVM Native Image in Spring Boot 3, superseding
     curl http://localhost:8080/jibber
     ```
     You should get some nonsense verse back. 
-    Terminate it, first bring the application to the foreground using `fg`, and then enter `<CTRL-c>`.
+
+4. Bring the application to the foreground using `fg`, and then enter `<CTRL-c>` to terminate the application.
 
 From the log output, notice how much quicker the native executable version of this Spring Boot application starts. It also uses fewer resources than running from a JAR file.
+
 ### Configure Native Build Tools Maven Plugin
 
 You can configure the Maven plugin for GraalVM Native Image using the `<buildArgs>` elements. 

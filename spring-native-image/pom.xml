@@ -11,10 +11,11 @@
 	<groupId>com.example</groupId>
 	<artifactId>benchmark-jibber</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jibber</name>
+	<name>benchmark-jibber</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<native.maven.plugin.version>0.9.25</native.maven.plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -52,7 +53,19 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
-				<version>0.9.21</version>
+				<version>${native.maven.plugin.version}</version>
+				<configuration>
+					<imageName>${name}</imageName>
+					<fallback>false</fallback>
+					<verbose>true</verbose>
+					<quickBuild>true</quickBuild>
+					<buildArgs>
+						<arg>-H:+ReportExceptionStackTraces</arg>
+					</buildArgs>
+					<metadataRepository>
+						<enabled>true</enabled>
+					</metadataRepository>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
