@@ -55,7 +55,7 @@
 				<artifactId>native-maven-plugin</artifactId>
 				<version>${native.maven.plugin.version}</version>
 				<configuration>
-					<imageName>${name}</imageName>
+					<imageName>${project.name}</imageName>
 					<fallback>false</fallback>
 					<verbose>true</verbose>
 					<quickBuild>true</quickBuild>
