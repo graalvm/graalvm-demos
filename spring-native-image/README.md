@@ -63,11 +63,12 @@ This project is built using Maven.
     curl http://localhost:8080/jibber
     ```
     It should generate a random nonsense verse in the style of the poem Jabberwocky by Lewis Carrol. 
-    To terminate it, first bring the application to the foreground using `fg`, and then enter `<CTRL-c>`.
+
+4. Bring the application to the foreground using `fg`, and then enter `<CTRL-c>` to terminate the application.
 
 ## Containerize the JAR
 
-You can easily containerise the JAR using the GraalVM container image `ghcr.io/graalvm/jdk-community:17-ol8` as the JVM.
+You can easily containerise the JAR using the GraalVM container image `container-registry.oracle.com/graalvm/jdk-community:17-ol8` as the JVM.
 
 1. Run this command to package the JAR as a Docker container:
     ```shell
