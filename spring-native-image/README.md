@@ -40,7 +40,9 @@ By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.
     cd spring-native-image
     ```
 
-## Build and Run as a JAR
+## Application JAR
+
+### Build and Run as a JAR
 
 This demo is built using Maven. 
 
@@ -98,9 +100,40 @@ The following steps (5-8) show how you can easily containerize the JAR built in 
     docker rm -f <container_id>
     ```
 
-## Build and Run as a Native Executable
+## Native Executable
 
 With the built-in support for GraalVM Native Image in Spring Boot 3, it has become much easier to compile a Spring Boot 3 application into a native executable.
+
+### Native Build Configuration
+
+This snippet shows the native image build configuration section from the [pom.xml](./pom.xml#L57)
+
+```xml
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<version>${native.maven.plugin.version}</version>
+				<configuration>
+					<imageName>${project.name}</imageName>
+					<fallback>false</fallback>
+					<verbose>true</verbose>
+					<quickBuild>true</quickBuild>
+					<buildArgs>
+						<arg>-H:+ReportExceptionStackTraces</arg>
+					</buildArgs>
+					<metadataRepository>
+						<enabled>true</enabled>
+					</metadataRepository>
+				</configuration>
+			</plugin>
+            ...
+		</plugins>
+	</build>
+```
+
+### Build and Run as a Native Executable
 
 1. Run the following command:
 
