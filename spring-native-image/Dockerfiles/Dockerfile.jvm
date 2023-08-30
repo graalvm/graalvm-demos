@@ -1,4 +1,5 @@
-FROM ghcr.io/graalvm/jdk:ol8-java17
+# Using Oracle GraalVM for JDK 17 Community Edition
+FROM container-registry.oracle.com/graalvm/jdk-community:17-ol8
 
 # JAR file will be specified by passing in a build time argument to docker build
 ARG APP_FILE
