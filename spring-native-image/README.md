@@ -164,7 +164,7 @@ The following steps (5-8) are for Linux only.
 
 The following steps (9-12) are for all platforms - MacOS, Windows, and Linux. 
 
-For MacOS and Windows, to build a Docker image containing your native executable, you need to build the native executable inside a Docker container. To do this, we've provided a multistage Docker build file. 
+For MacOS and Windows, to build a Docker image containing your native executable, you need to build the native executable inside a Docker container. To do this, we've provided a [multistage Docker build file](./Dockerfiles/Dockerfile). 
 
 9. Run this command to build the native executable within a Docker container:
 
