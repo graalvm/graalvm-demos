@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/base
+FROM container-registry.oracle.com/os/oraclelinux:8-slim
 
 ARG APP_FILE
 EXPOSE 8080
