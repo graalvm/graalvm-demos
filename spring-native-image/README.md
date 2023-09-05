@@ -26,7 +26,7 @@ By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.
     sdk install java 17.0.8-graal 
     ```
 
-2. (Optional) Install and run Docker. See [Get Docker](https://docs.docker.com/get-docker/#installation) for more details. Configure it to [allow non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
+2. (Optional) Install and run a Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/), [Docker](https://www.docker.io/gettingstarted/), or [Podman](https://podman.io/docs/installation). If you are using Docker, configure it to [allow non-root user access](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
 
 3. Download the demos repository or clone it as follows:
 
@@ -72,7 +72,7 @@ This demo is built using Maven.
 
 ### (Optional) Containerize the JAR
 
-The following steps (5-8) show how you can easily containerize the JAR built in the previous step using the GraalVM JDK container image `container-registry.oracle.com/graalvm/jdk-community:17-ol8` as the JVM.
+The following steps (5-8) show how you can easily containerize the JAR built in the previous step using the Oracle GraalVM JDK container image `container-registry.oracle.com/graalvm/jdk:17-ol8`.
 
 5. Run this command to package the JAR as a Docker container:
 
