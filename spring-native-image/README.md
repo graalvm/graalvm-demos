@@ -72,7 +72,7 @@ This demo is built using Maven.
 
 ### (Optional) Containerize the JAR
 
-The following steps (5-8) show how you can easily containerize the JAR built in the previous step using the GraalVM JDK container image `container-registry.oracle.com/graalvm/jdk:17-ol8` as the JVM.
+The following steps (5-8) show how you can easily containerize the JAR built in the previous step using the Oracle GraalVM JDK container image `container-registry.oracle.com/graalvm/jdk:17-ol8`.
 
 5. Run this command to package the JAR as a Docker container:
 
