@@ -7,10 +7,11 @@ It also shows you how to register a custom managed bean (MBean), with the JMX se
 
 ## Step 1: Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.0-graal
     ```
+    For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
 
 2. Download the demos repository or clone it as follows:
     ```bash
@@ -69,14 +70,6 @@ You can configure JMX to apply all the usual properties as shown in [this guide]
 ## Step 5: Inspect Using VisualVM
 
 1. Start [VisualVM](https://visualvm.github.io/) to view the managed beans in a user-friendly way.
-   > Note: VisualVM is shipped separately and should be first added to GraalVM using `gu`, and then started:
-
-    ```shell
-    $JAVA_HOME/bin/gu install visualvm
-    ```
-    ```shell
-    $JAVA_HOME/bin/jvisualvm
-    ```
 
 2. Make sure you have the **VisualVM-MBeans plugin** installed (go to Tools, then Plugins, under Available Plugins, select "VisualVM-MBeans", and click Install).
 

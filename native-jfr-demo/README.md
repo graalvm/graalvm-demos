@@ -17,10 +17,12 @@ Follow the steps below to record JFR events when running a native executable, en
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image and VisualVM support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1.  Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'visualvm'
+    sdk install java 21.0.0-graal
     ```
+    For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
+
 2. Download the demos repository or clone it as follows:
     ```bush
     git clone https://github.com/graalvm/graalvm-demos
@@ -48,12 +50,10 @@ Follow the steps below to record JFR events when running a native executable, en
     ```bash
     ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
     ```
-    This command runs the application as a native executable. The `-XX:+FlightRecorder` and `-XX:StartFlightRecording` options enable the built-in Flight Recorder and start recording to a specified binary file, _recording.jfr_.
+    This command runs the application as a native executable. 
+    The `-XX:+FlightRecorder` and `-XX:StartFlightRecording` options enable the built-in Flight Recorder and start recording to a specified binary file, _recording.jfr_.
 
-5. Start [VisualVM](https://visualvm.github.io/) to view the contents of the recording file in a user-friendly way. GraalVM provides VisualVM in the core installation. To start the tool, run:
-    ```bash 
-    $JAVA_HOME/bin/jvisualvm
-    ```
+5. Start [VisualVM](https://visualvm.github.io/) to view the contents of the recording file in a user-friendly way.
 
 6. Go to **File**, then **Add JFR Snapshot**, browse _recording.jfr_, and open the selected file. Confirm the display name and click **OK**. Once opened, there is a bunch of options you can check: Monitoring, Threads, Exceptions, etc., but you should be mostly interested in the events browsing. It will look something like this:
     
