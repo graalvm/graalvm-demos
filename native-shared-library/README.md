@@ -13,11 +13,11 @@ This example demonstrates how to use the **Native Image C API**. We will:
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image and LLVM toolchain using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). With the LLVM toolchain, you can compile C/C++ code to bitcode using `clang` shipped with GraalVM:
+1. Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,llvm-toolchain'
+    sdk install java 21.0.0-graal
     ```
-    > Note: The `llvm-toolchain` GraalVM component is not available on Microsoft Windows.
+    For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
 
 2. Download or clone GraalVM demos repository and navigate into the `native-shared-library` directory:
     ```bash
@@ -58,10 +58,11 @@ This example demonstrates how to use the **Native Image C API**. We will:
     native-image --shared -jar <jarfile> -H:Name=<libraryname>
     ```  
 
-4. Compile the _main.c_ using `clang`.  
-    ```bash
+5. Compile the C application using `clang` from the [the GraalVM LLVM runtime](../reference-manual/llvm/README.md#llvm-toolchain):
+    ```shell
     $JAVA_HOME/languages/llvm/native/bin/clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c 
     ```
+    
 5. And finally, run the C application by passing a string as an argument. For example:
     ```bash
     ./main USER
