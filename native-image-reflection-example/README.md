@@ -9,10 +9,11 @@ The following application demonstrates the use of Java reflection and how to pro
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.0-graal
     ```
+    For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
 
 2. Download or clone the repository and navigate into the `native-image-reflection-example` directory:
     ```bash
@@ -59,7 +60,7 @@ The following application demonstrates the use of Java reflection and how to pro
 
 ## Example with Configuration
 
-To build a native executable containing references to the classes and methods that are accessed via reflection, provide the `native-image` utility with a configuration file that specifies the classes and corresponding methods. (For more information about configuration files, see [Reflection Use in Native Images](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Reflection/). You can create this file by hand, but a more convenient approach is to generate it using the tracing agent. The agent writes the configuration for you automatically when you run your application (for more information, see [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent)). 
+To build a native executable containing references to the classes and methods that are accessed via reflection, provide the `native-image` utility with a configuration file that specifies the classes and corresponding methods. (For more information about configuration files, see [Reflection Use in Native Images](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Reflection/)). You can create this file by hand, but a more convenient approach is to generate it using the tracing agent. The agent writes the configuration for you automatically when you run your application (for more information, see [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent)). 
 
 The following steps demonstrate how to use the tracing agent tool, and its output, to create a native executable that relies on reflection.
 
