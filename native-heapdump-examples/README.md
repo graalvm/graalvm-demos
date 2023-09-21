@@ -17,7 +17,7 @@ All approaches are described below.
 
 1.  Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
-    sdk install java 21.0.0-graal
+    sdk install java 21-graal
     ```
     For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
 
