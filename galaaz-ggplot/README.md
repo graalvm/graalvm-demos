@@ -33,11 +33,12 @@ gem install rspec
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with TruffleRuby and FastR support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
-  ```bash
-  bash <(curl -sL https://get.graalvm.org/jdk) -c 'R,ruby'
-  ```
-
+1.  Download and install the latest GraalVM JDK using the [SDKMAN!](https://sdkman.io/jdks#graal):
+    ```bash
+    sdk install java 21-graal
+    ```
+    For other installation options, visit the [Downloads section](https://www.graalvm.org/downloads/).
+    
 2. Install Galaaz:
   ```
   gem install galaaz
