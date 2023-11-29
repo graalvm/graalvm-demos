@@ -16,9 +16,9 @@ This is a "Hello Graal" Java example for GraalVM. The structure of the `Hello` p
   
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
     
 2. Download or clone GraalVM demos repository and navigate into the `hello-graal` directory:
