@@ -9,7 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'org.graalvm.buildtools.native' version '0.9.18'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
 }
 
 repositories {
