@@ -35,9 +35,14 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// Native Image build configuration
 graalvmNative {
-    binaries.all {
-        resources.autodetect()
+    binaries {
+        main {
+            imageName.set('fotrune')
+        }
     }
-    toolchainDetection = false
+    agent {
+        defaultMode = "standard"
+    }
 }
