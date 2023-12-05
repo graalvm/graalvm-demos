@@ -2,6 +2,8 @@
 
 This demo is intended to be used to demonstrate how to debug a Java application, built into a native executable, using [GraalVM VS Code Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm-pack).
 
+>Note: The extension is no longer in active development and is in maintenance mode. The latest version of the documentation that includes the GraalVM Tools for Java extension support is [GraalVM for JDK 17 (23.0.0)](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/).
+
 ## Prerequisites
 
 1. Linux OS with GDB 10.1
