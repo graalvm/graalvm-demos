@@ -7,9 +7,9 @@ This repository contains the code for a demo application for [GraalVM](graalvm.o
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `java-simple-stream-benchmark` directory:
