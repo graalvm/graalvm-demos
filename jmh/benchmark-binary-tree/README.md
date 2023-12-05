@@ -20,9 +20,9 @@ and you should consider the following guidance when building JMH benchmarks that
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `jmh/benchmark-binary-tree` directory:
