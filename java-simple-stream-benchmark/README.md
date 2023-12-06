@@ -1,9 +1,9 @@
 # Simple Java Stream Benchmark
 
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains the code for a simple Java Stream benchmark to run on a [GraalVM JDK](http://graalvm.org).
 
 ## Prerequisites
-- [GraalVM](http://graalvm.org)
+- [GraalVM](https://www.graalvm.org/downloads/)
 
 ## Preparation
 
