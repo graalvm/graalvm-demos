@@ -48,7 +48,7 @@ The application will run the benchmark and display the results to the terminal. 
 
 ```shell
 Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
-BinaryTrees.bench              14  thrpt    6  143.628 ± 9.007  ops/s
+BinaryTrees.bench              14  thrpt    6  348.334 ± 31.664  ops/s
 ```
 
 ## Build and Run as a Native Executable
@@ -67,7 +67,7 @@ Now build a native executable using Native Image. This demo uses GraalVM Enterpr
 
     ```shell
     Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
-    BinaryTrees.bench              14  thrpt    6  107.388 ± 2.038  ops/s
+    BinaryTrees.bench              14  thrpt    6  252.376 ± 37.365  ops/s
     ```
 
 ## Optimise the Native Image
@@ -102,14 +102,9 @@ This file, containing profiling information about the application, will be used 
     These are the results obtained with GraalVM Enterprise Native Image 22.3.0:
     ```shell
     Benchmark          (binaryTreesN)   Mode  Cnt    Score   Error  Units
-    BinaryTrees.bench              14  thrpt    6  194.215 ± 2.746  ops/s
+    BinaryTrees.bench              14  thrpt    6  153.094 ± 74.380  ops/s
     ```
 
 ## Your Mileage May Vary
 
-The results you see will vary depending on the hardware you are running on. The results above are from a 2019 MacBook Pro, i7, 32 GB RAM
-running GraalVM Enterprise 22.3.0 for JDK 17.
-
-See the previous data collated into a chart:
-
-![Binary Tree Benchmark](./images/benchmark-binary-tree.png)
+The results you see will vary depending on the hardware you are running on. The results above are from a 2019 MacBook Pro, i7, 32 GB RAM running on Oracle GraalVM for JDK 21.0.1.
