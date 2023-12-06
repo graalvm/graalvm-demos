@@ -1,21 +1,20 @@
-# Java Kotlin Interoperability and AOT Compilation Demo
+# Java and Kotlin Interoperability Demo
 
 This repository contains the code for a demo application for [GraalVM](graalvm.org).
 
 ### Prerequisites
 
-- [GraalVM](http://graalvm.org)
-- [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
-- Maven
+- [GraalVM](https://www.graalvm.org/downloads/)
+- [Apache Maven](https://maven.apache.org/)
 
 ## Preparation
 
 This is a simple Java/Kotlin application, where a Java method accesses a String from Kotlin and calls a Kotlin function, which later accesses a String from a Java class.
 This example demonstrates how easy it is to interop between Java and Kotlin.
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader): 
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `java-kotlin-aot` directory:
@@ -35,11 +34,10 @@ To build the application use this command:
 Look at this important line of the `build.sh` which creates a native executable for the Java application.
 
 ```bash
-$JAVA_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Name=helloworld -H:Class=hello.JavaHello -H:+ReportUnsupportedElementsAtRuntime
+$JAVA_HOME/bin/native-image --no-fallback -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar -H:Class=hello.JavaHello -o helloworld --report-unsupported-elements-at-runtime
 ```
-The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime.
-
-It takes a couple of parameters, the class path, the main class of the application with the `-H:Class=...`, and the name of the resulting executable with `-H:Name=...`.
+The `native-image` builder compiles the application ahead-of-time (AOT) for faster startup and lower general overhead at runtime. 
+It takes a couple of parameters: the class path, the main class of the application with the `-H:Class=...` option, and the name of the resulting executable.
 
 After executing the `native-image` command, check the directory, it should have produced an executable file `helloworld`.
 
@@ -58,6 +56,8 @@ time ./helloworld
 The `run.sh` script produces approximately the following output:
 ```bash
 ./run.sh
+```
+```
 + java -cp ./target/mixed-code-hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar hello.JavaHello
 Hello from Kotlin!
 Hello from Java!
