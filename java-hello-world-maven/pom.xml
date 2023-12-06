@@ -17,7 +17,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
-		<native.maven.plugin.version>0.9.13</native.maven.plugin.version>
+		<native.maven.plugin.version>0.9.28</native.maven.plugin.version>
   </properties>
 
   <dependencies>
@@ -63,7 +63,7 @@
               <execution>
                 <id>build-native</id>
                 <goals>
-                  <goal>build</goal>
+                  <goal>compile-no-fork</goal>
                 </goals>
                 <phase>package</phase>
               </execution>
