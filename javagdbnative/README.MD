@@ -1,14 +1,16 @@
 # Native Image Debugging from Java Source Code
 
-This demo is intended to be used to demonstrate how to debug a Java application, built into a native executable, using [GraalVM VS Code Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm-pack).
+This demo is intended to be used to demonstrate how to debug a Java application, built into a native executable, using the [GraalVM Tools for Java extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm).
+
+>Note: The extension is no longer in active development and is in maintenance mode. The latest version of the documentation that includes the GraalVM Tools for Java extension support is [GraalVM for JDK 17 (23.0.0)](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/).
 
 ## Prerequisites
 
 1. Linux OS with GDB 10.1
 2. Visual Studio Code
-3. GraalVM Extension Pack for Java: Open Visual Studio Code, navigate to Extensions activity panel in the left-hand side Activity Bar (or use the Ctrl+Shift+X hot keys combination). Search for “GraalVM” in the search field. Find "GraalVM Extension Pack for Java", press Install. Reload will be required.
-4. [GraalVM runtime environment in VS Code](https://www.graalvm.org/latest/tools/vscode/graalvm-extension/#graalvm-installation-wizard): Navigate to Gr activity panel in VS Code and install some of the latest GraalVM __Enterprise Edition__ versions available from the list.
-5. [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/): Upon GraalVM's installation completion, the “Install Optional GraalVM Components” window pops up in the right bottom corner. Install Native Image.
+3. [GraalVM Tools for Java](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm): Open Visual Studio Code, navigate to Extensions activity panel in the left-hand side Activity Bar (or use the Ctrl+Shift+X hot keys combination). Search for “GraalVM” in the search field. Find "GraalVM Tools for Java", press Install. Reload will be required.
+4. [GraalVM runtime environment in VS Code](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/#set-default-java-runtime): Navigate to Gr activity panel in VS Code and install some of the latest GraalVM __Enterprise Edition__ versions available from the list.
+5. [Native Image](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/#native-image-support): Upon GraalVM's installation completion, the “Install Optional GraalVM Components” window pops up in the right bottom corner. Install Native Image.
 
 ## Building the Sample
 
@@ -40,3 +42,9 @@ The `mvn -Pnative -DskipTests package` command will package a Java application i
     }
     ```
 3. Then run debugger using **Launch Native Image** from **RUN...** menu. It will start debugging a native image binary in VSCode using Java source code.        
+
+
+### References
+
+1. [GraalVM Tools for Java](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/)
+2. [Native Image Debug Info Feature](https://www.graalvm.org/jdk17/reference-manual/native-image/debugging-and-diagnostics/DebugInfo/)
