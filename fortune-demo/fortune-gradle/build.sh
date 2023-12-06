@@ -11,5 +11,11 @@ set -e
 ./gradlew metadataCopy --task run --dir src/main/resources/META-INF/native-image
 # Build a native executable using configuration
 ./gradlew nativeCompile
-# Run the application from a native executable
+# Run the native executable
 ./fortune/build/native/nativeCompile/fortune
+# Run JUnit tests
+./gradlew nativeTest
+# Run tests on JVM with the agent
+./gradlew -Pagent test
+# Test building a native executable using metadata
+./gradlew -Pagent nativeTest
