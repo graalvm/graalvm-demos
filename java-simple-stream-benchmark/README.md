@@ -1,15 +1,15 @@
 # Simple Java Stream Benchmark
 
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains the code for a simple Java Stream benchmark to run on a [GraalVM JDK](http://graalvm.org).
 
 ## Prerequisites
-- [GraalVM](http://graalvm.org)
+- [GraalVM](https://www.graalvm.org/downloads/)
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `java-simple-stream-benchmark` directory:
