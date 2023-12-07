@@ -1,16 +1,16 @@
 # GraalVM Demos: Native images for Faster Startup
 
-This repository contains the code for a demo application for [GraalVM](http://graalvm.org).
+This repository contains a Java application that counts files and their sizes in a specified directory.
+The demo shows how to compile this Java application ahead-of-time with Oracle GraalVM Native Image and apply Profile-Guided Optimization (PGO) for more performance gains.
 
-## Prerequisites
-* [GraalVM](http://graalvm.org)
-* [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
+### Prerequisites
+* [Oracle GraalVM](http://graalvm.org)
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `native-list-dir` directory:
@@ -21,118 +21,81 @@ This repository contains the code for a demo application for [GraalVM](http://gr
     cd graalvm-demos/native-list-dir
     ```
 
-## Building the Application
+## Build the Application
 
-There are two Java classes. Start by building _ListDir.java_ for the purposes of this demo. You can manually execute `javac ListDir.java`, but there is also a `build.sh` script included for your convenience.
+1. Start by compiling the _ListDir.java_ file:
+    ```bash
+    $JAVA_HOME/bin/javac ListDir.java
+    ```
 
->Note: You can use any JDK for compiling the Java classes, but in the build script GraalVM's javac is used to simplify the prerequisites and not depend on you having another JDK installed.
+2. Generate a native executable from the class file using [GraalVM Native Image](https://www.graalvm.org/latest/reference-manual/native-image/): 
+    ```bash
+    $JAVA_HOME/bin/native-image ListDir
+    ```
+    
+    The `native-image` compiles the application ahead-of-time for faster startup and lower general overhead at run time.
+    After executing the `native-image` command, check the directory. It should have produced the executable file _listdir_.
 
-Run building script:
+## Run the Application
+
+To run the application, you need to execute the `ListDir` class. 
+To make it a little bit more interesting, pass it a directory that actually contains some files, for example `..` (to count files in the parent of the current directory, containing all the demos in this repository).
+
+You can run it as a normal Java application using `java` and check the time spent with the `time` utility. 
 ```bash
-./build.sh
+time java ListDir ..
 ```
 
-The important line of the `build.sh` creates a native image from our Java class. Have a look at it:
+Or, since you created a native executable, you can run that directly:
 ```bash
-$JAVA_HOME/bin/native-image ListDir
+time ./listdir ..
 ```
-
-The `native-image` compiles the application ahead-of-time for faster startup and lower general overhead at runtime.
-After executing the `native-image` command, check the directory. It should have produced an executable file `listdir`.
-
-## Running the Application
-
-To run the application, you need to execute the `ListDir` class. You can run it as a normal Java application using `java`. Or, since we have a native image prepared, you can run that directly. The `run.sh` file, executes both, and times them with the `time` utility.
-```bash
-time java ListDir $1
-```
-
-To make it a little bit more interesting, pass it a directory that actually contains some file: `./run.sh ..` (`..` - is the parent of the current directory, the one containing all the demos in this repository).
 
 Approximately the following output should be produced (the files count and their sizes will vary of course):
+
+```bash
+time java ListDir ..
+Walking path: ..
+Total: 1106 files, total size = 319110627 bytes
+java ListDir ..  0.15s user 0.06s system 147% cpu 0.140 total
 ```
-→ ./run.sh ../..
-+ java ListDir ../..
-Walking path: ../..
-Total: 26233 files, total size = 556731978 bytes
 
-real	0m1.715s
-user	0m3.613s
-sys	0m1.133s
-+ ./listDir ../..
-Walking path: ../..
-Total: 26233 files, total size = 556731978 bytes
-
-real	0m0.883s
-user	0m0.203s
-sys	0m0.657s
+```bash
+time ./listdir ..
+Walking path: ..
+Total: 1106 files, total size = 319110615 bytes
+./listdir ..  0.01s user 0.05s system 88% cpu 0.069 total
 ```
 
 The performance gain of the native version is largely due to the faster startup.
 
-## Polyglot Capabilities
+## Build an Optimized Native Executable with PGO (Oracle GraalVM)
 
-You can also experiment with a more sophisticated `ExtListDir` example, which takes advantage of GraalVM's Java and JavaScript polyglot capabilities.
+Oracle GraalVM offers extra benefits for building native executables. 
+For example, you can apply [Profile-Guided Optimization (PGO)](https://en.wikipedia.org/wiki/Profile-guided_optimization) to improve performance. 
+With PGO you can collect the profiling data and then feed it to the `native-image` tool, which will use this information to further optimize the performance of the resulting executable. As an example, a [program demonstrating Java streams](https://github.com/graalvm/graalvm-demos/blob/master/scala-examples/streams/Streams.java) will be used.
 
-1. Compile the source Java code:
+1. Build an instrumented image from the _ListDir_ class and run it to collect profiles, specifying a different name for the native executable, for example _listdir-instrumented_:
+
     ```shell
-    $JAVA_HOME/bin/javac ExtListDir.java
+    $JAVA_HOME/bin/native-image --pgo-instrument ListDir -o listdir-instrumented
     ```
+    ```bash
+    ./listdir-instrumented ..
+    ```
+    Profiles collected from this run are now stored in the `default.iprof` file. 
+    Note that the profiling now runs with a much smaller data size.
 
-2. Build a native image. Building the native executable command is similar to the one above, but since the example uses JavaScript, you need to inform the `native-image` utility about that by passing the `--language:js` option. Note that it takes a bit more time because it needs to include the JavaScript support.
+3. Use the profiles gathered at the previous step to build an optimized native executable (specify a different name for the native executable than in the previous run):
     ```shell
-    $JAVA_HOME/bin/native-image --language:js ExtListDir
-    ```
-
-3. Execute it. The execution is the same as in the previous example:
-    ```bash
-    time java ExtListDir $1
-    ```
-    ```bash
-    time ./extlistdir $1
-    ```
-
-## Profile-Guided Optimizations for High Throughput
-
-Oracle GraalVM Enterprise Edition offers extra benefits for building native executables.
-With GraalVM Enterprise Edition, you can apply Profile-Guided Optimization (PGO) to improve performance.
-[Profile-Guided Optimization (PGO) ](https://en.wikipedia.org/wiki/Profile-guided_optimization) is a commonly used technique in the Java ecosystem to mitigate the missing just-in-time optimization and gather the execution profiles at one run and then use them to optimize subsequent compilation(s). With PGO you can collect the profiling data and then feed it to the `native-image` tool, which will use this information to further optimize the performance of the resulting executable. As an example, a [program demonstrating Java streams](https://github.com/graalvm/graalvm-demos/blob/master/scala-examples/streams/Streams.java) will be used.
-
-As an example, a [program demonstrating Java streams](https://github.com/graalvm/graalvm-demos/blob/master/scala-examples/streams/Streams.java) will be used.
-
-1. Run the application with `java` to see the output:
-    ```bash
-    $JAVA_HOME/bin/javac Streams.java
-    ```
-    ```bash
-    $JAVA_HOME/bin/native-image Streams
-    ```
-    ```bash
-    ./streams 1000000 200
-    ```
-    ```
-    Iteration 20 finished in 1955 milliseconds with checksum 6e36c560485cdc01
-    ```
-
-2. Build an instrumented image and run it to collect profiles:
-    ```shell
-    $JAVA_HOME/bin/native-image --pgo-instrument Streams
-    ```
-    ```bash
-    ./streams 1000 200
-    ```
-    Profiles collected from this run are now stored in the `default.iprof` file. Note that the profiling now runs with a much smaller data size.
-
-3. Use the profiles gathered at the previous step to build an optimized native executable:
-    ```shell
-    $JAVA_HOME/bin/native-image --pgo Streams
+    $JAVA_HOME/bin/native-image --pgo ListDir -o listdir-optimized
     ```
 
 4. Run that optimized native executable:
     ```shell
-    ./streams 1000000 200
+    time ./listdir-optimized ..
     ```
-    ```
-    Iteration 20 finished in 827 milliseconds with checksum 6e36c560485cdc01
-    ```
-    You should see more than 2x improvements in performance.
+
+### References
+
+- [Optimize a Native Executable with Profile-Guided Optimizations](https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/)
