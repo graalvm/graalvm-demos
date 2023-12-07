@@ -46,5 +46,5 @@ The `mvn -Pnative -DskipTests package` command will package a Java application i
 
 ### References
 
-1. [GraalVM Tools for Java](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/)
-2. [Native Image Debug Info Feature](https://www.graalvm.org/jdk17/reference-manual/native-image/debugging-and-diagnostics/DebugInfo/)
+- [GraalVM Tools for Java](https://www.graalvm.org/jdk17/tools/vscode/graalvm-extension/)
+- [Native Image Debug Info Feature](https://www.graalvm.org/jdk17/reference-manual/native-image/debugging-and-diagnostics/DebugInfo/)

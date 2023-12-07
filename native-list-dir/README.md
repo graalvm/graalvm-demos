@@ -1,4 +1,4 @@
-# GraalVM Demos: Native images for Faster Startup
+# GraalVM Native Image for Faster Startup Demo
 
 This repository contains a Java application that counts files and their sizes in a specified directory.
 The demo shows how to compile this Java application ahead-of-time with Oracle GraalVM Native Image and apply Profile-Guided Optimization (PGO) for more performance gains.
