@@ -54,7 +54,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-						<version>${native.maven.plugin.version}</version>
+						<version>0.9.28</version>
 						<configuration>
 							<imageName>${project.name}</imageName>
 							<fallback>false</fallback>
