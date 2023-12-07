@@ -3,8 +3,6 @@
 # Exit on error
 set -e
 
-# Compile the project and build a native executable
-./gradlew nativeRun
 # Run the application with the agent on JVM
 ./gradlew -Pagent run
 # Copy metadata into /META-INF/native-image directory

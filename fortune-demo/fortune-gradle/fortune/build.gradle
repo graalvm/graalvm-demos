@@ -39,9 +39,9 @@ tasks.named('test') {
 
 graalvmNative {
     binaries {
-    main {
-        imageName.set('fortune')
+        main {
+            imageName.set('fortune')
+        }
     }
     toolchainDetection = false
-    }
 }
