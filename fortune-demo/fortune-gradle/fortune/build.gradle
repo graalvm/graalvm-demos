@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.2'
@@ -35,14 +37,11 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-// Native Image build configuration
 graalvmNative {
     binaries {
-        main {
-            imageName.set('fotrune')
-        }
+    main {
+        imageName.set('fortune')
     }
-    agent {
-        defaultMode = "standard"
+    toolchainDetection = false
     }
 }
