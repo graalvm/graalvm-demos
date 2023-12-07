@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <native.maven.plugin.version>0.9.12</native.maven.plugin.version>
+        <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <maven.compiler.source>${java.specification.version}</maven.compiler.source>
         <maven.compiler.target>${java.specification.version}</maven.compiler.target>
@@ -40,46 +40,38 @@
                         <extensions>true</extensions>
                         <executions>
                             <execution>
-                                <id>build-native</id>
+                                <id>native</id>
                                 <goals>
-                                    <goal>build</goal>
+                                    <goal>compile-no-fork</goal>
                                 </goals>
                                 <phase>package</phase>
-                            </execution>
-                            <execution>
-                                <id>test-native</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>test</phase>
                             </execution>
                         </executions>
                         <configuration>
                             <imageName>${imageName}</imageName>
                             <fallback>false</fallback>
                             <buildArgs>
-                                <arg>
+                                <buildArg>
                                 -H:DashboardDump=staticfortune -H:+DashboardAll --initialize-at-build-time=demo.StaticFortune,com.fasterxml.jackson.databind.ext.Java7SupportImpl
-                                </arg>
+                                </buildArg>
                             </buildArgs>
                             <agent>
                                 <enabled>true</enabled>
-                                <options>
-                                    <option>experimental-class-loader-support</option>
-                                </options>
+                                <defaultMode>Standard</defaultMode>
                             </agent>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>java-agent</id>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <phase>test</phase>
                                 <configuration>
                                     <executable>java</executable>
                                     <workingDirectory>${project.build.directory}</workingDirectory>
@@ -90,16 +82,6 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>native</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>${project.build.directory}/${imageName}</executable>
-                                    <workingDirectory>${project.build.directory}</workingDirectory>
-                                </configuration>
-                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
@@ -107,12 +89,43 @@
         </profile>
     </profiles>
 
-    <build>
+        <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>java</id>
@@ -123,57 +136,18 @@
                             <mainClass>${mainClass}</mainClass>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>${mainClass}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>native</id>
                         <goals>
-                            <goal>single</goal>
+                            <goal>exec</goal>
                         </goals>
+                        <configuration>
+                            <executable>${project.build.directory}/${imageName}</executable>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>${mainClass}</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
             </plugin>
-
         </plugins>
     </build>
 

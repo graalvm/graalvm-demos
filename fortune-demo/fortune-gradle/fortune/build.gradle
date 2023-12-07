@@ -9,7 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'org.graalvm.buildtools.native' version '0.9.18'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
 }
 
 repositories {
@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.2'
@@ -36,8 +38,10 @@ tasks.named('test') {
 }
 
 graalvmNative {
-    binaries.all {
-        resources.autodetect()
+    binaries {
+        main {
+            imageName.set('fortune')
+        }
     }
     toolchainDetection = false
 }
