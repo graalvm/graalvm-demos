@@ -84,7 +84,7 @@ The plugin will also gather the diagnostic data at build time and write it to a 
     When the command completes, a native executable, `fortune`, is generated in the _build/native/nativeCompile_ directory of the project and ready for use.
 6. Run the application from the native executable:
     ```bash
-    ./fortune/build/native/nativeCompile/fotrune
+    ./fortune/build/native/nativeCompile/fortune
     ```
 
 ## StaticFortune
