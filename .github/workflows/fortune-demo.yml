@@ -23,7 +23,7 @@ jobs:
       - uses: graalvm/setup-graalvm@v1
         with:
           version: ${{ matrix.version }}
-          java-version: '17.0.7'
+          java-version: '17.0.9'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'fortune'
