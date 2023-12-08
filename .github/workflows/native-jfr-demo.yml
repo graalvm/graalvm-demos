@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['17', 'dev']
+        java-version: ['21', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -32,7 +32,6 @@ jobs:
           native-image-job-reports: 'true'
       - name: Run 'native-jfr-demo'
         run: |
-          gu install visualvm
           cd native-jfr-demo
           javac JFRDemo.java
           native-image --enable-monitoring=jfr JFRDemo
