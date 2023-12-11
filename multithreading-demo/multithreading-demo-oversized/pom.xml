@@ -9,10 +9,11 @@
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <graalvm.version>21.2.0</graalvm.version>
+        <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
+
 
     <dependencies>
         <dependency>
@@ -35,7 +36,7 @@
                 <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -70,23 +71,31 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.graalvm.nativeimage</groupId>
-                <artifactId>native-image-maven-plugin</artifactId>
-                <version>${graalvm.version}</version>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${native.maven.plugin.version}</version>
+                <extensions>true</extensions>
                 <executions>
                     <execution>
+                        <id>native</id>
                         <goals>
-                            <goal>native-image</goal>
+                            <goal>compile-no-fork</goal>
                         </goals>
                         <phase>package</phase>
                     </execution>
                 </executions>
                 <configuration>
-                    <skip>false</skip>
                     <imageName>multithreading-image-oversized</imageName>
+                    <fallback>false</fallback>
                     <buildArgs>
+                        <buildArg>
                         --no-fallback -H:DashboardDump=dumpfileoversized -H:+DashboardAll --initialize-at-build-time
+                        </buildArg>
                     </buildArgs>
+                    <agent>
+                        <enabled>true</enabled>
+                        <defaultMode>Standard</defaultMode>
+                    </agent>
                 </configuration>
             </plugin>
         </plugins>

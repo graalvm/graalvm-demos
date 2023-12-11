@@ -6,40 +6,46 @@ The demo is a Java program which does synchronous and asynchronous threads execu
 Each thread loops through exactly the same array of integers and generates a stream of pseudorandom numbers.
 The program calculates the time taken to perform the task synchronously and asynchronously.
 
-Multithreading demo is comprised of two sub-projects, each built with Maven: Multithreading Demo Oversized and Multithreading Demo Improved.
+Multithreading demo is comprised of two sub-projects, each built with Maven: **Multithreading Demo Oversized** and **Multithreading Demo Improved**.
 The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step.
 The plugin will also gather the diagnostic information during the native image build and write that data to a dump file in the target directory.
 
 ```xml
 <plugin>
-    <groupId>org.graalvm.nativeimage</groupId>
-    <artifactId>native-image-maven-plugin</artifactId>
-    <version>${graalvm.version}</version>
+    <groupId>org.graalvm.buildtools</groupId>
+    <artifactId>native-maven-plugin</artifactId>
+    <version>0.9.28</version>
+    <extensions>true</extensions>
     <executions>
         <execution>
+            <id>native</id>
             <goals>
-                <goal>native-image</goal>
+                <goal>compile-no-fork</goal>
             </goals>
             <phase>package</phase>
         </execution>
     </executions>
     <configuration>
-        <skip>false</skip>
-        <imageName>multithreading-image</imageName>
+        <imageName>${imageName}</imageName>
+        <fallback>false</fallback>
         <buildArgs>
+            <buildArg>
             --no-fallback -H:DashboardDump=dumpfile -H:+DashboardAll --initialize-at-build-time
+            </buildArg>
         </buildArgs>
+        <agent>
+            <enabled>true</enabled>
+            <defaultMode>Standard</defaultMode>
+        </agent>
     </configuration>
 </plugin>
 ```
 
-To build and run the projects, you can either use [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader), or any other JDK distribution.
-
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `multithreading-demo/multithreading-demo-oversized_` directory:
