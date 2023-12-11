@@ -7,7 +7,7 @@ Each thread loops through exactly the same array of integers and generates a str
 The program calculates the time taken to perform the task synchronously and asynchronously.
 
 Multithreading demo is comprised of two sub-projects, each built with Maven: **Multithreading Demo Oversized** and **Multithreading Demo Improved**.
-The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://www.graalvm.org/reference-manual/native-image/NativeImageMavenPlugin/), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step.
+The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html), which instructs Maven to generate a native image of a JAR file with all dependencies at the `mvn package` step.
 The plugin will also gather the diagnostic information during the native image build and write that data to a dump file in the target directory.
 
 ```xml
