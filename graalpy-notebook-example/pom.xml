@@ -7,14 +7,30 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
-            <artifactId>graal-sdk</artifactId>
-            <version>22.1.0</version>
+            <artifactId>collections</artifactId>
+            <version>23.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>polyglot</artifactId>
+            <version>23.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>word</artifactId>
+            <version>23.1.1</version>
+        </dependency>
+        <dependency> 
+	        <groupId>org.graalvm.polyglot</groupId> 
+	        <artifactId>python</artifactId> 
+	        <version>23.1.0</version> 
+	        <type>pom</type>
         </dependency>
     </dependencies>
     <profiles>
@@ -25,7 +41,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <!--
@@ -39,7 +55,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>${env.JAVA_HOME}/bin/graalpy</executable>
+                                    <executable>${env.GRAALPY_HOME}/bin/graalpy</executable>
                                     <arguments>
                                         <argument>-m</argument>
                                         <argument>venv</argument>
@@ -89,7 +105,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>default-cli</id>
@@ -117,7 +133,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <id>enforce-graalvm-python</id>
@@ -128,9 +144,8 @@
                         <configuration>
                             <rules>
                                 <requireFilesExist>
-                                    <message>You must set JAVA_HOME to a GraalVM with Python installed.</message>
                                     <files>
-                                        <file>${env.JAVA_HOME}/bin/graalpy</file>
+                                        <file>${env.GRAALPY_HOME}/bin/graalpy</file>
                                     </files>
                                 </requireFilesExist>
                             </rules>
@@ -143,10 +158,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
         </plugins>
