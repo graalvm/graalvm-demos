@@ -9,7 +9,7 @@ This is a polyglot Helidon HTTP web service that demonstrates how multiple JavaS
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.1-graal
+    sdk install java 17.0.9-graal
     ```
 
 2. Download or clone the repository and navigate into the `js-java-async-helidon` directory:
@@ -31,7 +31,7 @@ Now you are all set to run the polyglot Helidon Web service.
 
 You can run this Helidon HTTP web service with the following command:
 ```bash
-$JAVA_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar
+$JAVA_HOME/bin/java -jar target/polyglotHelidonService-1.0-jar-with-dependencies.jar
 ```
 
 The application will create a new HTTP web service accepting requests on port `8080`.
