@@ -241,7 +241,7 @@ native-list-dir/listdir.build_artifacts.txt
 java-kotlin-aot/helloworld
 java-kotlin-aot/helloworld.build_artifacts.txt
 shared
-micronaut-nativeimage/hello/
+micronaut-hello-rest-gradle/hello/
 micronaut-webapp/loadTests/results-*
 mn-python/env/
 functionGraphDemo/Rplot001.svg
