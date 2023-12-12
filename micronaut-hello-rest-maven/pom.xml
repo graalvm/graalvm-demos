@@ -110,7 +110,21 @@
           </compilerArgs>
         </configuration>
       </plugin>
+      <!-- Begin: Optional. Added to show how to pass additional arguments to the native-image build -->
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <verbose>true</verbose>
+          <quickBuild>true</quickBuild>
+          <buildArgs combine.children="append">
+            <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+            <!-- For mostly static native image (only on Linux AMD64 systems) -->
+            <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
+          </buildArgs>
+        </configuration>
+      </plugin>
+      <!-- End: Optional. Added to show how to pass additional arguments to the native-image build -->
     </plugins>
   </build>
-
 </project>
