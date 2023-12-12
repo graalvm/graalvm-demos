@@ -1,6 +1,6 @@
 # Creating a Heap Dump from a Native Executable
 
-You can create a heap dump of a running executable to monitor its execution. Just like any other Java heap dump, it can be opened with the [VisualVM](https://www.graalvm.org/latest/tools/visualvm/) tool. To enable heap dump support, native executables must be built with the `--enable-monitoring=heapdump` option.
+You can create a heap dump of a running executable to monitor its execution. Just like any other Java heap dump, it can be opened with the [VisualVM](https://visualvm.github.io/) tool. To enable heap dump support, native executables must be built with the `--enable-monitoring=heapdump` option.
 Then you can request heap dumps in the same way you can request them when your application runs on the JVM (for example, right-click on the process, then select "Heap Dump"). 
 
 There are different ways to create heap dumps:
@@ -15,12 +15,14 @@ All approaches are described below.
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image and VisualVM support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'visualvm'
+    sdk install java 21.0.1-graal
     ```
 
-2. Download the demos repository or clone it as follows:
+2. Download the latest VisualVM from [visualvm.github.io](https://visualvm.github.io/), unzip, and move it to the applications directory. Double-click on the application icon to start.
+
+3. Download the demos repository or clone it as follows:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
@@ -32,7 +34,7 @@ All approaches are described below.
 
 Use the `-XX:+DumpHeapAndExit` command-line option to dump the initial heap of a native executable.
 This can be useful to identify which objects the `native-image` build process allocated to the executable's heap. 
-For a HelloWorld example, use the option as follows:
+For a _HelloWorld_ example, use the option as follows:
 
 ```shell
 $JAVA_HOME/bin/native-image HelloWorld --enable-monitoring=heapdump
@@ -86,13 +88,13 @@ Follow these steps to build a native executable that will produce a heap dump wh
     ```bash
     kill -SIGUSR1 57509
     ```
-    The heap dump will be created in the working directory while the application continues to run. The heap dump can be opened with the [VisualVM](https://www.graalvm.org/latest/tools/visualvm/) tool, as illustrated below.
+    The heap dump will be created in the working directory while the application continues to run. The heap dump can be opened with the [VisualVM](https://visualvm.github.io/) tool, as illustrated below.
 
     ![Native Image Heap Dump View in VisualVM](img/heap-dump.png)
 
 ## Create a Heap Dump from within a Native Executable
 
-The following example shows how to create a heap dump from a running native executable using [`VMRuntime.dumpHeap()`](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/VMInspection.java) if some condition is met.
+The following example shows how to create a heap dump from a running native executable using [`VMRuntime.dumpHeap()`](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/VMInspectionOptions.java) if some condition is met.
 The condition to create a heap dump is provided as an option on the command line.
 1. Compile _SVMHeapDumpAPI.java_:
     ```shell
@@ -116,7 +118,7 @@ The condition to create a heap dump is provided as an option on the command line
     Your command line options are: --heapdump
     Heap dump created /var/folders/hw/s9d78jts67gdc8cfyq5fjcdm0000gp/T/SVMHeapDump-6437252222863577987.hprof, size: 8051959
     ```
-    The resulting heap dump can be then opened with the [VisualVM](https://www.graalvm.org/latest/tools/visualvm/) tool like any other Java heap dump, as illustrated below.
+    The resulting heap dump can be then opened with the [VisualVM](https://visualvm.github.io/) tool like any other Java heap dump, as illustrated below.
 
     ![Native Image Heap Dump View in VisualVM](img/heap-dump-api.png)
 
@@ -126,4 +128,4 @@ The condition to create a heap dump is provided as an option on the command line
 ### Related Documentation
 
 * [Debugging and Diagnostics](https://www.graalvm.org/latest/reference-manual/native-image/debugging-and-diagnostics/)
-* [VisualVM](https://www.graalvm.org/latest/tools/visualvm/)
+* [VisualVM](https://visualvm.github.io/)
