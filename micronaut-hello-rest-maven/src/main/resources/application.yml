@@ -1,7 +1,0 @@
-micronaut:
-  application:
-    name: mnHelloRest
-netty:
-  default:
-    allocator:
-      max-order: 3
