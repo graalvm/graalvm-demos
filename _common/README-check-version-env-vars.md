@@ -74,7 +74,7 @@
 
     ```shell
     ...
-    Java version: 17.0.5, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
+    Java version: 17.0.9, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
     ...
     ```
 
