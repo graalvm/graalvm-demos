@@ -18,9 +18,9 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) 
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `native-image-configure-examples` directory:
@@ -62,11 +62,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     ```
     Hello, world!
     ```
-5. Finally, you may shutdown the `native-image` server:
-    ```bash
-    $JAVA_HOME/bin/native-image --server-shutdown
-    ```
-
+    
 Loading application configuration at executable build time can speed up application startup. See [Build-Time Initialization](https://www.graalvm.org/dev/reference-manual/native-image/optimizations-and-performance/ClassInitialization/) to learn more. 
 
 To read more about the topic of class initialization, see [Initialize Once, Start Fast: Application Initialization at Build Time](http://www.christianwimmer.at/Publications/Wimmer19a/Wimmer19a.pdf).
