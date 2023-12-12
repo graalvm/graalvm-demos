@@ -47,9 +47,9 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    java version "17.0.5" 2022-10-18 LTS
-    Java(TM) SE Runtime Environment GraalVM EE 22.3.0 (build 17.0.5+9-LTS-jvmci-22.3-b07)
-    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.3.0 (build 17.0.5+9-LTS-jvmci-22.3-b07, mixed mode, sharing)
+    java version "17.0.9" 2023-10-17 LTS
+    Java(TM) SE Runtime Environment GraalVM EE 22.3.4 (build 17.0.9+11-LTS-jvmci-22.3-b28)
+    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.3.4 (build 17.0.9+11-LTS-jvmci-22.3-b28, mixed mode, sharing)
     ```
 
 5. Confirm the `native-image` version:
@@ -61,13 +61,13 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    GraalVM 22.3.0 Java 17 EE (Java Version 17.0.5+9-LTS-jvmci-22.3-b07)
+    GraalVM 22.3.4 Java 17 EE (Java Version 17.0.9+11-LTS-jvmci-22.3-b28)
     ```
 
 6. Confirm the `Java` used for Maven builds:
 
     ```shell
-    mvn --version
+    ./mvnw --version
     ```
 
     The output should be similar to (versions may vary):

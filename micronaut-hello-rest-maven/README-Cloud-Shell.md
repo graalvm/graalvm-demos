@@ -52,12 +52,7 @@ Oracle GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shel
     The current managed java version is set to graalvmeejdk-17.
     ```
 
-## Step 3: [OPTIONAL] Confirm software version and environment variables
-
-This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
-
-
-## Step 4: Set up your project, build and run as a JAR
+## Step 3: Set up your project, build and run as a JAR
 
 1. Git clone this example.
 
@@ -78,41 +73,45 @@ This step is optional - [Check software version and environment variables](../_c
 
     ```
 
-2. Build a JAR file for the example app
+2. [OPTIONAL] Confirm software version and environment variables. 
+
+    [Check software version and environment variables](../_common/README-check-version-env-vars.md)
+
+3. Build a JAR file for the example app
 
     ```shell
     ./mvnw package
     ```
 
-3. Run the JAR in the background
+4. Run the JAR in the background
 
     ```shell
     java -jar target/MnHelloRest-0.1.jar &
     ```
 
-4. Test the JAR
+5. Test the JAR
 
-    4.1) Should output "Hello World"
+    5.1) Should output "Hello World"
 
     ```shell
     curl http://localhost:8080/
     ```
 
-    4.2) Should output "Hello Micronaut"
+    5.2) Should output "Hello Micronaut"
 
     ```shell
     curl http://localhost:8080/Micronaut
     ```
 
-5. Bring the running JAR in the foreground
+6. Bring the running JAR in the foreground
 
     ```shell
     fg
     ```
 
-6. Once the app is running in the foreground, press CTRL+C to stop it.
+7. Once the app is running in the foreground, press CTRL+C to stop it.
 
-## Step 5: Build and run a native executable
+## Step 4: Build and run a native executable
 
 Use GraalVM Native Image to produce a native executable.
 
