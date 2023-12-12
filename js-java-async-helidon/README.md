@@ -9,7 +9,7 @@ This is a polyglot Helidon HTTP web service that demonstrates how multiple JavaS
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 17.0.9-graal
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `js-java-async-helidon` directory:
