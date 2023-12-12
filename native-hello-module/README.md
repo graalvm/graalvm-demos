@@ -15,13 +15,12 @@ The example below shows how to build a modular Java application into a native ex
 ### Prerequisites
 
 - [GraalVM](http://graalvm.org)
-- [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `native-hello-module` directory:
@@ -54,7 +53,7 @@ For the demo, you will use a simple _HelloWorld_ Java module gathered with Maven
 
 1. Compile and package the project with Maven:
     ```bash
-    $JAVA_HOME/bin/mvn package
+    mvn package
     ```
     This creates a JAR file with all dependencies embedded: `target/HelloModule-1.0-SNAPSHOT.jar`
 
