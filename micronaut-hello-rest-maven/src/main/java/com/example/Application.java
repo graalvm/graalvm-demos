@@ -38,11 +38,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.example;
 
 import io.micronaut.runtime.Micronaut;
 
 public class Application {
+
     public static void main(String[] args) {
         Micronaut.run(Application.class, args);
     }
