@@ -1,6 +1,8 @@
 # Creating a Heap Dump from a Native Executable
 
-You can create a heap dump of a running executable to monitor its execution. Just like any other Java heap dump, it can be opened with the [VisualVM](https://visualvm.github.io/) tool. To enable heap dump support, native executables must be built with the `--enable-monitoring=heapdump` option.
+You can create a heap dump of a running native executable to monitor its execution. 
+Just like any other Java heap dump, it can be opened with the [VisualVM](https://visualvm.github.io/) tool.
+To enable heap dump support, a native executable must be built with the `--enable-monitoring=heapdump` option.
 Then you can request heap dumps in the same way you can request them when your application runs on the JVM (for example, right-click on the process, then select "Heap Dump"). 
 
 There are different ways to create heap dumps:
@@ -34,22 +36,27 @@ All approaches are described below.
 
 Use the `-XX:+DumpHeapAndExit` command-line option to dump the initial heap of a native executable.
 This can be useful to identify which objects the `native-image` build process allocated to the executable's heap. 
-For a _HelloWorld_ example, use the option as follows:
+For a _HelloWorld_ example, compile the application, and use the option as follows:
 
+```shell
+$JAVA_HOME/bin/javac HelloWorld.java
+```
 ```shell
 $JAVA_HOME/bin/native-image HelloWorld --enable-monitoring=heapdump
 ```
 ```shell
 ./helloworld -XX:+DumpHeapAndExit
 ```
-The heap dump is created in the application's working directory, `/path/to/helloworld.hprof`.
+The heap dump, _helloworld.hprof_, is created in the application's working directory.
 
 ## Create Heap Dumps with SIGUSR1 (Linux/macOS only)
 
 >Note: This requires the `Signal` API, which is enabled by default except when building shared libraries.
 
 The following example is a simple multi-threaded Java application that runs for 60 seconds. 
-This provides you with enough time to send it a `SIGUSR1` signal. The application will handle the signal and create a heap dump in the application's working directory. The heap dump will contain the `Collection` of `Person`s referenced by the static variable `CROWD`.
+This provides you with enough time to send it a `SIGUSR1` signal. 
+The application will handle the signal and create a heap dump in the application's working directory. 
+The heap dump will contain the `Collection` of `Person`s referenced by the static variable `CROWD`.
 
 Follow these steps to build a native executable that will produce a heap dump when it receives a `SIGUSR1` signal.
 
@@ -71,24 +78,25 @@ Follow these steps to build a native executable that will produce a heap dump wh
 
 ### 2. Run the Application
 
-1.  Run the application, send it a signal, and check the heap dump:
+1.  Run the application:
     ```shell
     ./svmheapdump
     ```
     ```
-    17 May 2022, 16:38:13: Hello GraalVM native image developer! 
-    The PID of this process is: 57509
-    Send it a signal: 'kill -SIGUSR1 57509' 
+    Dec 12, 2023, 11:34:30 AM: Hello GraalVM native image developer! 
+    The PID of this process is: 46195
+    Send it a signal: 'kill -SIGUSR1 46195' 
     to dump the heap into the working directory.
     Starting thread!
-    17 May 2022, 16:38:13: Thread started, it will run for 60 seconds
+    Dec 12, 2023, 11:34:30 AM: Thread started, it will run for 60 seconds
     ```
 
-2. Make a note of the PID and open a second terminal. Use the PID to send a signal to the application. For example, if the PID is `57509`:
+2.  Open a second terminal. Use the PID to send a signal to the application:
     ```bash
-    kill -SIGUSR1 57509
+    kill -SIGUSR1 46195
     ```
-    The heap dump will be created in the working directory while the application continues to run. The heap dump can be opened with the [VisualVM](https://visualvm.github.io/) tool, as illustrated below.
+    The heap dump will be created in the working directory while the application continues to run. 
+    The heap dump can be opened with the [VisualVM](https://visualvm.github.io/) tool, as illustrated below.
 
     ![Native Image Heap Dump View in VisualVM](img/heap-dump.png)
 
@@ -114,9 +122,9 @@ The condition to create a heap dump is provided as an option on the command line
     ./svmheapdumpapi --heapdump
     ```
     ```
-    Sep 15, 2020, 4:06:36 PM: Hello GraalVM native image developer.
+    Dec 12, 2023, 11:38:12 AM: Hello GraalVM native image developer. 
     Your command line options are: --heapdump
-    Heap dump created /var/folders/hw/s9d78jts67gdc8cfyq5fjcdm0000gp/T/SVMHeapDump-6437252222863577987.hprof, size: 8051959
+    Heap dump created /var/folders/qq/65btjd8x7mxb0swln9n2y3vh0000gn/T/SVMHeapDumpAPI-12654633491242657808.hprof, size: 16367287
     ```
     The resulting heap dump can be then opened with the [VisualVM](https://visualvm.github.io/) tool like any other Java heap dump, as illustrated below.
 
