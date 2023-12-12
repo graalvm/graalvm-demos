@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['17', 'dev']
+        java-version: ['21', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -32,6 +32,9 @@ jobs:
       - name: Run 'native-heapdump-examples'
         run: |
           cd native-heapdump-examples
+          javac HelloWorld.java
+          native-image HelloWorld --enable-monitoring=heapdump
+          ./helloworld -XX:+DumpHeapAndExit
           javac SVMHeapDump.java
           native-image SVMHeapDump --enable-monitoring=heapdump
           ./svmheapdump
