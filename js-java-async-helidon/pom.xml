@@ -60,7 +60,7 @@
                                 <!-- automatically creates the modulepath using all project dependencies -->
                                 <modulepath/>
                                 <argument>-m</argument>
-                                <argument>org.graalvm.demo.JsJavaAsyncHelidonService</argument>
+                                <argument>demo/org.graalvm.demo.JsJavaAsyncHelidonService</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -114,11 +114,10 @@
             <artifactId>polyglot</artifactId> 
             <version>${graalvm.version}</version>
         </dependency>
-        <dependency> 
-            <groupId>org.graalvm.polyglot</groupId> 
-            <artifactId>js</artifactId> 
-            <version>${graalvm.version}</version>
-            <type>pom</type>
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js-language</artifactId>
+            <version>23.1.1</version>
         </dependency>
     </dependencies>
 

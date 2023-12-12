@@ -40,14 +40,19 @@
  */
 package org.graalvm.demo;
 
-import org.graalvm.polyglot.*;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Engine;
+import org.graalvm.polyglot.HostAccess;
+import org.graalvm.polyglot.PolyglotAccess;
+import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Value;
 
 class ConcurrentJsExecutor {
 
