@@ -19,9 +19,9 @@ The example below shows how to build a modular Java application into a native ex
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image'
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `native-hello-module` directory:
