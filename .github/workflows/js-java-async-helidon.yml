@@ -30,7 +30,7 @@ jobs:
         run: |
           cd js-java-async-helidon
           mvn --no-transfer-progress clean package
-          $GRAALVM_HOME/bin/java -jar target/polyglotHelidonService-1.0-jar-with-dependencies.jar &
+          mvn exec:exec &
           sleep 10
           curl http://localhost:8080/greet?request=41
           curl http://localhost:8080/greet?request=foo

@@ -31,7 +31,7 @@ Now you are all set to run the polyglot Helidon Web service.
 
 You can run this Helidon HTTP web service with the following command:
 ```bash
-$JAVA_HOME/bin/java -jar target/polyglotHelidonService-1.0-jar-with-dependencies.jar
+mvn exec:exec
 ```
 
 The application will create a new HTTP web service accepting requests on port `8080`.
