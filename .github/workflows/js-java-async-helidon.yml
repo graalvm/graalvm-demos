@@ -18,14 +18,11 @@ jobs:
     name: Run 'js-java-async-helidon'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        java-version: ['17', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
@@ -33,7 +30,7 @@ jobs:
         run: |
           cd js-java-async-helidon
           mvn --no-transfer-progress clean package
-          $GRAALVM_HOME/bin/java -jar target/polyglotHelidonService-SNAPSHOT-jar-with-dependencies.jar &
+          mvn exec:exec &
           sleep 10
           curl http://localhost:8080/greet?request=41
           curl http://localhost:8080/greet?request=foo

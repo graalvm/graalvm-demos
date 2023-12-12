@@ -40,8 +40,6 @@
  */
 package org.graalvm.demo;
 
-import io.helidon.webserver.ServerConfiguration;
-
 /**
  * Main Helidon web service class. The Helidon HTTP service will listen for
  * incoming requests on the following URLs: <a
@@ -60,8 +58,7 @@ public class JsJavaAsyncHelidonService {
     private static final int PORT = 8080;
 
     public static void main(String[] args) {
-        ServerConfiguration configuration = ServerConfiguration.builder().port(PORT).build();
-        new HelidonService(ROUTE, configuration).init();
+        new HelidonService(ROUTE, PORT).init();
     }
 
 }

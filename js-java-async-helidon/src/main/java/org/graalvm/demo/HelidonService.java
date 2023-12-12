@@ -41,7 +41,6 @@
 package org.graalvm.demo;
 
 import io.helidon.webserver.Routing;
-import io.helidon.webserver.ServerConfiguration;
 import io.helidon.webserver.WebServer;
 
 /**
@@ -71,12 +70,12 @@ class HelidonService {
             + "})";
     private final String requestPath;
     private final ConcurrentJsExecutor jsExecutor;
-    private final ServerConfiguration configuration;
+    private final int port;
 
-    HelidonService(String requestPath, ServerConfiguration configuration) {
+    HelidonService(String requestPath, int port) {
         this.requestPath = requestPath;
         this.jsExecutor = new ConcurrentJsExecutor(jsCode);
-        this.configuration = configuration;
+        this.port = port;
     }
 
     /**
@@ -86,7 +85,7 @@ class HelidonService {
         /*
          * Register a request handler for the HTTP GET request.
          */
-        WebServer.create(configuration, Routing.builder().get(requestPath, (req, res) -> {
+        Routing routing = Routing.builder().get(requestPath, (req, res) -> {
             /*
              * Parse `?request=xxx` from an incoming request's URL. If not found, use a
              * default value.
@@ -120,7 +119,11 @@ class HelidonService {
                     res.send("There was an error: " + ex.getMessage());
                 }
             });
-        }).build()).start();
+        }).build();
+        WebServer.builder()
+            .port(port)
+            .addRouting(routing)
+            .build()
+            .start();
     }
-
 }
