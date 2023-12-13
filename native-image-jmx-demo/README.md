@@ -1,15 +1,15 @@
 # Build and Run Native Executables with Remote JMX
 
 Remote management using [Java Management Extensions (JMX)](https://www.oracle.com/java/technologies/javase/javamanagement.html) is possible in executables built with GraalVM Native Image. This demo shows how to build, run, and interact with such a native executable using JMX.
-It also shows you how to register a custom managed bean (MBean), with the JMX server and the additional steps required for it to work with Native Image.
+It also shows you how to register a custom managed bean (MBean) with the JMX server and the additional steps required for it to work with Native Image.
 
 > Note: This demo works with GraalVM for JDK 17 and later.
 
 ## Step 1: Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
     ```
 
 2. Download the demos repository or clone it as follows:
@@ -33,7 +33,7 @@ The `main()` method in _SimpleJmx.java_ registers a custom MBean, then loop endl
 
 ### Dynamic Proxy Configuration
 
-JMX uses dynamic proxies to access MBeans. To be able to interact with the custom `SimpleMBean` at run time, you need to provide Native Image with additional [dynamic proxy configuration](https://www.graalvm.org/dev/reference-manual/native-image/dynamic-features/DynamicProxy/) for the MBean interface. For this, you can see a JSON file in a working directory named _proxy-config.json_ with the following contents:
+JMX uses dynamic proxies to access MBeans. To be able to interact with the custom `SimpleMBean` at run time, you need to provide Native Image with additional [dynamic proxy configuration](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/DynamicProxy/) for the MBean interface. For this, you can see a JSON file in a working directory named _proxy-config.json_ with the following contents:
 
 ```json
 [
@@ -68,15 +68,7 @@ You can configure JMX to apply all the usual properties as shown in [this guide]
 
 ## Step 5: Inspect Using VisualVM
 
-1. Start [VisualVM](https://visualvm.github.io/) to view the managed beans in a user-friendly way.
-   > Note: VisualVM is shipped separately and should be first added to GraalVM using `gu`, and then started:
-
-    ```shell
-    $JAVA_HOME/bin/gu install visualvm
-    ```
-    ```shell
-    $JAVA_HOME/bin/jvisualvm
-    ```
+1. Install and open [VisualVM](https://visualvm.github.io/) to view the managed beans in a user-friendly way.
 
 2. Make sure you have the **VisualVM-MBeans plugin** installed (go to Tools, then Plugins, under Available Plugins, select "VisualVM-MBeans", and click Install).
 
@@ -96,5 +88,4 @@ Users can enable the JMX agent in a native executable to monitor a client applic
 
 ### Related Documentation
 - [Enabling and disabling JMX](https://docs.oracle.com/javadb/10.10.1.2/adminguide/radminjmxenabledisable.html)
-- [Create Heap Dumps with VisualVM](https://www.graalvm.org/dev/reference-manual/native-image/guides/create-heap-dump/)
-- [Dynamic Proxy](https://www.graalvm.org/dev/reference-manual/native-image/dynamic-features/DynamicProxy/)
+- [Dynamic Proxy](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/DynamicProxy/)
