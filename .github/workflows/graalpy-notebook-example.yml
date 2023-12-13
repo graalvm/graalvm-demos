@@ -17,7 +17,7 @@ jobs:
   run:
     name: Run 'graalpy-notebook-example'
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 120
     strategy:
       matrix:
         java-version: ['21']
@@ -27,12 +27,10 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
-          components: 'python'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
       - name: Run 'graalpy-notebook-example'
         run: |
           cd graalpy-notebook-example
           mvn --no-transfer-progress compile
-          #./install-deps.sh (only for local running)
-          # mvn exec:java (skip running the example)
+          # mvn exec:java -Dexec.mainClass=com.oracle.example.javapython.Main (skip running the example, it is interactive)

@@ -60,8 +60,7 @@ plt''',
 d = np.abs(im[:,1:].astype(np.int16) - im[:,0:-1].astype(np.int16))
 plt.close()
 plt.imshow(d)
-plt
-''',
+plt''',
 '''# Convert to grayscale before calculating differences
 plt.close()
 im = np.array(png)
