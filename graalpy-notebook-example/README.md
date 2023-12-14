@@ -1,26 +1,6 @@
-# Java and Python Integration Example for GraalVM
+# Java and Python Integration Example
 
 This example demonstrates how to integrate Python in a Java application and run on GraalVM.
-
-### Prerequisites
-
-- GraalVM
-- [Python support](https://www.graalvm.org/latest/reference-manual/python/)
-
-## Preparation
-
-1. Download and install the latest GraalVM JDK with the Python support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). 
-    ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'python'
-    ```
-    
-2. Download or clone GraalVM demos repository and navigate into the `graalpy-notebook-example` directory:
-    ```bash
-    git clone https://github.com/graalvm/graalvm-demos
-    ```
-    ```bash
-    cd graalvm-demos/graalpy-notebook-example
-    ```
 
 ## Build and Run Demo
 
@@ -29,14 +9,12 @@ This example demonstrates how to integrate Python in a Java application and run 
     mvn compile
     ```
 
-2. Install the dependencies:
+2. Run the example:
     ```bash
-    ./install-deps.sh
-    ```
-
-3. Run the example:
-    ```bash
-    mvn exec:java
+    mvn exec:java -Dexec.mainClass=com.oracle.example.javapython.Main
     ```
 
 In the application, try loading the _test1.py_ example notebook and experiment with it.
+
+This demo works on Open JDK, Oracle JDK or GraalVM.
+GraalVM offers (much) better performance than the other two.

@@ -17,24 +17,20 @@ jobs:
   run:
     name: Run 'graalpy-notebook-example'
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 120
     strategy:
       matrix:
-        include:
-          - version: '22.3.1' # temporarily locked to 22.3.1
-            java-version: '17'
+        java-version: ['21']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
           java-version: ${{ matrix.java-version }}
-          components: 'python'
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
       - name: Run 'graalpy-notebook-example'
         run: |
           cd graalpy-notebook-example
           mvn --no-transfer-progress compile
-          ./install-deps.sh
-          # mvn exec:java (skip running the example)
+          # mvn exec:java -Dexec.mainClass=com.oracle.example.javapython.Main (skip running the example, it is interactive)
