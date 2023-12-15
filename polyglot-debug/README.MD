@@ -32,13 +32,12 @@ This sample code helps to demonstrate simplicity of debugging and developing Gra
 
 ## Debug the Application
 
-Working with a polyglot project in VS Code is simple just open this sample.
-It will be working out of the box with VS Code GraalVM extensions.
+Debugging a polyglot application should work out of the box in VS Code with the GraalVM extension.
 
-1. Place breakpoints either in Java or JavaScript code.
+1. Place breakpoints in _PolyglotDebug.java_.
 
 2. To debug the project, go to __Run and Debug__ activity or simply press F5.
 
 3. Choose **Launch Java 8+** as this is the Polyglot debugger provided by the GraalVM extension.
 
-That is, the sample is running under debugger on GraalVM.
+That is, the sample is running using the GraalVM debugger. 
