@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: '22.2.0'
+          version: '22.3.0'
           java-version: '11'
           components: 'R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,6 +30,6 @@ jobs:
       - name: Run 'spring-r'
         run: |
           cd spring-r
-          mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.2.0 &
+          mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.3.0 &
           sleep 60
           curl http://localhost:8080/load
