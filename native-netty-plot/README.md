@@ -10,10 +10,11 @@ This example further uses the [exp4j](https://www.objecthunter.net/exp4j/) libra
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
     ```
+
 2. Download or clone the repository and navigate into the `native-netty-plot` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
@@ -35,7 +36,7 @@ The example is built with Maven:
 This creates a JAR file with all dependencies embedded: `target/netty-plot-0.1-jar-with-dependencies.jar`.
 
 The [pom.xml](pom.xml) specifies the expected dependencies to Netty, emp4j, and JFreeSVG.
-It also specifies a dependency on Native Image, `org.graalvm.nativeimage`, - a technology to ahead-of-time compile Java code into a standalone executable.
+It also specifies a dependency on Native Image, `native-image-maven-plugin` for building and testing GraalVM Native Images, a technology to ahead-of-time compile Java code into a standalone executable.
 This dependency is required for the [method substitutions that are necessary for Netty](https://github.com/cstancu/netty-native-demo).
 
 ## Generate a Native Executable
