@@ -1,6 +1,6 @@
 # Configuring Logging in Native Image
 
-This demo shows how the `java.util.logging.*` API can be used with Native Image. If your application requires additional logging handlers, you can register them with a custom configuration file, _logging.properties_ , and initialize at build time. This reduces the size of the resulting executable file and improves startup time. Unless your application needs to process _logging.properties_ at run time, this approach is recommended. Both approaches are demonstrated in the examples. 
+This demo shows how the `java.util.logging.*` API can be used with Native Image. If your application requires additional logging handlers, you can register them with a custom configuration file, _logging.properties_, and initialize at build time. This reduces the size of the resulting executable file and improves startup time. Unless your application needs to process _logging.properties_ at run time, this approach is recommended. Both approaches are demonstrated in the examples. 
 
 ## Preparation
 
@@ -17,7 +17,7 @@ This demo shows how the `java.util.logging.*` API can be used with Native Image.
     cd graalvm-demos/native-image-logging-examples
     ```
 
-There are two Java classes: one for the build-time logger initialization and the second for runtime logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _LoggerBuildTimeInit.java_ and _LoggerRunTimeInit.java_.
+There are two Java classes: one for the build-time logger initialization and the second for run-time logger initialization. The logger will be initialized with a custom _logging.properties_ configuration file, which is placed in the same directory as _LoggerBuildTimeInit.java_ and _LoggerRunTimeInit.java_.
 
 ## Initializing a Logger at Build Time
 
