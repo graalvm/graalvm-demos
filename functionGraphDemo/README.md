@@ -2,14 +2,14 @@
 
 This is a multi-language application mixing JavaScript, Java, and R to demonstrate GraalVM polyglot capabilities. 
 
-> This demo requires GraalVM R runtime version 22.3.1 or lower.
-
 ### Prerequisites
 
 - [GraalVM 22.3.0 or lower](https://www.graalvm.org/)
 - [GraalVM Node.js runtime](https://www.graalvm.org/22.3/reference-manual/js/NodeJS/)
 - [GraalVM Ruby runtime](https://www.graalvm.org/22.3/reference-manual/ruby/)
 - [GraalVM R runtime](https://www.graalvm.org/22.3/reference-manual/r/)
+
+>Note: FastR is no longer under active development and is in maintenance mode. The last released version is 22.3.0.
 
 ## Preparation
 
