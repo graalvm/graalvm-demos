@@ -6,7 +6,7 @@ This sample code helps to demonstrate simplicity of debugging and developing Gra
 
 1. Install VS Code and launch it.
 2. Then go to VS Code Extensions activity panel and search for _GraalVM Extension Pack_, install it. The GraalVM Extension Pack will install all required extensions.
-2. Open Visual Studio Code, navigate to Extensions activity panel in the left-hand side Activity Bar. Search for “GraalVM” in the search field. Find  [GraalVM Tools for Java](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm), press Install. Reload will be required.
+2. Open Visual Studio Code, navigate to Extensions activity panel in the left-hand side Activity Bar. Search for “GraalVM” in the search field. Find  [GraalVM Tools for Java](https://marketplace.visualstudio.com/items?itemName=oracle-labs-graalvm.graalvm), press Install. Reload if required.
 3. [Install GraalVM in VS Code](https://www.graalvm.org/latest/tools/vscode/graalvm-extension/#graalvm-installation-wizard): Navigate to Gr activity panel in VS Code and install the latest Oracle GraalVM version available from the list.
 4. Confirm to set this as _Active GraalVM_ for VS Code.
 
