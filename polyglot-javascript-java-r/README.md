@@ -1,4 +1,4 @@
-# GraalVM Demos: Polyglot JavaScript, Java, R Application
+# Polyglot JavaScript Application mixing Java and R
 
 This is a multi-language JavaScript application mixing Java and R to demonstrate GraalVM's polyglot capabilities. 
 
