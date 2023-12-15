@@ -1,5 +1,4 @@
 # Native Image Support for Java Reflection
-<!-- # Building a Native Executable with Java Reflection -->
 
 [Reflection](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html) is a feature of the Java programming language that enables a running Java program to examine and modify attributes of its classes, interfaces, fields, and methods.
 
@@ -9,9 +8,9 @@ The following application demonstrates the use of Java reflection and how to pro
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `native-image-reflection-example` directory:
@@ -50,16 +49,20 @@ The following application demonstrates the use of Java reflection and how to pro
     You will see a `ClassNotFoundException` exception, similar to:
     ```shell
     Exception in thread "main" java.lang.ClassNotFoundException: StringReverser
-        at java.lang.Class.forName(DynamicHub.java:1338)
-        at java.lang.Class.forName(DynamicHub.java:1313)
-        at ReflectionExample.main(ReflectionExample.java:25)
+	    at org.graalvm.nativeimage.builder/com.oracle.svm.core.hub.ClassForNameSupport.forName(ClassForNameSupport.java:122)
+	    at org.graalvm.nativeimage.builder/com.oracle.svm.core.hub.ClassForNameSupport.forName(ClassForNameSupport.java:86)
+	    at java.base@21/java.lang.Class.forName(DynamicHub.java:1346)
+	    at java.base@21/java.lang.Class.forName(DynamicHub.java:1309)
+	    at java.base@21/java.lang.Class.forName(DynamicHub.java:1302)
+	    at ReflectionExample.main(ReflectionExample.java:68)
+	    at java.base@21/java.lang.invoke.LambdaForm$DMH/sa346b79c.invokeStaticInit(LambdaForm$DMH)
     ```
 
     This shows that, from its static analysis, the `native-image` tool was unable to determine that class `StringReverser` is used by the application and therefore did not include it in the native executable. 
 
 ## Example with Configuration
 
-To build a native executable containing references to the classes and methods that are accessed via reflection, provide the `native-image` utility with a configuration file that specifies the classes and corresponding methods. (For more information about configuration files, see [Reflection Use in Native Images](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Reflection/). You can create this file by hand, but a more convenient approach is to generate it using the tracing agent. The agent writes the configuration for you automatically when you run your application (for more information, see [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent)). 
+To build a native executable containing references to the classes and methods that are accessed via reflection, provide the `native-image` utility with a configuration file that specifies the classes and corresponding methods. For more information about configuration files, see [Reflection Use in Native Images](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Reflection/). You can create this file by hand, but a more convenient approach is to generate it using the tracing agent. The agent writes the configuration for you automatically when you run your application (for more information, see [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent)). 
 
 The following steps demonstrate how to use the tracing agent tool, and its output, to create a native executable that relies on reflection.
 
