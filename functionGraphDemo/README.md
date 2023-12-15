@@ -15,7 +15,7 @@ This is a multi-language application mixing JavaScript, Java, and R to demonstra
 
 1. Download and install GraalVM 22.3 with the Node.js, R, and Ruby languages support, using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) graalvm-ce-java17-22.3.0 -c 'nodejs,R,ruby'
+    bash <(curl -sL https://get.graalvm.org/jdk) graalvm-ce-java17-22.2.0 -c 'nodejs,R,ruby'
     ```
     Follow the post-install message.
 
