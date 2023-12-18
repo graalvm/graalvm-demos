@@ -1,6 +1,6 @@
 # GraalVM Demos
 
-This repository contains demo applications and benchmarks written in Java, JavaScript, Python, R, Ruby, and other JVM languages such as Kotlin and Scala.
+This repository contains demo applications and benchmarks written in Java, JavaScript, Python, and other languages.
 These applications illustrate the diverse capabilities of [GraalVM](http://graalvm.org). 
 
 The demos are sorted by a framework, by a programming language, or by a technology.
@@ -33,7 +33,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-hello-world-maven/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/code-editor/">GraalVM Enterprise in OCI Code Editor</a></td>
+      <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/code-editor/">Oracle GraalVM in OCI Code Editor</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-hello-module/">native-hello-module</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml"><img alt="native-hello-module" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml/badge.svg" /></a></td>
@@ -41,7 +41,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-list-dir/">native-list-dir</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml"><img alt="native-list-dir" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains.<br><strong>Technologies: </strong>Native Image
+      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains.<br><strong>Technologies: </strong>Native Image, PGO
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-simple-stream-benchmark/">java-simple-stream-benchmark</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml"><img alt="java-simple-stream-benchmark" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml/badge.svg" /></a></td>
@@ -49,15 +49,15 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/streams/">streams</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demontrates how GraalVM efficiently optimizes the Java Streams API application and how to apply PGO<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
+      <td align="left" width="70%">Demontrates how GraalVM efficiently optimizes the Java Streams API application and how to apply PGO<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">A fortune teller Unix program. Run it in JIT, build a native executable, or build a mostly-static native executable, using Gradle or Maven build tools.<br><strong>Technologies: </strong>Native Image, Native Build Tools<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/use-graalvm-dashboard/">Use GraalVM Dashboard to Optimize the Size of a Native Executable</a></td>
+      <td align="left" width="70%">A fortune teller Unix program. Run it in JIT, build a native executable, or build a mostly-static native executable, using Gradle or Maven build tools.<br><strong>Technologies: </strong>Native Image, Native Build Tools<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/use-graalvm-dashboard/">Use GraalVM Dashboard to Optimize the Size of a Native Executable</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin, GraalVM Dashboard <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
+      <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin, GraalVM Dashboard <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-image-configure-examples/">native-image-configure-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
@@ -73,7 +73,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-image-logging-examples/">native-image-logging-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-logging-demo/.github/workflows/native-image-logging-examples.yml"><img alt="native-image-logging-examples" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-logging-examples.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">This demo demonstrates how you can initialize Loggers with Native Image at the executable build or run time<br><strong>Technologies: </strong> Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/add-logging-to-native-executable/">Add Logging to a Native Executable</a></td>
+      <td align="left" width="70%">Demonstrates how to initialize Loggers with Native Image at the executable build or run time<br><strong>Technologies: </strong> Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/add-logging-to-native-executable/">Add Logging to a Native Executable</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-jfr-demo/">native-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-jfr-demo.yml/badge.svg"/></a></td>
@@ -81,19 +81,19 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-shared-library/">native-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml"><img alt="native-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo shows how to create a Java class library, use Native Image to create a native shared library, and then create a small C application that uses that shared library<br><strong>Technologies: </strong> Native Image, LLVM toolchain <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-shared-library/">Build a Native Shared Library</a></td>
+      <td align="left" width="70%">Demonstrates how to create a Java class library, use Native Image to create a native shared library, and then create a small C application that uses that shared library<br><strong>Technologies: </strong> Native Image, LLVM toolchain <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-shared-library/">Build a Native Shared Library</a></td>
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/native-image-reflection-example/">native-image-reflection-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml"><img alt="native-image-reflection-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">The following application demonstrates the use of Java reflection and how to provide metadata for Native Image using a JSON configuration file.<br><strong>Technologies: </strong> Native Image</td>
+      <td align="left" width="70%">Demonstrates how to provide metadata for Native Image in the form of JSON configuration files using a tracing agent<br><strong>Technologies: </strong> Native Image</td>
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/native-static-images/">native-static-images</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml"><img alt="native-static-images" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo demonstrates how to build a fully static and mostly-static native executable.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Build a Statically Linked or Mostly-Statically Linked Native Executable</a></td>
+      <td align="left" width="70%">Demonstrates how to build a fully static and a mostly-static native executable.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Build a Statically Linked or Mostly-Statically Linked Native Executable</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-heapdump-examples/">native-heapdump-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-heapdump-examples.yml"><img alt="native-heapdump-examples" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-heapdump-examples.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">This demo shows how you can create a heap dump of a running native executable.<br><strong>Technologies: </strong> Native Image, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/create-heap-dump/">Create a Heap Dump from a Native Executable</a></td>
+      <td align="left" width="70%">Demonstrates different ways to generate a heap dump from a running native executable.<br><strong>Technologies: </strong> Native Image, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/create-heap-dump/">Create a Heap Dump from a Native Executable</a></td>
     </tr>  
     <tr>
       <td align="left" width="30%"><a href="/native-image-jmx-demo/">native-image-jmx-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml"><img alt="nnative-image-jmx-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml/badge.svg"/></a></td>
@@ -160,7 +160,7 @@ cd graalvm-demos
   <tbody>
     <tr>
       <td align="left" width="30%"><a href="/micronaut-hello-rest-maven/">micronaut-hello-rest-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/micronaut-hello-rest-maven.yml"><img alt="micronaut-hello-rest-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/micronaut-hello-rest-maven.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to package a Micronaut REST application into a native executable with Native Image Maven plugin<br><strong>Technologies: </strong>Native Image, Micronaut, Native Build Tools Maven Plugin<br><strong>Reference: </strong><a href="https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest">Try in OCI Code Editor</a></td>
+      <td align="left" width="70%">Demonstrates how to package a Micronaut REST application into a native executable with Native Build Tools Maven plugin<br><strong>Technologies: </strong>Native Image, Micronaut, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://github.com/oracle-devrel/oci-code-editor-samples/tree/main/java-samples/graalvmee-java-micronaut-hello-rest">Try in OCI Code Editor</a></td>
     </tr>
   </tbody>
 </table>
@@ -177,7 +177,7 @@ cd graalvm-demos
   <tbody>
     <tr>
       <td align="left" width="30%"><a href="/spring-native-image/">spring-native-image</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-native-image.yml"><img alt="spring-native-image" src="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-native-image.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to turn a Spring Boot application into a native executable using Spring Native support <br> <strong>Technologies: </strong>Spring Boot, Spring Native, Native Image <br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/fdfd090d-e52c-4481-a8de-dccecdca7d68/steps">GraalVM Native Image, Spring and Containerisation</a>, <a href="https://docs.oracle.com/en/graalvm/enterprise/22/docs/getting-started/oci/cloud-shell/">GraalVM Enterprise in OCI Cloud Shell</a></td>
+      <td align="left" width="70%">Demonstrates how to compile a Spring Boot application into a native executable using Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/fdfd090d-e52c-4481-a8de-dccecdca7d68/steps">GraalVM Native Image, Spring and Containerisation</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">GraalVM Enterprise in OCI Cloud Shell</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/spring-r/">spring-r</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml"><img alt="spring-r" src="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml/badge.svg" /></a></td>
@@ -199,7 +199,7 @@ cd graalvm-demos
   <tbody>
     <tr>
       <td align="left" width="30%"><a href="/js-java-async-helidon/">js-java-async-helidon</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/js-java-async-helidon.yml"><img alt="js-java-async-helidon" src="https://github.com/graalvm/graalvm-demos/actions/workflows/js-java-async-helidon.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">An HTTP web service that demonstrates how multiple JavaScript contexts can be executed in parallel to handle asynchronous operations with Helidon in Java <br><strong>Technologies: </strong>Native Image, Helidon <br><strong>Reference: </strong><a href="https://medium.com/graalvm/asynchronous-polyglot-programming-in-graalvm-javascript-and-java-2c62eb02acf0">Asynchronous Polyglot Programming in GraalVM Using Helidon and JavaScript</a></td>
+      <td align="left" width="70%">An HTTP web service that demonstrates how multiple JavaScript contexts can be executed in parallel to handle asynchronous operations with Helidon in Java <br><strong>Technologies: </strong>Native Image, Helidon, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/asynchronous-polyglot-programming-in-graalvm-javascript-and-java-2c62eb02acf0">Asynchronous Polyglot Programming in GraalVM Using Helidon and JavaScript</a></td>
     </tr>
   </tbody>
 </table>
@@ -271,7 +271,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/polyglot-debug/">polyglot-debug</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml"><img alt="polyglot-debug" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to debug a polyglot Java and JavaScript application using GraalVM extensions for VS Code <br><strong>Technologies: </strong>Java, JavaScript, Maven, GraalVM Extension Pack</td>
+      <td align="left" width="70%">Demonstrates how to debug a polyglot Java and JavaScript application using GraalVM Tools for Java in VS Code <br><strong>Technologies: </strong>Java, JavaScript, Maven, GraalVM Extension Pack</td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/polyglot-javascript-java-r/">polyglot-javascript-java-r</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-javascript-java-r.yml"><img alt="polyglot-javascript-java-r" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-javascript-java-r.yml/badge.svg" /></a></td>
@@ -279,7 +279,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/functionGraphDemo/">functionGraphDemo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/functionGraphDemo.yml"><img alt="functionGraphDemo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/functionGraphDemo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to run a polyglot JavaScript-Java-R application on GraalVM Node.js runtime <br><strong>Technologies: </strong>JavaScript, Node.js, Java, R</td>
+      <td align="left" width="70%">Demonstrates how to run a polyglot JavaScript-Java-R application on the GraalVM Node.js runtime <br><strong>Technologies: </strong>JavaScript, Node.js, Java, R</td>
     </tr>
   </tbody>
 </table>
