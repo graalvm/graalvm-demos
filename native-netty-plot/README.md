@@ -36,7 +36,7 @@ The example is built with Maven:
 This creates a JAR file with all dependencies embedded: `target/netty-plot-0.1-jar-with-dependencies.jar`.
 
 The [pom.xml](pom.xml) specifies the expected dependencies to Netty, emp4j, and JFreeSVG.
-It also specifies a dependency on Native Image, `native-image-maven-plugin` for building and testing GraalVM Native Images, a technology to ahead-of-time compile Java code into a standalone executable.
+There is also the [Maven plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/index.html) to compile this Java application into a native executable.
 This dependency is required for the [method substitutions that are necessary for Netty](https://github.com/cstancu/netty-native-demo).
 
 ## Generate a Native Executable
