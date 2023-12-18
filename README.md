@@ -41,7 +41,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-list-dir/">native-list-dir</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml"><img alt="native-list-dir" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains.<br><strong>Technologies: </strong>Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
+      <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains.<br><strong>Technologies: </strong>Native Image
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-simple-stream-benchmark/">java-simple-stream-benchmark</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml"><img alt="java-simple-stream-benchmark" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml/badge.svg" /></a></td>
