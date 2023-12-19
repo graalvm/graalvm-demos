@@ -90,7 +90,7 @@ One way to check what dynamic libraries your application depends on is to run `l
 
 With GraalVM Native Image you can build a mostly-static native executable that statically links everything except `libc`. Statically linking all your libraries except `libc` ensures your application has all the libraries it needs to run on any Linux `libc`-based distribution.
 
-To build a  a mostly-static native executable for the above _EnvMap.java_ demo, run:
+To build a mostly-static native executable for the above _EnvMap.java_ demo, run:
 
     ```shell
     $JAVA_HOME/bin/native-image -H:+StaticExecutableWithDynamicLibC EnvMap
