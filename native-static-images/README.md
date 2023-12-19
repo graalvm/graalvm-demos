@@ -1,4 +1,4 @@
-# Building Statically Linked or Mostly-Statically Linked Native Executables.
+# Building Statically Linked or Mostly-Statically Linked Native Executables
 
 GraalVM Native Image by default builds dynamically linked binaries: at build time it loads your application classes and interfaces and hooks them together in a process of dynamic linking.
 
@@ -24,14 +24,13 @@ This guide shows how to build a fully static and mostly-static native executable
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image' 
+    sdk install java 21.0.1-graal
     ```
-
     To meet the prerequisites, you need to install the `musl` toolchain, compile and install `zlib` into the toolchain.
 
-2. Download the `musl` toolchain from [musl.cc](https://musl.cc/). (We recommend [this one](https://more.musl.cc/10/x86_64-linux-musl/x86_64-linux-musl-native.tgz). Extract the toolchain to a directory of your choice. This directory will be referred as `$TOOLCHAIN_DIR`. 
+2. Download the `musl` toolchain from [musl.cc](https://musl.cc/). We recommend [this one](https://more.musl.cc/10/x86_64-linux-musl/x86_64-linux-musl-native.tgz). Extract the toolchain to a directory of your choice. This directory will be referred as `$TOOLCHAIN_DIR`. 
 
     Download the latest `zlib` library sources from [zlib.net](https://zlib.net/) and extract them. (This documentation uses `zlib-1.2.11`.)
     Create a new environment variable, named `CC`:

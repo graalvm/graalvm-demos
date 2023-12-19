@@ -22,7 +22,7 @@ jobs:
       matrix:
         include:
           - version: 'latest'
-            java-version: '17'
+            java-version: '21'
           - version: 'dev'
             java-version: 'dev'
     steps:
