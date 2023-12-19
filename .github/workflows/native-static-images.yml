@@ -20,16 +20,11 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        include:
-          - version: 'latest'
-            java-version: '17'
-          - version: 'dev'
-            java-version: 'dev'
+        java-version: ['21', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
           java-version: ${{ matrix.java-version }}
           components: 'native-image'
           native-image-musl: 'true'
