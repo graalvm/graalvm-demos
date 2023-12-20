@@ -95,7 +95,7 @@ Arrays.stream(persons)
     
 4. Now you can use the collected profiles to build an optimized native image:
     ```bash
-    $JAVA_HOME/bin/JAVA_HOME/bin/native-image --pgo Streams
+    $JAVA_HOME/bin/native-image --pgo Streams
     ```
 
 5. Then run it:
