@@ -1,4 +1,4 @@
-# Abstraction Without Regret When Running on GraalVM
+# Java Streams API Benchmark on GraalVM
 
 This demo shows how GraalVM efficiently removes abstractions from high-level programs.
 The `Streams.java` file contains a simple query implemented with the Java Streams API:
