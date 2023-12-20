@@ -1,4 +1,4 @@
-# Abstraction Without Regret When Running on GraalVM
+# Java Streams API Benchmark on GraalVM
 
 This demo shows how GraalVM efficiently removes abstractions from high-level programs.
 The `Streams.java` file contains a simple query implemented with the Java Streams API:
@@ -21,24 +21,25 @@ Arrays.stream(persons)
     java Streams 100000 200
     ```
     ```
-    Iteration 20 finished in 219 milliseconds with checksum e6e0b70aee921601
-    TOTAL time: 4717
+    Iteration 20 finished in 114 milliseconds with checksum e6e0b70aee921601
+    TOTAL time: 2330
     ```
 
-2. Download and  install the latest GraalVM JDK with Native Image using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+2. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk)
+    sdk install java 21.0.1-graal
+    ```
 
 3. Now compile and run the same application on GraalVM:
     ```bash
     $JAVA_HOME/bin/javac Streams.java
     ```
     ```bash
-    $JAVA_HOME/bin/java Streams
+    $JAVA_HOME/bin/java Streams 100000 200
     ```
     ```
-    Iteration 20 finished in 36 milliseconds with checksum e6e0b70aee921601
-    TOTAL time: 1271
+    Iteration 20 finished in 21 milliseconds with checksum e6e0b70aee921601
+    TOTAL time: 623
     ```
 
 We can see over 4x speedup on this simple program.
@@ -46,7 +47,9 @@ We can see over 4x speedup on this simple program.
 ## Profile-Guided Optimizations with Native Image
 
 This demo shows how to use profile-guided optimizations (PGO) with the `native-image` builder.
+
 > Note: Profile-guided optimizations is a GraalVM Enterprise feature.
+
 You will use the same `Streams.java` program that contains a simple query implemented with the Java Streams API:
 ```java
 Arrays.stream(persons)
@@ -69,8 +72,8 @@ Arrays.stream(persons)
     ./streams 100000 200
     ```
     ```
-    Iteration 20 finished in 452 milliseconds with checksum e6e0b70aee921601
-    TOTAL time: 4747
+    Iteration 20 finished in 127 milliseconds with checksum e6e0b70aee921601
+    TOTAL time: 2589
     ```
     This version of the program runs about 2x slower than the one on the regular JDK.
 
@@ -81,6 +84,10 @@ Arrays.stream(persons)
 3. Run this instrumented image to collect profiles:
     ```bash
     ./streams 10000 200
+    ```
+    ```
+    Iteration 20 finished in 62 milliseconds with checksum e1d39d010d08cf01
+    TOTAL time: 1279
     ```
     Profiles collected from this run are now stored in the _default.iprof_ file.
     
@@ -96,8 +103,12 @@ Arrays.stream(persons)
     ./streams  100000 200
     ```
     ```
-    Iteration 20 finished in 1 milliseconds with checksum a2708129d726fc01
-    TOTAL time: 28
+    Iteration 20 finished in 24 milliseconds with checksum e6e0b70aee921601
+    TOTAL time: 516
     ```
 
 You should get the performance comparable to the Java version of the program.
+
+## Related Documentation
+
+[Optimize a Native Executable with PGO](https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/)
