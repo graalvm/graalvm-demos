@@ -20,20 +20,19 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['17', 'dev']
+        java-version: ['21', 'dev']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
-          components: 'llvm-toolchain'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
       - name: Run 'native-shared-library'
         run: |
           cd native-shared-library
           javac LibEnvMap.java
-          native-image -H:Name=libenvmap --shared 
+          native-image -o libenvmap --shared 
           clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c
           ./main USER

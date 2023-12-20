@@ -8,16 +8,15 @@ There are two primary mechanisms for calling a method (function) embedded in a n
 This example demonstrates how to use the **Native Image C API**. We will:
 
 1. Create and compile a Java class library containing at least one entrypoint method.
-2. Use the `native-image` tool to create a shared library from the Java class library.
+2. Use the `native-image` technology to create a shared library from the Java class library.
 3. Create and compile a C application that calls an entrypoint method in the shared library.
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image and LLVM toolchain using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader). With the LLVM toolchain, you can compile C/C++ code to bitcode using `clang` shipped with GraalVM:
+1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'native-image,llvm-toolchain'
+    sdk install java 21.0.1-graal
     ```
-    > Note: The `llvm-toolchain` GraalVM component is not available on Microsoft Windows.
 
 2. Download or clone GraalVM demos repository and navigate into the `native-shared-library` directory:
     ```bash
@@ -31,7 +30,7 @@ This example demonstrates how to use the **Native Image C API**. We will:
     $JAVA_HOME/bin/javac LibEnvMap.java
     ```
     ```bash
-    $JAVA_HOME/bin/native-image -H:Name=libenvmap --shared 
+    $JAVA_HOME/bin/native-image -o libenvmap --shared 
     ``` 
 
     It will produce the following artifacts:
@@ -49,20 +48,21 @@ This example demonstrates how to use the **Native Image C API**. We will:
 
     In the result of this process the native shared library will have the `main()` method of the given Java class as its **entrypoint** method.
 
-    If your library does not include a `main()` method, use the `-H:Name=` command-line option to specify the library name, as follows:
+    If your library does not include a `main()` method, use the `-o` command-line option to specify the library name, as follows:
 
     ```bash
-    native-image --shared -H:Name=<libraryname> <class name>
+    native-image --shared -o <libraryname> <class name>
     ```
     ```bash
-    native-image --shared -jar <jarfile> -H:Name=<libraryname>
+    native-image --shared -jar <jarfile> -o <libraryname>
     ```  
 
-4. Compile the _main.c_ using `clang`.  
+4. Compile the _main.c_ using the `clang` compiler on your system:  
     ```bash
-    $JAVA_HOME/languages/llvm/native/bin/clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c 
+    clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c 
     ```
-5. And finally, run the C application by passing a string as an argument. For example:
+
+5. Finally, run the C application by passing a string as an argument. For example:
     ```bash
     ./main USER
     ```
