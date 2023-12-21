@@ -79,7 +79,7 @@ To export any other Java method:
 * Annotate the method with `@CEntryPoint` (`org.graalvm.nativeimage.c.function.CEntryPoint`).
 * Make one of the method's parameters of type `IsolateThread` or `Isolate`, for example, the first parameter (`org.graalvm.nativeimage.IsolateThread`) in the method below. This parameter provides the current thread's execution context for the call.
 * Restrict your parameter and return types to non-object types. These are Java primitive types including pointers, from the `org.graalvm.nativeimage.c.type` package.
-* Provide a unique name for the method. If you give two exposed methods the same name, the `native-image` builder will fail with the `duplicate symbol` message. If you do not specify the name in the annotation, you must provide the `-H:Name=libraryName` flag at build time.
+* Provide a unique name for the method. If you give two exposed methods the same name, the `native-image` builder will fail with the `duplicate symbol` message. If you do not specify the name in the annotation, you must provide the `-o libraryName` flag at build time.
 
 Below is an example of an **entrypoint** method:
 ```java
