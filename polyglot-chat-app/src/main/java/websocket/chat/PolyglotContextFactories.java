@@ -52,10 +52,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
+import org.graalvm.nativeimage.ImageInfo;
+import org.graalvm.nativeimage.ProcessProperties;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Engine;
 import org.graalvm.polyglot.Source;
-
 
 /**
  * Defines bean factories for polyglot {@link Context} and {@link Engine}
@@ -68,10 +69,26 @@ public class PolyglotContextFactories {
     @Singleton
     @Bean(preDestroy = "close")
     Context createContext(ResourceResolver resolver, ScriptsConfig config) throws URISyntaxException {
-        var exe = Paths.get(resolver.getResource(config.pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe");
+        String exe;
+        if (ImageInfo.inImageRuntimeCode()) {
+            if (ProcessProperties.getArgumentVectorBlockSize() > 0) {
+                exe = Paths.get(ProcessProperties.getArgumentVectorProgramName())
+                    .resolveSibling("resources")
+                    .resolve("python")
+                    .resolve("venv")
+                    .resolve("bin")
+                    .resolve("exe")
+                    .toAbsolutePath()
+                    .toString();
+            } else {
+                exe = "";
+            }
+        } else {
+            exe = Paths.get(resolver.getResource(config.pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe").toString();
+        }
         var context = Context.newBuilder("python")
                 .option("python.ForceImportSite", "true")
-                .option("python.Executable", exe.toString())
+                .option("python.Executable", exe)
                 .allowAllAccess(true)
                 .build();
         loadScript(context, "python", config.pythonInit);

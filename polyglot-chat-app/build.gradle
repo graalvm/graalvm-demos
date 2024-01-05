@@ -33,6 +33,7 @@ dependencies {
 
     implementation("org.graalvm.sdk:graal-sdk:23.1.1")
     implementation("org.graalvm.polyglot:python:23.1.1")
+    implementation("org.graalvm.sdk:nativeimage:23.1.1")
 }
 
 

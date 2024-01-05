@@ -44,6 +44,26 @@ The application uses the Gradle build tool.
     [bob 💬] still loading the sentiment model I believe
     ```
 
+## Building a Native Image
+
+The application can be AOT compiled using GraalVM Native Image.
+The Python code has to be shipped in a _resources_ directory that is kept next to the native executable.
+
+1. Build a native executable with the Micronaut AOT support:
+   ```bash
+   ./gradlew nativeCompile
+   ```
+
+2. Copy the venv into the output _resources_ directory:
+   ```bash
+   cp -R src/main/resources/venv/ build/native/nativeCompile/resources/python/
+   ```
+
+3. Run the native executable:
+   ```bash
+   build/native/nativeCompile/websocket.chat
+   ```
+
 ### Learn More 
 
 Learn more about GraalVM polyglot capabilities [here](https://www.graalvm.org/latest/reference-manual/polyglot-programming/).

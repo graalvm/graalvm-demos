@@ -54,6 +54,17 @@ import org.graalvm.polyglot.Context;
 public class PolyglotMessageHandlerFactory {
     @Bean
     MessageHandler createPythonHandler(Context context) {
-        return context.getPolyglotBindings().getMember("ChatMessageHandler").as(MessageHandler.class);
+        var value = context.getPolyglotBindings().getMember("ChatMessageHandler");
+        // we could use value.as(MessageHandler.class), but then we need a proxy config for native
+        // image.
+        return new MessageHandler() {
+            public boolean isValid(String senderTopic, String receiverTopic) {
+                return value.invokeMember("isValid", senderTopic, receiverTopic).asBoolean();
+            }
+
+            public String createMessage(String sender, String message) {
+                return value.invokeMember("createMessage", sender, message).asString();
+            }
+        };
     }
 }
