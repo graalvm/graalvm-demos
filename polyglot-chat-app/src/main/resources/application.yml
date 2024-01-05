@@ -1,13 +1,19 @@
 micronaut:
     application:
         name: websocket-chat
+    server:
+      port: 12345
+polyglot-scripts:
+    python-init: "classpath:scripts/init.py"
+    python-delayed-init: "classpath:scripts/nltk.py"
+    python-venv: "classpath:venv/pyvenv.cfg"
+---
+#tag::static-resources[]
+micronaut:
     router:
-        static-resources:
+        static-resources: # <1>
             default:
                 enabled: true
                 mapping: /**
                 paths: classpath:public
-scripts:
-    python-script: "classpath:scripts/script.py"
-    r-script: "classpath:scripts/plot.R"
-    python-venv: "classpath:venv/pyvenv.cfg"
+#end::static-resources[]

@@ -42,17 +42,20 @@
 package websocket.chat;
 
 import io.micronaut.context.annotation.Bean;
-import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.annotation.Prototype;
+import io.micronaut.core.io.Readable;
 import io.micronaut.core.io.ResourceResolver;
-import io.micronaut.runtime.context.scope.ThreadLocal;
+
+import jakarta.inject.Singleton;
+
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.inject.Singleton;
+
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Engine;
+import org.graalvm.polyglot.Source;
+
 
 /**
  * Defines bean factories for polyglot {@link Context} and {@link Engine}
@@ -61,26 +64,26 @@ import org.graalvm.polyglot.Engine;
  * optimized code, but otherwise they will be independent of each other.
  */
 @Factory
-@ConfigurationProperties("scripts")
 public class PolyglotContextFactories {
-    String pythonVenv;
-
     @Singleton
     @Bean(preDestroy = "close")
-    Engine createEngine() {
-        return Engine.newBuilder().allowExperimentalOptions(true).build();
-    }
-
-    @Prototype
-    @Bean(preDestroy = "close")
-    Context createContext(Engine engine, ResourceResolver resolver) throws URISyntaxException {
-        Path exe = Paths.get(resolver.getResource(pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe");
-        return Context.newBuilder("python", "R")
-                .option("python.PosixModuleBackend", "native")
+    Context createContext(ResourceResolver resolver, ScriptsConfig config) throws URISyntaxException {
+        var exe = Paths.get(resolver.getResource(config.pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe");
+        var context = Context.newBuilder("python")
                 .option("python.ForceImportSite", "true")
                 .option("python.Executable", exe.toString())
                 .allowAllAccess(true)
-                .engine(engine)
                 .build();
+        loadScript(context, "python", config.pythonInit);
+        new Thread(() -> { loadScript(context, "python", config.pythonDelayedInit); }).start();
+        return context;
+    }
+
+    private static void loadScript(Context context, String language, Readable readable) {
+        try (var reader = readable.asReader()) {
+            context.eval(Source.newBuilder(language, reader, readable.getName()).build());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

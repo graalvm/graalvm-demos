@@ -41,19 +41,25 @@
 
 package websocket.chat;
 
-import io.micronaut.context.annotation.Bean;
-import io.micronaut.context.annotation.Factory;
+import java.io.IOException;
+import java.io.Reader;
 
+import io.micronaut.context.annotation.Bean;
+import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Prototype;
+import io.micronaut.core.io.Readable;
+import io.micronaut.runtime.context.scope.ThreadLocal;
 import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Source;
 
 /**
- * Bean factory that creates a {@link MessageHandler} instance from a Python function
- * loaded from the resources.
+ * Bean that holds the Polyglot script configurations
  */
-@Factory
-public class PolyglotMessageHandlerFactory {
-    @Bean
-    MessageHandler createPythonHandler(Context context) {
-        return context.getPolyglotBindings().getMember("ChatMessageHandler").as(MessageHandler.class);
-    }
+@ConfigurationProperties("polyglot-scripts")
+public class ScriptsConfig {
+    public Readable pythonInit;
+    public Readable pythonDelayedInit;
+    public String pythonVenv;
 }

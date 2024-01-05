@@ -43,10 +43,18 @@
 var hash = document.location.hash.split("/");
 
 if (hash.length !== 3) {
-    alert("Specify URI with a topic and username. Example http://localhost:8080#/stuff/bob")
+    alert("Specify URI with a topic and username. "
+    + "Example http://localhost:8080#/stuff/bob")
 }
 
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/ws/chat/" + hash[1] + "/" + hash[2]);
+var webSocket = new WebSocket("ws://" +
+    location.hostname +
+    ":" +
+    location.port +
+    "/ws/chat/" +
+    hash[1] +
+    "/" +
+    hash[2]);
 webSocket.onmessage = function (msg) { updateChat(msg); };
 webSocket.onclose = function () { alert("WebSocket connection closed") };
 

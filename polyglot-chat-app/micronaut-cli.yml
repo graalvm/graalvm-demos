@@ -1,6 +1,6 @@
 applicationType: default
-defaultPackage: poly.chat
+defaultPackage: websocket.chat
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle
-features: [annotation-api, app-name, gradle, http-client, java, java-application, junit, logback, netty-server, readme, shade, yaml]
+features: [annotation-api, app-name, awaitility, graalvm, gradle, http-client-test, java, java-application, junit, logback, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, reactor, readme, serialization-jackson, shade, validation, websocket, yaml, yaml-build]

@@ -1,18 +1,28 @@
 # Polyglot Chat Application
 
-This example demonstrates how to integrate Python on GraalVM with a Java application.
+This example demonstrates how to integrate Python on GraalVM with a Micronaut application.
+The application uses the Gradle build tool.
 
 ### Prerequisites
 - [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
-- [R support](https://www.graalvm.org/latest/reference-manual/r/)
 - [Python support](https://www.graalvm.org/latest/reference-manual/python/)
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK with Native Image, Python and R support using the [GraalVM JDK Downloader](https://github.com/graalvm/graalvm-jdk-downloader):
+1. Download the latest GraalPy as described on [https://www.graalvm.org/python/](https://www.graalvm.org/python/). For example on Linux:
     ```bash
-    bash <(curl -sL https://get.graalvm.org/jdk) -c 'python,R'
+    wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
+    tar xzf graalpy-23.1.1-linux-amd64.tar.gz
     ```
+
+2. Install the required packages for this demo into the _resources_ directory:
+   ```bash
+   graalpy-23.1.1-linux-amd64/bin/graalpy -m venv src/main/resources/venv
+   src/main/resources/venv/bin/graalpy -m pip install nltk
+   ```
+
+3. Optional: Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image.
+   The demo will work on any OpenJDK distribution, but will be much faster on GraalVM JDK.
 
 ## Building and Running the application:
 
@@ -21,26 +31,18 @@ This example demonstrates how to integrate Python on GraalVM with a Java applica
     ./gradlew run
     ```
 
-2. Navigate to http://localhost:8080
+2. Navigate to http://localhost:12345/#/chat/bob
 
-    You can connect from multiple browsers and chat via websockets. You can use "/"
-    commands to trigger certain interesting functions. Available are:
+    You can connect from multiple browsers and chat via websockets.
+    The Python code will load a language model in the background.
+    Once it is ready, it will analyse the sentiments of all messages and add an emoji to the message to indicate the feelings conveyed.
+    A chat may look like this (newest message at the top):
 
-        /img [some string]
-
-    Searches for a random image from the internet matching [some string].
-
-        /gif [some string]
-
-    Searches for a GIF on the internet matching [some string].
-
-        /= 1 2 3 4
-
-    Echos the arguments `1 2 3 4`.
-
-        /plot 1 1.4 2.6 6.4 25.6 102.4
-
-    Plots the points given.
+    ```
+    [bob 😀] awesome, GraalVM and GraalPy rock!
+    [bob 🫥] are we done yet?
+    [bob 💬] still loading the sentiment model I believe
+    ```
 
 ### Learn More 
 
