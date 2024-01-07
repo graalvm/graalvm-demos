@@ -20,14 +20,13 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        version: [22.3.0] # temporarily locked to 22.3.0 due to R
+        java-version: ['21']
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
-          java-version: '17'
-          components: 'python,R'
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'gradle'
       - name: Run 'polyglot-chat-app'
@@ -36,4 +35,4 @@ jobs:
           ./gradlew build # pre-build application
           ./gradlew run &
           sleep 10
-          curl http://localhost:8080/
+          curl http://localhost:12345/

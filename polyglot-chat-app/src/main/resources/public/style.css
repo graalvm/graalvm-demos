@@ -49,10 +49,10 @@ html {
 
 body {
     font-family: monospace;
-    font-size: 14px;
+    font-size: 20px;
     max-width: 480px;
     margin: 0 auto;
-    padding: 20px
+    padding: 20px;
 }
 
 input {
@@ -71,7 +71,7 @@ li {
 
 #chatControls {
     overflow: auto;
-    margin: 0 0 5px 0
+    margin: 0 0 5px 0;
 }
 
 #userlist {
@@ -87,7 +87,7 @@ li {
 
 #chat p {
     margin: 5px 0;
-    font-weight: 300
+    font-weight: 300;
 }
 
 #chat .timestamp {

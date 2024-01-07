@@ -42,17 +42,21 @@
 package websocket.chat;
 
 import io.micronaut.context.annotation.Bean;
-import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.annotation.Prototype;
+import io.micronaut.core.io.Readable;
 import io.micronaut.core.io.ResourceResolver;
-import io.micronaut.runtime.context.scope.ThreadLocal;
+
+import jakarta.inject.Singleton;
+
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.inject.Singleton;
+
+import org.graalvm.nativeimage.ImageInfo;
+import org.graalvm.nativeimage.ProcessProperties;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Engine;
+import org.graalvm.polyglot.Source;
 
 /**
  * Defines bean factories for polyglot {@link Context} and {@link Engine}
@@ -61,26 +65,42 @@ import org.graalvm.polyglot.Engine;
  * optimized code, but otherwise they will be independent of each other.
  */
 @Factory
-@ConfigurationProperties("scripts")
 public class PolyglotContextFactories {
-    String pythonVenv;
-
     @Singleton
     @Bean(preDestroy = "close")
-    Engine createEngine() {
-        return Engine.newBuilder().allowExperimentalOptions(true).build();
+    Context createContext(ResourceResolver resolver, ScriptsConfig config) throws URISyntaxException {
+        String exe;
+        if (ImageInfo.inImageRuntimeCode()) {
+            if (ProcessProperties.getArgumentVectorBlockSize() > 0) {
+                exe = Paths.get(ProcessProperties.getArgumentVectorProgramName())
+                    .resolveSibling("resources")
+                    .resolve("python")
+                    .resolve("venv")
+                    .resolve("bin")
+                    .resolve("exe")
+                    .toAbsolutePath()
+                    .toString();
+            } else {
+                exe = "";
+            }
+        } else {
+            exe = Paths.get(resolver.getResource(config.pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe").toString();
+        }
+        var context = Context.newBuilder("python")
+                .option("python.ForceImportSite", "true")
+                .option("python.Executable", exe)
+                .allowAllAccess(true)
+                .build();
+        loadScript(context, "python", config.pythonInit);
+        new Thread(() -> { loadScript(context, "python", config.pythonDelayedInit); }).start();
+        return context;
     }
 
-    @Prototype
-    @Bean(preDestroy = "close")
-    Context createContext(Engine engine, ResourceResolver resolver) throws URISyntaxException {
-        Path exe = Paths.get(resolver.getResource(pythonVenv).get().toURI()).resolveSibling("bin").resolve("exe");
-        return Context.newBuilder("python", "R")
-                .option("python.PosixModuleBackend", "native")
-                .option("python.ForceImportSite", "true")
-                .option("python.Executable", exe.toString())
-                .allowAllAccess(true)
-                .engine(engine)
-                .build();
+    private static void loadScript(Context context, String language, Readable readable) {
+        try (var reader = readable.asReader()) {
+            context.eval(Source.newBuilder(language, reader, readable.getName()).build());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -48,49 +48,64 @@ import io.micronaut.websocket.annotation.OnMessage;
 import io.micronaut.websocket.annotation.OnOpen;
 import io.micronaut.websocket.annotation.ServerWebSocket;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Predicate;
 
-@ServerWebSocket("/ws/chat/{topic}/{username}")
+@ServerWebSocket("/ws/chat/{topic}/{username}") // <1>
 public class ChatWebSocket {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ChatWebSocket.class);
+
     private final WebSocketBroadcaster broadcaster;
+
     private final MessageHandler messageHandler;
 
-    public ChatWebSocket(WebSocketBroadcaster broadcaster, MessageHandler messageHandler) {
+    public ChatWebSocket(WebSocketBroadcaster broadcaster, MessageHandler messageHandler) { // <2>
         this.broadcaster = broadcaster;
         this.messageHandler = messageHandler;
     }
 
-    @OnOpen
+    @OnOpen // <3>
     public Publisher<String> onOpen(String topic, String username, WebSocketSession session) {
-        String msg = messageHandler.createMessage(username, "Joined!");
-        return broadcaster.broadcast(msg, isValid(username, topic, msg));
+        log("onOpen", session, username, topic);
+        if (topic.equals("all")) { // <4>
+            return broadcaster.broadcast(String.format("[%s] Now making announcements!", username), isValid(topic));
+        }
+        return broadcaster.broadcast(String.format("[%s] Joined!", username), isValid(topic));
     }
 
-    @OnMessage
+    @OnMessage // <5>
     public Publisher<String> onMessage(
             String topic,
             String username,
             String message,
             WebSocketSession session) {
-        String msg = messageHandler.createMessage(username, message);
-        return broadcaster.broadcast(msg, isValid(username, topic, message));
+
+        log("onMessage", session, username, topic);
+        return broadcaster.broadcast(messageHandler.createMessage(username, message), isValid(topic));
     }
 
-    @OnClose
+    @OnClose // <6>
     public Publisher<String> onClose(
             String topic,
             String username,
             WebSocketSession session) {
-        String msg = messageHandler.createMessage(username, "Disconnected!");
-        return broadcaster.broadcast(msg, isValid(username, topic, msg));
+
+        log("onClose", session, username, topic);
+        return broadcaster.broadcast(messageHandler.createMessage(username, "Disconnected!"), isValid(topic));
     }
 
-    private Predicate<WebSocketSession> isValid(String sender, String senderTopic, String message) {
+    private void log(String event, WebSocketSession session, String username, String topic) {
+        LOG.info("* WebSocket: {} received for session {} from '{}' regarding '{}'",
+                event, session.getId(), username, topic);
+    }
+
+    private Predicate<WebSocketSession> isValid(String topic) { // <7>
         return s -> {
-            String receiver = s.getUriVariables().get("username", String.class, null);
             String receiverTopic = s.getUriVariables().get("topic", String.class, null);
-            return messageHandler.isValid(sender, senderTopic, message, receiver, receiverTopic);
+            return topic.equals("all") || "all".equals(receiverTopic) || topic.equalsIgnoreCase(receiverTopic) || messageHandler.isValid(topic, receiverTopic);
         };
     }
 }

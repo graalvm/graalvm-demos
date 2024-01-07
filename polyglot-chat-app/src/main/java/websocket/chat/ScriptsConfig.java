@@ -41,11 +41,25 @@
 
 package websocket.chat;
 
-/**
- * Service that validates and transforms chat messages.
- */
-public interface MessageHandler {
-    boolean isValid(String senderTopic, String receiverTopic);
+import java.io.IOException;
+import java.io.Reader;
 
-    String createMessage(String sender, String message);
+import io.micronaut.context.annotation.Bean;
+import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Prototype;
+import io.micronaut.core.io.Readable;
+import io.micronaut.runtime.context.scope.ThreadLocal;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Source;
+
+/**
+ * Bean that holds the Polyglot script configurations
+ */
+@ConfigurationProperties("polyglot-scripts")
+public class ScriptsConfig {
+    public Readable pythonInit;
+    public Readable pythonDelayedInit;
+    public String pythonVenv;
 }
