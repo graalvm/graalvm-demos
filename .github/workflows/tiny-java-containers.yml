@@ -30,6 +30,10 @@ jobs:
           #
           ./setup-musl.sh
           #
+          # Download upx
+          #
+          ./setup-upx.sh
+          #
           # Hello World
           #
           cd helloworld

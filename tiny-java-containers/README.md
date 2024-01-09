@@ -97,13 +97,15 @@ noting:
    executable, you can be confident it is also statically linked.
 
 2. Both executables are the result of compiling a Java bytecode application into
-   native machine code. The uncompressed executable is only ~5.3MB! There's no
+   native machine code. The uncompressed executable is only ~6.3MB! There's no
    JVM, no JARs, no JIT compiler and none of the overhead it imposes. Both
    start extremely fast as there is minimal startup cost.
 
-3. The `upx` compressed executable is about 75% smaller, 1.3MB vs. 5.3MB! With
+3. The `upx` compressed executable is over 70% smaller, 1.7MB vs. 6.3MB! With
    `upx` the application self-extracts quickly but does incur a cost of about
-   100ms for decompression. See this blog for a deep dive on [GraalVM Native Image and UPX](https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
+   100ms for decompression. See this blog for a deep dive on [GraalVM Native
+   Image and
+   UPX](https://medium.com/graalvm/compressed-graalvm-native-images-4d233766a214).  
 
 ### Container Images
 
@@ -114,7 +116,7 @@ executable.
 
 ```shell
 REPOSITORY       TAG         IMAGE ID      CREATED             SIZE
-hello            upx         4d122bd39a8a  About a minute ago  1.36 MB
+hello            upx         4d122bd39a8a  About a minute ago  1.78 MB
 ```
 
 This is a tiny container image and yet it contains a fully functional and
