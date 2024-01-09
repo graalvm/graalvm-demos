@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3
 COPY jwebserver.static /
 COPY index.html /web/index.html
 EXPOSE 8000

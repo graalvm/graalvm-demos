@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 ZLIB_VERSION=1.2.13
 TOOLCHAIN_DIR=`pwd`/x86_64-linux-musl-native
 

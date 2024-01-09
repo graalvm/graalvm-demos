@@ -1,7 +1,9 @@
 #!/bin/sh
 
-set -x
+set +e
 
 rm -rf  x86_64-linux-musl-native  zlib-*
-./helloworld/clean.sh
-./jwebserver/clean.sh
+cd helloworld
+./clean.sh || true
+cd ../jwebserver
+./clean.sh || true
