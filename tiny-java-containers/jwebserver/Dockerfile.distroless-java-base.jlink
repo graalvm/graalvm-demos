@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java-base-debian11
+FROM gcr.io/distroless/java-base-debian12
 COPY jwebserver-jlink /usr/lib/java
 COPY index.html /web/index.html
 EXPOSE 8000

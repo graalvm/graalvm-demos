@@ -1,6 +1,4 @@
-#!/bin/sh
-
-set -x 
+#!/bin/sh 
 
 ./build-dynamic.sh
 ./build-mostly.sh

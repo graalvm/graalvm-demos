@@ -6,7 +6,7 @@ jlink \
         --add-modules jdk.httpserver \
         --verbose \
         --strip-debug \
-        --compress 2 \
+        --compress zip-9 \
         --no-header-files \
         --no-man-pages \
         --strip-java-debug-attributes \
