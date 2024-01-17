@@ -1,24 +1,24 @@
-# Java Hello World with GraalVM Enterprise in OCI Cloud Shell
+# Java Hello World with Oracle GraalVM in OCI Cloud Shell
 
-This example shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This example uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
+This example shows how you can get started quickly with Oracle GraalVM in Oracle Cloud Infrastructure (OCI) Cloud Shell. This example uses a simple hello world Java application built with Oracle GraalVM Native Image and JDK (Java Development Kit).
 
 ## What is GraalVM?
 
 [GraalVM](https://www.oracle.com/in/java/graalvm/) is a high-performance JDK distribution that accelerates Java workloads. GraalVM Native Image ahead-of-time compilation builds your Java application into a native executable that is small, starts fast, and uses less memory and CPU. Leading Java microservices frameworks such as Spring Boot, Micronaut, Quarkus and Helidon support GraalVM Native Image.
 
-GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
+Oracle GraalVM is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
 
 ## What is Cloud Shell?
 
 [Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a preauthenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
-GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
+Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
-## Step 1: Launch Cloud Shell 
+## Step 1: Launch Cloud Shell
 
 1. [Login to OCI Console and launch Cloud Shell](https://cloud.oracle.com/?bdcstate=maximized&cloudshell=true).
 
-## Step 2: Select GraalVM as the current JDK 
+## Step 2: Select GraalVM as the current JDK
 
 1. List the installed JDKs:
 
@@ -29,21 +29,21 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The output should be similar to:
 
     ```shell
-      graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
-    * oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
-      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      graalvmjdk-17                                                      /usr/lib64/graalvm/graalvm-java17
+    * oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      oraclejdk-1.8                                                        /usr/lib/jvm/jdk-1.8-oracle-x64
     ```
 
 2. Select GraalVM as the current JDK:
 
     ```shell
-    csruntimectl java set graalvmeejdk-17
+    csruntimectl java set graalvmjdk-17
     ```
 
     The output should be similar to:
 
     ```shell
-    The current managed java version is set to graalvmeejdk-17.
+    The current managed java version is set to graalvmjdk-17.
     ```
 
 ## Step 3: [OPTIONAL] Confirm software version and environment variables
@@ -85,7 +85,8 @@ This step is optional - [Check software version and environment variables](../_c
     ```
 
     The output should be similar to:
-    ```
+
+    ```text
     Hello World!
     ```
 
@@ -99,8 +100,8 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 
 1. To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor such as Nano and uncomment the line shown:
 
-    ```
-    <buildArg>-Ob</buildArg>
+    ```xml
+    <quickBuild>true</quickBuild>
     ```
 
 2. Use the Native Image maven plugin to create a native executable:
@@ -116,17 +117,18 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
     ```
 
     The output should be similar to:
-    ```
+
+    ```text
     Hello World!
     ```
 
 
-**Option 2: Quick Build disabled** 
-    
-1. To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor such as Nano and comment the line shown:  
+**Option 2: Quick Build disabled**
 
-    ```
-    <!-- <buildArg>-Ob</buildArg> -->
+1. To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor such as Nano and comment the line shown:
+
+    ```xml
+    <!-- <quickBuild>true</quickBuild> -->
     ```
 
 2. Use the Native Image maven plugin to create a native executable:
@@ -142,6 +144,7 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
     ```
 
     The output should be similar to:
-    ```
+
+    ```text
     Hello World!
     ```

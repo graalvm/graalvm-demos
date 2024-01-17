@@ -1,20 +1,20 @@
-# Spring Boot Microservice with GraalVM Enterprise in OCI Cloud Shell
+# Spring Boot Microservice with Oracle GraalVM in OCI Cloud Shell
 
-This part shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructure (OCI) Cloud Shell using the Spring Boot 3 microservice example.
+This part shows how you can get started quickly with Oracle GraalVM in Oracle Cloud Infrastructure (OCI) Cloud Shell using the Spring Boot 3 microservice example.
 
-GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
+Oracle GraalVM is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
 
 ## What is Cloud Shell?
 
 [Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a pre-authenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
-GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you do not have to install and configure a development machine to get started.
+Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
-## Step 1: Launch Cloud Shell 
+## Step 1: Launch Cloud Shell
 
 [Login to OCI Console and launch Cloud Shell](https://cloud.oracle.com/?bdcstate=maximized&cloudshell=true).
 
-## Step 2: Select GraalVM as the Current JDK 
+## Step 2: Select GraalVM as the Current JDK
 
 1. List the installed JDKs:
 
@@ -25,20 +25,21 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The output should be similar to (versions may vary):
 
     ```shell
-      graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
-    * oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
-      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      graalvmjdk-17                                                      /usr/lib64/graalvm/graalvm-java17
+    * oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      oraclejdk-1.8                                                        /usr/lib/jvm/jdk-1.8-oracle-x64
     ```
 
 2. Select GraalVM as the current JDK:
 
     ```shell
-    csruntimectl java set graalvmeejdk-17
+    csruntimectl java set graalvmjdk-17
     ```
+
     The output should be similar to:
 
     ```shell
-    The current managed java version is set to graalvmeejdk-17.
+    The current managed java version is set to graalvmjdk-17.
     ```
 
 ## Step 3: (Optional) Confirm Software Version and Environment Variables
@@ -78,7 +79,7 @@ This step is optional - [Check software version and environment variables](../_c
     java -jar ./target/benchmark-jibber-0.0.1-SNAPSHOT.jar &
     ```
 
-4. Test the app JAR. 
+4. Test the app JAR.
 
     ```shell
     curl http://localhost:8080/jibber
@@ -110,14 +111,14 @@ This step is optional - [Check software version and environment variables](../_c
 
 ## Step 5: Build and Run a Native Executable
 
-Now build a native executable for your Spring Boot microservice using GraalVM Enterprise Native Image.
+Now build a native executable for your Spring Boot microservice using Oracle GraalVM Native Image.
 
 1. Build the app native executable
 
     ```shell
     mvn -Pnative native:compile
     ```
-    
+
     This will create a binary executable `target/benchmark-jibber`.
 
 2. Run the app native executable in the background

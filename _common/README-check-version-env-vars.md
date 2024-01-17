@@ -1,4 +1,4 @@
-## [OPTIONAL] Confirm software version and environment variables
+## [OPTIONAL] Confirm Software Version and Environment Variables
 
 1. Confirm GraalVM is the current JDK:
 
@@ -9,9 +9,9 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    * graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
-      oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
+    * graalvmjdk-17                                                      /usr/lib64/graalvm/graalvm-java17
       oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      oraclejdk-1.8                                                        /usr/lib/jvm/jdk-1.8-oracle-x64
     ```
 
 2. Confirm the environment variable `JAVA_HOME` is set correctly:
@@ -23,7 +23,7 @@
     The output should be similar to:
 
     ```shell
-    /usr/lib64/graalvm/graalvm22-ee-java17
+    /usr/lib64/graalvm/graalvm-java17
     ```
 
 3. Confirm the environment variable `PATH` is set correctly:
@@ -35,7 +35,7 @@
     The output should be similar to:
 
     ```shell
-    /usr/lib64/graalvm/graalvm22-ee-java17/bin/:...
+    /usr/lib64/graalvm/graalvm-java17/bin/:...
     ```
 
 4. Confirm the `java` version:
@@ -48,8 +48,8 @@
 
     ```shell
     java version "17.0.9" 2023-10-17 LTS
-    Java(TM) SE Runtime Environment GraalVM EE 22.3.4 (build 17.0.9+11-LTS-jvmci-22.3-b28)
-    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.3.4 (build 17.0.9+11-LTS-jvmci-22.3-b28, mixed mode, sharing)
+    Java(TM) SE Runtime Environment Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21)
+    Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21, mixed mode, sharing)
     ```
 
 5. Confirm the `native-image` version:
@@ -61,7 +61,9 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    GraalVM 22.3.4 Java 17 EE (Java Version 17.0.9+11-LTS-jvmci-22.3-b28)
+    native-image 17.0.9 2023-10-17
+    GraalVM Runtime Environment Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21)
+    Substrate VM Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS, serial gc, compressed references)
     ```
 
 6. Confirm the `Java` used for Maven builds:
@@ -74,7 +76,7 @@
 
     ```shell
     ...
-    Java version: 17.0.9, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17
+    Java version: 17.0.9, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm-java17
     ...
     ```
 

@@ -7,10 +7,10 @@
   <groupId>com.gvm.samples</groupId>
   <artifactId>my-app</artifactId>
   <version>1.0-SNAPSHOT</version>
-  
+
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>http://www.oracle.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +48,7 @@
       </plugins>
     </pluginManagement>
   </build>
-  
+
   <profiles>
     <profile>
       <id>native</id>
@@ -77,18 +77,16 @@
             </executions>
             <configuration>
               <imageName>my-app</imageName>
+              <verbose>true</verbose>
+              <!-- For Quick Build (22.1+) -->
+              <!-- <quickBuild>true</quickBuild> -->
               <buildArgs>
                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                <!-- For mostly static native image (only on Linux AMD64 systems) -->
                 <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
-                <buildArg>--verbose</buildArg>
-                <!-- For Quick Build (22.1+) -->
-								<buildArg>-Ob</buildArg>
+                <!-- To generate the Native Image build output JSON (22.3+) -->
+                <buildArg>-H:BuildOutputJSONFile=build.json</buildArg>
               </buildArgs>
-              <!-- Start: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
-              <!-- <environment>
-                <USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>false</USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>
-              </environment> -->
-              <!-- End: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
             </configuration>
           </plugin>
         </plugins>

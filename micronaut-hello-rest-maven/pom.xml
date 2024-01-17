@@ -10,13 +10,13 @@
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.2.1</version>
+    <version>4.2.3</version>
   </parent>
   <properties>
     <packaging>jar</packaging>
     <jdk.version>17</jdk.version>
     <release.version>17</release.version>
-    <micronaut.version>4.2.1</micronaut.version>
+    <micronaut.version>4.2.3</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <micronaut.aot.enabled>false</micronaut.aot.enabled>
     <micronaut.aot.packageName>com.example.aot.generated</micronaut.aot.packageName>
@@ -121,6 +121,8 @@
             <buildArg>-H:+ReportExceptionStackTraces</buildArg>
             <!-- For mostly static native image (only on Linux AMD64 systems) -->
             <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
+            <!-- To generate the Native Image build output JSON (22.3+) -->
+            <buildArg>-H:BuildOutputJSONFile=build.json</buildArg>
           </buildArgs>
         </configuration>
       </plugin>

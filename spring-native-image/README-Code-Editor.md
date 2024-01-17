@@ -1,22 +1,22 @@
-# Spring Boot Microservice with GraalVM Enterprise in OCI Code Editor
+# Spring Boot Microservice with Oracle GraalVM in OCI Code Editor
 
-This part shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructure (OCI) Code Editor using the Spring Boot 3 microservice example.
+This part shows how you can get started quickly with Oracle GraalVM in Oracle Cloud Infrastructure (OCI) Code Editor using the Spring Boot 3 microservice example.
 
-GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
+Oracle GraalVM is available for use on Oracle Cloud Infrastructure (OCI) at no additional cost.
 ## What is Code Editor?
 
 [Code Editor](https://www.oracle.com/devops/code-editor/) enables you to edit and deploy code directly from the Oracle Cloud Console. You can develop applications, service workflows, and scripts entirely from a browser. This makes it easy to rapidly prototype cloud solutions, try new services, and accomplish quick coding tasks.
 
-GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started. Code Editor's integration with Cloud Shell gives you direct access to GraalVM Enterprise JDK 17 and Native Image.
+Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started. Code Editor's integration with Cloud Shell gives you direct access to Oracle GraalVM JDK and Native Image.
 
-## Step 1: Open Terminal in Code Editor 
+## Step 1: Open Terminal in Code Editor
 
 1. [Login to OCI Console and launch Code Editor](https://cloud.oracle.com/?bdcstate=maximized&codeeditor=true).
 
 2. Open a `New Terminal` in Code Editor. Use this Terminal window to run the commands shown in this sample.
 ![](./images/oci-ce-terminal.png)
 
-## Step 2: Select GraalVM as the Current JDK 
+## Step 2: Select GraalVM as the Current JDK
 
 1. List the installed JDKs:
 
@@ -27,24 +27,24 @@ GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so y
     The output should be similar to (versions may vary):
 
     ```shell
-      graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
-    * oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
-      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      graalvmjdk-17                                                      /usr/lib64/graalvm/graalvm-java17
+    * oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      oraclejdk-1.8                                                        /usr/lib/jvm/jdk-1.8-oracle-x64
     ```
 
 2. Select GraalVM as the current JDK:
 
     ```shell
-    csruntimectl java set graalvmeejdk-17
+    csruntimectl java set graalvmjdk-17
     ```
 
     The output should be similar to:
 
     ```shell
-    The current managed java version is set to graalvmeejdk-17.
+    The current managed java version is set to graalvmjdk-17.
     ```
 
-## Step 3: (Optional) Confirm Software Version and Environment Variables
+## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
 
 This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
@@ -81,7 +81,7 @@ This step is optional - [Check software version and environment variables](../_c
     java -jar ./target/benchmark-jibber-0.0.1-SNAPSHOT.jar &
     ```
 
-4. Test the app JAR. 
+4. Test the app JAR.
 
     ```shell
     curl http://localhost:8080/jibber
@@ -113,14 +113,14 @@ This step is optional - [Check software version and environment variables](../_c
 
 ## Step 5: Build and Run a Native Executable
 
-Now build a native executable for your Spring Boot microservice using GraalVM Enterprise Native Image.
+Now build a native executable for your Spring Boot microservice using GraalVM Native Image.
 
 1. Build the app native executable
 
     ```shell
     mvn -Pnative native:compile
     ```
-    This will create a binary executable `target/benchmark-jibber`. 
+    This will create a binary executable `target/benchmark-jibber`.
 
 2. Run the app native executable in the background
 

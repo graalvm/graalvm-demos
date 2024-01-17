@@ -1,6 +1,6 @@
 # Spring Boot Native Image Microservice
 
-This demo shows how to build, package, and run a simple Spring Boot 3 microservice from a JAR file with the GraalVM JDK, and from a native executable with GraalVM Native Image. The benefits of using a native executable are faster start-up times and reduced memory consumption. It also demonstrates how to run the application and build the native executable within a Docker container. 
+This demo shows how to build, package, and run a simple Spring Boot 3 microservice from a JAR file with the GraalVM JDK, and from a native executable with GraalVM Native Image. The benefits of using a native executable are faster start-up times and reduced memory consumption. It also demonstrates how to run the application and build the native executable within a Docker container.
 
 There are two ways to generate a native executable from a Spring Boot application:
 - [Using GraalVM Native Build Tools](https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html#native-image.developing-your-first-application.native-build-tools)
@@ -21,7 +21,7 @@ By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.1-graal
+    sdk install java 21.0.2-graal
     ```
 
 2. (Optional) Install and run a Docker-API compatible container runtime such as [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/), [Docker](https://www.docker.io/gettingstarted/), or [Podman](https://podman.io/docs/installation). If you are using Docker, configure it to [allow non-root user access](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) if you are on Linux.
@@ -42,7 +42,7 @@ By default, the demo uses the [Native Build Tools Maven plugin](https://graalvm.
 
 ### Build and Run as a JAR
 
-This demo is built using Maven. 
+This demo is built using Maven.
 
 1. Build the application on top of a JVM:
 
@@ -57,7 +57,7 @@ This demo is built using Maven.
     ```shell
     java -jar ./target/benchmark-jibber-0.0.1-SNAPSHOT.jar &
     ```
-    
+
 3. Open the application [http://localhost:8080/jibber](http://localhost:8080/jibber) in a browser, or call the endpoint using `curl`:
 
     ```shell
