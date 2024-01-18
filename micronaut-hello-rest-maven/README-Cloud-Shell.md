@@ -18,7 +18,7 @@ Micronaut uses GraalVM Native Image to build lightweight Java applications that 
 
 [Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a preauthenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
-Oracle GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
+Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
 ## Step 1: Launch Cloud Shell
 
@@ -35,21 +35,21 @@ Oracle GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shel
     The output should be similar to (versions may vary):
 
     ```shell
-      graalvmeejdk-17                                               /usr/lib64/graalvm/graalvm22-ee-java17
-    * oraclejdk-1.8                                                           /usr/java/jdk1.8.0_351-amd64
-      oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      graalvmjdk-17                                                      /usr/lib64/graalvm/graalvm-java17
+    * oraclejdk-11                                                                   /usr/java/jdk-11.0.17
+      oraclejdk-1.8                                                        /usr/lib/jvm/jdk-1.8-oracle-x64
     ```
 
 2. Select GraalVM as the current JDK:
 
     ```shell
-    csruntimectl java set graalvmeejdk-17
+    csruntimectl java set graalvmjdk-17
     ```
 
     The output should be similar to:
 
     ```shell
-    The current managed java version is set to graalvmeejdk-17.
+    The current managed java version is set to graalvmjdk-17.
     ```
 
 ## Step 3: Set up your project, build and run as a JAR
@@ -73,7 +73,7 @@ Oracle GraalVM Enterprise JDK 17 and Native Image are preinstalled in Cloud Shel
 
     ```
 
-2. [OPTIONAL] Confirm software version and environment variables. 
+2. [OPTIONAL] Confirm software version and environment variables.
 
     [Check software version and environment variables](../_common/README-check-version-env-vars.md)
 
