@@ -10,7 +10,7 @@ Any JDK 21
 
 ## Usage
 
-Download Maven or import as Maven project into your IDE.
+Download Maven or import as a Maven project into your IDE.
 
 * build: `mvn package`
 * run: `mvn exec:exec`
@@ -18,6 +18,6 @@ Download Maven or import as Maven project into your IDE.
 If you have [installed GraalVM](https://www.graalvm.org/downloads/):
 
 * build a native executable: `mvn package -Pnative`
-* run the native executable: 
+* run the native executable: `./target/embedded_graalpy`
 
 Please see the [pom.xml](./pom.xml) file for further details on the configuration.
