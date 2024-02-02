@@ -1,1 +1,1 @@
-print ('Foo GraalPy!')
+print ('Hello GraalPy!')
