@@ -158,7 +158,6 @@
                                 to the resources/languages directory. -->
                 <buildArg>-H:+CopyLanguageResources</buildArg>
                 <buildArg>--no-fallback</buildArg>
-                <buildArg>-J-Xmx20g</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
