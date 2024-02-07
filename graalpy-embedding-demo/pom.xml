@@ -131,7 +131,7 @@
     <profile>
       <!--
             Run native image build with: mvn package -Pnative.
-            This profile may be removed if no native-image builds are needed.
+            This profile may be removed if no native-image build is needed.
             -->
       <id>native</id>
       <build>
@@ -154,9 +154,6 @@
               <imageName>${project.artifactId}</imageName>
               <mainClass>${main.class}</mainClass>
               <buildArgs>
-                <!-- Automatically copy the necessary language resources 
-                                to the resources/languages directory. -->
-                <buildArg>-H:+CopyLanguageResources</buildArg>
                 <buildArg>--no-fallback</buildArg>
               </buildArgs>
             </configuration>
