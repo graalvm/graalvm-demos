@@ -50,7 +50,7 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    try (Context context = Context.newBuilder("python").allowAllAccess(true).build()) {
+    try (Context context = Context.newBuilder("python").build()) {
       context.eval("python", "print('Hello GraalPy!')");
     }
   }
