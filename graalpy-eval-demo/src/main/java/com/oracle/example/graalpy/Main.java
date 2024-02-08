@@ -53,7 +53,7 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    try (Context context = Context.newBuilder("python").allowAllAccess(true).build()) {
+    try (Context context = Context.newBuilder("python").build()) {
       File file = new File("Hello.py");
       Source source = Source.newBuilder("python", file).build();
       context.eval(source);

@@ -1,5 +1,7 @@
 # GraalPy Evaluating Demo JDK 21 
-Demonstration application showing GraalPy embedding with JDK 21 using Maven. It contains a Main class evaluates a Python file named _Hello.py_ when run. Shows how to produce a native executable using GraalVM.
+Demonstration application showing how to embed GraalPy in a Java application using Maven. 
+It contains a Main class that evaluates an external Python file named _Hello.py_ when run. 
+It also shows how to produce a native executable using GraalVM.
 
 For more details on polyglot embedding please see the docs:
 https://www.graalvm.org/latest/reference-manual/embed-languages/

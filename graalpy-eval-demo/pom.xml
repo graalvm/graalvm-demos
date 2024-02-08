@@ -53,7 +53,7 @@
     <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
     <native.image.maven.plugin.version>0.9.28</native.image.maven.plugin.version>
     <!-- Select the GraalPy version to use. -->
-    <graalpy.version>23.1.2</graalpy.version>
+    <graalpy.version>23.1.1</graalpy.version>
     <!-- Specify the main class -->
     <main.class>com.oracle.example.graalpy.Main</main.class>
   </properties>
@@ -131,7 +131,7 @@
     <profile>
       <!--
             Run native image build with: mvn package -Pnative.
-            This profile may be removed if no native-image builds are needed.
+            This profile may be removed if no native-image builds is needed.
             -->
       <id>native</id>
       <build>
@@ -154,11 +154,7 @@
               <imageName>${project.artifactId}</imageName>
               <mainClass>${main.class}</mainClass>
               <buildArgs>
-                <!-- Automatically copy the necessary language resources 
-                                to the resources/languages directory. -->
-                <buildArg>-H:+CopyLanguageResources</buildArg>
                 <buildArg>--no-fallback</buildArg>
-                <buildArg>-J-Xmx20g</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
