@@ -18,17 +18,12 @@ jobs:
     name: Run 'polyglot-javascript-java-r'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        include:
-          - version: '22.3.0' # temporarily locked to 22.3.0 due to R
-            java-version: '17'
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
-          java-version: ${{ matrix.java-version }}
+          version: '22.3.0' # locked to 22.3.0 due to R
+          java-version: '17'
           components: 'nodejs,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'polyglot-javascript-java-r'

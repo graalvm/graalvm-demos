@@ -20,13 +20,11 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21.0.1'
+          java-version: '21.0.2'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build and Test Java Code
         run: |
           cd jmh/benchmark-binary-tree
