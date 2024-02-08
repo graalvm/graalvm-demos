@@ -15,14 +15,11 @@ jobs:
     name: Run 'streams'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        java-version: ['21']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'

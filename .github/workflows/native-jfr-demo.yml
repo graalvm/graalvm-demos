@@ -27,7 +27,6 @@ jobs:
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
-          components: 'native-image,visualvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
       - name: Run 'native-jfr-demo'
