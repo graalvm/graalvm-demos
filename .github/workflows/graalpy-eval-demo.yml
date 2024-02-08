@@ -1,9 +1,9 @@
-name: graalpy-embedding-demo
+name: graalpy-eval-demo
 on:
   push:
     paths:
-      - 'graalpy-embedding-demo/**'
-      - '.github/workflows/graalpy-embedding-demo.yml'
+      - 'graalpy-eval-demo/**'
+      - '.github/workflows/graalpy-eval-demo.yml'
   # pull_request: (requires EE, which is unavailable in PRs)
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'graalpy-embedding-demo'
+    name: Run 'graalpy-eval-demo'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -24,10 +24,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'jgraalpy-embedding-demo'
+      - name: Run 'graalpy-eval-demo'
         run: |
-          cd graalpy-embedding-demo
+          cd graalpy-eval-demo
           mvn --no-transfer-progress clean package
           mvn exec:exec
           mvn --no-transfer-progress clean -Pnative -DskipTests package
-          ./target/embedded_graalpy
+          ./target/eval_graalpy
