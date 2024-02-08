@@ -3,13 +3,9 @@
 This example demonstrates how to integrate Python on GraalVM with a Micronaut application.
 The application uses the Gradle build tool.
 
-### Prerequisites
-- [Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)
-- [Python support](https://www.graalvm.org/latest/reference-manual/python/)
-
 ## Preparation
 
-1. Download the latest GraalPy as described on [https://www.graalvm.org/python/](https://www.graalvm.org/python/). For example on Linux:
+1. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example on Linux:
     ```bash
     wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
     tar xzf graalpy-23.1.1-linux-amd64.tar.gz
@@ -24,14 +20,14 @@ The application uses the Gradle build tool.
 3. Optional: Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image.
    The demo will work on any OpenJDK distribution, but will be much faster on GraalVM JDK.
 
-## Building and Running the application:
+## Building and Running the Application:
 
 1. Build application with Gradle:
     ```bash
     ./gradlew run
     ```
 
-2. Navigate to http://localhost:12345/#/chat/bob
+2. Navigate to [http://localhost:12345/#/chat/bob](http://localhost:12345/#/chat/bob).
 
     You can connect from multiple browsers and chat via websockets.
     The Python code will load a language model in the background.
