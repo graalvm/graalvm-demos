@@ -11,7 +11,7 @@ The application uses the Gradle build tool.
    tar xzf graalpy-23.1.1-linux-amd64.tar.gz
    ```
 
-2. Install the required packages for this demo into the _resources_ directory:
+2. Create a virtual environment for this demo in the _resources_ directory, and install the required packages:
    ```bash
    graalpy-23.1.1-linux-amd64/bin/graalpy -m venv src/main/resources/venv
    ```
