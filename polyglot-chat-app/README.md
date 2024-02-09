@@ -6,26 +6,31 @@ The application uses the Gradle build tool.
 ## Preparation
 
 1. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example on Linux:
-    ```bash
-    wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
-    tar xzf graalpy-23.1.1-linux-amd64.tar.gz
-    ```
+   ```bash
+   wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
+   tar xzf graalpy-23.1.1-linux-amd64.tar.gz
+   ```
 
 2. Install the required packages for this demo into the _resources_ directory:
    ```bash
    graalpy-23.1.1-linux-amd64/bin/graalpy -m venv src/main/resources/venv
+   ```
+   ```bash
    src/main/resources/venv/bin/graalpy -m pip install nltk
    ```
+   ```bash
+   src/main/resources/venv/bin/graalpy -c "import nltk; nltk.download('vader_lexicon')"
+   ```
 
-3. Optional: Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image.
-   The demo will work on any OpenJDK distribution, but will be much faster on GraalVM JDK.
+3. (Optional) Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image. 
+The demo will work on any OpenJDK distribution, but will be much faster on GraalVM JDK.
 
 ## Building and Running the Application:
 
 1. Build application with Gradle:
-    ```bash
-    ./gradlew run
-    ```
+   ```bash
+   ./gradlew run
+   ```
 
 2. Navigate to [http://localhost:12345/#/chat/bob](http://localhost:12345/#/chat/bob).
 
