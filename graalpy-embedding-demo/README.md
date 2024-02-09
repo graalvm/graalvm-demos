@@ -1,4 +1,4 @@
-# GraalPy Embedding Demo JDK 21 
+# GraalPy Embedding Demo
 This small application demonstrates how to embed GraalPy in a Java application using Maven. 
 The application contains a `Main` class that evaluates a Python statement (to print "Hello GraalPy!").
 
