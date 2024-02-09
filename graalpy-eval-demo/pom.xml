@@ -76,14 +76,6 @@
       <type>pom</type>
     </dependency>
 
-    <!-- The GraalPy Launcher. -->
-    <dependency>
-      <groupId>org.graalvm.python</groupId>
-      <artifactId>python-launcher</artifactId>
-      <version>${graalpy.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-
   </dependencies>
 
   <build>
