@@ -228,10 +228,6 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/polyglot-chat-app/">polyglot-chat-app</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml"><img alt="polyglot-chat-app" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to build a polyglot chat application by embedding Python and R into the Java host language <br><strong>Technologies: </strong>Java, GraalPy, FastR, Micronaut</td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/polyglot-debug/">polyglot-debug</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml"><img alt="polyglot-debug" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to debug a polyglot Java and JavaScript application using GraalVM Tools for Java in VS Code <br><strong>Technologies: </strong>Java, JavaScript, Maven, GraalVM Extension Pack</td>
     </tr>
