@@ -3,15 +3,23 @@
 This example demonstrates how to integrate Python on GraalVM with a Micronaut application.
 The application uses the Gradle build tool.
 
-## Preparation
+## Preparation`
 
-1. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example on Linux:
+1. Download or clone GraalVM demos repository and navigate into the `polyglot-chat-app` directory:
+    ```bash
+    git clone https://github.com/graalvm/graalvm-demos
+    ```
+    ```bash
+    cd graalvm-demos/polyglot-chat-app
+    ```
+
+2. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example on Linux:
    ```bash
    wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
    tar xzf graalpy-23.1.1-linux-amd64.tar.gz
-   ```
+   ``
 
-2. Create a virtual environment for this demo in the _resources_ directory, and install the required packages:
+3. Create a virtual environment for this demo in the _resources_ directory, and install the required packages:
    ```bash
    graalpy-23.1.1-linux-amd64/bin/graalpy -m venv src/main/resources/venv
    ```
@@ -22,7 +30,7 @@ The application uses the Gradle build tool.
    src/main/resources/venv/bin/graalpy -c "import nltk; nltk.download('vader_lexicon')"
    ```
 
-3. (Optional) Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image. 
+4. (Optional) Download and install GraalVM JDK for Java 21 or later to run Python with runtime compilation and to build a native image. 
 The demo will work on any OpenJDK distribution, but will be much faster on GraalVM JDK.
 
 ## Building and Running the Application:
@@ -62,7 +70,7 @@ The Python code has to be shipped in a _resources_ directory that is kept next t
 
 3. Run the native executable:
    ```bash
-   build/native/nativeCompile/websocket.chat
+   ./build/native/nativeCompile/websocket.chat
    ```
 
 ### Learn More 
