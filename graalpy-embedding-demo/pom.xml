@@ -53,7 +53,7 @@
     <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
     <native.image.maven.plugin.version>0.9.28</native.image.maven.plugin.version>
     <!-- Select the GraalPy version to use. -->
-    <graalpy.version>23.1.1</graalpy.version>
+    <graalpy.version>23.1.2</graalpy.version>
     <!-- Specify the main class -->
     <main.class>com.oracle.example.graalpy.Main</main.class>
   </properties>
