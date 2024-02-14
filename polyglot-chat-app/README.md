@@ -5,7 +5,7 @@ The application uses the Gradle build tool.
 
 ## Preparation
 
-1. Download or clone GraalVM demos repository and navigate into the `polyglot-chat-app` directory:
+1. Download or clone the GraalVM demos repository and navigate into the _polyglot-chat-app_ directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
