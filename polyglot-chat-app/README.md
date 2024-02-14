@@ -3,7 +3,7 @@
 This example demonstrates how to integrate Python on GraalVM with a Micronaut application.
 The application uses the Gradle build tool.
 
-## Preparation`
+## Preparation
 
 1. Download or clone GraalVM demos repository and navigate into the `polyglot-chat-app` directory:
     ```bash
