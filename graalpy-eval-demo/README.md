@@ -1,14 +1,13 @@
 # GraalPy Evaluating Demo
-This small application demonstrates how to use GraalPy to evaluate a Python file from a Java application using Maven.
+This small application demonstrates how to use GraalPy to evaluate a Python file from a Java application, built with Maven.
 The application contains a Main class that evaluates an external Python file named _Hello.py_ when run.
 
 The example also shows how to produce a native executable using [GraalVM](https://www.graalvm.org/).
 
-
 ## Preparation
 
 Install a JDK 21, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
-We recommend GraalVM for JDK 21 that can be easily installed using [SDKMAN!](https://sdkman.io/).
+We recommend GraalVM for JDK 21 that can be easily installed using [SDKMAN!](https://sdkman.io/). (For other download options, see [GraalVM Downloads](https://www.graalvm.org/downloads/).)
 ```bash
 sdk install java 21.0.2-graal
 ```
@@ -28,12 +27,12 @@ sdk install java 21.0.2-graal
     ```python
     print ("Hello Evaluated GraalPy!")
     ```
-    then run the application again (using `mvn exec:exec`).
+    Then, run the application again (using `mvn exec:exec`).
 
 
 ## (Optional) Build and Run a Native Executable
 
-If you [installed GraalVM](https://www.graalvm.org/downloads/) you can build this Java-Python application into a native executable and run it.
+If you [installed GraalVM](https://www.graalvm.org/downloads/), you can build this Java-Python application into a native executable and run it.
 
 1. Build a native executable:
     ```bash
@@ -50,7 +49,7 @@ If you [installed GraalVM](https://www.graalvm.org/downloads/) you can build thi
     ```python
     print ("Hello Native Evaluated GraalPy!")
     ```
-    then run the application again (using `./target/eval_graalpy`).
+    Then, run the application again (using `./target/eval_graalpy`).
 
 See the [pom.xml](./pom.xml) file for configuration details.
 
