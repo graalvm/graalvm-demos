@@ -12,7 +12,7 @@ Any JDK 21
 
 Download Maven or import as a Maven project into your IDE.
 
- * build: `mvn compile`
-  * run: `mvn exec:exec -Prun`
+* build: `mvn compile`
+* run: `mvn exec:exec -Prun`
 
 Please see the [pom.xml](./pom.xml) file for further details on the configuration.

@@ -160,8 +160,11 @@ public class PyfigletFrame extends JFrame {
   }
 
   private List<String> getSortedFonts() {
+    // Call the availableFonts() method on the Python instance (via the Java proxy)
     List<String> filteredFonts = proxy.availableFonts().stream()
+        // Filter out fonts that contain "__"
         .filter(e -> !e.contains("__"))
+        // Filter out fonts that end with "_"
         .filter(e -> !e.endsWith("_"))
         .collect(Collectors.toList());
     Collections.sort(filteredFonts);
@@ -169,6 +172,7 @@ public class PyfigletFrame extends JFrame {
   }
 
   private void inputChanged() {
+    // Call the proxy() method on the Python instance via the proxy
     String text = proxy.format(userText, userFont);
     editorPane.setText(text);
   }
