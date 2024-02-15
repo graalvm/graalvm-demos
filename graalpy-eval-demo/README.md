@@ -1,40 +1,57 @@
-# GraalPy Evaluating Demo JDK 21 
-Demonstration application showing how to embed GraalPy in a Java application using Maven. 
-It contains a Main class that evaluates an external Python file named _Hello.py_ when run. 
-It also shows how to produce a native executable using GraalVM.
+# GraalPy Evaluating Demo
+This small application demonstrates how to use GraalPy to evaluate a Python file from a Java application using Maven.
+The application contains a Main class that evaluates an external Python file named _Hello.py_ when run.
 
-For more details on polyglot embedding please see the docs:
-https://www.graalvm.org/latest/reference-manual/embed-languages/
+The example also shows how to produce a native executable using [GraalVM](https://www.graalvm.org/).
 
-## Setup
 
-Any JDK 21
+## Preparation
 
-## Usage
+Install a JDK 21, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
+We recommend GraalVM for JDK 21 that can be easily installed using [SDKMAN!](https://sdkman.io/).
+```bash
+sdk install java 21.0.2-graal
+```
 
-1. Download Maven or import as a Maven project into your IDE.
+## Run the Application
 
-    * build: `mvn package`
-    * run: `mvn exec:exec`
+1. Build the application:
+    ```bash
+    mvn package
+    ```
+2. Run the application:
+    ```bash
+    mvn exec:exec
+    ```  
 
-2. To confirm that your application reads the contents of _Hello.py_, edit the file, as follows:
+3. To confirm that your application reads the contents of _Hello.py_, edit the file, as follows:
     ```python
     print ("Hello Evaluated GraalPy!")
     ```
     then run the application again (using `mvn exec:exec`).
 
 
-## Create a Native Executable
+## (Optional) Build and Run a Native Executable
 
-1. If you have [installed GraalVM](https://www.graalvm.org/downloads/):
+If you [installed GraalVM](https://www.graalvm.org/downloads/) you can build this Java-Python application into a native executable and run it.
 
-    * build a native executable: `mvn package -Pnative`
-    * run the native executable: `./target/eval_graalpy`
+1. Build a native executable:
+    ```bash
+    mvn package -Pnative
+    ```
+    It creates the native executable called `eval_graalpy` in the _target/_ directory.
 
-2. To confirm that your application reads the contents of _Hello.py_, edit the file, as follows:
+2. Run the native executable:
+    ```bash
+    ./target/eval_graalpy
+    ```
+
+3. To confirm that your application reads the contents of _Hello.py_, edit the file, as follows:
     ```python
     print ("Hello Native Evaluated GraalPy!")
     ```
     then run the application again (using `./target/eval_graalpy`).
 
-Please see the [pom.xml](./pom.xml) file for further details on the configuration.
+See the [pom.xml](./pom.xml) file for configuration details.
+
+> For more details on how to embed GraalPy in your Java applications, see [Embedding Languages](https://www.graalvm.org/latest/reference-manual/embed-languages/).
