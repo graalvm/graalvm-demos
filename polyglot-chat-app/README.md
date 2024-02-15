@@ -1,8 +1,8 @@
 # Polyglot Chat Application
 
-This example demonstrates how to integrate Python on GraalVM with a Micronaut application.
-The application uses the nltk module to analyze text sentiment.
-The application uses the Gradle build tool.
+This example demonstrates how to integrate Python in a Micronaut Java application using the Gradle build tool.
+The application uses the [Natural Language Toolkit (nltk)](https://www.nltk.org/) module to analyze the sentiment of user input.
+The example also shows how to create a native executable from the application using GraalVM.
 
 ## Preparation
 
@@ -14,11 +14,11 @@ The application uses the Gradle build tool.
     cd graalvm-demos/polyglot-chat-app
     ```
 
-2. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example on Linux:
+2. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example:
    ```bash
    pyenv install graalpy-23.1.2
    pyenv shell graalpy-23.1.2
-   ``
+   ```
 
 3. Create a virtual environment for the demo in the _resources_ directory, activate it, install the required package, and download a lexicon:
    ```bash
@@ -34,8 +34,8 @@ The application uses the Gradle build tool.
    graalpy -c "import nltk; nltk.download('vader_lexicon')"
    ```
 
-4. (Optional) [Download and install GraalVM JDK for Java 21](https://www.graalvm.org/downloads/) or later to run Python with runtime compilation and to build a native image. 
-The demo will work with any OpenJDK distribution, but will be much faster on GraalVM JDK.
+4. The demo will work with any OpenJDK distribution, but will be much faster on [GraalVM JDK for Java 21](https://www.graalvm.org/downloads/). 
+
 
 ## Building and Running the Application
 
@@ -54,12 +54,12 @@ The demo will work with any OpenJDK distribution, but will be much faster on Gra
     ```
     [bob 😀] awesome, GraalVM and GraalPy rock!
     [bob 🫥] are we done yet?
-    [bob 💬] still loading the sentiment model I believe
+    [bob 💬] Joined!
     ```
 
 ## (Optional) Building a Native Executable
 
-> Note: this requires [Download and install GraalVM JDK for Java 21](https://www.graalvm.org/downloads/) or later.
+> Note: this requires [GraalVM JDK for Java 21](https://www.graalvm.org/downloads/) or later.
 
 The application can be compiled ahead-of-time to a native executable using GraalVM Native Image.
 The Python code must be copied to the _build/_ directory that is kept next to the native executable.
