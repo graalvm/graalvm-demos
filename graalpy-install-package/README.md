@@ -1,18 +1,36 @@
-# GraalPy Class Access Demo JDK 21 
-Demonstration application showing how to access a Python class with JDK 21 using Maven.
+# Using GraalPy to Access a Python Class from a Java Application 
 
-For more details on polyglot embedding please see the docs:
-https://www.graalvm.org/latest/reference-manual/embed-languages/
+This small application demonstrates how to use GraalPy to access a Python class from a Java application, built with Maven.
 
-## Setup
+It includes the following steps:
+1. Install the [pyfiglet](https://github.com/pwaller/pyfiglet) module. (Pyfiglet is an ASCII art module to create styled text.)
+2. Create a Python class ([PyfigletWrapper.py](src/main/resources/PyfigletWrapper.py)) that acts as a wrapper for the pyfiglet module.
+3. Create a Java interface ([PyfigletProxy.java](src/main/java/com/oracle/example/graalpy/PyfigletProxy.java)) that acts as a proxy for the wrapper.
+4. Create a Swing JFrame ([PyfigletFrame.java](src/main/java/com/oracle/example/graalpy/PyfigletFrame.java)) that calls the proxy's _format_ method.
 
-Any JDK 21
+## Preparation
 
-## Usage
+Install a JDK 21, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
+We recommend GraalVM for JDK 21 that can be easily installed using [SDKMAN!](https://sdkman.io/). (For other download options, see [GraalVM Downloads](https://www.graalvm.org/downloads/).)
+```bash
+sdk install java 21.0.2-graal
+```
 
-Download Maven or import as a Maven project into your IDE.
+## Run the Application
 
-* build: `mvn compile`
-* run: `mvn exec:exec -Prun`
+1. Build the application:
+    ```bash
+    mvn compile
+    ```
+2. Run the application:
+    ```bash
+    mvn exec:exec -Prun
+    ```  
 
-Please see the [pom.xml](./pom.xml) file for further details on the configuration.
+
+![Pyfiglet Java Application](Pyfiglet%20GUI.gif)
+
+
+See the [pom.xml](./pom.xml) file for configuration details.
+
+> For more details on how to embed GraalPy in your Java applications, see [Embedding Languages](https://www.graalvm.org/latest/reference-manual/embed-languages/).

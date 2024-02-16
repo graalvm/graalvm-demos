@@ -5,7 +5,7 @@ import pyfiglet
 """ 
 The PyfigletWrapper has two methods. Instances of this class are meant to be
  used from Java using the PyfigletProxy interface. 
- """
+"""
 
 
 class PyfigletWrapper:

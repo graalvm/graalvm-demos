@@ -71,8 +71,7 @@ public class Main {
 
   /**
    * This creates an instance of the PyfigletWrapper type and returns it
-   * mapped to the
-   * {@link PyfigletProxy} interface.
+   * mapped to the {@link PyfigletProxy} interface.
    */
   static PyfigletProxy createPyfigletProxy() {
     Context context = Context.newBuilder(PYTHON).

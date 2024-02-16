@@ -172,7 +172,7 @@ public class PyfigletFrame extends JFrame {
   }
 
   private void inputChanged() {
-    // Call the proxy() method on the Python instance via the proxy
+    // Call the format() method on the Python instance via the proxy
     String text = proxy.format(userText, userFont);
     editorPane.setText(text);
   }
