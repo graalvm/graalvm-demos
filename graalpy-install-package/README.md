@@ -3,10 +3,10 @@
 This small application demonstrates how to use GraalPy to access a Python class from a Java application, built with Maven.
 
 It includes the following steps:
-1. Install the [pyfiglet](https://github.com/pwaller/pyfiglet) module. (Pyfiglet is an ASCII art module to create styled text.)
+1. Install the [Pyfiglet](https://github.com/pwaller/pyfiglet) module. (Pyfiglet is an ASCII art module to create styled text.)
 2. Create a Python class ([PyfigletWrapper.py](src/main/resources/PyfigletWrapper.py)) that acts as a wrapper for the pyfiglet module.
 3. Create a Java interface ([PyfigletProxy.java](src/main/java/com/oracle/example/graalpy/PyfigletProxy.java)) that acts as a proxy for the wrapper.
-4. Create a Swing JFrame ([PyfigletFrame.java](src/main/java/com/oracle/example/graalpy/PyfigletFrame.java)) that calls the proxy's _format_ method.
+4. Create a Swing JFrame ([PyfigletFrame.java](src/main/java/com/oracle/example/graalpy/PyfigletFrame.java)) that calls the proxy's `format` method.
 
 ## Preparation
 
@@ -29,7 +29,6 @@ sdk install java 21.0.2-graal
 
 
 ![Pyfiglet Java Application](Pyfiglet%20GUI.gif)
-
 
 See the [pom.xml](./pom.xml) file for configuration details.
 
