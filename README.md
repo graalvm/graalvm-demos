@@ -256,6 +256,10 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/graalpy-embedding-demo/">graalpy-embedding-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedding-demo.yml"><img alt="graalpy-embedding-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedding-demo.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to embed GraalPy in a Java application using Maven. <br><strong>Technologies: </strong>GraalPy</td>
     </tr>
+    <tr>
+      <td align="left" width="30%"><a href="/polyglot-chat-app/">polyglot-chat-app</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml"><img alt="polyglot-chat-app" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to integrate Python in a Micronaut Java application and build using Gradle <br><strong>Technologies: </strong>Java, GraalPy, Micronaut</td>
+    </tr>
   </tbody>
 </table>
 
@@ -269,10 +273,6 @@ cd graalvm-demos
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/polyglot-chat-app/">polyglot-chat-app</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml"><img alt="polyglot-chat-app" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-chat-app.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to build a polyglot chat application by embedding Python and R into the Java host language <br><strong>Technologies: </strong>Java, GraalPy, FastR, Micronaut</td>
-    </tr>
     <tr>
       <td align="left" width="30%"><a href="/polyglot-debug/">polyglot-debug</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml"><img alt="polyglot-debug" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-debug.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to debug a polyglot Java and JavaScript application using GraalVM Tools for Java in VS Code <br><strong>Technologies: </strong>Java, JavaScript, Maven, GraalVM Extension Pack</td>

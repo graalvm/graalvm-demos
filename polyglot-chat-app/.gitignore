@@ -12,3 +12,4 @@ out/
 .settings
 .classpath
 .factorypath
+src/main/resources/venv/pyvenv.cfg
