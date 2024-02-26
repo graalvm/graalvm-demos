@@ -44,7 +44,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.oracle.example</groupId>
-  <artifactId>graalpy-package</artifactId>
+  <artifactId>package-graalpy</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -241,9 +241,52 @@
       </build>
       <activation>
         <file>
-          <exists>venv/bin/pip</exists>
+          <exists>src/main/resources/vfs/venv/bin/pip</exists>
         </file>
       </activation>
+    </profile>
+
+    <profile>
+      <!--
+            Run native image build with: mvn package -Pnative.
+            This profile may be removed if no native-image builds is needed.
+            -->
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.image.maven.plugin.version}</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>compile-no-fork</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <!-- Default arguments -->
+              <imageName>${project.artifactId}</imageName>
+              <mainClass>${main.class}</mainClass>
+              <buildArgs>
+                <!-- Do not automatically copy the necessary language resources 
+                to the resources/languages directory next to the native binary. -->
+                <buildArg>-H:-CopyLanguageResources</buildArg>
+                <!-- native-image-resources.json specifies what resources will be added to the
+                native executable.
+                See also https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/ -->
+                <buildArg>-H:ResourceConfigurationFiles=native-image-resources.json</buildArg>
+                <buildArg>-H:Log=registerResource:3</buildArg>
+                <buildArg>--no-fallback</buildArg>
+              </buildArgs>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
   </profiles>
