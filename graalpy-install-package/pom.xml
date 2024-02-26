@@ -275,7 +275,7 @@
               <buildArgs>
                 <!-- Do not automatically copy the necessary language resources 
                 to the resources/languages directory next to the native binary. -->
-                <buildArg>-H:-CopyLanguageResources</buildArg>
+                <!--<buildArg>-H:+CopyLanguageResources</buildArg>-->
                 <!-- native-image-resources.json specifies what resources will be added to the
                 native executable.
                 See also https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/ -->
