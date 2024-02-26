@@ -20,15 +20,30 @@ sdk install java 21.0.2-graal
 
 1. Build the application:
     ```bash
-    mvn compile
+    mvn package
     ```
 2. Run the application:
     ```bash
-    mvn exec:exec -Prun
+    mvn exec:exec
     ```  
 
 
 ![Pyfiglet Java Application](Pyfiglet%20GUI.gif)
+
+## (Optional) Build and Run a Native Executable
+
+If you [installed GraalVM](https://www.graalvm.org/downloads/), you can build this Java-Python application into a native executable and run it.
+
+1. Build a native executable:
+    ```bash
+    mvn package -Pnative
+    ```
+    It creates the native executable called `package-graalpy` in the _target/_ directory.
+
+2. Run the native executable:
+    ```bash
+    ./target/package-graalpy
+    ```
 
 See the [pom.xml](./pom.xml) file for configuration details.
 
