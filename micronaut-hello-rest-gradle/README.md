@@ -165,7 +165,7 @@ docker build . -t hello
 
 The container image that was created is about 94MB, which makes sense because the Alpine with `glibc` base image is about 18MB and your application is about 71MB.
 ```bash
-doker images
+docker images
 ```
 ```sh
 REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
