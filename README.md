@@ -53,11 +53,11 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">A fortune teller Unix program. Run it in JIT, build a native executable, or build a mostly-static native executable, using Gradle or Maven build tools.<br><strong>Technologies: </strong>Native Image, Native Build Tools<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/use-graalvm-dashboard/">Use GraalVM Dashboard to Optimize the Size of a Native Executable</a></td>
+      <td align="left" width="70%">A fortune teller Unix program. Run it in JIT, build a native executable, or build a mostly-static native executable, using Gradle or Maven build tools.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin, GraalVM Dashboard <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
+      <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image Build Reports, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-image-configure-examples/">native-image-configure-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
