@@ -89,7 +89,7 @@
                     <fallback>false</fallback>
                     <buildArgs>
                         <buildArg>
-                        --no-fallback -H:+BuildReport -H:+BuildReportSamplerFlamegraph --initialize-at-build-time
+                        --no-fallback -H:+UnlockExperimentalVMOptions -H:+BuildReport -H:+BuildReportSamplerFlamegraph -H:+UnlockExperimentalVMOptions --initialize-at-build-time
                         </buildArg>
                     </buildArgs>
                     <agent>

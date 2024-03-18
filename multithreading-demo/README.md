@@ -29,7 +29,7 @@ The plugin also generates a report using the [Native Image Build Reports](https:
         <fallback>false</fallback>
         <buildArgs>
             <buildArg>
-            -H:+BuildReport -H:+BuildReportSamplerFlamegraph --initialize-at-build-time
+            -H:+UnlockExperimentalVMOptions -H:+BuildReport -H:+BuildReportSamplerFlamegraph -H:+UnlockExperimentalVMOptions --initialize-at-build-time
             </buildArg>
         </buildArgs>
         <agent>
