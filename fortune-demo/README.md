@@ -1,6 +1,4 @@
-# Java Fortune Demo For GraalVM Dashboard
-
-The Fortune demo is provided to showcase the applicability of [GraalVM Dashboard](https://www.graalvm.org/docs/tools/dashboard/) - a web-based tool that visualizes the composition of a native executable. (Go to the [GraalVM website](https://www.graalvm.org/reference-manual/native-image/) to learn more about Native Image).
+# Native Image Fortune Demo
 
 The demo is a Java program that simulates the traditional `fortune` Unix program (for more information, see [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix))). The data for the fortune phrases is provided by [YourFortune](https://github.com/your-fortune).
 
@@ -14,10 +12,11 @@ The plugin will also gather the diagnostic data at build time and write it to a 
 
 ## Preparation
 
-1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
+1. Download and install the latest GraalVM for JDK 21 using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 17.0.9-graal
+    sdk install java 21.0.3-graal
     ```
+    
 2. Download or clone GraalVM demos repository:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
@@ -34,6 +33,7 @@ The plugin will also gather the diagnostic data at build time and write it to a 
     ```bash
     mvn clean package
     ```
+
 3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#agent-support), on the JVM:
     ```bash
     mvn -Pnative -Dagent exec:exec@java-agent
@@ -46,7 +46,6 @@ The plugin will also gather the diagnostic data at build time and write it to a 
     mvn -Pnative -Dagent package
     ```
     When the command completes, a native executable, `fortune`, is generated in the _target_ directory of the project and ready for use.
-    The diagnostic data for GraalVM Dashboard is written to a dump file _target/fortune.bgv_.
 
 5. Run the application by launching a native executable directly or with the Maven profile:
 
@@ -68,19 +67,23 @@ The plugin will also gather the diagnostic data at build time and write it to a 
     ```bash
     ./gradlew run
     ```
+
 3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#agent-support), on the JVM. To enable the agent with the Native Image Gradle plugin, pass the `-Pagent` option to any Gradle tasks that extends `JavaForkOptions`:
     ```bash
     ./gradlew -Pagent run
     ```
     The agent captures and records the dynamic features encountered during a test run into multiple *-config.json files.
+
 4. Once the metadata is collected, copy it into the project’s _/META-INF/native-image/_ directory using the `metadataCopy` task:
     ```bash
     ./gradlew metadataCopy --task run --dir src/main/resources/META-INF/native-image
     ```
+
 5. Build a native executable using configuration collected by the agent:
     ```bash
     ./gradlew nativeCompile
     ```
+
     When the command completes, a native executable, `fortune`, is generated in the _build/native/nativeCompile_ directory of the project and ready for use.
 6. Run the application from the native executable:
     ```bash
@@ -95,22 +98,25 @@ The StaticFortune project contains an enhanced version of the same application a
     ```bash
     cd ../staticfortune
     ```
+
 2. Build the project:
     ```bash
     mvn clean package
     ```
+
 3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#agent-support), on the JVM:
     ```bash
     mvn -Pnative -Dagent exec:exec@java-agent
     ```
     The application will print a random saying. 
     The agent generates the configuration files in the _target/native/agent-output_ subdirectory.
+
 4. Build a static native executable:
     ```bash
     mvn -Pnative -Dagent package
     ```
     When the command completes, a native executable, `staticfortune`, is generated in the _target_ directory of the project and ready for use.
-    The diagnostic data for GraalVM Dashboard is written to a dump file _target/staticfortune.bgv_.
+
 5. Run the demo by launching a native executable directly or with the Maven profile:
     ```bash
     ./target/staticfortune
