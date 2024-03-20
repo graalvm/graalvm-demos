@@ -52,7 +52,7 @@
                             <fallback>false</fallback>
                             <buildArgs>
                                 <buildArg>
-                                -H:DashboardDump=staticfortune -H:+DashboardAll --initialize-at-build-time=demo.StaticFortune,com.fasterxml.jackson.databind.ext.Java7SupportImpl
+                                --initialize-at-build-time=demo.StaticFortune,com.fasterxml.jackson.databind.ext.Java7SupportImpl
                                 </buildArg>
                             </buildArgs>
                             <agent>
