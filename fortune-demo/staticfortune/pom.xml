@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+        <native.maven.plugin.version>0.10.1</native.maven.plugin.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <maven.compiler.source>${java.specification.version}</maven.compiler.source>
         <maven.compiler.target>${java.specification.version}</maven.compiler.target>
@@ -52,7 +52,7 @@
                             <fallback>false</fallback>
                             <buildArgs>
                                 <buildArg>
-                                -H:DashboardDump=staticfortune -H:+DashboardAll --initialize-at-build-time=demo.StaticFortune,com.fasterxml.jackson.databind.ext.Java7SupportImpl
+                                --initialize-at-build-time=demo.StaticFortune,com.fasterxml.jackson.databind.ext.Java7SupportImpl
                                 </buildArg>
                             </buildArgs>
                             <agent>
@@ -103,8 +103,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
 

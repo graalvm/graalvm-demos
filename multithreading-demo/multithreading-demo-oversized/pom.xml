@@ -9,11 +9,10 @@
     <version>1.0</version>
 
     <properties>
-        <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <native.maven.plugin.version>0.10.1</native.maven.plugin.version>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
     </properties>
-
 
     <dependencies>
         <dependency>
@@ -89,7 +88,7 @@
                     <fallback>false</fallback>
                     <buildArgs>
                         <buildArg>
-                        --no-fallback -H:DashboardDump=dumpfileoversized -H:+DashboardAll --initialize-at-build-time
+                        --no-fallback -H:+UnlockExperimentalVMOptions -H:+BuildReport --initialize-at-build-time
                         </buildArg>
                     </buildArgs>
                     <agent>
