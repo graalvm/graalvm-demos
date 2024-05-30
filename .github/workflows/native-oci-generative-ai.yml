@@ -28,4 +28,4 @@ jobs:
       - name: Run 'native-oci-generative-ai'
         run: |
           cd native-oci-generative-ai
-          mvn clean package -Pnative
+          mvn --batch-mode clean package -Pnative
