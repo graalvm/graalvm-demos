@@ -5,22 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.graalvm.nativeimage</groupId>
-    <artifactId>configure-at-runtime-example</artifactId>
+    <artifactId>runtime-init</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+        <native.maven.plugin.version>0.10.2</native.maven.plugin.version>
         <jackson.version>2.16.0</jackson.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.graalvm.sdk</groupId>
-            <artifactId>graal-sdk</artifactId>
-            <version>23.1.1</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -88,8 +82,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <skip>false</skip>
-                    <imageName>example</imageName>
+                    <imageName>runtime-example</imageName>
                     <buildArgs>
                         --no-fallback
                     </buildArgs>
