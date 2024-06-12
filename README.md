@@ -129,7 +129,7 @@ cd graalvm-demos
       <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on OCI Container Instances.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances<br></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-oci-generative-ai/">native-oci-generative-ai</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai.yml"><img alt="native-oci-generative-ai" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-oci-generative-ai/">native-oci-generative-ai</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai.yml"><img alt="native-oci-generative-ai" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai.yml/badge.svg" /></a></td>
       <td align="left" width="70%">This demo covers the steps required to use the Generative AI service provided by Oracle Cloud Infrastructure. It uses a state-of-the-art, customizable large language model to generate text.<br><strong>Technologies: </strong> Native Image, Apache Maven, Generative AI<br></td>
     </tr>
   </tbody>
