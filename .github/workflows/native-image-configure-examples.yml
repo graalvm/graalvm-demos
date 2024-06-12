@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', 'latest-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -33,9 +33,9 @@ jobs:
         run: |
           cd native-image-configure-examples/configure-at-runtime-example
           mvn --no-transfer-progress package
-          ./target/example
+          ./target/runtime-example
       - name: Run 'configure-at-buildtime-example'
         run: |
           cd native-image-configure-examples/configure-at-buildtime-example
           mvn --no-transfer-progress package
-          ./target/example
+          ./target/buildtime-example

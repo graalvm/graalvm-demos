@@ -31,7 +31,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     cd graalvm-demos/native-image-configure-examples
     ```
 
-## Build and run examples
+## Build and Run Examples
 
 1. Change to one of the demo subdirectories, for example, `configure-at-runtime-example`:
     ```bash
@@ -41,9 +41,9 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     ```bash
     mvn package
     ```
-3. Once the Maven build succeeds, a native executable called "example" will be generated in the `configure-at-runtime-example/target/` directory. Run it:
+3. Once the Maven build succeeds, a native executable called "runtime-example" will be generated in the `configure-at-runtime-example/target/` directory. Run it:
     ```bash
-    ./target/example
+    ./target/runtime-example
     ```
     You will see the current date and time message.
 4. Repeat the same steps for the other sub-demo:
@@ -54,7 +54,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
     mvn package
     ```
     ```bash
-    ./target/example
+    ./target/buildtime-example
     ```
     You will see the next output:
     ```
