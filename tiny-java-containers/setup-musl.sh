@@ -1,14 +1,18 @@
 #!/bin/sh
-
 set -e
 
 ZLIB_VERSION=1.2.13
-TOOLCHAIN_DIR=`pwd`/x86_64-linux-musl-native
+TOOLCHAIN_DIR=`pwd`/musl-1.2.4
 
 # Download musl
-wget -q http://more.musl.cc/10/x86_64-linux-musl/x86_64-linux-musl-native.tgz
-tar -xzf x86_64-linux-musl-native.tgz
-rm x86_64-linux-musl-native.tgz
+wget -q https://musl.libc.org/releases/musl-1.2.4.tar.gz
+tar -xzf musl-1.2.4.tar.gz
+rm musl-1.2.4.tar.gz
+cd musl-1.2.4
+./configure
+make
+make install 
+cd ..
 
 # Download, build, install zlib into TOOLCHAIN_DIR
 echo "zlib version=${ZLIB_VERSION}"
