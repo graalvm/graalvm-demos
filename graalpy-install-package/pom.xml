@@ -49,15 +49,14 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-    <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
-    <native.image.maven.plugin.version>0.9.28</native.image.maven.plugin.version>
-    <maven.exec.plugin.version>3.1.1</maven.exec.plugin.version>
+    <maven.compiler.release>21</maven.compiler.release>
+    <maven.jar.plugin.version>3.4.1</maven.jar.plugin.version>
+    <native.image.maven.plugin.version>0.10.2</native.image.maven.plugin.version>
+    <maven.exec.plugin.version>3.3.0</maven.exec.plugin.version>
     <graalpy.executable>${project.basedir}/graalpy.sh</graalpy.executable>
     <graalpy.venv.executable>/bin/python</graalpy.venv.executable>
     <!-- Select the GraalPy version to use. -->
-    <graalpy.version>23.1.2</graalpy.version>
+    <graalpy.version>24.0.1</graalpy.version>
     <!-- Specify the main class -->
     <main.class>com.oracle.example.graalpy.Main</main.class>
   </properties>
