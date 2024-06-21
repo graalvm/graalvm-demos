@@ -49,214 +49,104 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>21</maven.compiler.release>
-    <maven.jar.plugin.version>3.4.1</maven.jar.plugin.version>
-    <native.image.maven.plugin.version>0.10.2</native.image.maven.plugin.version>
-    <maven.exec.plugin.version>3.3.0</maven.exec.plugin.version>
-    <graalpy.executable>${project.basedir}/graalpy.sh</graalpy.executable>
-    <graalpy.venv.executable>/bin/python</graalpy.venv.executable>
     <!-- Select the GraalPy version to use. -->
     <graalpy.version>24.0.1</graalpy.version>
-    <!-- Specify the main class -->
+    <graalpy-plugin.version>24.0.0</graalpy-plugin.version>
     <main.class>com.oracle.example.graalpy.Main</main.class>
+    <graalpy.edition>python</graalpy.edition>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
-    <!-- The polyglot dependency is always required  -->
+    <!-- The Python dependency is always required  -->
     <dependency>
       <groupId>org.graalvm.polyglot</groupId>
-      <artifactId>polyglot</artifactId>
+      <artifactId>${graalpy.edition}</artifactId>
       <version>${graalpy.version}</version>
-      <type>jar</type>
-    </dependency>
-
-    <!-- The GraalPy dependency -->
-    <dependency>
-      <groupId>org.graalvm.polyglot</groupId>
-      <artifactId>python</artifactId>
-      <version>${graalpy.version}</version>
-      <scope>runtime</scope>
       <type>pom</type>
     </dependency>
-
-    <!-- The GraalPy Launcher. -->
+    <!-- The dependency on python-launcher is only required if the graalpy
+         plugin is used with packages -->
     <dependency>
       <groupId>org.graalvm.python</groupId>
       <artifactId>python-launcher</artifactId>
       <version>${graalpy.version}</version>
-      <scope>runtime</scope>
     </dependency>
-
+    <!-- This dependency is required if packages should be embedded in
+         the Jar.  -->
+    <dependency>
+      <groupId>org.graalvm.python</groupId>
+      <artifactId>python-embedding</artifactId>
+        <version>${graalpy.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-
-      <!-- Clean the vfs directory -->
       <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.3.2</version>
+        <groupId>org.graalvm.python</groupId>
+        <artifactId>graalpy-maven-plugin</artifactId>
+        <version>${graalpy-plugin.version}</version>
+        <executions>
+          <execution>
+            <configuration>
+              <!-- specify python packages as if used with pip -->
+              <packages>
+                <package>pyfiglet==1.0.2</package>
+              </packages>
+              <pythonHome>
+                <!-- java-like regular expression what file paths should be included into venv/home;
+                     default is all -->
+                <includes>
+                  <include>.*</include>
+                </includes>
+                <!-- java-like regular expression what file paths should be excluded from venv/home;
+                     default is none -->
+                <excludes>
+                </excludes>
+              </pythonHome>
+            </configuration>
+            <goals>
+              <goal>process-graalpy-resources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>default-cli</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <filesets>
-            <fileset>
-              <directory>src/main/resources</directory>
-              <includes>
-                <include>vfs/**</include>
-              </includes>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-          </filesets>
+          <executable>${env.JAVA_HOME}/bin/java</executable>
+          <arguments>
+            <argument>-classpath</argument>
+            <classpath />
+            <argument>${main.class}</argument>
+          </arguments>
         </configuration>
       </plugin>
-
     </plugins>
-
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <excludes>
-          <!-- Exclude all resources from src/main/resources 
-              which aren't needed at runtime -->
-          <exclude>**/vfs/venv/include/**</exclude>
-          <exclude>**/vfs/venv/**/site-packages/pip*/**</exclude>
-        </excludes>
-      </resource>
-    </resources>
   </build>
 
   <profiles>
-
     <profile>
-      <properties>
-        <!-- Overrides the graalpy executable in case you are running on windows -->
-        <graalpy.executable>${project.basedir}/graalpy.cmd</graalpy.executable>
-      </properties>
-      <activation>
-        <os>
-          <family>windows</family>
-        </os>
-      </activation>
-    </profile>
-
-    <profile>
-      <id>prepare-venv</id>
-      <!-- Create a python venv in src/main/resources/vfs/venv if it does not exist yet.
-            NOTE: all modules from src/main/resources/vfs/venv will be included
-            into the standalone file and adding more modules can be done also manually
-            via src/main/resources/vfs/venv/bin/pip install [some_module] -->
-      <build>
-        <plugins>
-
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>${maven.exec.plugin.version}</version>
-            <executions>
-
-              <execution>
-                <!--
-                This execution creates the virtual environment
-                to contain the Python packages to be used
-                in the Java application.
-                -->
-                <id>prepare-python-venv</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>${graalpy.executable}</executable>
-                  <arguments>
-                    <argument>-m</argument>
-                    <argument>venv</argument>
-                    <argument>${project.basedir}/src/main/resources/vfs/venv</argument>
-                  </arguments>
-                </configuration>
-              </execution>
-
-              <execution>
-                <!--
-                This execution installs the required
-                packages. To do so it simply calls the 'pip'
-                package manager inside the virtual environment
-                that was created above.
-                -->
-                <id>install-python-packages</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>
-                    ${project.basedir}/src/main/resources/vfs/venv${graalpy.venv.executable}</executable>
-                  <arguments>
-                    <argument>-m</argument>
-                    <argument>pip</argument>
-                    <argument>install</argument>
-                    <argument>pyfiglet</argument>
-                  </arguments>
-                  <environmentVariables>
-                    <VIRTUAL_ENV>${project.basedir}/src/main/resources/vfs/venv</VIRTUAL_ENV>
-                  </environmentVariables>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <activation>
-        <file>
-          <missing>src/main/resources/vfs/venv/pyvenv.cfg</missing>
-        </file>
-      </activation>
-    </profile>
-
-    <profile>
-      <id>run</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>${maven.exec.plugin.version}</version>
-            <executions>
-              <execution>
-                <id>default-cli</id>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <executable>${env.JAVA_HOME}/bin/java</executable>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath />
-                <argument>${main.class}</argument>
-              </arguments>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-      <activation>
-        <file>
-          <exists>src/main/resources/vfs/venv/bin/pip</exists>
-        </file>
-      </activation>
-    </profile>
-
-    <profile>
-      <!--
-            Run native image build with: mvn package -Pnative.
-            This profile may be removed if no native-image builds is needed.
-            -->
       <id>native</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.graalvm.buildtools</groupId>
             <artifactId>native-maven-plugin</artifactId>
-            <version>${native.image.maven.plugin.version}</version>
+            <version>0.9.27</version>
             <extensions>true</extensions>
             <executions>
               <execution>
@@ -268,25 +158,16 @@
               </execution>
             </executions>
             <configuration>
-              <!-- Default arguments -->
-              <imageName>${project.artifactId}</imageName>
+              <fallback>false</fallback>
               <mainClass>${main.class}</mainClass>
               <buildArgs>
-                <!-- Do not automatically copy the necessary language resources 
-                to the resources/languages directory next to the native binary. -->
-                <!--<buildArg>-H:+CopyLanguageResources</buildArg>-->
-                <!-- native-image-resources.json specifies what resources will be added to the
-                native executable.
-                See also https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/ -->
-                <buildArg>-H:ResourceConfigurationFiles=native-image-resources.json</buildArg>
-                <buildArg>-H:Log=registerResource:3</buildArg>
-                <buildArg>--no-fallback</buildArg>
+                <buildArg>-Dtruffle.TruffleRuntime=com.oracle.truffle.api.impl.DefaultTruffleRuntime</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
-
   </profiles>
+
 </project>

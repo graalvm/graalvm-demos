@@ -42,13 +42,14 @@ package com.oracle.example.graalpy;
 
 import java.awt.EventQueue;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Paths;
 import javax.swing.JFrame;
 
 import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.PolyglotAccess;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
+import org.graalvm.polyglot.io.IOAccess;
+import org.graalvm.python.embedding.utils.VirtualFileSystem;
 
 public class Main {
   public static void main(String[] args) throws Exception {
@@ -62,40 +63,77 @@ public class Main {
     });
   }
 
-  private static String PYTHON = "python";
-  // Get the location of the graalpy executable
-  private static String VENV_EXECUTABLE = Main.class.getClassLoader()
-      .getResource(Paths.get("vfs", "venv", "bin", "graalpy").toString()).getPath();
-  // Name of the file containing Python source
-  private static String SOURCE_FILE_NAME = "PyfigletWrapper.py";
+  private static final String PYTHON = "python";
+  private static final String VENV_PREFIX = "/vfs/venv";
+  private static final String HOME_PREFIX = "/vfs/home";
+  private static final String PROJ_PREFIX = "/vfs/proj";
+
+  public static Context getContext() {
+    VirtualFileSystem vfs = VirtualFileSystem.newBuilder()
+      .extractFilter(p -> {
+        String s = p.toString();
+        // Specify what files in the virtual filesystem need to be accessed outside the Truffle sandbox.
+        // e.g. if they need to be accessed by the operating system loader.
+        return s.endsWith(".ttf");
+      })
+      .build();
+    Context context = Context.newBuilder()
+      // set true to allow experimental options
+      .allowExperimentalOptions(false)
+      // setting false will deny all privileges unless configured below
+      .allowAllAccess(false)
+      // allows python to access the java language
+      .allowHostAccess(true)
+      // allow access to the virtual and the host filesystem, as well as sockets
+      .allowIO(IOAccess.newBuilder()
+              .allowHostSocketAccess(true)
+              .fileSystem(vfs)
+              .build())
+      // allow creating python threads
+      .allowCreateThread(true)
+      // allow running Python native extensions
+      .allowNativeAccess(true)
+      // allow exporting Python values to polyglot bindings and accessing Java from Python
+      .allowPolyglotAccess(PolyglotAccess.ALL)
+      // choose the backend for the POSIX module
+      .option("python.PosixModuleBackend", "java")
+      // equivalent to the Python -B flag
+      .option("python.DontWriteBytecodeFlag", "true")
+      // equivalent to the Python -v flag
+      .option("python.VerboseFlag", System.getenv("PYTHONVERBOSE") != null ? "true" : "false")
+      // log level
+      .option("log.python.level", System.getenv("PYTHONVERBOSE") != null ? "FINE" : "SEVERE")
+      // equivalent to setting the PYTHONWARNINGS environment variable
+      .option("python.WarnOptions", System.getenv("PYTHONWARNINGS") == null ? "" : System.getenv("PYTHONWARNINGS"))
+      // print Python exceptions directly
+      .option("python.AlwaysRunExcepthook", "true")
+      // Force to automatically import site.py module, to make Python packages available
+      .option("python.ForceImportSite", "true")
+      // The sys.executable path, a virtual path that is used by the interpreter to discover packages
+      .option("python.Executable", vfs.resourcePathToPlatformPath(VENV_PREFIX) + (VirtualFileSystem.isWindows() ? "\\Scripts$\\python.exe" : "/bin/python"))
+      // Set the python home to be read from the embedded resources
+      .option("python.PythonHome", vfs.resourcePathToPlatformPath(HOME_PREFIX))
+      // Do not warn if running without JIT. This can be desirable for short running scripts
+      // to reduce memory footprint.
+      .option("engine.WarnInterpreterOnly", "false")
+      // Set python path to point to sources stored in src/main/resources/vfs/proj
+      .option("python.PythonPath", vfs.resourcePathToPlatformPath(PROJ_PREFIX))
+      .build();
+    return context;
+  }
 
   /**
    * This creates an instance of the PyfigletWrapper type and returns it
    * mapped to the {@link PyfigletProxy} interface.
    */
   static PyfigletProxy createPyfigletProxy() {
-    Context context = Context.newBuilder(PYTHON).
-    // It is a good idea to start with allowAllAccess(true) and only when everything
-    // is working to start trying to reduce it.
-    // See the GraalVM docs for fine-grained permissions.
-        allowAllAccess(true).
-        // Python virtualenvs work by setting up their initial package paths based on
-        // the runtime path of the python executable.
-        // Since we are not executing from the python executable,
-        // we need to set this option to what it would be
-        option("python.Executable", VENV_EXECUTABLE).
-        // The actual package setup only happens inside Python's "site" module. 
-        // This module is automatically imported when starting the Python executable,
-        // but there is an option to turn this off even for the executable.
-        // To avoid accidental file system access,
-        // we do not import this module by default.
-        // Setting this option to true after setting the python.Executable option
-        // ensures we import the site module at startup, but only within the virtualenv.
-        option("python.ForceImportSite", "true").build();
-    InputStreamReader code = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(SOURCE_FILE_NAME));
+    Context context = getContext();
+    // Import and evaluate the Python file we provide in the resources directory.
+    // Holding on to the source object is recommended if we plan to create multiple
+    // contexts with the same polyglot engine to share JIT compiled code.
     Source source;
     try {
-      source = Source.newBuilder(PYTHON, code, SOURCE_FILE_NAME).build();
+      source = Source.newBuilder(PYTHON, "import PyfigletWrapper", "<internal>").build();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
