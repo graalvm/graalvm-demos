@@ -54,8 +54,8 @@
     <graalpy-plugin.version>24.0.0</graalpy-plugin.version>
     <main.class>com.oracle.example.graalpy.Main</main.class>
     <graalpy.edition>python</graalpy.edition>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
