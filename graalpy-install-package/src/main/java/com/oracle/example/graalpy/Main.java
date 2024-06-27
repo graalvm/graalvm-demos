@@ -133,7 +133,7 @@ public class Main {
     // contexts with the same polyglot engine to share JIT compiled code.
     Source source;
     try {
-      source = Source.newBuilder(PYTHON, "import PyfigletWrapper", "<internal>").build();
+      source = Source.newBuilder(PYTHON, "import pyfigletwrapper", "<internal>").build();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
