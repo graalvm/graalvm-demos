@@ -67,43 +67,6 @@ The Fortune demo is comprised of three sub-projects:
     ./fortune/build/native/nativeCompile/fortune
     ```
 
-## StaticFortune
-
-The StaticFortune project contains an enhanced version of the same application and uses the [Maven plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html).
-
-1. Change to the project directory:
-    ```bash
-    cd ../staticfortune
-    ```
-
-2. Build the project:
-    ```bash
-    mvn clean package
-    ```
-
-3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#agent-support), on the JVM:
-    ```bash
-    mvn -Pnative -Dagent exec:exec@java-agent
-    ```
-    The application will print a random saying. 
-    The agent generates the configuration files in the _target/native/agent-output_ subdirectory.
-
-4. Build a static native executable:
-    ```bash
-    mvn -Pnative -Dagent package
-    ```
-    When the command completes, a native executable, `staticfortune`, is generated in the _target_ directory of the project and ready for use.
-
-5. Run the demo by launching a native executable directly or with the Maven profile:
-    ```bash
-    ./target/staticfortune
-    ```
-    ```bash
-    mvn -Pnative exec:exec@native
-    ```
-
-To see the benefits of executing these applications as native executables, time the execution and compare with running on the JVM.
-
 ### Learn More
 
 - [Native Image and Static Linking](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/)

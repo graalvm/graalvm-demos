@@ -67,10 +67,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>fortune-optimized</imageName>
-                    <buildArgs>
-                        <buildArg>-Os --emit build-report</buildArg>
-                    </buildArgs>
                 </configuration>
                 </plugin>
             </plugins>

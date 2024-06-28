@@ -53,7 +53,7 @@ cd graalvm-demos
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">A fortune teller Unix program. Run it in JIT, build a native executable, or build a mostly-static native executable, using Gradle or Maven build tools.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
+      <td align="left" width="70%">A fortune teller Unix program. Build native executables using Gradle or Maven Native Image plugins.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
