@@ -7,14 +7,11 @@ The Fortune demo is comprised of three sub-projects:
 - The _fortune-gradle_ project uses the [Gradle plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html).
 - The _staticfortune_ project demonstrates how to build a statically linked native executable using the [Maven plugin for GraalVM Native Image building](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html).
 
-This demo is a little more complicated than _HelloWorld_, and requires pre-configuration before building a native executable. The Maven and Gradle plugins for Native Image building can generate the required configuration for you by injecting the Java agent at package time.
-The plugin will also gather the diagnostic data at build time and write it to a dump file in the `target` directory.
-
 ## Preparation
 
-1. Download and install the latest GraalVM for JDK 21 using [SDKMAN!](https://sdkman.io/).
+1. Download and install GraalVM for JDK 23 or later using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.3-graal
+    sdk install java <version>-graal
     ```
     
 2. Download or clone GraalVM demos repository:
@@ -24,37 +21,17 @@ The plugin will also gather the diagnostic data at build time and write it to a 
    
 ## Fortune Maven Demo
 
-1. Change to the _fortune-demo/fortune-maven_ directory:
+1. Create a native executable using the [Maven plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html):
     ```bash
-    cd fortune-demo/fortune-maven
+    mvn -Pnative package
     ```
+    The command compiles the project, creates a JAR file with all dependencies, and then generates a native executable, `fortune`, in the _target_ directory, ready for use.
 
-2. Build the project:
-    ```bash
-    mvn clean package
-    ```
-
-3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#agent-support), on the JVM:
-    ```bash
-    mvn -Pnative -Dagent exec:exec@java-agent
-    ```
-    The application will return a random saying. 
-    The agent generates the configuration files in the _target/native/agent-output_ subdirectory.
-
-4. Build a native executable of this application with GraalVM Native Image and Maven:
-    ```bash
-    mvn -Pnative -Dagent package
-    ```
-    When the command completes, a native executable, `fortune`, is generated in the _target_ directory of the project and ready for use.
-
-5. Run the application by launching a native executable directly or with the Maven profile:
-
+2. Run the application:
     ```bash
     ./target/fortune
     ```
-    ```bash
-    mvn -Pnative exec:exec@native
-    ```
+    The application will return a random saying.
 
 ## Fortune Gradle Demo
 
