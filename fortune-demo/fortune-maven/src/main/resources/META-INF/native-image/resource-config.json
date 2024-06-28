@@ -1,7 +1,9 @@
 {
-    "globs": [
-        {
-         "glob": "fortunes.u8"
-        }
-    ]
-  }
+    "resources": {
+        "includes": [
+            {
+            "pattern": "\\Qfortunes.u8\\E"
+            }
+        ]
+    }
+}
