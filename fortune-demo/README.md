@@ -9,11 +9,12 @@ The Fortune demo is comprised of three sub-projects:
 
 ## Preparation
 
-1. Download and install GraalVM using [SDKMAN!](https://sdkman.io/).
+1. Download and install GraalVM. The easiest way is with [SDKMAN!](https://sdkman.io/jdks#graal):
     ```bash
     sdk install java <version>-graal
     ```
-    
+    For other installation options, visit the [Downloads](https://www.graalvm.org/downloads/) section.
+
 2. Download or clone GraalVM demos repository:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
