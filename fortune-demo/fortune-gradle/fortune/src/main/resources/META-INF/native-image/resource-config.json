@@ -1,0 +1,7 @@
+{
+    "globs": [
+        {
+         "glob": "fortunes.u8"
+        }
+    ]
+}

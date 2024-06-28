@@ -9,7 +9,7 @@ The Fortune demo is comprised of three sub-projects:
 
 ## Preparation
 
-1. Download and install GraalVM for JDK 23 or later using [SDKMAN!](https://sdkman.io/).
+1. Download and install GraalVM using [SDKMAN!](https://sdkman.io/).
     ```bash
     sdk install java <version>-graal
     ```
@@ -35,34 +35,20 @@ The Fortune demo is comprised of three sub-projects:
 
 ## Fortune Gradle Demo
 
+> Requires GraalVM for JDK 21 for compatibility with Gradle. See [Gradle Java Compatibility Matrix](https://docs.gradle.org/current/userguide/compatibility.html).
+
 1. Change to the _fortune-demo/fortune-gradle_ directory:
     ```bash
     cd ../fortune-gradle
     ```
 
-2. Build the project:
-    ```bash
-    ./gradlew run
-    ```
-
-3. Run your application with the [agent](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#agent-support), on the JVM. To enable the agent with the Native Image Gradle plugin, pass the `-Pagent` option to any Gradle tasks that extends `JavaForkOptions`:
-    ```bash
-    ./gradlew -Pagent run
-    ```
-    The agent captures and records the dynamic features encountered during a test run into multiple *-config.json files.
-
-4. Once the metadata is collected, copy it into the project’s _/META-INF/native-image/_ directory using the `metadataCopy` task:
-    ```bash
-    ./gradlew metadataCopy --task run --dir src/main/resources/META-INF/native-image
-    ```
-
-5. Build a native executable using configuration collected by the agent:
+2. Create a native executable using the [Gradle plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html):
     ```bash
     ./gradlew nativeCompile
     ```
-
     When the command completes, a native executable, `fortune`, is generated in the _build/native/nativeCompile_ directory of the project and ready for use.
-6. Run the application from the native executable:
+
+3. Run the application from the native executable:
     ```bash
     ./fortune/build/native/nativeCompile/fortune
     ```

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.demo</groupId>
+    <groupId>demo</groupId>
     <artifactId>fortune</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -31,7 +31,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.demo.Fortune</mainClass>
+                            <mainClass>demo.Fortune</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
