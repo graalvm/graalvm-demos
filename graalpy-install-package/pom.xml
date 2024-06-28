@@ -166,8 +166,6 @@
               <fallback>false</fallback>
               <mainClass>${main.class}</mainClass>
               <buildArgs>
-                <buildArg>-Dtruffle.TruffleRuntime=com.oracle.truffle.api.impl.DefaultTruffleRuntime</buildArg>
-                <buildArg>-Ob</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
