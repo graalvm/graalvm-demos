@@ -61,6 +61,8 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.graalvm.nativeimage.ImageInfo;
+
 public class PyfigletFrame extends JFrame {
 
   private JEditorPane editorPane;
@@ -74,6 +76,9 @@ public class PyfigletFrame extends JFrame {
    * Creates new PyfigletFrame
    */
   public PyfigletFrame(PyfigletProxy proxy) {
+    if (System.getProperty("java.home") == null || System.getProperty("java.home").isEmpty()) {
+      System.setProperty("java.home", System.getenv("JAVA_HOME"));
+    }
     this.proxy = proxy;
     userText = "Hello Graalpy!";
     userFont = "slant";

@@ -1,6 +1,7 @@
 # Using GraalPy to Access a Python Class from a Java Application 
 
 This small application demonstrates how to use GraalPy to access a Python class from a Java application, built with Maven.
+It is based on the [GraalPy Maven Archetype](https://www.graalvm.org/latest/reference-manual/python/#maven) modified for the specific example.
 
 It includes the following steps:
 1. Install the [Pyfiglet](https://github.com/pwaller/pyfiglet) module. (Pyfiglet is an ASCII art module to create styled text.)
@@ -33,20 +34,31 @@ sdk install java 21.0.2-graal
 
 ## (Optional) Build and Run a Native Executable
 
-If you [installed GraalVM](https://www.graalvm.org/downloads/), you can use GraalVM Native Image to build this Java-Python application into a native executable and then run it.
+If you [installed GraalVM](https://www.graalvm.org/downloads/), you can use GraalVM Native Image to build this Java-Python application into a native executable and then run it for reduced footprint and better startup performance.
 
 > Note: The Native Image build configuration files are in [src/main/resources/META-INF/native-image](src/main/resources/META-INF/native-image). For more information, see [Native Image Build Configuration](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildConfiguration/).
 
-1. Build a native executable:
+1. Build the application as above.
+    ```bash
+    mvn package
+    ```
+
+2. Run the application to prepare it for the GraalVM Native Image build. This enables the [GraalVM Native Image Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/guides/configure-with-tracing-agent/) to collect metadata required to build the native executable. Use the application by changing fonts and clicking buttons, to let the agent collect the required runtime information.
+    ```bash
+    mvn exec:exec -Pnative
+    ```
+
+3. Build a native executable:
     ```bash
     mvn package -Pnative
     ```
     It creates the native executable called `package-graalpy` in the _target/_ directory.
 
-2. Run the native executable:
+4. Run the native executable:
     ```bash
     ./target/package-graalpy
     ```
+    Because the application is using AWT, you still need to set the `JAVA_HOME` environment variable to a valid JDK distribution, so that AWT can load resources that are shipped with the JDK.
 
 See the [pom.xml](./pom.xml) file for configuration details.
 

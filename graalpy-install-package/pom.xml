@@ -57,6 +57,7 @@
     <maven.compiler.target>21</maven.compiler.target>
     <maven.compiler.source>21</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <nativeimage.agentlib.argument>-showversion</nativeimage.agentlib.argument>
   </properties>
 
   <dependencies>
@@ -131,6 +132,7 @@
           <arguments>
             <argument>-classpath</argument>
             <classpath />
+            <argument>${nativeimage.agentlib.argument}</argument>
             <argument>${main.class}</argument>
           </arguments>
         </configuration>
@@ -141,6 +143,9 @@
   <profiles>
     <profile>
       <id>native</id>
+      <properties>
+        <nativeimage.agentlib.argument>-agentlib:native-image-agent=config-merge-dir=${project.build.outputDirectory}/META-INF/native-image/</nativeimage.agentlib.argument>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -162,6 +167,7 @@
               <mainClass>${main.class}</mainClass>
               <buildArgs>
                 <buildArg>-Dtruffle.TruffleRuntime=com.oracle.truffle.api.impl.DefaultTruffleRuntime</buildArg>
+                <buildArg>-Ob</buildArg>
               </buildArgs>
             </configuration>
           </plugin>
