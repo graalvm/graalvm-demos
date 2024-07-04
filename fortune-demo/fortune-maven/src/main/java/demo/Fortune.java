@@ -51,7 +51,7 @@ public class Fortune {
 
     private static final String SEPARATOR = "%";
     private static final Random RANDOM = new Random();
-    private ArrayList<String> fortunes = new ArrayList<>();
+    private final ArrayList<String> fortunes = new ArrayList<>();
 
     public Fortune(String path) {
         // Scan the file into the array of fortunes
