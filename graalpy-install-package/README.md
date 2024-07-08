@@ -13,7 +13,7 @@ It includes the following steps:
 ## Preparation
 
 Install a JDK 21, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
-We recommend GraalVM for JDK 21 that can be easily installed using [SDKMAN!](https://sdkman.io/). (For other download options, see [GraalVM Downloads](https://www.graalvm.org/downloads/).)
+We recommend GraalVM for JDK 21 that can be easily installed on macOS and Linux using [SDKMAN!](https://sdkman.io/). (For other download options, see [GraalVM Downloads](https://www.graalvm.org/downloads/).)
 ```bash
 sdk install java 21.0.2-graal
 ```
@@ -27,8 +27,7 @@ sdk install java 21.0.2-graal
 2. Run the application:
     ```bash
     mvn exec:exec
-    ```  
-
+    ```
 
 ![Pyfiglet Java Application](Pyfiglet%20GUI.gif)
 
@@ -36,19 +35,23 @@ sdk install java 21.0.2-graal
 
 If you [installed GraalVM](https://www.graalvm.org/downloads/), you can use GraalVM Native Image to build this Java-Python application into a native executable and then run it for reduced footprint and better startup performance.
 
-> Note: The Native Image build configuration files are in [src/main/resources/META-INF/native-image](src/main/resources/META-INF/native-image). For more information, see [Native Image Build Configuration](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildConfiguration/).
+> Note: The Native Image build configuration files are in [src/main/resources/META-INF/native-image](src/main/resources/META-INF/native-image).
+For more information, see [Native Image Build Configuration](https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildConfiguration/).
 
 1. Build the application as above.
     ```bash
     mvn package
     ```
 
-2. Run the application to prepare it for the GraalVM Native Image build. This enables the [GraalVM Native Image Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/guides/configure-with-tracing-agent/) to collect metadata required to build the native executable. Use the application by changing fonts and clicking buttons, to let the agent collect the required runtime information.
+2. Run the application to prepare it for the GraalVM Native Image build.
+This enables the [GraalVM Native Image Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/guides/configure-with-tracing-agent/) to collect metadata required to build the native executable.
+Use the application by changing fonts and clicking buttons so that the agent collects the required runtime information.
     ```bash
     mvn exec:exec -Pnative
     ```
 
-3. Build a native executable:
+3. Build a native executable using the command below.
+(This uses the metadata you collected in step **2**.)
     ```bash
     mvn package -Pnative
     ```
@@ -58,7 +61,7 @@ If you [installed GraalVM](https://www.graalvm.org/downloads/), you can use Graa
     ```bash
     ./target/package-graalpy
     ```
-    Because the application is using AWT, you still need to set the `JAVA_HOME` environment variable to a valid JDK distribution, so that AWT can load resources that are shipped with the JDK.
+    Because the application uses AWT, you need to set the value of the `JAVA_HOME` environment variable to a valid JDK distribution, so that AWT can load resources that are shipped with the JDK.
 
 See the [pom.xml](./pom.xml) file for configuration details.
 
