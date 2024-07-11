@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2023, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -38,78 +38,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package demo;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Scanner;
 
 public class Fortune {
 
+    private static final String SEPARATOR = "%";
     private static final Random RANDOM = new Random();
     private final ArrayList<String> fortunes = new ArrayList<>();
 
-    public Fortune() throws JsonProcessingException {
+    public Fortune(String path) {
         // Scan the file into the array of fortunes
-        String json = readInputStream(ClassLoader.getSystemResourceAsStream("fortunes.json"));
-        ObjectMapper omap = new ObjectMapper();
-        JsonNode root = omap.readTree(json);
-        JsonNode data = root.get("data");
-        Iterator<JsonNode> elements = data.elements();
-        while (elements.hasNext()) {
-            JsonNode quote = elements.next().get("quote");
-            fortunes.add(quote.asText());
-        }      
-    }
-    
-    private String readInputStream(InputStream is) {
-        StringBuilder out = new StringBuilder();
-        try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(streamReader)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                out.append(line);
-            }
-
-        } catch (IOException e) {
-            Logger.getLogger(Fortune.class.getName()).log(Level.SEVERE, null, e);
+        Scanner s = new Scanner(new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(path))));
+        s.useDelimiter(SEPARATOR);
+        while (s.hasNext()) {
+            fortunes.add(s.next());
         }
-        return out.toString();
     }
-    
+       
     private void printRandomFortune() throws InterruptedException {
-    	//Pick a random number
-        int r = RANDOM.nextInt(fortunes.size());
-        //Use the random number to pick a random fortune
-        String f = fortunes.get(r);
-        // Print out the fortune s.l.o.w.l.y
-        for (char c: f.toCharArray()) {
-        	System.out.print(c);
-            Thread.sleep(100);   
+        int r = RANDOM.nextInt(fortunes.size()); //Pick a random number
+        String f = fortunes.get(r);  //Use the random number to pick a random fortune
+        for (char c: f.toCharArray()) {  // Print out the fortune
+          System.out.print(c);
+            Thread.sleep(100); 
         }
-        System.out.println();
     }
-   
-    /**
-     *
-     * @param args the command line arguments
-     * @throws java.lang.InterruptedException
-     * @throws com.fasterxml.jackson.core.JsonProcessingException
-     */
-    public static void main(String[] args) throws InterruptedException, JsonProcessingException {
-        Fortune fortune = new Fortune();
+     
+    public static void main(String[] args) throws InterruptedException {
+        Fortune fortune = new Fortune("/fortunes.u8");
         fortune.printRandomFortune();
     }
-
 }

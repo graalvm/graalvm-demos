@@ -1,0 +1,9 @@
+{
+    "resources": {
+        "includes": [
+            {
+            "pattern": "\\Qfortunes.u8\\E"
+            }
+        ]
+    }
+}
