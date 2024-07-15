@@ -12,7 +12,7 @@ curl -O https://zlib.net/fossils/zlib-1.2.13.tar.gz
 tar -xzf musl-1.2.4.tar.gz
 rm musl-1.2.4.tar.gz
 pushd musl-1.2.4
-./configure --prefix=$MUSL_HOME
+./configure --prefix=$MUSL_HOME --static
 make 
 make install
 popd
