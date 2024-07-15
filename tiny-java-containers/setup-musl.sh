@@ -29,6 +29,6 @@ tar -xzvf zlib-1.2.13.tar.gz
 rm zlib-1.2.13.tar.gz
 pushd zlib-1.2.13
 CC=musl-gcc ./configure --prefix=$MUSL_HOME --static
-sudo make
+make
 make install
 popd
