@@ -13,12 +13,12 @@ tar -xzf musl-1.2.4.tar.gz
 rm musl-1.2.4.tar.gz
 pushd musl-1.2.4
 ./configure --prefix=$MUSL_HOME
-sudo make 
+make 
 make install
 popd
 
 # Install a symlink for use by native-image
-sudo ln -s $MUSL_HOME/bin/musl-gcc $MUSL_HOME/bin/x86_64-linux-musl-gcc
+ln -s $MUSL_HOME/bin/musl-gcc $MUSL_HOME/bin/x86_64-linux-musl-gcc
 
 # Extend the system path and confirm that musl is available by printing its version
 export PATH="$MUSL_HOME/bin:$PATH"
