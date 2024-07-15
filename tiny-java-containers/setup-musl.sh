@@ -13,7 +13,7 @@ tar -xzf musl-1.2.4.tar.gz
 rm musl-1.2.4.tar.gz
 pushd musl-1.2.4
 ./configure --prefix=$MUSL_HOME
-make 
+sudo make 
 make install
 popd
 
@@ -29,6 +29,6 @@ tar -xzvf zlib-1.2.13.tar.gz
 rm zlib-1.2.13.tar.gz
 pushd zlib-1.2.13
 CC=musl-gcc ./configure --prefix=$MUSL_HOME --static
-make
+sudo make
 make install
 popd
