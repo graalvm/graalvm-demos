@@ -18,7 +18,7 @@ make install
 popd
 
 # Install a symlink for use by native-image
-ln -s $MUSL_HOME/bin/musl-gcc $MUSL_HOME/bin/x86_64-linux-musl-gcc
+sudo ln -s $MUSL_HOME/bin/musl-gcc $MUSL_HOME/bin/x86_64-linux-musl-gcc
 
 # Extend the system path and confirm that musl is available by printing its version
 export PATH="$MUSL_HOME/bin:$PATH"
