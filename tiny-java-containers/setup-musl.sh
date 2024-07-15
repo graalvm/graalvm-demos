@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 # Specify an installation directory for musl:
@@ -9,9 +9,10 @@ curl -O https://musl.libc.org/releases/musl-1.2.4.tar.gz
 curl -O https://zlib.net/fossils/zlib-1.2.13.tar.gz
 
 # Build musl from source
-tar -xzvf musl-1.2.4.tar.gz
+tar -xzf musl-1.2.4.tar.gz
+rm musl-1.2.4.tar.gz
 pushd musl-1.2.4
-./configure --prefix=$MUSL_HOME --static
+./configure --prefix=$MUSL_HOME
 make 
 make install
 popd
@@ -25,6 +26,7 @@ x86_64-linux-musl-gcc --version
 
 # Build zlib with musl from source and install into the MUSL_HOME directory
 tar -xzvf zlib-1.2.13.tar.gz
+rm zlib-1.2.13.tar.gz
 pushd zlib-1.2.13
 CC=musl-gcc ./configure --prefix=$MUSL_HOME --static
 make
