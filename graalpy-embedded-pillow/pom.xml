@@ -75,7 +75,7 @@
       <version>${graalpy.version}</version>
     </dependency>
     <!-- This dependency is required if packages should be embedded in
-         the Jar.  -->
+         the JAR file.  -->
     <dependency>
       <groupId>org.graalvm.python</groupId>
       <artifactId>python-embedding</artifactId>
@@ -92,13 +92,13 @@
         <executions>
           <execution>
             <configuration>
-              <!-- specify python packages as if used with pip -->
+              <!-- specify Python packages as if used with pip -->
               <packages>
                 <package>pillow</package>
                 <package>requests</package>
               </packages>
               <pythonHome>
-                <!-- java-like regular expression what file paths should be included into venv/home;
+                <!-- Java-like regular expression what file paths should be included into venv/home;
                      default is all -->
                 <includes>
                   <include>.*</include>

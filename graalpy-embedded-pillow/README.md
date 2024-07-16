@@ -1,4 +1,4 @@
-# Using GraalPy to create an Instance of a Proxied Python Class from a Java Application 
+# Image Manipulation Using a Java Application with an Embedded Python Library
 
 This small application demonstrates how to use GraalPy to create an instance of a proxied Python class from a Java application, built with Maven.
 
