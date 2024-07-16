@@ -10,7 +10,7 @@ It includes the following steps:
 
 ## Preparation
 
-Install a JDK 21, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
+Install a JDK, ensure that it is on your classpath, and set the value of `JAVA_HOME` accordingly.
 We recommend GraalVM for JDK 21 that can be easily installed on macOS and Linux using [SDKMAN!](https://sdkman.io/). (For other download options, see [GraalVM Downloads](https://www.graalvm.org/downloads/).)
 ```bash
 sdk install java 21.0.2-graal
