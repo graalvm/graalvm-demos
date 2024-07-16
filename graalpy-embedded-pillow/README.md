@@ -4,7 +4,7 @@ This small application demonstrates how to use GraalPy to create an instance of 
 
 It includes the following steps:
 1. Install the [pillow](https://pillow.readthedocs.io/en/stable/) and [requests](https://pypi.org/project/requests/) modules. (See the [pom.xml](./pom.xml) file for more details.)
-2. Create a Python class ([pillowImageWrapper.py](src/main/resources/vfs/proj/pillowImageWrapper.py)) creates, manipulates, and stores an image.
+2. Create a Python class ([pillowImageWrapper.py](src/main/resources/vfs/proj/pillowImageWrapper.py)) that creates, manipulates, and stores an image.
 3. Create a Java interface ([PillowImageProxy.java](src/main/java/com/oracle/example/graalpy/PillowImageProxy.java)) that acts as a proxy for the wrapper.
 4. Create a Swing JFrame ([PillowFrame.java](src/main/java/com/oracle/example/graalpy/PillowFrame.java)) that calls the proxy's methods. (This class also contains a `main()` method.)
 
