@@ -61,8 +61,6 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.graalvm.nativeimage.ImageInfo;
-
 public class PyfigletFrame extends JFrame {
 
   private JEditorPane editorPane;
