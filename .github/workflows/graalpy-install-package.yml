@@ -38,4 +38,11 @@ jobs:
           PID=$!
           sleep 60
           kill $PID
-        # Does not run native executable, as it requires the agent to run first
+          mvn exec:exec -Pnative &
+          PID=$!
+          sleep 60
+          kill $PID
+          ./target/package-graalpy &
+          PID=$!
+          sleep 60
+          kill $PID
