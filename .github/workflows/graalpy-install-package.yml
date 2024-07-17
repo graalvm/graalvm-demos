@@ -4,7 +4,10 @@ on:
     paths:
       - 'graalpy-install-package/**'
       - '.github/workflows/graalpy-install-package.yml'
-  # pull_request: (requires EE, which is unavailable in PRs)
+  pull_request:
+    paths:
+      - 'graalpy-install-package/**'
+      - '.github/workflows/graalpy-install-package.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
