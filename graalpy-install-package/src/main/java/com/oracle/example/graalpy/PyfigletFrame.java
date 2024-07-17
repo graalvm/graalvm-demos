@@ -76,7 +76,7 @@ public class PyfigletFrame extends JFrame {
    * Creates new PyfigletFrame
    */
   public PyfigletFrame(PyfigletProxy proxy) {
-    if (System.getProperty("java.home") == null || System.getProperty("java.home").isEmpty()) {
+    if (System.getProperty("java.home", "").isEmpty()) {
       System.setProperty("java.home", System.getenv("JAVA_HOME"));
     }
     this.proxy = proxy;
