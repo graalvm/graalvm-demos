@@ -61,6 +61,7 @@ public class Main {
     EventQueue.invokeLater(() -> {
       pyfigletFrame.setVisible(true);
     });
+    System.out.println("PyfigletFrame initialized");
   }
 
   private static final String PYTHON = "python";
