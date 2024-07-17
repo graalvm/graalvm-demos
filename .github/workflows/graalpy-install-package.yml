@@ -30,18 +30,25 @@ jobs:
           sudo apt-get install xvfb
           Xvfb :19 -screen 0 1024x768x16 &
           echo "DISPLAY=:19" >> "$GITHUB_ENV"
-      - name: Run 'graalpy-install-package'
+      - name: Run 'graalpy-install-package java'
         run: |
-          cd graalpy-install-package
+          cd graalpy-install-package 
           mvn --no-transfer-progress clean package
           mvn exec:exec &
           PID=$!
           sleep 60
           kill $PID
+      - name: Run 'graalpy-install-package native'
+        run: |
+          mvn --no-transfer-progress clean package
+          # Collect metadata
           mvn exec:exec -Pnative &
           PID=$!
           sleep 60
           kill $PID
+          # Build native
+          mvn package -Pnative
+          # Run native executable
           ./target/package-graalpy &
           PID=$!
           sleep 60
