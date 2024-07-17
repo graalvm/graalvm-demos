@@ -29,6 +29,7 @@ jobs:
           # Setup musl toolchain
           #
           ./setup-musl.sh
+          export PATH="$PWD/musl-toolchain/bin:$PATH"
           #
           # Download upx
           #
