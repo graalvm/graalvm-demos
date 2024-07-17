@@ -1,22 +1,34 @@
-#!/bin/sh
-
+#!/usr/bin/env bash
 set -e
 
-ZLIB_VERSION=1.2.13
-TOOLCHAIN_DIR=`pwd`/x86_64-linux-musl-native
+# Specify an installation directory for musl:
+export MUSL_HOME=$PWD/musl-toolchain
 
-# Download musl
-wget -q http://more.musl.cc/10/x86_64-linux-musl/x86_64-linux-musl-native.tgz
-tar -xzf x86_64-linux-musl-native.tgz
-rm x86_64-linux-musl-native.tgz
+# Download musl and zlib sources:
+curl -O https://musl.libc.org/releases/musl-1.2.4.tar.gz
+curl -O https://zlib.net/fossils/zlib-1.2.13.tar.gz
 
-# Download, build, install zlib into TOOLCHAIN_DIR
-echo "zlib version=${ZLIB_VERSION}"
-wget -q https://zlib.net/fossils/zlib-${ZLIB_VERSION}.tar.gz
-tar -xzf zlib-${ZLIB_VERSION}.tar.gz
-rm zlib-${ZLIB_VERSION}.tar.gz
-cd zlib-${ZLIB_VERSION}
-./configure --prefix=${TOOLCHAIN_DIR} --static
+# Build musl from source
+tar -xzf musl-1.2.4.tar.gz
+rm musl-1.2.4.tar.gz
+pushd musl-1.2.4
+./configure --prefix=$MUSL_HOME --static
+make 
+make install
+popd
+
+# Install a symlink for use by native-image
+ln -s $MUSL_HOME/bin/musl-gcc $MUSL_HOME/bin/x86_64-linux-musl-gcc
+
+# Extend the system path and confirm that musl is available by printing its version
+export PATH="$MUSL_HOME/bin:$PATH"
+x86_64-linux-musl-gcc --version
+
+# Build zlib with musl from source and install into the MUSL_HOME directory
+tar -xzvf zlib-1.2.13.tar.gz
+rm zlib-1.2.13.tar.gz
+pushd zlib-1.2.13
+CC=musl-gcc ./configure --prefix=$MUSL_HOME --static
 make
 make install
-cd ..
+popd
