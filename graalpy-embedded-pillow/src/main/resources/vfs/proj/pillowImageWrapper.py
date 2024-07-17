@@ -13,7 +13,10 @@ class PillowImageWrapper:
 
     # constructor
     def __init__(self, url):
-        self._image = Image.open(requests.get(url, stream=True).raw)
+        try:
+            self._image = Image.open(requests.get(url, stream=True).raw)
+        except:
+            self._image = None
         self._original_image = self._image
 
     @property
@@ -22,12 +25,15 @@ class PillowImageWrapper:
 
     @property
     def bytes(self):
-        # BytesIO is a file-like buffer stored in memory
-        imgByteArr = io.BytesIO()
-        # image.save expects a file-like as a argument
-        self._image.save(imgByteArr, format='PNG')
-        # Turn the BytesIO object back into a bytes object
-        return imgByteArr.getvalue()
+        if self._image:
+            # BytesIO is a file-like buffer stored in memory
+            img_byte_arr = io.BytesIO()
+            # image.save expects a file-like as a argument
+            self._image.save(img_byte_arr, format='PNG')
+            # Turn the BytesIO object back into a bytes object
+            return img_byte_arr.getvalue()
+        else:
+            return b''
 
     """
     The `flip` method flips the image horizontally.

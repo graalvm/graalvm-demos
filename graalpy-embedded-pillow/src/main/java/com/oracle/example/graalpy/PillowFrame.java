@@ -76,271 +76,304 @@ import org.graalvm.python.embedding.utils.VirtualFileSystem;
 
 public class PillowFrame extends javax.swing.JFrame {
 
-    private static final String DEFAULT_URL = "https://www.graalvm.org/resources/img/brand-guidelines/downloads/GraalVM-logo-rabbit.png";
-    private static final String PYTHON = "python";
-    private static final String VENV_PREFIX = "/vfs/venv";
-    private static final String HOME_PREFIX = "/vfs/home";
-    private static final String PROJ_PREFIX = "/vfs/proj";
-    private PillowImageProxy proxy;
-    private final Context pillowContext;
+  private static final String DEFAULT_URL = "https://www.graalvm.org/resources/img/brand-guidelines/downloads/GraalVM-logo-rabbit.png";
+  private static final String PYTHON = "python";
+  private static final String VENV_PREFIX = "/vfs/venv";
+  private static final String HOME_PREFIX = "/vfs/home";
+  private static final String PROJ_PREFIX = "/vfs/proj";
+  private PillowImageProxy proxy;
+  private final Context pillowContext;
 
-    /**
-     * Creates new form PillowFrame
-     *
-     * @throws java.io.IOException
-     */
-    public PillowFrame() throws IOException {
-        initComponents();
-        urlTextField.setText(DEFAULT_URL);
-        scaleSlider.setValue(0);
-        pillowContext = getContext();
-        urlChanged();
+  /**
+   * Creates new form PillowFrame
+   *
+   * @throws java.io.IOException
+   */
+  public PillowFrame() throws IOException {
+    if (System.getProperty("java.home", "").isEmpty()) {
+      System.setProperty("java.home", System.getenv("JAVA_HOME"));
     }
+    initComponents();
+    urlTextField.setText(DEFAULT_URL);
+    scaleSlider.setValue(0);
+    pillowContext = getContext();
+    urlChanged();
+    System.out.println("PillowFrame initialized");
+  }
 
-    private Context getContext() {
-        VirtualFileSystem vfs = VirtualFileSystem.newBuilder()
-                .extractFilter(p -> {
-                    String s = p.toString();
-                    // Specify what files in the virtual filesystem need to be accessed outside the Truffle sandbox.
-                    // e.g. if they need to be accessed by the operating system loader.
-                    return s.endsWith(".ttf");
-                })
-                .build();
-        Context context = Context.newBuilder()
-                // set true to allow experimental options
-                .allowExperimentalOptions(false)
-                // setting false will deny all privileges unless configured below
-                .allowAllAccess(false)
-                // allows python to access the java language
-                .allowHostAccess(true)
-                // allow access to the virtual and the host filesystem, as well as sockets
-                .allowIO(IOAccess.newBuilder()
-                        .allowHostSocketAccess(true)
-                        .fileSystem(vfs)
-                        .build())
-                // allow creating python threads
-                .allowCreateThread(true)
-                // allow running Python native extensions
-                .allowNativeAccess(true)
-                // allow exporting Python values to polyglot bindings and accessing Java from Python
-                .allowPolyglotAccess(PolyglotAccess.ALL)
-                // choose the backend for the POSIX module
-                .option("python.PosixModuleBackend", "java")
-                // equivalent to the Python -B flag
-                .option("python.DontWriteBytecodeFlag", "true")
-                // equivalent to the Python -v flag
-                .option("python.VerboseFlag", System.getenv("PYTHONVERBOSE") != null ? "true" : "false")
-                // log level
-                .option("log.python.level", System.getenv("PYTHONVERBOSE") != null ? "FINE" : "SEVERE")
-                // equivalent to setting the PYTHONWARNINGS environment variable
-                .option("python.WarnOptions", System.getenv("PYTHONWARNINGS") == null ? "" : System.getenv("PYTHONWARNINGS"))
-                // print Python exceptions directly
-                .option("python.AlwaysRunExcepthook", "true")
-                // Force to automatically import site.py module, to make Python packages available
-                .option("python.ForceImportSite", "true")
-                // The sys.executable path, a virtual path that is used by the interpreter to discover packages
-                .option("python.Executable", vfs.resourcePathToPlatformPath(VENV_PREFIX) + (VirtualFileSystem.isWindows() ? "\\Scripts$\\python.exe" : "/bin/python"))
-                // Set the python home to be read from the embedded resources
-                .option("python.PythonHome", vfs.resourcePathToPlatformPath(HOME_PREFIX))
-                // Do not warn if running without JIT. This can be desirable for short running scripts
-                // to reduce memory footprint.
-                .option("engine.WarnInterpreterOnly", "false")
-                // Set python path to point to sources stored in src/main/resources/vfs/proj
-                .option("python.PythonPath", vfs.resourcePathToPlatformPath(PROJ_PREFIX))
-                .build();
-        return context;
+  private Context getContext() {
+    VirtualFileSystem vfs = VirtualFileSystem.newBuilder()
+        .extractFilter(p -> {
+          String s = p.toString();
+          // Specify what files in the virtual filesystem need to be accessed outside the
+          // Truffle sandbox.
+          // e.g. if they need to be accessed by the operating system loader.
+          return s.endsWith(".ttf");
+        })
+        .build();
+    Context context = Context.newBuilder()
+        // set true to allow experimental options
+        .allowExperimentalOptions(false)
+        // setting false will deny all privileges unless configured below
+        .allowAllAccess(false)
+        // allows python to access the java language
+        .allowHostAccess(true)
+        // allow access to the virtual and the host filesystem, as well as sockets
+        .allowIO(IOAccess.newBuilder()
+            .allowHostSocketAccess(true)
+            .fileSystem(vfs)
+            .build())
+        // allow creating python threads
+        .allowCreateThread(true)
+        // allow running Python native extensions
+        .allowNativeAccess(true)
+        // allow exporting Python values to polyglot bindings and accessing Java from
+        // Python
+        .allowPolyglotAccess(PolyglotAccess.ALL)
+        // choose the backend for the POSIX module
+        .option("python.PosixModuleBackend", "java")
+        // equivalent to the Python -B flag
+        .option("python.DontWriteBytecodeFlag", "true")
+        // equivalent to the Python -v flag
+        .option("python.VerboseFlag", System.getenv("PYTHONVERBOSE") != null ? "true" : "false")
+        // log level
+        .option("log.python.level", System.getenv("PYTHONVERBOSE") != null ? "FINE" : "SEVERE")
+        // equivalent to setting the PYTHONWARNINGS environment variable
+        .option("python.WarnOptions", System.getenv("PYTHONWARNINGS") == null ? "" : System.getenv("PYTHONWARNINGS"))
+        // print Python exceptions directly
+        .option("python.AlwaysRunExcepthook", "true")
+        // Force to automatically import site.py module, to make Python packages
+        // available
+        .option("python.ForceImportSite", "true")
+        // The sys.executable path, a virtual path that is used by the interpreter to
+        // discover packages
+        .option("python.Executable",
+            vfs.resourcePathToPlatformPath(VENV_PREFIX)
+                + (VirtualFileSystem.isWindows() ? "\\Scripts$\\python.exe" : "/bin/python"))
+        // Set the python home to be read from the embedded resources
+        .option("python.PythonHome", vfs.resourcePathToPlatformPath(HOME_PREFIX))
+        // Do not warn if running without JIT. This can be desirable for short running
+        // scripts
+        // to reduce memory footprint.
+        .option("engine.WarnInterpreterOnly", "false")
+        // Set python path to point to sources stored in src/main/resources/vfs/proj
+        .option("python.PythonPath", vfs.resourcePathToPlatformPath(PROJ_PREFIX))
+        .build();
+    return context;
+  }
+
+  private void urlChanged() throws IOException {
+    String url = urlTextField.getText();
+    proxy = createPillowImageProxy(url);
+    try {
+      imageChanged();
+    } catch (IOException e) {
+      JOptionPane.showMessageDialog(this, url, "Failed to load image", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    private void urlChanged() throws IOException {
-        String url = urlTextField.getText();
-        proxy = createPillowImageProxy(url);
+  }
+
+  private void imageChanged() throws IOException {
+    BufferedImage image = createBufferedImage(proxy);
+    if (image == null) {
+      throw new IOException("Failed to load image");
+    } else {
+      imageLabel.setIcon(new ImageIcon(image));
+    }
+  }
+
+  /**
+   * This creates an instance of the PillowImageWrapper type and returns it
+   * mapped to the {@link PillowImageProxy} interface.
+   */
+  private PillowImageProxy createPillowImageProxy(String url) {
+    // Import and evaluate the Python file we provide in the resources directory.
+    // Holding on to the source object is recommended if we plan to create multiple
+    // contexts with the same polyglot engine to share JIT compiled code.
+    Source source;
+    try {
+      source = Source.newBuilder(PYTHON, "import pillowImageWrapper", "<internal>").build();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    pillowContext.eval(source);
+    // Getting the Python PillowImageWrapper class is an example of how data can be
+    // shared explicitly between Python and Java.
+    // It is a good idea to limit the amount of data that is explicitly shared
+    // and instead use methods and their return values,
+    // similar to how one would limit the visibility of classes within a Java
+    // project.
+    Value pillowImageWrapperClass = pillowContext.getPolyglotBindings().getMember("PillowImageWrapper");
+    // Next we instantiate the Python type and cast it to a PillowImageProxy.
+    // This cast will always succeed,
+    // and the relevant methods will only be forwarded when invoked,
+    // so there is no typechecking at this point, even at runtime.
+    // The reason is because Python objects can dynamically gain or lose methods
+    // during their lifetime,
+    // so a check here would still not guarantee anything.
+    Value pillowImageWrapper = pillowImageWrapperClass.newInstance(url);
+    return pillowImageWrapper.as(PillowImageProxy.class);
+  }
+
+  private BufferedImage createBufferedImage(PillowImageProxy proxy) {
+    AbstractList<Integer> pngData = (AbstractList<Integer>) proxy.bytes();
+    int sz = pngData.size();
+    byte[] imageData = new byte[sz];
+    for (int i = 0; i < sz; i++) {
+      imageData[i] = (byte) (int) pngData.get(i);
+    }
+    InputStream is = new ByteArrayInputStream(imageData);
+    try {
+      return ImageIO.read(is);
+    } catch (IOException ex) {
+      Logger.getLogger(PillowFrame.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+  }
+
+  /**
+   * This method is called from within the constructor to initialize the form.
+   * WARNING: Do NOT modify this code. The content of this method is always
+   * regenerated by the Form Editor.
+   */
+  @SuppressWarnings("unchecked")
+  // <editor-fold defaultstate="collapsed" desc="Generated
+  // Code">//GEN-BEGIN:initComponents
+  private void initComponents() {
+
+    scrollPane = new JScrollPane();
+    imageLabel = new JLabel();
+    topPanel = new JPanel();
+    urlLabel = new JLabel();
+    urlTextField = new JTextField();
+    scaleSlider = new JSlider();
+    bottomPanel = new JPanel();
+    flipButton = new JButton();
+    watermarkButton = new JButton();
+
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setTitle("Embedded Pillow");
+    setPreferredSize(new Dimension(800, 400));
+
+    scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPane.setPreferredSize(new Dimension(64, 64));
+    scrollPane.setViewportView(imageLabel);
+
+    getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+    topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
+
+    urlLabel.setText("Enter URL: ");
+    topPanel.add(urlLabel);
+
+    urlTextField.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        urlTextFieldActionPerformed(evt);
+      }
+    });
+    topPanel.add(urlTextField);
+
+    getContentPane().add(topPanel, BorderLayout.NORTH);
+
+    scaleSlider.setMajorTickSpacing(1);
+    scaleSlider.setMaximum(4);
+    scaleSlider.setMinimum(1);
+    scaleSlider.setOrientation(JSlider.VERTICAL);
+    scaleSlider.setPaintLabels(true);
+    scaleSlider.setPaintTicks(true);
+    scaleSlider.setSnapToTicks(true);
+    scaleSlider.setValue(1);
+    scaleSlider
+        .setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), "Scale"));
+    scaleSlider.setPreferredSize(new Dimension(60, 200));
+    scaleSlider.addChangeListener(new ChangeListener() {
+      public void stateChanged(ChangeEvent evt) {
+        scaleSliderStateChanged(evt);
+      }
+    });
+    getContentPane().add(scaleSlider, BorderLayout.LINE_END);
+
+    flipButton.setText("Flip");
+    flipButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        flipButtonActionPerformed(evt);
+      }
+    });
+    bottomPanel.add(flipButton);
+
+    watermarkButton.setText("<html>Watermark&hellip;</html>");
+    watermarkButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        watermarkButtonActionPerformed(evt);
+      }
+    });
+    bottomPanel.add(watermarkButton);
+
+    getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+
+    pack();
+  }// </editor-fold>//GEN-END:initComponents
+
+  private void urlTextFieldActionPerformed(ActionEvent evt) {// GEN-FIRST:event_urlTextFieldActionPerformed
+    try {
+      urlChanged();
+    } catch (IOException ex) {
+      Logger.getLogger(PillowFrame.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }// GEN-LAST:event_urlTextFieldActionPerformed
+
+  private void scaleSliderStateChanged(ChangeEvent evt) {// GEN-FIRST:event_scaleSliderStateChanged
+    JSlider slider = (JSlider) evt.getSource();
+    if (!slider.getValueIsAdjusting()) {
+      int scale = slider.getValue();
+      proxy.resize(scale);
+      try {
         imageChanged();
+      } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Failed to scale image");
+      }
     }
+  }// GEN-LAST:event_scaleSliderStateChanged
 
-    private void imageChanged() {
-        BufferedImage image = createBufferedImage(proxy);
-        imageLabel.setIcon(new ImageIcon(image));
+  private void flipButtonActionPerformed(ActionEvent evt) {// GEN-FIRST:event_flipButtonActionPerformed
+    proxy.flip();
+    try {
+      imageChanged();
+    } catch (IOException e) {
+      JOptionPane.showMessageDialog(this, "Failed to flip image");
     }
+  }// GEN-LAST:event_flipButtonActionPerformed
 
-    /**
-     * This creates an instance of the PillowImageWrapper type and returns it
-     * mapped to the {@link PillowImageProxy} interface.
-     */
-    private PillowImageProxy createPillowImageProxy(String url) {
-        // Import and evaluate the Python file we provide in the resources directory.
-        // Holding on to the source object is recommended if we plan to create multiple
-        // contexts with the same polyglot engine to share JIT compiled code.
-        Source source;
-        try {
-            source = Source.newBuilder(PYTHON, "import pillowImageWrapper", "<internal>").build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        pillowContext.eval(source);
-        // Getting the Python PillowImageWrapper class is an example of how data can be
-        // shared explicitly between Python and Java.
-        // It is a good idea to limit the amount of data that is explicitly shared
-        // and instead use methods and their return values,
-        // similar to how one would limit the visibility of classes within a Java
-        // project.
-        Value pillowImageWrapperClass = pillowContext.getPolyglotBindings().getMember("PillowImageWrapper");
-        // Next we instantiate the Python type and cast it to a PillowImageProxy.
-        // This cast will always succeed,
-        // and the relevant methods will only be forwarded when invoked,
-        // so there is no typechecking at this point, even at runtime.
-        // The reason is because Python objects can dynamically gain or lose methods
-        // during their lifetime,
-        // so a check here would still not guarantee anything.
-        Value pillowImageWrapper = pillowImageWrapperClass.newInstance(url);
-        return pillowImageWrapper.as(PillowImageProxy.class);
-    }
-
-    private BufferedImage createBufferedImage(PillowImageProxy proxy) {
-        AbstractList<Integer> pngData = (AbstractList<Integer>) proxy.bytes();
-        int sz = pngData.size();
-        byte[] imageData = new byte[sz];
-        for (int i = 0; i < sz; i++) {
-            imageData[i] = (byte) (int) pngData.get(i);
-        }
-        InputStream is = new ByteArrayInputStream(imageData);
-        try {
-            return ImageIO.read(is);
-        } catch (IOException ex) {
-            Logger.getLogger(PillowFrame.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        scrollPane = new JScrollPane();
-        imageLabel = new JLabel();
-        topPanel = new JPanel();
-        urlLabel = new JLabel();
-        urlTextField = new JTextField();
-        scaleSlider = new JSlider();
-        bottomPanel = new JPanel();
-        flipButton = new JButton();
-        watermarkButton = new JButton();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Embedded Pillow");
-        setPreferredSize(new Dimension(800, 400));
-
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(64, 64));
-        scrollPane.setViewportView(imageLabel);
-
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
-
-        urlLabel.setText("Enter URL: ");
-        topPanel.add(urlLabel);
-
-        urlTextField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                urlTextFieldActionPerformed(evt);
-            }
-        });
-        topPanel.add(urlTextField);
-
-        getContentPane().add(topPanel, BorderLayout.NORTH);
-
-        scaleSlider.setMajorTickSpacing(1);
-        scaleSlider.setMaximum(4);
-        scaleSlider.setMinimum(1);
-        scaleSlider.setOrientation(JSlider.VERTICAL);
-        scaleSlider.setPaintLabels(true);
-        scaleSlider.setPaintTicks(true);
-        scaleSlider.setSnapToTicks(true);
-        scaleSlider.setValue(1);
-        scaleSlider.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), "Scale"));
-        scaleSlider.setPreferredSize(new Dimension(60, 200));
-        scaleSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent evt) {
-                scaleSliderStateChanged(evt);
-            }
-        });
-        getContentPane().add(scaleSlider, BorderLayout.LINE_END);
-
-        flipButton.setText("Flip");
-        flipButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                flipButtonActionPerformed(evt);
-            }
-        });
-        bottomPanel.add(flipButton);
-
-        watermarkButton.setText("<html>Watermark&hellip;</html>");
-        watermarkButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                watermarkButtonActionPerformed(evt);
-            }
-        });
-        bottomPanel.add(watermarkButton);
-
-        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void urlTextFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_urlTextFieldActionPerformed
-        try {
-            urlChanged();
-        } catch (IOException ex) {
-            Logger.getLogger(PillowFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_urlTextFieldActionPerformed
-
-    private void scaleSliderStateChanged(ChangeEvent evt) {//GEN-FIRST:event_scaleSliderStateChanged
-        JSlider slider = (JSlider) evt.getSource();
-        if (!slider.getValueIsAdjusting()) {
-            int scale = slider.getValue();
-            proxy.resize(scale);
-            imageChanged();
-        }
-    }//GEN-LAST:event_scaleSliderStateChanged
-
-    private void flipButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_flipButtonActionPerformed
-        proxy.flip();
+  private void watermarkButtonActionPerformed(ActionEvent evt) {// GEN-FIRST:event_watermarkButtonActionPerformed
+    String watermark = JOptionPane.showInputDialog(this, "Enter watermark");
+    if (watermark != null) {
+      proxy.watermark(watermark);
+      try {
         imageChanged();
-    }//GEN-LAST:event_flipButtonActionPerformed
-
-    private void watermarkButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_watermarkButtonActionPerformed
-        String watermark = JOptionPane.showInputDialog(this, "Enter watermark");
-        if (watermark != null) {
-            proxy.watermark(watermark);
-            imageChanged();
-        }
-    }//GEN-LAST:event_watermarkButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-    public static void main(String args[]) throws IOException {
-        new PillowFrame().setVisible(true);
+      } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Failed to watermark image");
+      }
     }
+  }// GEN-LAST:event_watermarkButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JPanel bottomPanel;
-    private JButton flipButton;
-    private JLabel imageLabel;
-    private JSlider scaleSlider;
-    private JScrollPane scrollPane;
-    private JPanel topPanel;
-    private JLabel urlLabel;
-    private JTextField urlTextField;
-    private JButton watermarkButton;
-    // End of variables declaration//GEN-END:variables
+  /**
+   * @param args the command line arguments
+   * @throws java.io.IOException
+   */
+  public static void main(String args[]) throws IOException {
+    new PillowFrame().setVisible(true);
+  }
+
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private JPanel bottomPanel;
+  private JButton flipButton;
+  private JLabel imageLabel;
+  private JSlider scaleSlider;
+  private JScrollPane scrollPane;
+  private JPanel topPanel;
+  private JLabel urlLabel;
+  private JTextField urlTextField;
+  private JButton watermarkButton;
+  // End of variables declaration//GEN-END:variables
 
 }
