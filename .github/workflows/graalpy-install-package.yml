@@ -38,19 +38,4 @@ jobs:
           PID=$!
           sleep 60
           kill $PID
-      - name: Run 'graalpy-install-package native'
-        run: |
-          cd graalpy-install-package
-          mvn --no-transfer-progress clean package
-          # Collect metadata
-          mvn exec:exec -Pnative &
-          PID=$!
-          sleep 60
-          kill $PID
-          # Build native
-          mvn package -Pnative
-          # Run native executable
-          ./target/package-graalpy &
-          PID=$!
-          sleep 60
-          kill $PID
+      # Cannot test native due to https://github.com/graalvm/native-build-tools/issues/584
