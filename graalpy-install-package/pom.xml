@@ -144,7 +144,7 @@
     <profile>
       <id>native</id>
       <properties>
-        <nativeimage.agentlib.argument>-agentlib:native-image-agent=config-merge-dir=${project.build.outputDirectory}/META-INF/native-image/</nativeimage.agentlib.argument>
+        <nativeimage.agentlib.argument>-agentlib:native-image-agent=config-merge-dir=${project.build.outputDirectory}/META-INF/native-image/$JAVA_HOME/bin/java,config-write-period-secs=1,config-write-initial-delay-secs=0</nativeimage.agentlib.argument>
       </properties>
       <build>
         <plugins>
