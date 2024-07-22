@@ -58,9 +58,7 @@ public class Main {
     // Create a Swing JFrame to interact with the proxy
     JFrame pyfigletFrame = new PyfigletFrame(proxy);
     // Display the frame
-    EventQueue.invokeLater(() -> {
-      pyfigletFrame.setVisible(true);
-    });
+    EventQueue.invokeLater(() -> pyfigletFrame.setVisible(true));
     System.out.println("PyfigletFrame initialized");
   }
 

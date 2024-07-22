@@ -40,22 +40,71 @@
  */
 package com.oracle.example.graalpy;
 
-import static com.oracle.example.graalpy.Main.main;
+import static com.oracle.example.graalpy.Main.createPyfigletProxy;
 
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
 
 /**
  * Unit test for Main.
  */
 class MainTest {
+
     /**
      * UI tests for all critical code paths, to be used to collect reachability
      * metadata with the tracing agent for Native Image compilation.
      */
     @Test
     public void testMainUI() throws Exception {
-        main(new String[0]);
-        System.out.println("Done testing main UI");
+        /* Do what happens in the main() */
+        // Instantiate the Python class and provide a Java proxy to it
+        PyfigletProxy proxy = createPyfigletProxy();
+        // Create a Swing JFrame to interact with the proxy
+        PyfigletFrame pyfigletFrame = new PyfigletFrame(proxy);
+        // Display the frame (synchronously)
+        EventQueue.invokeAndWait(() -> pyfigletFrame.setVisible(true));
+        System.out.println("PyfigletFrame initialized");
+
+        /* Trigger some input events */
+        Robot robot = new Robot();
+        EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+
+        // Focus text field
+        EventQueue.invokeAndWait(() -> pyfigletFrame.getTextField().requestFocus());
+
+        // Simulate Ctrl+A key press
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        typeKey(robot, KeyEvent.VK_A);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.waitForIdle();
+
+        // Type "Test" and hit enter
+        robot.keyPress(KeyEvent.VK_SHIFT);
+        typeKey(robot, KeyEvent.VK_T);
+        robot.keyRelease(KeyEvent.VK_SHIFT);
+        typeKey(robot, KeyEvent.VK_E);
+        typeKey(robot, KeyEvent.VK_S);
+        typeKey(robot, KeyEvent.VK_T);
+        typeKey(robot, KeyEvent.VK_ENTER);
+        robot.waitForIdle();
+
+        // Resize frame
+        pyfigletFrame.setSize(400, 300);
+        queue.postEvent(new ComponentEvent(pyfigletFrame, ComponentEvent.COMPONENT_RESIZED));
+
+        // Dispose frame on close to avoid killing the test run prematurely
+        pyfigletFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        // Close frame
+        queue.postEvent(new WindowEvent(pyfigletFrame, WindowEvent.WINDOW_CLOSING));
+    }
+
+    private static void typeKey(Robot robot, int keyCode) {
+        robot.keyPress(keyCode);
+        robot.keyRelease(keyCode);
     }
 }
