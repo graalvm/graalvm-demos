@@ -180,4 +180,7 @@ public class PyfigletFrame extends JFrame {
     editorPane.setText(text);
   }
 
+  public JTextField getTextField() {
+    return textField;
+  }
 }
