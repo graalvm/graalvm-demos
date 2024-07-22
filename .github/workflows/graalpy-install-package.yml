@@ -33,9 +33,21 @@ jobs:
       - name: Run 'graalpy-install-package java'
         run: |
           cd graalpy-install-package 
-          mvn --no-transfer-progress clean package
-          mvn exec:exec &
+          mvn -B clean package
+          mvn -B exec:exec &
           PID=$!
           sleep 60
           kill $PID
-      # Cannot test native due to https://github.com/graalvm/native-build-tools/issues/584
+      - name: Run 'graalpy-install-package native'
+        run: |
+          cd graalpy-install-package
+          mvn -B clean -DskipTests package
+          # Collect metadata
+          mvn -Pnative -Dagent=true test
+          # Build native
+          mvn -Pnative -DskipTests package
+          # Run native executable
+          ./target/package-graalpy &
+          PID=$!
+          sleep 60
+          kill $PID
