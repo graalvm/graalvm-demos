@@ -1,0 +1,25 @@
+name: Check snippets
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: graalpy-24.1
+    - name: Install dependencies
+      run: |
+        python -m pip install -r .github/scripts/requirements.txt
+    - name: Check README snippets
+      run: find graalpy -name "README.md" -exec python .github/scripts/check_snippets.py "{}" ";"
