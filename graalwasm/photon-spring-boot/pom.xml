@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <graal.languages.version>24.0.2</graal.languages.version>
+        <graal.languages.version>24.1.0</graal.languages.version>
         <photon.download.url>
             https://raw.githubusercontent.com/fineshopdesign/cf-wasm/dca69477657fe80e36989f1fe7dcc17700d81ee2/packages/photon/src/lib
         </photon.download.url>
