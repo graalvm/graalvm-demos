@@ -1,0 +1,37 @@
+name: Test GraalWasm Starter
+on:
+  push:
+    paths:
+      - 'graalwasm/graalwasm-starter/**'
+      - '.github/workflows/graalwasm-starter.yml'
+  pull_request:
+    paths:
+      - 'graalwasm/graalwasm-starter/**'
+      - '.github/workflows/graalwasm-starter.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalwasm-starter'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalwasm-starter' using Maven
+        run: |
+          cd graalwasm/graalwasm-starter
+          ./mvnw --no-transfer-progress test
+          ./mvnw --no-transfer-progress exec:java
+      - name: Build, test, and run 'graalwasm-starter' using Gradle
+        run: |
+          cd graalwasm/graalwasm-starter
+          ./gradlew test
+          ./gradlew run
