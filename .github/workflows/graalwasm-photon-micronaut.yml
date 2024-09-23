@@ -12,7 +12,7 @@ on:
 permissions:
   contents: read
 jobs:
-  photon-micronaut:
+  run:
     name: 'graalwasm-photon-micronaut'
     runs-on: ubuntu-latest
     timeout-minutes: 30
