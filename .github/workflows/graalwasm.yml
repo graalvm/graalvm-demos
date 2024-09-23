@@ -25,13 +25,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Package 'graalwasm/photon-micronaut'
+      - name: Package 'graalwasm-photon-micronaut'
         run: |
-          cd graalwasm/photon-micronaut
+          cd graalwasm/graalwasm-photon-micronaut
           ./mvnw --no-transfer-progress clean package
-      - name: Build native 'graalwasm/photon-micronaut'
+      - name: Build native 'graalwasm/graalwasm-photon-micronaut'
         run: |
-          cd graalwasm/photon-micronaut
+          cd graalwasm/graalwasm-photon-micronaut
           ./mvnw --no-transfer-progress clean package -Dpackaging=native-image
           ./target/demo &
           sleep 10
@@ -49,13 +49,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Package 'graalwasm/photon-spring-boot'
+      - name: Package 'graalwasm-photon-spring-boot'
         run: |
-          cd graalwasm/photon-spring-boot
+          cd graalwasm/graalwasm-photon-spring-boot
           ./mvnw --no-transfer-progress clean package
-      - name: Build native 'graalwasm/photon-spring-boot'
+      - name: Build native 'graalwasm/graalwasm-photon-spring-boot'
         run: |
-          cd graalwasm/photon-spring-boot
+          cd graalwasm/graalwasm-photon-spring-boot
           ./mvnw --no-transfer-progress clean -Pnative native:compile
           ./target/demo &
           sleep 10
