@@ -11,7 +11,7 @@ import io.micronaut.http.exceptions.HttpStatusException;
 import jakarta.inject.Singleton;
 
 @Singleton
-class PhotonService {
+public class PhotonService {
     private final PhotonPool photonPool;
 
     PhotonService(PhotonPool photonPool) {
