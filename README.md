@@ -242,35 +242,6 @@ cd graalvm-demos
   </tbody>
 </table>
 
-### Python
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/graalpy-notebook-example/">graalpy-notebook-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-notebook-example.yml"><img alt="graalpy-notebook-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-notebook-example.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">Demonstrates how to embed Python in a Java application. It creates a Python <code>venv</code>, and installs required Python packages through a Maven configuration.<br><strong>Technologies: </strong>GraalPy</td>
-    </tr>
-    <tr>
-      <td align="left" width="30%"><a href="/graalpy-embedding-demo/">graalpy-embedding-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedding-demo.yml"><img alt="graalpy-embedding-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedding-demo.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">Demonstrates how to embed GraalPy in a Java application using Maven.<br><strong>Technologies: </strong>GraalPy</td>
-    </tr>
-    <tr>
-      <td align="left" width="30%"><a href="/graalpy-embedded-pillow/">graalpy-embedded-pillow</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedded-pillow.yml"><img alt="graalpy-embedded-pillow" src="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-embedded-pillow.yml/badge.svg"/></a></td>
-      <td align="left" width="70%">Demonstrates how to use GraalPy to create an instance of a proxied Python class from a Java application, built with Maven. <br><strong>Technologies: </strong>GraalPy</td>
-    </tr>
-    <tr>
-      <td align="left" width="30%"><a href="/graalpy-install-package/">graalpy-install-package</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-install-package.yml"><img alt="graalpy-embedding-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/graalpy-install-package.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to use GraalPy to access a Python class from a Java application, built with Maven. <br><strong>Technologies: </strong>GraalPy</td>
-    </tr>
-  </tbody>
-</table>
-
 ### Polyglot
 
 <table>
