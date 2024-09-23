@@ -8,11 +8,9 @@ package com.example;
 
 import org.graalvm.polyglot.Context;
 
-import java.io.IOException;
-
 public class App {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (Context context = Context.create()) {
             context.eval("python", "print('Hello from GraalPy!')");
         }
