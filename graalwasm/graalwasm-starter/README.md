@@ -1,6 +1,6 @@
 # GraalWasm Quick Start
 
-This demo illustrates how GraalWasm can be used to embed a WebAssembly module in a Java application.
+A minimal Java application that embeds a WebAssembly module with GraalWasm.
 
 ## Preparation
 
@@ -43,6 +43,6 @@ To execute the main method, run:
 
 The WebAssembly is stored in the resource file `add-two.wasm`.
 You can examine its textual representation in the resource file `add-two.wat`.
-If you want to experiment with and tweak the WebAssembly module, then you will need to rebuild the `add-two.wasm` file from the `add-two.wat` file.
+If you want to experiment with and tweak the WebAssembly module, you will need to rebuild the `add-two.wasm` file from the `add-two.wat` file.
 For that, you can use the `wat2wasm` tool from the [wabt toolkit](https://github.com/WebAssembly/wabt).
 You can also use [this web app](https://webassembly.github.io/wabt/demo/wat2wasm/) to run `wat2wasm` in your browser instead of installing `wabt`.
