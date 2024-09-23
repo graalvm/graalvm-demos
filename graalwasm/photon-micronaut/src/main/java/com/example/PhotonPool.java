@@ -7,12 +7,14 @@
 package com.example;
 
 import io.micronaut.context.annotation.Context;
+import io.micronaut.core.io.ResourceResolver;
 import jakarta.annotation.PreDestroy;
 import org.graalvm.polyglot.Engine;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -21,11 +23,11 @@ public class PhotonPool {
     private final Engine sharedEngine = Engine.create();
     private final BlockingQueue<Photon> photons;
 
-    PhotonPool() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        Source photonSource = Source.newBuilder("js", classLoader.getResource("photon/photon_rs.js")).mimeType("application/javascript+module").build();
-        byte[] wasmBytes = classLoader.getResourceAsStream("photon/photon_rs_bg.wasm").readAllBytes();
-        byte[] imageBytes = classLoader.getResourceAsStream("daisies_fuji.jpg").readAllBytes();
+    PhotonPool(ResourceResolver resourceResolve) throws IOException {
+        URL photonModuleURL = resourceResolve.getResource("classpath:photon/photon_rs.js").get();
+        Source photonSource = Source.newBuilder("js", photonModuleURL).mimeType("application/javascript+module").build();
+        byte[] wasmBytes = resourceResolve.getResourceAsStream("classpath:photon/photon_rs_bg.wasm").get().readAllBytes();
+        byte[] imageBytes = resourceResolve.getResourceAsStream("classpath:daisies_fuji.jpg").get().readAllBytes();
 
         int maxThreads = Runtime.getRuntime().availableProcessors();
         photons = new LinkedBlockingQueue<>(maxThreads);
@@ -51,7 +53,7 @@ public class PhotonPool {
         sharedEngine.close();
     }
 
-    private static Photon createPhoton(Engine engine, Source photonSource, byte[] wasmBytes, byte[] imageBytes) {
+    private static Photon createPhoton(Engine engine, Source photonSource, Object wasmBytes, Object imageBytes) {
         org.graalvm.polyglot.Context context = org.graalvm.polyglot.Context.newBuilder("js", "wasm")
                 .engine(engine)
                 .allowAllAccess(true)
