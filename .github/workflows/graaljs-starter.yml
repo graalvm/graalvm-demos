@@ -1,0 +1,37 @@
+name: Test GraalJS Starter
+on:
+  push:
+    paths:
+      - 'graaljs/graaljs-starter/**'
+      - '.github/workflows/graaljs-starter.yml'
+  pull_request:
+    paths:
+      - 'graaljs/graaljs-starter/**'
+      - '.github/workflows/graaljs-starter.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graaljs-starter'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graaljs-starter' using Maven
+        run: |
+          cd graaljs/graaljs-starter
+          ./mvnw --no-transfer-progress test
+          ./mvnw --no-transfer-progress exec:java
+      - name: Build, test, and run 'graaljs-starter' using Gradle
+        run: |
+          cd graaljs/graaljs-starter
+          ./gradlew test
+          ./gradlew run
