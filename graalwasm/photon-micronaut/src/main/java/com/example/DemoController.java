@@ -11,6 +11,8 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 
 @Controller
 public class DemoController {
@@ -22,6 +24,7 @@ public class DemoController {
 
     @Get("/photo/{effectName}")
     @Produces(MediaType.IMAGE_PNG)
+    @ExecuteOn(TaskExecutors.BLOCKING)
     public byte[] renderPhoto(@Parameter String effectName) {
         return photonService.processImage(effectName);
     }
