@@ -1,0 +1,38 @@
+name: Test GraalPy OpenAI Starter
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-openai-starter/**'
+      - '.github/workflows/graalpy-openai-starter.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-openai-starter/**'
+      - '.github/workflows/graalpy-openai-starter.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-openai-starter'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalpy-openai-starter' using Maven
+        run: |
+          cd graalpy/graalpy-openai-starter
+          ./mvnw --no-transfer-progress test
+          ./mvnw --no-transfer-progress exec:java || true
+      # Gradle plugin not available yet
+      # - name: Build, test, and run 'graalpy-openai-starter' using Gradle
+      #   run: |
+      #     cd graalpy/graalpy-openai-starter
+      #     ./gradlew test
+      #     ./gradlew run || true
