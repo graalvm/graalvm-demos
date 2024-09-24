@@ -29,7 +29,7 @@ jobs:
         run: |
           cd graalwasm/graalwasm-photon-micronaut
           ./mvnw --no-transfer-progress clean package
-      - name: Build native 'graalwasm/graalwasm-photon-micronaut'
+      - name: Build native 'graalwasm-photon-micronaut'
         run: |
           cd graalwasm/graalwasm-photon-micronaut
           ./mvnw --no-transfer-progress clean package -Dpackaging=native-image

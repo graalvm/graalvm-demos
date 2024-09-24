@@ -29,7 +29,7 @@ jobs:
         run: |
           cd graalwasm/graalwasm-photon-spring-boot
           ./mvnw --no-transfer-progress clean package
-      - name: Build native 'graalwasm/graalwasm-photon-spring-boot'
+      - name: Build native 'graalwasm-photon-spring-boot'
         run: |
           cd graalwasm/graalwasm-photon-spring-boot
           ./mvnw --no-transfer-progress clean -Pnative native:compile
