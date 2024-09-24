@@ -1,0 +1,41 @@
+name: Test GraalPy Micronaut Guide
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-micronaut-guide/**'
+      - '.github/workflows/graalpy-micronaut-guide.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-micronaut-guide/**'
+      - '.github/workflows/graalpy-micronaut-guide.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-micronaut-guide'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalpy-micronaut-guide' using Maven
+        run: |
+          cd graalpy/graalpy-micronaut-guide
+          ./mvnw --no-transfer-progress clean test
+          ./mvnw --no-transfer-progress mn:run &
+          sleep 10
+          curl -s -D - -o /dev/null http://localhost:8080/
+      - name: Build and run native 'graalpy-micronaut-guide' using Maven
+        run: |
+          cd graalpy/graalpy-micronaut-guide
+          ./mvnw --no-transfer-progress clean package -Dpackaging=native-image
+          ./target/demo &
+          sleep 10
+          curl -s -D - -o /dev/null http://localhost:8080/

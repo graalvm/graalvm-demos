@@ -1,0 +1,33 @@
+name: Test GraalPy Jython Guide
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-jython-guide/**'
+      - '.github/workflows/graalpy-jython-guide.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-jython-guide/**'
+      - '.github/workflows/graalpy-jython-guide.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-jython-guide'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalpy-jython-guide' using Maven
+        run: |
+          cd graalpy/graalpy-jython-guide
+          ./mvnw --no-transfer-progress compile
+          xvfb-run ./mvnw --no-transfer-progress exec:java -Dexec.mainClass=org.example.App &
+          sleep 20
