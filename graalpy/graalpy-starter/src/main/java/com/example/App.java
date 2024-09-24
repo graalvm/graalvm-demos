@@ -7,11 +7,12 @@
 package com.example;
 
 import org.graalvm.polyglot.Context;
+import org.graalvm.python.embedding.utils.GraalPyResources;
 
 public class App {
 
     public static void main(String[] args) {
-        try (Context context = Context.create()) {
+        try (Context context = GraalPyResources.createContext()) {
             context.eval("python", "print('Hello from GraalPy!')");
         }
     }
