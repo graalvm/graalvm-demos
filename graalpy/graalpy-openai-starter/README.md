@@ -41,6 +41,8 @@ To execute the main method, run:
 
 ## Implementation Details
 
-Note that in addition to the `openai` package, the [_pom.xml_](pom.xml) also explicitly adds and locks the versions of `jiter` and `pydantic_core`.
-These two transitive dependencies of `openai` make use of native extensions and for the selected versions, there are pre-built binary wheels for Linux x86_64 in the [GraalPy PyPI repository](https://www.graalvm.org/python/wheels/).
+Note that the [_pom.xml_](pom.xml) contains the `openai` package and all of its transitive dependencies, and locks their version.
+This is recommended because it provides a similar experience to Maven (all versions are well-defined), while `pip`, the package installer for Python, also supports version ranges (versions are defined at compile time).
+In particular, the `jiter` and `pydantic_core` make use of native extensions which must be built for GraalPy.
+For the selected versions of these two packages, there are pre-built binary wheels for Linux x86_64 in the [GraalPy PyPI repository](https://www.graalvm.org/python/wheels/).
 This means that on Linux x86_64 machines, the native extensions do not need to be built from source and are instead fetched from the PyPI repository.
