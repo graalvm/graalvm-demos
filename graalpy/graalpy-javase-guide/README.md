@@ -241,8 +241,8 @@ We cast the `io` and `qrcode` packages to our declared interfaces so we can use 
 If you followed along with the example, you can now compile and run your application from the commandline:
 
 ```shell
-mvn compile
-mvn exec:java -Dexec.mainClass=org.example.App -Dgraalpy.resources=./python-resources
+./mvnw compile
+./mvnw exec:java -Dexec.mainClass=org.example.App -Dgraalpy.resources=./python-resources
 ```
 
 ## 6. Next steps

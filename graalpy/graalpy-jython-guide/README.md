@@ -206,8 +206,8 @@ To get the same behavior as Jython, we pass `true` to the `close` call to cancel
 If you downloaded the [example](https://github.com/graalvm/graalpy-demos/tree/master/jython), you can now compile and run your application from the commandline:
 
 ```shell
-mvn compile
-mvn exec:java -Dexec.mainClass=org.example.App
+./mvnw compile
+./mvnw exec:java -Dexec.mainClass=org.example.App
 ```
 
 You can switch between Jython and GraalPy and compare the output.
