@@ -11,6 +11,7 @@ repositories {
 dependencies {
     implementation("org.graalvm.polyglot:polyglot:24.1.0")
     implementation("org.graalvm.polyglot:python:24.1.0")
+    implementation("org.graalvm.python:python-embedding:24.1.0")
 
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
