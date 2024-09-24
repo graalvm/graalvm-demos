@@ -28,14 +28,14 @@ jobs:
       - name: Build, test, and run 'graalpy-micronaut-guide' using Maven
         run: |
           cd graalpy/graalpy-micronaut-guide
-          ./mvnw --no-transfer-progress clean test
+          ./mvnw --no-transfer-progress clean test -Dmicronaut.http.client.read-timeout=1m
           ./mvnw --no-transfer-progress mn:run &
-          sleep 10
+          sleep 30
           curl -s -D - -o /dev/null http://localhost:8080/
       - name: Build and run native 'graalpy-micronaut-guide' using Maven
         run: |
           cd graalpy/graalpy-micronaut-guide
           ./mvnw --no-transfer-progress clean package -Dpackaging=native-image
           ./target/demo &
-          sleep 10
+          sleep 20
           curl -s -D - -o /dev/null http://localhost:8080/

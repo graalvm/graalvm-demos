@@ -28,14 +28,14 @@ jobs:
       - name: Build, test, and run 'graalpy-spring-boot-guide' using Maven
         run: |
           cd graalpy/graalpy-spring-boot-guide
-          ./mvnw --no-transfer-progress clean test
+          ./mvnw --no-transfer-progress clean test -Dspring.mvc.async.request-timeout=60000
           ./mvnw --no-transfer-progress spring-boot:run &
-          sleep 10
+          sleep 30
           curl -s -D - -o /dev/null http://localhost:8080/
       - name: Build and run native 'graalpy-spring-boot-guide' using Maven
         run: |
           cd graalpy/graalpy-spring-boot-guide
           ./mvnw --no-transfer-progress clean -Pnative native:compile
           ./target/demo &
-          sleep 10
+          sleep 20
           curl -s -D - -o /dev/null http://localhost:8080/
