@@ -9,10 +9,9 @@ package org.example;
 import io.micronaut.context.annotation.Context;
 import jakarta.annotation.PreDestroy;
 import org.graalvm.python.embedding.utils.GraalPyResources;
-import java.io.IOException;
 
 @Context // ①
-final class GraalPyContext {
+public final class GraalPyContext {
 
     static final String PYTHON = "python";
 
@@ -28,7 +27,7 @@ final class GraalPyContext {
     }
 
     @PreDestroy
-    void close() throws IOException {
+    void close() {
         try {
             context.close(true); // ⑤
         } catch (Exception e) {

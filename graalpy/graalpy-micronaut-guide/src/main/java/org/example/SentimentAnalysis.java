@@ -14,7 +14,7 @@ import static org.example.GraalPyContext.PYTHON;
 @Bean
 public class SentimentAnalysis {
 
-    private SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
+    private final SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
 
     public SentimentAnalysis(GraalPyContext context) {
         Value value = context.get().eval(PYTHON, """

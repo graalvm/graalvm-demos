@@ -14,7 +14,7 @@ import java.util.Map;
 @Controller // ①
 public class SentimentAnalysisController {
 
-    private SentimentAnalysis sentimentAnalysis;
+    private final SentimentAnalysis sentimentAnalysis;
 
     SentimentAnalysisController(SentimentAnalysis sentimentAnalysis) { // ②
         this.sentimentAnalysis = sentimentAnalysis;

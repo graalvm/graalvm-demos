@@ -1,4 +1,4 @@
-## GraalPy Micronaut Demo
+## GraalPy Micronaut Guide
 
 ## 1. Getting Started
 

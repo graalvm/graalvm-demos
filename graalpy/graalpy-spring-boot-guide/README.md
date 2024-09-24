@@ -1,4 +1,4 @@
-## GraalPy Spring Demo
+## GraalPy Spring Boot Guide
 
 ## 1. Getting Started
 

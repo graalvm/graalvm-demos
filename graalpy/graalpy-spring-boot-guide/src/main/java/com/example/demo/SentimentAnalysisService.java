@@ -6,21 +6,15 @@
 
 package com.example.demo;
 
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
 public class SentimentAnalysisService {
-    @Autowired
-    private GraalPyContext context;
+    private final SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
 
-    private SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
-
-    @PostConstruct
-    public void initialize() {
+    public SentimentAnalysisService(GraalPyContext context) {
         var value = context.eval("""
                 from vader_sentiment.vader_sentiment import SentimentIntensityAnalyzer
                 SentimentIntensityAnalyzer() # ①
