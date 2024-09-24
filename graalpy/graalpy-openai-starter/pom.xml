@@ -70,9 +70,22 @@
           <execution>
             <configuration>
               <packages>
-                <package>openai</package>
-                <package>jiter==0.5.0</package>
-                <package>pydantic_core==2.10.1</package>
+                <package>annotated-types==0.7.0</package>
+                <package>anyio==4.6.0</package>
+                <package>certifi==2024.8.30</package>
+                <package>distro==1.9.0</package>
+                <package>h11==0.14.0</package>
+                <package>hpy==0.9.0</package>
+                <package>httpcore==1.0.5</package>
+                <package>httpx==0.27.2</package>
+                <package>idna==3.10</package>
+                <package>jiter==0.5.0</package> <!-- uses a native extension -->
+                <package>openai==1.47.1</package>
+                <package>pydantic==2.4.2</package>
+                <package>pydantic_core==2.10.1</package> <!-- uses a native extension -->
+                <package>sniffio==1.3.1</package>
+                <package>tqdm==4.66.5</package>
+                <package>typing_extensions==4.12.2</package>
               </packages>
             </configuration>
             <goals>
