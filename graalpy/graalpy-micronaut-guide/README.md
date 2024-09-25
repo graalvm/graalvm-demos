@@ -11,18 +11,20 @@ To complete this guide, you will need the following:
 
 * Some time on your hands
 * A decent text editor or IDE
-* [A suppported JDK](link to docs explaining the mess with JDK17), preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+* A suppported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+
+[^1]: JDK 17 is supported with interpreter only, JDK 21 and newer with JIT compilation.
 
 ## 3. Solution
 
 We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the TODO: [completed example](https://github.com/graalvm/graalpy-demos/tree/master/micronaut-demo).
+However, you can go right to the [completed example](./).
 
 ## 4. Writing the application
 
 Create an application using the [Micronaut Command Line Interface](https://docs.micronaut.io/latest/guide/#cli) or with [Micronaut Launch](https://micronaut.io/launch/).
 To make copying of the code snippets in this guide as smooth as possible, the application should have the base package `org.example`.
-TODO: We also recommend to use Micronaut version 4.6.0
+We also recommend to use Micronaut version 4.6.2 or newer.
 
 ```bash
 mn create-app org.example.demo \

@@ -5,7 +5,7 @@ The [GraalPy Maven artifacts](https://central.sonatype.com/artifact/org.graalvm.
 
 Using Python packages in Java projects often requires a bit more setup, due to the nature of the Python packaging ecosystem.
 GraalPy provides a [python-embedding](https://central.sonatype.com/artifact/org.graalvm.python/python-embedding) package that simplifies the required setup to ship Python packages as Java resources or in separate folders.
-The important entry points to do so are the [VirtualFileSystem](todo:in-depth docs) and the [GraalPyResources](todo:in-depth-docs) classes.
+The important entry points to do so are the [VirtualFileSystem](https://github.com/oracle/graalpython/blob/master/docs/user/Embedding-Build-Tools.md#virtual-filesystem) and the [GraalPyResources](https://github.com/oracle/graalpython/blob/master/docs/user/Embedding-Build-Tools.md#deployment) classes.
 
 ## 1. Getting Started
 
@@ -18,12 +18,14 @@ To complete this guide, you will need the following:
 
  * Some time on your hands
  * A decent text editor or IDE
- * [A suppported JDK](link to docs explaining the mess with JDK17), preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+ * A suppported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+
+ [^1]: JDK 17 is supported with interpreter only, JDK 21 and newer with JIT compilation.
 
 ## 3. Solution
 
 We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the [completed example](https://github.com/graalvm/graalpy-demos/tree/master/javase).
+However, you can go right to the [completed example](./).
 
 ## 4. Writing the application
 

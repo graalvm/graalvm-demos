@@ -1,11 +1,13 @@
-name: Check snippets
-
+name: Check GraalPy guide's snippets
 on:
   push:
-    branches: [ $default-branch ]
+    paths:
+      - 'graalpy/**'
+      - '.github/workflows/check_graalpy_guides.yml'
   pull_request:
-    branches: [ $default-branch ]
-
+    paths:
+      - 'graalpy/**'
+      - '.github/workflows/check_graalpy_guides.yml'
 permissions:
   contents: read
 

@@ -16,7 +16,9 @@ To complete this guide, you will need the following:
 
  * Some time on your hands
  * A decent text editor or IDE
- * [A suppported JDK](link to docs explaining the mess with JDK17), preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+ * A suppported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+
+ [^1]: JDK 17 is supported with interpreter only, JDK 21 and newer with JIT compilation.
 
 ## 3. The original application
 
@@ -100,7 +102,7 @@ final class JythonInputCallback implements InputCallback {
 
 ## 4. Migrating the application
 
-We recommend to check out the [completed example](https://github.com/graalvm/graalpy-demos/tree/master/jython) and follow along with the steps in the next sections that were used to migrate the application step by step.
+We recommend to check out the [completed example](./) and follow along with the steps in the next sections that were used to migrate the application step by step.
 
 ## 4.1 Dependency configuration
 
