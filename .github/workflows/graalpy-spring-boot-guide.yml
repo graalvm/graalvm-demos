@@ -32,12 +32,16 @@ jobs:
           cd graalpy/graalpy-spring-boot-guide
           ./mvnw --no-transfer-progress clean test -Dspring.mvc.async.request-timeout=60000
           ./mvnw --no-transfer-progress spring-boot:run &
+          sbpid="$!"
           sleep 30
           curl -s -D - -o /dev/null http://localhost:8080/
+          kill $sbpid
       - name: Build and run native 'graalpy-spring-boot-guide' using Maven
         run: |
           cd graalpy/graalpy-spring-boot-guide
           ./mvnw --no-transfer-progress clean -DskipTests -Pnative native:compile
           ./target/demo &
+          sbpid="$!"
           sleep 20
           curl -s -D - -o /dev/null http://localhost:8080/
+          kill $sbpid
