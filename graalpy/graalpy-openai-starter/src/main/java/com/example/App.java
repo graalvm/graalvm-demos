@@ -8,17 +8,16 @@ package com.example;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.PolyglotException;
-import org.graalvm.polyglot.Value;
 import org.graalvm.python.embedding.utils.GraalPyResources;
 
 import java.util.List;
 
 public class App {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         String userInput = args.length > 0 ? args[0] : "Say this is a test";
         try (Context context = GraalPyResources.createContext()) {
-            Value createChatCompletion = context.eval("python",
+            CreateChatCompletionFunction createChatCompletion = context.eval("python",
                     // language=python
                     """
                             import os
@@ -39,10 +38,10 @@ public class App {
                                     ],
                                     model="gpt-3.5-turbo",
                                 )
-
+                            
                             create_chat_completion
-                            """);
-            ChatCompletion chatCompletion = createChatCompletion.execute(userInput).as(ChatCompletion.class);
+                            """).as(CreateChatCompletionFunction.class);
+            ChatCompletion chatCompletion = createChatCompletion.apply(userInput);
             for (Choice choice : chatCompletion.choices()) {
                 System.out.println(choice.message().content());
             }
@@ -51,15 +50,20 @@ public class App {
         }
     }
 
+    @FunctionalInterface
+    public interface CreateChatCompletionFunction {
+        ChatCompletion apply(String choice);
+    }
+
     public interface ChatCompletion {
-         List<Choice> choices();
+        List<Choice> choices();
     }
 
     public interface Choice {
         ChatCompletionMessage message();
     }
 
-    public interface  ChatCompletionMessage {
+    public interface ChatCompletionMessage {
         String content();
     }
 }
