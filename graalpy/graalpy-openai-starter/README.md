@@ -46,8 +46,8 @@ To execute the main method, run:
 
 The [App.java](src/main/java/com/example/App.java) embeds a `create_chat_completion()` function based on [the official usage example](https://github.com/openai/openai-python?tab=readme-ov-file#usage).
 The Java text block that contains the Python code is annotated with `// language=python`, which triggers a [language injection in IntelliJ IDEA](https://www.jetbrains.com/help/idea/using-language-injections.html).
-The `create_chat_completion()` function is returned when the Python code is evaluated.
-Afterward, the Python function is called with `userInput` from Java, and the result is mapped to the `ChatCompletion` interface.
+The `create_chat_completion()` function is returned when the Python code is evaluated, and mapped to `CreateChatCompletionFunction`, a `FunctionalInterface` from `String` to `ChatCompletion`.
+Afterward, the Python function is called with `userInput` from Java.
 The interfaces `ChatCompletion`, `Choice`, and `ChatComplectionMessage` are ported from [the official API](https://github.com/openai/openai-python/blob/main/api.md), and only contain the functionality exercised by the example code.
 These interfaces can be extended appropriately when needed.
 
