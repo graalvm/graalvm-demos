@@ -8,6 +8,7 @@ package com.example;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.PolyglotException;
+import org.graalvm.polyglot.Value;
 import org.graalvm.python.embedding.utils.GraalPyResources;
 
 import java.util.List;
@@ -15,8 +16,9 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args)  {
+        String userInput = args.length > 0 ? args[0] : "Say this is a test";
         try (Context context = GraalPyResources.createContext()) {
-            ChatCompletion chatCompletion = context.eval("python",
+            Value createChatCompletion = context.eval("python",
                     // language=python
                     """
                             import os
@@ -27,19 +29,20 @@ public class App {
                                 api_key=os.environ.get("OPENAI_API_KEY"),
                             )
                             
-                            chat_completion = client.chat.completions.create(
-                                messages=[
-                                    {
-                                        "role": "user",
-                                        "content": "Say this is a test",
-                                    }
-                                ],
-                                model="gpt-3.5-turbo",
-                            )
+                            def create_chat_completion(user_input):
+                                return client.chat.completions.create(
+                                    messages=[
+                                        {
+                                            "role": "user",
+                                            "content": user_input,
+                                        }
+                                    ],
+                                    model="gpt-3.5-turbo",
+                                )
 
-                            chat_completion
-                            """).as(ChatCompletion.class);
-
+                            create_chat_completion
+                            """);
+            ChatCompletion chatCompletion = createChatCompletion.execute(userInput).as(ChatCompletion.class);
             for (Choice choice : chatCompletion.choices()) {
                 System.out.println(choice.message().content());
             }
