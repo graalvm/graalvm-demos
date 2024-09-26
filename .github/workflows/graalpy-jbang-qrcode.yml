@@ -1,0 +1,29 @@
+name: Test GraalPy JBang QRCode Demo
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-jbang-qrcode/**'
+      - '.github/workflows/graalpy-jbang-qrcode.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-jbang-qrcode/**'
+      - '.github/workflows/graalpy-jbang-qrcode.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-jbang-qrcode'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'graalpy-jbang-qrcode' demo
+        run: |
+          cd graalpy/graalpy-jbang-qrcode
+          curl -Ls https://sh.jbang.dev | bash -s - run qrcode.java "Hello from GraalPy!"
