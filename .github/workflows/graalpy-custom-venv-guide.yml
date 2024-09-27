@@ -1,4 +1,4 @@
-name: Test GraalPy Starter
+name: Test GraalPy Custom Venv Guide
 on:
   push:
     paths:

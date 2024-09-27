@@ -1,4 +1,4 @@
-name: Test GraalPy Starter
+name: Test GraalPy Native Extensions Guide
 on:
   push:
     paths:

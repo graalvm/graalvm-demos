@@ -1,4 +1,4 @@
-name: Test GraalPy Starter
+name: Test GraalPy Freeze Dependencies Guide
 on:
   push:
     paths:
