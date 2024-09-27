@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>freeze-deps</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>freezedeps</name>
+
+    <properties>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>python</artifactId> <!-- ① -->
+            <version>24.1.0</version>
+            <type>pom</type> <!-- ② -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.graalvm.python</groupId>
+            <artifactId>python-embedding</artifactId> <!-- ③ -->
+            <version>24.1.0</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <!-- The default profile shows the end result: all our transitive
+            dependencies are explicitly pinned to a specific version -->
+            <id>default-build</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.python</groupId>
+                        <artifactId>graalpy-maven-plugin</artifactId>
+                        <version>24.1.0</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <packages> <!-- ① -->
+                                        <package>vaderSentiment==3.3.2</package>
+                                        <package>certifi==2024.8.30</package>
+                                        <package>charset-normalizer==3.1.0</package>
+                                        <package>idna==3.8</package>
+                                        <package>requests==2.32.3</package>
+                                        <package>urllib3==2.2.2</package>
+                                    </packages>
+                                </configuration>
+                                <goals>
+                                    <goal>process-graalpy-resources</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- Activate this profile to see how the build behaves when transitive dependencies are not pinned -->
+            <id>no-transitive-deps</id>
+            <activation>
+                <property>
+                    <name>no.transitive.dependencies</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.python</groupId>
+                        <artifactId>graalpy-maven-plugin</artifactId>
+                        <version>24.1.0</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <packages> <!-- ① -->
+                                        <package>vaderSentiment==3.3.2</package>
+                                    </packages>
+                                </configuration>
+                                <goals>
+                                    <goal>process-graalpy-resources</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

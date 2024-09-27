@@ -18,9 +18,11 @@ To complete this guide, you will need the following:
 
  * Some time on your hands
  * A decent text editor or IDE
- * A suppported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+ * A supported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/)
 
- [^1]: JDK 17 is supported with interpreter only, JDK 21 and newer with JIT compilation.
+ [^1]: Oracle JDK 17 and OpenJDK 17 are supported with interpreter only.
+ GraalVM JDK 21, Oracle JDK 21, OpenJDK 21 and newer with [JIT compilation](https://www.graalvm.org/latest/reference-manual/embed-languages/#runtime-optimization-support).
+ Note: GraalVM for JDK 17 is **not supported**.
 
 ## 3. Solution
 
@@ -211,6 +213,10 @@ import javax.swing.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
+        if (System.getProperty("graalpy.resources") == null) {
+            System.err.println("Please provide 'graalpy.resources' system property.");
+            System.exit(1);
+        }
         try (var context = GraalPy.createPythonContext(System.getProperty("graalpy.resources"))) { // ①
             QRCode qrCode = context.eval("python", "import qrcode; qrcode").as(QRCode.class); // ②
             IO io = context.eval("python", "import io; io").as(IO.class);
@@ -249,9 +255,13 @@ If you followed along with the example, you can now compile and run your applica
 
 ## 6. Next steps
 
-- Learn more about [embedding features](todo)
-- Understand the the features and limitations of the [virtual filesystem](todo)
-- Follow along how you can manually [install Python packages and files](todo) if the Maven plugin gives not enough control
-- [Optimize](todo) single- and multi-threaded performance and footprint
-- Build a [native image with Python](todo)
-- Use Python packages that rely on [native code](todo), e.g. for data science and machine learning
+- Use GraalPy with popular Java frameworks, such as [Spring Boot](../graalpy-spring-boot-guide/README.md) or [Micronaut](../graalpy-micronaut-guide/README.md)
+- Install and use Python packages that rely on [native code](../graalpy-native-extensions-guide/README.md), e.g. for data science and machine learning
+- Follow along how you can manually [install Python packages and files](../graalpy-custom-venv-guide/README.md) if the Maven plugin gives not enough control
+- [Freeze](../graalpy-freeze-dependencies-guide/README.md) transitive Python dependencies for reproducible builds
+- [Migrate from Jython](../graalpy-jython-guide/README.md) to GraalPy
+
+
+- Learn more about the GraalPy [Maven plugin](https://www.graalvm.org/latest/reference-manual/python/Embedding-Build-Tools/)
+- Learn more about the Polyglot API for [embedding languages](https://www.graalvm.org/latest/reference-manual/embed-languages/)
+- Explore in depth with GraalPy [reference manual](https://www.graalvm.org/latest/reference-manual/python/)

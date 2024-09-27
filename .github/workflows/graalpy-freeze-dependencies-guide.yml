@@ -1,0 +1,34 @@
+name: Test GraalPy Starter
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-freeze-dependencies-guide/**'
+      - '.github/workflows/graalpy-freeze-dependencies-guide.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-freeze-dependencies-guide/**'
+      - '.github/workflows/graalpy-freeze-dependencies-guide.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-freeze-dependencies-guide'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalpy-freeze-dependencies-guide' using Maven
+        shell: bash
+        run: |
+          cd graalpy/graalpy-freeze-dependencies-guide
+          ./mvnw --no-transfer-progress compile
+          ./mvnw --no-transfer-progress exec:java -Dexec.mainClass=org.example.App | tee /tmp/output
+          grep darent /tmp/output

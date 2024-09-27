@@ -1,0 +1,43 @@
+name: Test GraalPy Starter
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-native-extensions-guide/**'
+      - '.github/workflows/graalpy-native-extensions-guide.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-native-extensions-guide/**'
+      - '.github/workflows/graalpy-native-extensions-guide.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-native-extensions-guide'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Build, test, and run 'graalpy-native-extensions-guide' using Maven
+        shell: bash
+        run: |
+          cd graalpy/graalpy-native-extensions-guide
+          ./mvnw --no-transfer-progress compile
+          ./mvnw --no-transfer-progress exec:java -Dexec.mainClass=org.example.App -Dexec.args="appkle pear anana tomato" | tee /tmp/output
+          grep "did you mean 'apple'" /tmp/output
+          ./mvnw --no-transfer-progress exec:java -Dexec.mainClass=org.example.AppLogging -Dexec.args="appkle pear anana tomato" 2>&1 | tee /tmp/output2
+          grep "Loading C extension module polyleven" /tmp/output2
+          grep "did you mean 'apple'" /tmp/output2
+          if mvn package exec:java -Dexec.mainClass=org.example.MultiContextApp -Dexec.args="appkle pear anana strawberry tomato" 2>&1 | tee /tmp/output3; then
+            echo "the command was supposed to fail"
+            exit 1
+          fi
+          grep "did you mean 'apple'" /tmp/output3
+          grep "SystemError" /tmp/output3

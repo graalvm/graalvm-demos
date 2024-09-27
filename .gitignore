@@ -268,3 +268,6 @@ native-list-dir/extlistdir
 native-list-dir/extlistdir.build_artifacts.txt
 *.pyc
 *.iprof
+
+graalpy/graalpy-custom-venv-guide/venv
+.venv

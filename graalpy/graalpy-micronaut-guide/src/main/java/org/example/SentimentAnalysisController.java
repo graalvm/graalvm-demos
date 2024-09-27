@@ -6,8 +6,7 @@
 
 package org.example;
 
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
@@ -29,8 +28,8 @@ public class SentimentAnalysisController {
     }
 
     @Get(value = "/analyze") // ⑤
-    @ExecuteOn(TaskExecutors.BLOCKING)
+    @ExecuteOn(TaskExecutors.BLOCKING) // ⑥
     public Map<String, Double> answer(String text) {
-        return sentimentAnalysis.getPolarityScores(text); // ⑥
+        return sentimentAnalysis.getPolarityScores(text); // ⑦
     }
 }

@@ -1,0 +1,44 @@
+name: Test GraalPy Starter
+on:
+  push:
+    paths:
+      - 'graalpy/graalpy-custom-venv-guide/**'
+      - '.github/workflows/graalpy-custom-venv-guide.yml'
+  pull_request:
+    paths:
+      - 'graalpy/graalpy-custom-venv-guide/**'
+      - '.github/workflows/graalpy-custom-venv-guide.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: 'graalpy-custom-venv-guide'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23.0.0'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 'graalpy-24.1'
+      - name: Build, test, and run 'graalpy-custom-venv-guide' using Maven
+        shell: bash
+        run: |
+          cd graalpy/graalpy-custom-venv-guide
+          ./mvnw --no-transfer-progress compile
+          graalpy -m venv venv
+          ./venv/bin/graalpy -m pip install art==6.3
+          ./mvnw --no-transfer-progress exec:java -Dexec.mainClass=org.example.App -Dvenv=venv | tee /tmp/output
+          grep -F "  ____                      _  ____" /tmp/output
+          grep -F " / ___| _ __   __ _   __ _ | ||  _ \  _   _" /tmp/output
+          #        | |  _ | '__| / _` | / _` || || |_) || | | | escaping is too cumbersome for this line
+          grep -F "| |_| || |   | (_| || (_| || ||  __/ | |_| |" /tmp/output
+          grep -F " \____||_|    \__,_| \__,_||_||_|     \__, |" /tmp/output
+          grep -F "                                      |___/" /tmp/output

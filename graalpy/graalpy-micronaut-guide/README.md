@@ -2,7 +2,7 @@
 
 ## 1. Getting Started
 
-In this guide, we will use the Python library [vaderSentiment](https://github.com/cjhutto/vaderSentiment) from a Micronaut application written in Java.  
+In this guide, we will use the Python library [vaderSentiment](https://github.com/cjhutto/vaderSentiment) from a Micronaut application written in Java.
 ![Screenshot of the app](screenshot.png)
 
 ## 2. What you will need
@@ -11,9 +11,11 @@ To complete this guide, you will need the following:
 
 * Some time on your hands
 * A decent text editor or IDE
-* A suppported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/) or newer
+* A supported JDK[^1], preferably the latest [GraalVM JDK](https://graalvm.org/downloads/)
 
-[^1]: JDK 17 is supported with interpreter only, JDK 21 and newer with JIT compilation.
+  [^1]: Oracle JDK 17 and OpenJDK 17 are supported with interpreter only.
+  GraalVM JDK 21, Oracle JDK 21, OpenJDK 21 and newer with [JIT compilation](https://www.graalvm.org/latest/reference-manual/embed-languages/#runtime-optimization-support).
+  Note: GraalVM for JDK 17 is **not supported**.
 
 ## 3. Solution
 
@@ -115,9 +117,9 @@ Also add the `graalpy-maven-plugin` configuration into the plugins section of th
 ❶ The `packages` section lists all Python packages optionally with [requirement specifiers](https://pip.pypa.io/en/stable/reference/requirement-specifiers/).
 
 ❷ Python packages and their versions can be specified as if used with pip.
-Install and pin the `vader-sentiment` package to version `3.2.1.1`. 
+Install and pin the `vader-sentiment` package to version `3.2.1.1`.
 
-❸ The `vader_sentiment` package does not declare `requests` as a dependency so it has to done so manually at this place.      
+❸ The `vader_sentiment` package does not declare `requests` as a dependency so it has to done so manually at this place.
 
 ### 4.4 Creating a Python context
 
@@ -132,38 +134,37 @@ package org.example;
 import io.micronaut.context.annotation.Context;
 import jakarta.annotation.PreDestroy;
 import org.graalvm.python.embedding.utils.GraalPyResources;
-import java.io.IOException;
 
 @Context // ①
-final class GraalPyContext {
+public final class GraalPyContext {
 
-    static final String PYTHON = "python";
+  static final String PYTHON = "python";
 
-    private final org.graalvm.polyglot.Context context;
+  private final org.graalvm.polyglot.Context context;
 
-    public GraalPyContext() {
-        context = GraalPyResources.createContext(); // ②
-        context.initialize(PYTHON); // ③
+  public GraalPyContext() {
+    context = GraalPyResources.createContext(); // ②
+    context.initialize(PYTHON); // ③
+  }
+
+  org.graalvm.polyglot.Context get() {
+    return context; // ④
+  }
+
+  @PreDestroy
+  void close() {
+    try {
+      context.close(true); // ⑤
+    } catch (Exception e) {
+      // ignore
     }
-
-    org.graalvm.polyglot.Context get() {
-        return context; // ④
-    }
-
-    @PreDestroy
-    void close() throws IOException {
-        try {
-            context.close(true); // ⑤
-        } catch (Exception e) {
-            // ignore
-        } 
-    }
+  }
 }
 ```
 
-❶ Eagerly initialize as a singleton bean. 
+❶ Eagerly initialize as a singleton bean.
 
-❷ The created GraalPy context will serve as a single access point to GraalPy for the whole application. 
+❷ The created GraalPy context will serve as a single access point to GraalPy for the whole application.
 
 ❸ Initializing a GraalPy context isn't cheap, so we do so already at creation time to avoid delayed response time.
 
@@ -191,13 +192,13 @@ package org.example;
 import java.util.Map;
 
 public interface SentimentIntensityAnalyzer {
-    public Map<String, Double> polarity_scores(String text); // ①
+    Map<String, Double> polarity_scores(String text); // ①
 }
 ```
 
 ❶ The Java method to call into `SentimentIntensityAnalyzer.polarity_scores(text)`.
-The Python return value is a `dict` and can be directly converted to a Java Map on the fly. 
-The same applies to the argument, which is a Python String and therefore also a String on Java side.  
+The Python return value is a `dict` and can be directly converted to a Java Map on the fly.
+The same applies to the argument, which is a Python String and therefore also a String on Java side.
 
 Using this Java interface and the GraalPy context, you can now construct a bean which calls the `SentimentIntensityAnalyzer.polarity_scores(text)` Python function:
 
@@ -213,13 +214,13 @@ import static org.example.GraalPyContext.PYTHON;
 @Bean
 public class SentimentAnalysis {
 
-    private SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
+    private final SentimentIntensityAnalyzer sentimentIntensityAnalyzer;
 
     public SentimentAnalysis(GraalPyContext context) {
-        Value value = context.get().eval(PYTHON, """ 
+        Value value = context.get().eval(PYTHON, """
                 from vader_sentiment.vader_sentiment import SentimentIntensityAnalyzer
                 SentimentIntensityAnalyzer() # ①
-                """); 
+                """);
         sentimentIntensityAnalyzer = value.as(SentimentIntensityAnalyzer.class); // ②
     }
 
@@ -341,15 +342,16 @@ To create a microservice that provides a simple sentiment analysis, you also nee
 ```java
 package org.example;
 
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.*;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
 import java.util.Map;
 
 @Controller // ①
 public class SentimentAnalysisController {
-    
-    private SentimentAnalysis sentimentAnalysis;
+
+    private final SentimentAnalysis sentimentAnalysis;
 
     SentimentAnalysisController(SentimentAnalysis sentimentAnalysis) { // ②
         this.sentimentAnalysis = sentimentAnalysis;
@@ -362,8 +364,9 @@ public class SentimentAnalysisController {
     }
 
     @Get(value = "/analyze") // ⑤
+    @ExecuteOn(TaskExecutors.BLOCKING) // ⑥
     public Map<String, Double> answer(String text) {
-        return sentimentAnalysis.getPolarityScores(text); // ⑥
+        return sentimentAnalysis.getPolarityScores(text); // ⑦
     }
 }
 ```
@@ -372,13 +375,15 @@ public class SentimentAnalysisController {
 
 ❷ Use constructor injection to inject a bean of the type `SentimentAnalysis`.
 
-❸ The [@Get](https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Get.html) annotation maps the `index` method to an HTTP GET request on "/". 
+❸ The [@Get](https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Get.html) annotation maps the `index` method to an HTTP GET request on "/".
 
 ❹ The `thymeleaf` [@View](https://micronaut-projects.github.io/micronaut-views/latest/api/io/micronaut/views/View.html) annotation indicates that _resources/views/index.html_ should be rendered on a HTTP GET request.
 
 ❺ The [@Get](https://docs.micronaut.io/latest/api/io/micronaut/http/annotation/Get.html) annotation maps the path `/analyze` to a HTTP GET request.
 
-❻ Use the `SentimentAnalysis` bean to call the `SentimentIntensityAnalyzer.polarity_scores(text)` Python function.
+❻ Since the computation is somewhat CPU intensive, we offload it from the Netty event loop using `@ExecuteOn(TaskExecutors.BLOCKING)`.
+
+❼ Use the `SentimentAnalysis` bean to call the `SentimentIntensityAnalyzer.polarity_scores(text)` Python function.
 
 ### 4.8 Test
 
@@ -407,7 +412,7 @@ class SentimentAnalysisControllerTest {
 }
 ```
 
-❶ Annotate the class with `@MicronautTest` so the Micronaut framework will initialize the application context and the embedded server. 
+❶ Annotate the class with `@MicronautTest` so the Micronaut framework will initialize the application context and the embedded server.
 [More info](https://micronaut-projects.github.io/micronaut-test/latest/guide/).
 
 ❷ Inject the `HttpClient` bean and point it to the embedded server.
@@ -443,7 +448,7 @@ For the case that also a native executable has to be generated, create a proxy c
 `src/main/resources/META-INF/native-image/proxy-config.json`
 ```json
 [
-  ["org.example.SentimentIntensityAnalyzer"] 
+  ["org.example.SentimentIntensityAnalyzer"]
 ]
 ```
 
@@ -453,7 +458,7 @@ We will use GraalVM, the polyglot embeddable virtual machine, to generate a nati
 
 Compiling native executables ahead of time with GraalVM improves startup time and reduces the memory footprint of JVM-based applications.
 
-Make sure that the `JAVA_HOME` environmental variable is set to the location of a GraalVM installation.   
+Make sure that the `JAVA_HOME` environmental variable is set to the location of a GraalVM installation.
 We recommend using a GraalVM 24.1, which works fine with Micronaut 4.6.0.
 
 To generate a native executable using Maven, run:
@@ -470,9 +475,17 @@ The native executable is created in the `target` directory and can be run with:
 
 ## 8. Next steps
 
-- Learn more about [embedding features](todo)
-- Understand the the features and limitations of the [virtual filesystem](todo)
-- Follow along how you can manually [install Python packages and files](todo) if the Maven plugin gives not enough control
-- [Optimize](todo) single- and multi-threaded performance and footprint
-- Build a [native image with Python](todo)
-- Use Python packages that rely on [native code](todo), e.g. for data science and machine learning
+- [Micronaut GraalPy plugin guide](https://guides.micronaut.io/latest/micronaut-graalpy.html)
+to read on the Micronaut GraalPy plugin that can remove some of the boilerplate code.
+- Use GraalPy in a [Java SE application](../graalpy-javase-guide/README.md)
+- Use GraalPy with [Spring Boot](../graalpy-spring-boot-guide/README.md)
+- Install and use Python packages that rely on [native code](../graalpy-native-extensions-guide/README.md), e.g. for data science and machine learning
+- Follow along how you can manually [install Python packages and files](../graalpy-custom-venv-guide/README.md) if the Maven plugin gives not enough control
+- [Freeze](../graalpy-freeze-dependencies-guide/README.md) transitive Python dependencies for reproducible builds
+- [Migrate from Jython](../graalpy-jython-guide/README.md) to GraalPy
+
+
+- Learn more about GraalPy [Micronaut plugin](https://guides.micronaut.io/latest/micronaut-graalpy.html)
+- Learn more about the GraalPy [Maven plugin](https://www.graalvm.org/latest/reference-manual/python/Embedding-Build-Tools/)
+- Learn more about the Polyglot API for [embedding languages](https://www.graalvm.org/latest/reference-manual/embed-languages/)
+- Explore in depth with GraalPy [reference manual](https://www.graalvm.org/latest/reference-manual/python/)
