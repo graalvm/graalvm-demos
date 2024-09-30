@@ -40,7 +40,7 @@ jobs:
         run: |
           cd graalpy/graalpy-micronaut-guide
           ./mvnw --no-transfer-progress clean package -DskipTests -Dpackaging=native-image
-          ./target/demo &
+          ./target/graalpy-micronaut &
           mnpid="$!"
           sleep 20
           curl -s -D - -o /dev/null http://localhost:8080/

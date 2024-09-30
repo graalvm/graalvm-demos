@@ -40,7 +40,7 @@ jobs:
         run: |
           cd graalpy/graalpy-spring-boot-guide
           ./mvnw --no-transfer-progress clean -DskipTests -Pnative native:compile
-          ./target/demo &
+          ./target/graalpy-springboot &
           sbpid="$!"
           sleep 20
           curl -s -D - -o /dev/null http://localhost:8080/
