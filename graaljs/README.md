@@ -1,3 +1,1 @@
-# GraalJS Demos
-
-This directory contains demo applications for [GraalJS](https://www.graalvm.org/javascript/).
+*GraalJS demos and guides are now available at https://github.com/graalvm/graal-languages-demos/tree/main/graaljs/.*

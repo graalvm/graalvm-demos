@@ -1,3 +1,1 @@
-# GraalWasm Demos
-
-This directory contains demo applications for [GraalWasm](https://www.graalvm.org/webassembly/).
+*GraalWasm demos and guides are now available at https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/.*
