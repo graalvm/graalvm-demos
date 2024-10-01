@@ -1,3 +1,1 @@
-# GraalPy Demos
-
-This directory contains demo applications for [GraalPy](https://www.graalvm.org/python/).
+*GraalPy demos and guides are now available at https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/.*
