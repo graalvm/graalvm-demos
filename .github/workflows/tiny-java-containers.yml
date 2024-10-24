@@ -23,24 +23,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'tiny-java-containers'
         run: |
-          cd tiny-java-containers
           sleep_period=5
-          #
-          # Setup musl toolchain
-          #
-          ./setup-musl.sh
-          export PATH="$PWD/musl-toolchain/bin:$PATH"
-          #
-          # Download upx
-          #
-          ./setup-upx.sh
-          #
+          cd tiny-java-containers
           # Hello World
           #
           cd helloworld
           ./build.sh
-          ./hello
-          ./hello.upx
           docker run --rm hello:upx
           cd ..
           #
@@ -64,9 +52,12 @@ jobs:
           curl "http://localhost:8000"
           docker stop $container_id          
           #
-          # Static Scratch
+          # Static
           #
           ./build-static.sh
+          #
+          # Static Scratch
+          #
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:scratch.static)
           sleep $sleep_period
           curl "http://localhost:8000"
@@ -97,6 +88,32 @@ jobs:
           # 
           ./build-jlink.sh
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.jlink)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # JDK Build
+          #
+          ./build-jvm.sh 
+          #
+          # Debian JDK 
+          #
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:debian)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Eclipse Temurin Static
+          #
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:temurin)
+          sleep $sleep_period
+          curl "http://localhost:8000"
+          docker stop $container_id
+          #
+          # Distroless Java
+          # 
+          ./build-jlink.sh
+          container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java)
           sleep $sleep_period
           curl "http://localhost:8000"
           docker stop $container_id
