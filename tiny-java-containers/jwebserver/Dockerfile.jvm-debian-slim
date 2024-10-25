@@ -8,4 +8,4 @@ RUN apt-get update && \
     rm -f graalvm.tar.gz
 COPY index.html /web/index.html
 EXPOSE 8000
-ENTRYPOINT ["/web/graalvm-jdk-23+37.1/bin/jwebserver", "-b", "0.0.0.0", "-d", "/web"]
+ENTRYPOINT ["/web/graalvm-jdk-23+37.1/bin/java", "-m", "jdk.httpserver", "-b", "0.0.0.0", "-d", "/web"]
