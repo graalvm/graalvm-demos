@@ -27,7 +27,7 @@ App](images/youtube.png)](https://youtu.be/6wYrAtngIVo)
 
 ## Setup
 
-Clone this Git repo.  Everything runs in Docker so no need to install anything
+Clone this Git repo. Everything runs in Docker so no need to install anything
 on your machine.
 
 ## Hello World
