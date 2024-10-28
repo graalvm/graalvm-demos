@@ -2,7 +2,7 @@ FROM container-registry.oracle.com/graalvm/native-image:23-muslib AS nativebuild
 WORKDIR /build
 
 # Build a statically linked native executable optimizing for size with `-Os`
-RUN native-image --static --libc=musl -Os --enable-sbom=cyclonedx -m jdk.httpserver -o jwebserver.static
+RUN native-image --static --libc=musl -Os -m jdk.httpserver -o jwebserver.static
 RUN ls -lh jwebserver.static
 
 # Install and use UPX

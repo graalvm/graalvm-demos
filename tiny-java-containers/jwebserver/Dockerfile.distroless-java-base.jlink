@@ -1,5 +1,4 @@
 FROM container-registry.oracle.com/graalvm/jdk:23 AS build
-RUN microdnf install -y binutils
 WORKDIR /build
 # Build a runtime image optimized for size
 RUN jlink \

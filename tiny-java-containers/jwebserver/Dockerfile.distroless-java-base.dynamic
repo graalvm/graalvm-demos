@@ -1,7 +1,7 @@
 FROM container-registry.oracle.com/graalvm/native-image:23 AS nativebuild
 WORKDIR /build
 # Build a dynamically linked native executable optimizing for size with `-Os`
-RUN native-image -Os --enable-sbom=cyclonedx -m jdk.httpserver -o jwebserver.dynamic
+RUN native-image -Os -m jdk.httpserver -o jwebserver.dynamic
 RUN ls -lh jwebserver.dynamic
 
 FROM gcr.io/distroless/java-base-debian12
