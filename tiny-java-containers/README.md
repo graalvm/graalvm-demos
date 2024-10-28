@@ -34,7 +34,7 @@ on your machine.
 
 Let's start with a simple Hello World example.
 
-CD into the `helloworld` folder.
+Change the directory to `helloworld`.
 
 ![](images/keyboard.jpg) `cd helloworld`
 
