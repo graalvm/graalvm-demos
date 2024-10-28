@@ -12,7 +12,7 @@ RUN microdnf -y install wget xz && \
     mv upx-${UPX_VERSION}-amd64_linux/upx . && \
     rm -rf upx-${UPX_VERSION}-amd64_linux
 
-    # Compile the Hello class to Java bytecode
+# Compile the Hello class to Java bytecode
 COPY Hello.java Hello.java
 RUN javac Hello.java
 # Build a native executable with native-image
