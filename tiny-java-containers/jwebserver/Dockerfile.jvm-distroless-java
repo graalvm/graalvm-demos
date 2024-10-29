@@ -1,0 +1,4 @@
+FROM gcr.io/distroless/java21-debian12
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["java", "-m", "jdk.httpserver", "-b", "0.0.0.0", "-d", "/web"]

@@ -1,5 +1,20 @@
+FROM container-registry.oracle.com/graalvm/jdk:23 AS build
+WORKDIR /build
+# Build a runtime image optimized for size
+RUN jlink \
+        --module-path ${JAVA_HOME}/jmods \
+        --add-modules jdk.httpserver \
+        --verbose \
+        --strip-debug \
+        --compress zip-9 \
+        --no-header-files \
+        --no-man-pages \
+        --strip-java-debug-attributes \
+        --output jwebserver-jlink
+RUN du -h jwebserver-jlink
+
 FROM gcr.io/distroless/java-base-debian12
-COPY jwebserver-jlink /usr/lib/java
+COPY --from=build /build/jwebserver-jlink /usr/lib/java
 COPY index.html /web/index.html
 EXPOSE 8000
 ENTRYPOINT ["/usr/lib/java/bin/jwebserver", "-b", "0.0.0.0", "-d", "/web"]

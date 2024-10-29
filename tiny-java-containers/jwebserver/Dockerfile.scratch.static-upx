@@ -1,5 +1,24 @@
+FROM container-registry.oracle.com/graalvm/native-image:23-muslib AS nativebuild
+WORKDIR /build
+
+# Build a statically linked native executable optimizing for size with `-Os`
+RUN native-image --static --libc=musl -Os -m jdk.httpserver -o jwebserver.static
+RUN ls -lh jwebserver.static
+
+# Install and use UPX
+ARG UPX_VERSION=4.2.2
+ARG UPX_ARCHIVE=upx-${UPX_VERSION}-amd64_linux.tar.xz
+RUN microdnf -y install wget xz && \
+    wget -q https://github.com/upx/upx/releases/download/v${UPX_VERSION}/${UPX_ARCHIVE} && \
+    tar -xJf ${UPX_ARCHIVE} && \
+    rm -rf ${UPX_ARCHIVE} && \
+    mv upx-${UPX_VERSION}-amd64_linux/upx . && \
+    rm -rf upx-${UPX_VERSION}-amd64_linux
+RUN ./upx --lzma --best -o jwebserver.static-upx jwebserver.static
+RUN ls -lh jwebserver.static-upx
+
 FROM scratch
-COPY jwebserver.static-upx /
+COPY --from=nativebuild /build/jwebserver.static-upx /
 COPY index.html /web/index.html
 EXPOSE 8000
 ENTRYPOINT ["/jwebserver.static-upx", "-b", "0.0.0.0", "-d", "/web"]

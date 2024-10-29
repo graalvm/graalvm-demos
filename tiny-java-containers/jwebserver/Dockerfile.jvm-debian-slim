@@ -1,0 +1,11 @@
+FROM debian:12-slim
+WORKDIR /web
+RUN apt-get update && \
+    apt-get install -y wget && \
+    apt-get clean && \
+    wget -q https://download.oracle.com/graalvm/23/archive/graalvm-jdk-23_linux-x64_bin.tar.gz -O graalvm.tar.gz && \
+    tar -xf graalvm.tar.gz && \
+    rm -f graalvm.tar.gz
+COPY index.html /web/index.html
+EXPOSE 8000
+ENTRYPOINT ["/web/graalvm-jdk-23+37.1/bin/java", "-m", "jdk.httpserver", "-b", "0.0.0.0", "-d", "/web"]

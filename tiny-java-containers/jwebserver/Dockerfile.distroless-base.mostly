@@ -1,5 +1,11 @@
+FROM container-registry.oracle.com/graalvm/native-image:23 AS nativebuild
+WORKDIR /build
+# Build a native executable optimizing for size with `-Os`
+RUN native-image --static-nolibc -Os -m jdk.httpserver -o jwebserver.mostly
+RUN ls -lh jwebserver.mostly
+
 FROM gcr.io/distroless/base-debian12
-COPY jwebserver.mostly /
+COPY --from=nativebuild /build/jwebserver.mostly /
 COPY index.html /web/index.html
 EXPOSE 8000
 ENTRYPOINT ["/jwebserver.mostly", "-b", "0.0.0.0", "-d", "/web"]

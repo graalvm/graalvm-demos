@@ -1,5 +1,11 @@
+FROM container-registry.oracle.com/graalvm/native-image:23 AS nativebuild
+WORKDIR /build
+# Build a dynamically linked native executable optimizing for size with `-Os`
+RUN native-image -Os -m jdk.httpserver -o jwebserver.dynamic
+RUN ls -lh jwebserver.dynamic
+
 FROM gcr.io/distroless/java-base-debian12
-COPY jwebserver.dynamic /
+COPY --from=nativebuild /build/jwebserver.dynamic /
 COPY index.html /web/index.html
 EXPOSE 8000
 ENTRYPOINT ["/jwebserver.dynamic", "-b", "0.0.0.0", "-d", "/web"]

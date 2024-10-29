@@ -1,5 +1,11 @@
+FROM container-registry.oracle.com/graalvm/native-image:23-muslib AS nativebuild
+WORKDIR /build
+# Build a statically linked native executable optimizing for size with `-Os`
+RUN native-image --static --libc=musl -Os -m jdk.httpserver -o jwebserver.static
+RUN ls -lh jwebserver.static
+
 FROM scratch
-COPY jwebserver.static /
+COPY --from=nativebuild /build/jwebserver.static /
 COPY index.html /web/index.html
 EXPOSE 8000
 ENTRYPOINT ["/jwebserver.static", "-b", "0.0.0.0", "-d", "/web"]
