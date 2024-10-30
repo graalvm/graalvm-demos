@@ -1,6 +1,11 @@
 # Using Oracle GraalVM for JDK 17
 FROM container-registry.oracle.com/graalvm/native-image:21-ol8 AS builder
 
+# gzip required for maven wrapper builds
+RUN microdnf install gzip
+
+# findutils needed for gradle wrapper build
+RUN microdnf install findutils
 # Set the working directory to /home/app
 WORKDIR /build
 
