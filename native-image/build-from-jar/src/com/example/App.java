@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -38,15 +38,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-   
-public class LoggerRunTimeInit {
-    public static void main(String[] args) throws IOException {
-        LogManager.getLogManager().readConfiguration(LoggerRunTimeInit.class.getResourceAsStream("/logging.properties"));
-        Logger logger = Logger.getLogger(LoggerRunTimeInit.class.getName());
-        logger.log(Level.WARNING, "Danger, Will Robinson!");
-    }
-}
+  package com.example;
+
+  public class App {
+
+      public static void main(String[] args) {
+          String str = "Native Image is awesome";
+          String reversed = reverseString(str);
+          System.out.println("The reversed string is: " + reversed);
+      }
+
+      public static String reverseString(String str) {
+          if (str.isEmpty())
+              return str;
+          return reverseString(str.substring(1)) + str.charAt(0);
+      }
+  }
