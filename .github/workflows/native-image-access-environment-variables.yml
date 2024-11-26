@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'native-image/access-environment-variables/**'
-      - '.github/workflows/access-environment-variables.yml'
+      - '.github/workflows/native-image-access-environment-variables.yml'
   pull_request:
     paths:
       - 'native-image/access-environment-variables/**'
-      - '.github/workflows/access-environment-variables.yml'
+      - '.github/workflows/native-image-access-environment-variables.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
