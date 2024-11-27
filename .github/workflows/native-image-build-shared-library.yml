@@ -1,13 +1,13 @@
-name: native-shared-library
+name: native-image/build-shared-library
 on:
   push:
     paths:
-      - 'native-shared-library/**'
-      - '.github/workflows/native-shared-library.yml'
+      - 'native-image/build-shared-library/**'
+      - '.github/workflows/native-image-build-shared-library.yml'
   pull_request:
     paths:
-      - 'native-shared-library/**'
-      - '.github/workflows/native-shared-library.yml'
+      - 'native-image/build-shared-library/**'
+      - '.github/workflows/native-image-build-shared-library.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-shared-library'
+    name: Run 'native-image/build-shared-library'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -29,10 +29,7 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'native-shared-library'
+      - name: Run 'native-image/build-shared-library'
         run: |
-          cd native-shared-library
-          javac LibEnvMap.java
-          native-image -o libenvmap --shared 
-          clang -I ./ -L ./ -l envmap -Wl,-rpath ./ -o main main.c
-          ./main USER
+          cd native-image/build-shared-library
+          ./run.sh
