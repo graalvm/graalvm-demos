@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-jfr-demo'
+    name: Run 'native-image/add-jfr-support'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:

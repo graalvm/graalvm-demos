@@ -1,13 +1,13 @@
-name: native-image-jmx-demo
+name: native-image/add-jmx-support
 on:
   push:
     paths:
-      - 'native-image-jmx-demo/**'
-      - '.github/workflows/native-image-jmx-demo.yml'
+      - 'native-image/add-jmx-support/**'
+      - '.github/workflows/native-image-add-jmx-support.yml'
   pull_request:
     paths:
-      - 'native-image-jmx-demo/**'
-      - '.github/workflows/native-image-jmx-demo.yml'
+      - 'native-image/add-jmx-support/**'
+      - '.github/workflows/native-image-add-jmx-support.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,12 +15,12 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image-jmx-demo'
+    name: Run 'native-image/add-jmx-support'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -31,10 +31,10 @@ jobs:
           native-image-job-reports: 'true'
       - name: Run 'native-image-jmx-demo'
         run: |
-          cd native-image-jmx-demo
+          cd native-image/add-jmx-support
           wget -q https://github.com/jiaqi/jmxterm/releases/download/v1.0.2/jmxterm-1.0.2-uber.jar
           javac SimpleJmx.java
-          native-image --enable-monitoring=jmxserver,jmxclient,jvmstat -H:DynamicProxyConfigurationFiles=proxy-config.json SimpleJmx
+          native-image -Ob --enable-monitoring=jmxserver,jmxclient,jvmstat -H:DynamicProxyConfigurationFiles=proxy-config.json SimpleJmx
           ./simplejmx -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=9996 -Dcom.sun.management.jmxremote.ssl=false &
           sleep 1
           echo "get --bean com.jmx.test.basic:name=simple *" | java -jar jmxterm-1.0.2-uber.jar --noninteract --url localhost:9996
