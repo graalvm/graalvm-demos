@@ -1,13 +1,13 @@
-name: native-hello-module
+name: native-image/build-java-modules
 on:
   push:
     paths:
-      - 'native-hello-module/**'
-      - '.github/workflows/native-hello-module.yml'
+      - 'native-image/build-java-modules/**'
+      - '.github/workflows/native-image-build-java-modules.yml'
   pull_request:
     paths:
-      - 'native-hello-module/**'
-      - '.github/workflows/native-hello-module.yml'
+      - 'native-image/build-java-modules/**'
+      - '.github/workflows/native-image-build-java-modules.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,12 +15,12 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-hello-module'
+    name: Run 'native-image/build-java-modules'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -30,9 +30,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'native-hello-module'
+      - name: Run 'native-image/build-java-modules'
         run: |
-          cd native-hello-module
-          mvn --no-transfer-progress package
-          native-image --module-path target/HelloModule-1.0-SNAPSHOT.jar --module HelloModule
-          ./hellomodule
+          cd native-image/build-java-modules
+          ./run.sh
