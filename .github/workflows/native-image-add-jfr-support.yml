@@ -1,13 +1,13 @@
-name: native-jfr-demo
+name: native-image/add-jfr-support
 on:
   push:
     paths:
-      - 'native-jfr-demo/**'
-      - '.github/workflows/native-jfr-demo.yml'
+      - 'native-image/add-jfr-support/**'
+      - '.github/workflows/native-image-add-jfr-support.yml'
   pull_request:
     paths:
-      - 'native-jfr-demo/**'
-      - '.github/workflows/native-jfr-demo.yml'
+      - 'native-image/add-jfr-support/**'
+      - '.github/workflows/native-image-add-jfr-support.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -31,8 +31,5 @@ jobs:
           native-image-job-reports: 'true'
       - name: Run 'native-jfr-demo'
         run: |
-          cd native-jfr-demo
-          javac JFRDemo.java
-          native-image --enable-monitoring=jfr JFRDemo
-          ./jfrdemo -XX:+FlightRecorder -XX:StartFlightRecording="filename=recording.jfr"
-          jfr print recording.jfr
+          cd native-image/add-jfr-support
+          ./run.sh
