@@ -225,23 +225,6 @@ cd graalvm-demos
   </tbody>
 </table>
 
-### Kotlin
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/java-kotlin-aot/">java-kotlin-aot</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml"><img alt="java-kotlin-aot" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to interoperate between Java and Kotlin and build a native executable <br><strong>Technologies: </strong>Native Image, Kotlin, Maven</td>
-    </tr>
-  </tbody>
-</table>
-
 ### Polyglot
 
 <table>
