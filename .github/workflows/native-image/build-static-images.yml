@@ -1,0 +1,53 @@
+name: native-image/build-static-images
+on:
+  push:
+    paths:
+      - 'native-image/build-static-images/**'
+      - '.github/workflows/native-image/build-static-images.yml'
+  pull_request:
+    paths:
+      - 'native-image/build-static-images/**'
+      - '.github/workflows/native-image/build-static-images.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run-static:
+    name: Run fully static
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          native-image-musl: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run fully static
+        run: |
+          cd native-image/build-static-images
+          javac EnvMap.java
+          native-image --static --libc=musl EnvMap -o static-envmap
+  run-mostly-static:
+    name: Run mostly-static
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '24-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run mostly-static
+        run: |
+          cd native-image/build-static-images
+          javac EnvMap.java
+          native-image -Ob --static-nolibc EnvMap -o mostly-static-envmap
