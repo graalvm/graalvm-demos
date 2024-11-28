@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'native-image/add-jmx/**'
-      - '.github/workflows/native-image/add-jmx.yml'
+      - '.github/workflows/native-image-add-jmx.yml'
   pull_request:
     paths:
       - 'native-image/add-jmx/**'
-      - '.github/workflows/native-image/add-jmx.yml'
+      - '.github/workflows/native-image-add-jmx.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:

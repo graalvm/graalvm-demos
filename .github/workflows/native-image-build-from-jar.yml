@@ -1,13 +1,13 @@
-name: native-image/configure-with-tracing-agent
+name: native-image/build-from-jar
 on:
   push:
     paths:
-      - 'native-image/configure-with-tracing-agent/**'
-      - '.github/workflows/native-image/configure-with-tracing-agent.yml'
+      - 'native-image/build-from-jar/**'
+      - '.github/workflows/native-image-build-from-jar.yml'
   pull_request:
     paths:
-      - 'native-image/configure-with-tracing-agent/**'
-      - '.github/workflows/native-image/configure-with-tracing-agent.yml'
+      - 'native-image/build-from-jar/**'
+      - '.github/workflows/native-image-build-from-jar.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/configure-with-tracing-agent
+    name: Run 'native-image/build-from-jar'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -29,7 +29,7 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'native-image/configure-with-tracing-agent'
+      - name: Run 'native-image/build-from-jar'
         run: |
-          cd native-image/configure-with-tracing-agent
+          cd native-image/build-from-jar
           ./run.sh

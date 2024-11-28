@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'native-image/build-with-js-embedded/**'
-      - '.github/workflows/native-image/build-with-js-embedded.yml'
+      - '.github/workflows/native-image-build-with-js-embedded.yml'
   pull_request:
     paths:
       - 'native-image/build-with-js-embedded/**'
-      - '.github/workflows/native-image/build-with-js-embedded.yml'
+      - '.github/workflows/native-image-build-with-js-embedded.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
