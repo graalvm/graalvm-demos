@@ -1,13 +1,13 @@
-name: native-image/build-java-modules
+name: native-image/add-jfr
 on:
   push:
     paths:
-      - 'native-image/build-java-modules/**'
-      - '.github/workflows/native-image/build-java-modules.yml'
+      - 'native-image/add-jfr/**'
+      - '.github/workflows/native-image-add-jfr.yml'
   pull_request:
     paths:
-      - 'native-image/build-java-modules/**'
-      - '.github/workflows/native-image-build/java-modules.yml'
+      - 'native-image/add-jfr/**'
+      - '.github/workflows/native-image-add-jfr.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/build-java-modules'
+    name: Run 'native-image/add-jfr'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -28,9 +28,8 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'native-image/build-java-modules'
+      - name: Run 'native-image/add-jfr'
         run: |
-          cd native-image/build-java-modules
+          cd native-image/add-jfr
           ./run.sh

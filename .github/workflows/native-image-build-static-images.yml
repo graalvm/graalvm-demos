@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'native-image/build-static-images/**'
-      - '.github/workflows/native-image/build-static-images.yml'
+      - '.github/workflows/native-image-build-static-images.yml'
   pull_request:
     paths:
       - 'native-image/build-static-images/**'
-      - '.github/workflows/native-image/build-static-images.yml'
+      - '.github/workflows/native-image-build-static-images.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:

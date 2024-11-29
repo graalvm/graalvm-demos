@@ -1,13 +1,13 @@
-name: native-image/add-logging
+name: native-image/access-environment-variables
 on:
   push:
     paths:
-      - 'native-image/add-logging/**'
-      - '.github/workflows/native-image/add-logging.yml'
+      - 'native-image/access-environment-variables/**'
+      - '.github/workflows/native-image-access-environment-variables.yml'
   pull_request:
     paths:
-      - 'native-image/add-logging/**'
-      - '.github/workflows/native-image/add-logging.yml'
+      - 'native-image/access-environment-variables/**'
+      - '.github/workflows/native-image-access-environment-variables.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/add-logging'
+    name: Run 'native-image/access-environment-variables'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -29,7 +29,7 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'native-image/add-logging'
+      - name: Run 'native-image/access-environment-variables'
         run: |
-          cd native-image/add-logging
+          cd native-image/access-environment-variables
           ./run.sh

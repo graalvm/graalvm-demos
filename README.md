@@ -36,7 +36,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/code-editor/">Oracle GraalVM in OCI Code Editor</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-hello-module/">native-hello-module</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml"><img alt="native-hello-module" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-hello-module.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-image/build-java-modules/">native-image/build-java-modules</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-java-modules.yml"><img alt="build-java-modules" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-java-modules.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to build a modular Java application into a native executable<br><strong>Technologies: </strong>Native Image, Maven<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-java-modules-into-native-executable/">Build Java Modules into a Native Executable</a></td>
     </tr>
     <tr>
@@ -72,23 +72,23 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to debug a Java application, built into a native executable in VS Code<br><strong>Technologies: </strong>Native Image, Maven, GraalVM Tools for Java<br><strong>Reference: </strong><a href="https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1">Native Image Debugging in VS Code</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-image-logging-examples/">native-image-logging-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-logging-demo/.github/workflows/native-image-logging-examples.yml"><img alt="native-image-logging-examples" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-logging-examples.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-image/add-logging/">native-image/add-logging</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-logging-demo/.github/workflows/native-image-add-logging.yml"><img alt="add-logging" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-add-logging.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to initialize Loggers with Native Image at the executable build or run time<br><strong>Technologies: </strong> Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/add-logging-to-native-executable/">Add Logging to a Native Executable</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-jfr-demo/">native-jfr-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/ni-native-executable-jfr-demo/.github/workflows/native-jfr-demo.yml"><img alt="native-jfr-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-jfr-demo.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/add-jfr/">native-image/add-jfr</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/ni-native-executable-jfr-demo/.github/workflows/native-image-add-jfr.yml"><img alt="add-jfr" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-add-jfr.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to create a custom JDK Flight Recorder (JFR) event and use that in a native executable<br><strong>Technologies: </strong> Native Image, JFR, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-and-run-native-executable-with-jfr/">Build and Run Native Executables with JFR</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-shared-library/">native-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml"><img alt="native-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-shared-library.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/build-shared-library/">native-image/build-shared-library</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-shared-library.yml"><img alt="build-shared-library" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-shared-library.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to create a Java class library, use Native Image to create a native shared library, and then create a small C application that uses that shared library<br><strong>Technologies: </strong> Native Image, LLVM toolchain <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-shared-library/">Build a Native Shared Library</a></td>
-    </tr>  
+    </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-image-reflection-example/">native-image-reflection-example</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml"><img alt="native-image-reflection-example" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-reflection-example.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/configure-with-tracing-agent/">native-image/configure-with-tracing-agent</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-configure-with-tracing-agent.yml"><img alt="configure-with-tracing-agent" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-configure-with-tracing-agent.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to provide metadata for Native Image in the form of JSON configuration files using a tracing agent<br><strong>Technologies: </strong> Native Image</td>
-    </tr>  
+    </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-static-images/">native-static-images</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml"><img alt="native-static-images" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-static-images.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/build-static-images/">native-image/build-static-images</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-static-images.yml"><img alt="build-static-images" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-build-static-images.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to build a fully static and a mostly-static native executable.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Build a Statically Linked or Mostly-Statically Linked Native Executable</a></td>
     </tr>
     <tr>
@@ -96,7 +96,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates different ways to generate a heap dump from a running native executable.<br><strong>Technologies: </strong> Native Image, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/create-heap-dump/">Create a Heap Dump from a Native Executable</a></td>
     </tr>  
     <tr>
-      <td align="left" width="30%"><a href="/native-image-jmx-demo/">native-image-jmx-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml"><img alt="nnative-image-jmx-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-jmx-demo.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/add-jmx/">native-image/add-jmx</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-add-jmx.yml"><img alt="add-jmx" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-add-jmx.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to build, run, and interact with a native executable using JMX.<br><strong>Technologies: </strong> Native Image, JMX, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-and-run-native-executable-with-remote-jmx/">Build and Run Native Executables with Remote JMX</a></td>
     </tr>
   </tbody>
