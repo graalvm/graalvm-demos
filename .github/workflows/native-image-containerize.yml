@@ -1,13 +1,13 @@
-name: spring-native-image
+name: native-image/containerize
 on:
   push:
     paths:
-      - 'spring-native-image/**'
-      - '.github/workflows/spring-native-image.yml'
+      - 'native-image/containerize/**'
+      - '.github/workflows/native-image-containerize.yml'
   pull_request:
     paths:
-      - 'spring-native-image/**'
-      - '.github/workflows/spring-native-image.yml'
+      - 'native-image/containerize/**'
+      - '.github/workflows/native-image-containerize.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,12 +15,12 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'spring-native-graal'
+    name: Run 'native-image/containerize'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -30,9 +30,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'spring-native-image'
+      - name: Run 'native-image/containerize'
         run: |
-          cd spring-native-image
+          cd native-image/containerize
           mvn --no-transfer-progress package
           mvn --no-transfer-progress native:compile -Pnative
           ./target/benchmark-jibber &
