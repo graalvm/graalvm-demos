@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/configure-with-tracing-agent
+    name: Run 'native-image/configure-with-tracing-agent'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:

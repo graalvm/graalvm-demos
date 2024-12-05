@@ -1,0 +1,32 @@
+name: native-image/embed-sbom
+on:
+  push:
+    paths:
+      - 'native-image/embed-sbom/**'
+      - '.github/workflows/native-image-embed-sbom.yml'
+  pull_request:
+    paths:
+      - 'native-image/embed-sbom/**'
+      - '.github/workflows/native-image-embed-sbom.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/embed-sbom'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '24-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/embed-sbom'
+        run: |
+          cd native-image/embed-sbom
+          ./run.sh
