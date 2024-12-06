@@ -1,0 +1,38 @@
+name: native-image/include-resources
+on:
+  push:
+    paths:
+      - 'native-image/include-resources/**'
+      - '.github/workflows/native-image-include-resources.yml'
+  pull_request:
+    paths:
+      - 'native-image/include-resources/**'
+      - '.github/workflows/native-image-include-resources.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/include-resources'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/include-resources'
+        run: |
+          cd native-image/include-resources
+          javac Fortune.java
+          native-image -Ob -H:IncludeResources=".*u8$" Fortune
+          ./fortune
