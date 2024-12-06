@@ -33,4 +33,6 @@ jobs:
       - name: Run 'native-image/include-resources'
         run: |
           cd native-image/include-resources
-          ./run.sh
+          javac Fortune.java
+          native-image -Ob -H:IncludeResources=".*u8$" Fortune
+          ./fortune
