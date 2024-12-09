@@ -15,7 +15,7 @@ native-image -Ob --gc=G1 -o testgc-g1 StringManipulation
 
 # Build a Native Image with Epsilon GC
 native-image -Ob --gc=epsilon -o testgc-epsilon StringManipulation
-/usr/bin/time ./testgc-epsilon 3200000 50000
+/usr/bin/time ./testgc-epsilon 100000 50000
 
 # Build a Native Image Setting the Maximum Heap Size
 # At run time
