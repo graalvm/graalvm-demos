@@ -48,10 +48,6 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas<br><strong>Technologies: </strong>Graal compiler, C2<br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/d502417b-df66-45be-9fed-a3ac8e3f09b1/steps#task-2-run-demos-java-microbenchmark-harness-jmh">Simple Java Stream Benchmark</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/streams/">streams</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how GraalVM efficiently optimizes the Java Streams API application and how to apply PGO<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
       <td align="left" width="70%">A fortune teller Unix program. Build a native executable using Gradle or Maven Native Image plugins.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
     </tr>
