@@ -1,0 +1,33 @@
+name: native-image/emit-build-report
+on:
+  push:
+    paths:
+      - 'native-image/emit-build-report/**'
+      - '.github/workflows/native-image-emit-build-report.yml'
+  pull_request:
+    paths:
+      - 'native-image/emit-build-report/**'
+      - '.github/workflows/native-image-emit-build-report.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/emit-build-report'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '24-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/emit-build-report'
+        run: |
+          cd native-image/emit-build-report
+          ./run.sh
