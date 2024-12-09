@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
-mvn clean package
-mvn native:compile -Pnative
+./mvnw clean package
+/.mvnw native:compile -Pnative
 
 # Linux
 docker build -f Dockerfiles/Dockerfile.native --build-arg APP_FILE=benchmark-jibber -t jibber-benchmark:native.0.0.1-SNAPSHOT .
