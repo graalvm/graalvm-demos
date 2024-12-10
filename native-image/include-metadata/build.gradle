@@ -1,0 +1,32 @@
+plugins {
+    id 'application'
+    // 1. Native Image Gradle plugin
+    id 'org.graalvm.buildtools.native' version '0.10.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// 2. Application main class
+application {
+    mainClass.set('org.graalvm.example.H2Example')
+}
+
+dependencies {
+    // 3. H2 Database dependency
+    implementation("com.h2database:h2:2.2.220")
+}
+
+// 4. Native Image build configuration
+graalvmNative {
+    binaries {
+        main {
+            imageName.set('h2example')
+            buildArgs.add("-Ob")
+        }
+    }
+    agent {
+        defaultMode = "standard"
+    }
+}

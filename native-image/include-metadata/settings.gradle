@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'H2Example'
+include('H2Example')
