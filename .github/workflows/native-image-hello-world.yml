@@ -1,13 +1,13 @@
-name: hello-graal
+name: native-image/hello-world
 on:
   push:
     paths:
-      - 'hello-graal/**'
-      - '.github/workflows/hello-graal.yml'
+      - 'native-image/hello-world/**'
+      - '.github/workflows/native-image-hello-world.yml.yml'
   pull_request:
     paths:
-      - 'hello-graal/**'
-      - '.github/workflows/hello-graal.yml'
+      - 'native-image/hello-world/**'
+      - '.github/workflows/native-image-hello-world.yml.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,12 +15,12 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'hello-graal'
+    name: Run 'native-image/hello-world'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -29,12 +29,7 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'hello-graal'
+      - name: Run 'native-image/hello-world'
         run: |
-          cd hello-graal
-          javac -d build src/com/hello/Graal.java
-          java -cp ./build com.hello.Graal
-          jar cfvm Hello.jar manifest.txt -C build .
-          jar tf Hello.jar
-          native-image -jar Hello.jar
-          ./Hello
+          cd native-image/hello-world
+          ./run.sh
