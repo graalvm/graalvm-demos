@@ -28,8 +28,8 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build very small Docker container images with GraalVM Native Image and various lightweight base images. <br><strong>Technologies: </strong> Native Image, musl libc<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/StaticImages/">Static and Mostly Static Images</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/hello-graal/">hello-graal</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml"><img alt="hello-graal" src="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/#build-a-native-executable">Native Image Getting Started</a></td>
+      <td align="left" width="30%"><a href="/native-image/hello-world/">native-image/hello-world</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml"><img alt="native-image/hello-world" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/#build-a-native-executable-using-the-native-image-tool">Native Image Getting Started</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-hello-world-maven/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml/badge.svg" /></a></td>
