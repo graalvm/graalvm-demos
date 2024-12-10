@@ -1,0 +1,32 @@
+name: native-image/include-metadata
+on:
+  push:
+    paths:
+      - 'native-image/include-metadata/**'
+      - '.github/workflows/native-image-include-metadata.yml'
+  pull_request:
+    paths:
+      - 'native-image/include-metadata/**'
+      - '.github/workflows/native-image-include-metadata.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/include-metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/include-metadata'
+        run: |
+          cd native-image/include-metadata
+          ./run.sh
