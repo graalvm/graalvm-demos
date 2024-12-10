@@ -1,13 +1,13 @@
-name: native-aws-fargate
+name: clouds/native-google-cloud-run
 on:
   push:
     paths:
-      - 'native-aws-fargate/**'
-      - '.github/workflows/native-aws-fargate.yml'
+      - 'clouds/native-google-cloud-run/**'
+      - '.github/workflows/clouds-native-google-cloud-run.yml'
   pull_request:
     paths:
-      - 'native-aws-fargate/**'
-      - '.github/workflows/native-aws-fargate.yml'
+      - 'clouds/native-google-cloud-run/**'
+      - '.github/workflows/clouds-native-google-cloud-run.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,17 +15,17 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-aws-fargate'
+    name: Run 'clouds/native-google-cloud-run'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '17.0.7'
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'native-aws-fargate'
+      - name: Run 'clouds/native-google-cloud-run'
         run: |
-          cd native-aws-fargate
+          cd clouds/native-google-cloud-run
           ./mvnw package -Dpackaging=docker-native
