@@ -52,10 +52,6 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how GraalVM efficiently optimizes the Java Streams API application and how to apply PGO<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">A fortune teller Unix program. Build a native executable using Gradle or Maven Native Image plugins.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image Build Reports, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
     </tr>
