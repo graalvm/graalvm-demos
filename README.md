@@ -40,7 +40,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build a modular Java application into a native executable<br><strong>Technologies: </strong>Native Image, Maven<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-java-modules-into-native-executable/">Build Java Modules into a Native Executable</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-list-dir/">native-list-dir</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml"><img alt="native-list-dir" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-image/list-files/">native-image/list-files</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-list-files.yml"><img alt="native-image/list-files" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-list-files.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains<br><strong>Technologies: </strong>Native Image, PGO
     </tr>
     <tr>
