@@ -1,0 +1,31 @@
+name: native-build-tools-maven
+on:
+  push:
+    paths:
+      - 'native-image/native-build-tools/maven-plugin/**'
+      - '.github/workflows/native-build-tools-maven.yml'
+  pull_request:
+    paths:
+      - 'native-image/native-build-tools/maven-plugin/**'
+      - '.github/workflows/native-build-tools-maven.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-build-tools-maven'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '24-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'native-build-tools-maven'
+        run: |
+          cd native-image/native-build-tools/maven-plugin
+          ./run.sh

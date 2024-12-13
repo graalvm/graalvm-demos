@@ -48,10 +48,6 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas<br><strong>Technologies: </strong>Graal compiler, C2<br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/d502417b-df66-45be-9fed-a3ac8e3f09b1/steps#task-2-run-demos-java-microbenchmark-harness-jmh">Simple Java Stream Benchmark</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/fortune-demo/">fortune-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml"><img alt="fortune-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/fortune-demo.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">A fortune teller Unix program. Build a native executable using Gradle or Maven Native Image plugins.<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://graalvm.github.io/native-build-tools/latest/maven-plugin-quickstart.html">Getting Started with Maven Plugin for GraalVM Native Image</a></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image Build Reports, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
     </tr>
