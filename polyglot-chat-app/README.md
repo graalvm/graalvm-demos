@@ -7,12 +7,12 @@ The example also shows how to create a native executable from the application us
 ## Preparation
 
 1. Download or clone the GraalVM demos repository and navigate into the _polyglot-chat-app_ directory:
-    ```bash
-    git clone https://github.com/graalvm/graalvm-demos
-    ```
-    ```bash
-    cd graalvm-demos/polyglot-chat-app
-    ```
+   ```bash
+   git clone https://github.com/graalvm/graalvm-demos
+   ```
+   ```bash
+   cd graalvm-demos/polyglot-chat-app
+   ```
 
 2. Download and install the latest GraalPy as described in the [Getting Started guide](https://www.graalvm.org/latest/reference-manual/python/#installing-graalpy). For example:
    ```bash
