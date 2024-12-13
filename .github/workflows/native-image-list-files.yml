@@ -1,0 +1,35 @@
+name: native-image/list-files
+on:
+  push:
+    paths:
+      - 'native-image/list-files/**'
+      - '.github/workflows/native-image-list-files.yml'
+  pull_request:
+    paths:
+      - 'native-image/list-files/**'
+      - '.github/workflows/native-image-list-files.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/list-files'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/list-files'
+        run: |
+          cd native-image/list-files
+          ./run.sh

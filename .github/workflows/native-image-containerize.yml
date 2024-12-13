@@ -1,0 +1,40 @@
+name: native-image/containerize
+on:
+  push:
+    paths:
+      - 'native-image/containerize/**'
+      - '.github/workflows/native-image-containerize.yml'
+  pull_request:
+    paths:
+      - 'native-image/containerize/**'
+      - '.github/workflows/native-image-containerize.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/containerize'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/containerize'
+        run: |
+          cd native-image/containerize
+          mvn --no-transfer-progress package
+          mvn --no-transfer-progress native:compile -Pnative
+          ./target/benchmark-jibber &
+          sleep 5
+          curl http://localhost:8080/jibber

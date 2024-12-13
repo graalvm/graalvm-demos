@@ -28,8 +28,8 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build very small Docker container images with GraalVM Native Image and various lightweight base images. <br><strong>Technologies: </strong> Native Image, musl libc<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/StaticImages/">Static and Mostly Static Images</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/hello-graal/">hello-graal</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml"><img alt="hello-graal" src="https://github.com/graalvm/graalvm-demos/actions/workflows/hello-graal.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/#build-a-native-executable">Native Image Getting Started</a></td>
+      <td align="left" width="30%"><a href="/native-image/hello-world/">native-image/hello-world</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml"><img alt="native-image/hello-world" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/#build-a-native-executable-using-the-native-image-tool">Native Image Getting Started</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-hello-world-maven/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml/badge.svg" /></a></td>
@@ -40,16 +40,12 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build a modular Java application into a native executable<br><strong>Technologies: </strong>Native Image, Maven<br><strong>Reference: </strong><a href="https://www.graalvm.org/dev/reference-manual/native-image/guides/build-java-modules-into-native-executable/">Build Java Modules into a Native Executable</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-list-dir/">native-list-dir</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml"><img alt="native-list-dir" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-list-dir.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-image/list-files/">native-image/list-files</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-list-files.yml"><img alt="native-image/list-files" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-list-files.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains<br><strong>Technologies: </strong>Native Image, PGO
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/java-simple-stream-benchmark/">java-simple-stream-benchmark</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml"><img alt="java-simple-stream-benchmark" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-simple-stream-benchmark.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how the Graal compiler can achieve better performance for highly abstracted programs like those using Streams, Lambdas<br><strong>Technologies: </strong>Graal compiler, C2<br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/d502417b-df66-45be-9fed-a3ac8e3f09b1/steps#task-2-run-demos-java-microbenchmark-harness-jmh">Simple Java Stream Benchmark</a></td>
-    </tr>
-    <tr>
-      <td align="left" width="30%"><a href="/streams/">streams</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how GraalVM efficiently optimizes the Java Streams API application and how to apply PGO<br><strong>Technologies: </strong>Native Image, Native Build Tools Maven Plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-with-pgo/">Optimize a Native Executable with Profile-Guided Optimizations</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
@@ -109,23 +105,23 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/native-aws-fargate/">native-aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml"><img alt="native-aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-fargate.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-aws-fargate/">clouds/native-aws-fargate</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-aws-fargate.yml"><img alt="clouds/native-aws-fargate" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-aws-fargate.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on AWS Fargate.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Fargate <br>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-aws-lambda/">native-aws-lambda</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml"><img alt="native-aws-lambda" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-aws-lambda.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-aws-lambda/">clouds/native-aws-lambda</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-aws-lambda.yml"><img alt="clouds/native-aws-lambda" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-aws-lambda.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to deploy a native executable application on AWS Lambda.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, AWS Lambda <br>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-google-cloud-run/">native-google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml"><img alt="native-google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-google-cloud-run.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-google-cloud-run/">clouds/native-google-cloud-run</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-google-cloud-run.yml"><img alt="clouds/native-google-cloud-run" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-google-cloud-run.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on Google Cloud Run.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, Google Cloud CLI, Google Cloud Run <br>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-oci-container-instances/">native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml"><img alt="native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-container-instances.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-oci-container-instances/">clouds/native-oci-container-instances</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-container-instances.yml"><img alt="clouds/native-oci-container-instances" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-container-instances.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to create a container image of a native executable application and deploy the image on OCI Container Instances.<br><strong>Technologies: </strong> Native Image, Apache Maven, Docker, OCI Container Instances<br></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-oci-generative-ai/">native-oci-generative-ai</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai.yml"><img alt="native-oci-generative-ai" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-oci-generative-ai.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-oci-generative-ai/">clouds/native-oci-generative-ai</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-generative-ai.yml"><img alt="clouds/native-oci-generative-ai" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-generative-ai.yml/badge.svg"/></a></td>
       <td align="left" width="70%">This demo covers the steps required to use the Generative AI service provided by Oracle Cloud Infrastructure. It uses a state-of-the-art, customizable large language model to generate text.<br><strong>Technologies: </strong> Native Image, Apache Maven, Generative AI<br></td>
     </tr>
   </tbody>
@@ -176,8 +172,8 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/spring-native-image/">spring-native-image</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-native-image.yml"><img alt="spring-native-image" src="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-native-image.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to compile a Spring Boot application into a native executable using the Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://luna.oracle.com/lab/fdfd090d-e52c-4481-a8de-dccecdca7d68/steps">GraalVM Native Image, Spring and Containerisation</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">Oracle GraalVM in OCI Cloud Shell</a></td>
+      <td align="left" width="30%"><a href="/native-image/containerize/">native-image/containerize</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml"><img alt="native-image/containerizee" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml/badge.svg" /></a></td>
+      <td align="left" width="70%">Demonstrates how to compile a Spring Boot 3 application into a native executable using the Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/containerise-native-executable-and-run-in-docker-container/">Containerize a Native Executable and Run in a Container</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">Oracle GraalVM in OCI Cloud Shell</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/spring-r/">spring-r</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml"><img alt="spring-r" src="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml/badge.svg" /></a></td>
@@ -217,23 +213,6 @@ cd graalvm-demos
     <tr>
       <td align="left" width="30%"><a href="/scalac-native/">scalac-native</a></td>
       <td align="left" width="70%">Demonstrates how to build a native executable of the Scala compiler. The resulting binary has no dependencies on the JDK. <br><strong>Technologies: </strong>Scala 2.12.x, Native Image <br><strong>Reference: </strong><a href="https://medium.com/graalvm/compiling-scala-faster-with-graalvm-86c5c0857fa3">Compiling Scala Faster with GraalVM</a></td>
-    </tr>
-  </tbody>
-</table>
-
-### Kotlin
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/java-kotlin-aot/">java-kotlin-aot</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml"><img alt="java-kotlin-aot" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-kotlin-aot.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to interoperate between Java and Kotlin and build a native executable <br><strong>Technologies: </strong>Native Image, Kotlin, Maven</td>
     </tr>
   </tbody>
 </table>

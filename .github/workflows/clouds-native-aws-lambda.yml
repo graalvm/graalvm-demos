@@ -1,0 +1,35 @@
+name: clouds/native-aws-lambda
+on:
+  push:
+    paths:
+      - 'clouds/native-aws-lambda/**'
+      - '.github/workflows/clouds-native-aws-lambda.yml'
+  pull_request:
+    paths:
+      - 'clouds/native-aws-lambda/**'
+      - '.github/workflows/clouds-native-aws-lambda.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'clouds/native-aws-lambda'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run 'clouds/native-aws-lambda java'
+        run: |
+          cd clouds/native-aws-lambda
+          ./mvnw package
+      - name: Run 'clouds/native-aws-lambda native image'
+        run: |
+          cd clouds/native-aws-lambda
+          ./mvnw package -Dpackaging=docker-native
