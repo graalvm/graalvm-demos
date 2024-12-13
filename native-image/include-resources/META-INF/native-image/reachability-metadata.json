@@ -1,0 +1,7 @@
+{
+    "resources": [
+        {
+        "glob": "fortunes.u8"
+        }
+    ]
+}
