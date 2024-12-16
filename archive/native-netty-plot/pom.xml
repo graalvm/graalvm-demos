@@ -9,7 +9,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
-    <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+    <native.maven.plugin.version>0.10.4</native.maven.plugin.version>
     <maven.compiler.source>${java.specification.version}</maven.compiler.source>
     <maven.compiler.target>${java.specification.version}</maven.compiler.target>
   </properties>
@@ -60,7 +60,7 @@
                             <imageName>${imageName}</imageName>
                             <fallback>false</fallback>
                             <buildArgs>
-                                --no-fallback
+                                <buildArg>--no-fallback</buildArg>
                             </buildArgs>
                             <agent>
                                 <enabled>true</enabled>

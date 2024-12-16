@@ -1,38 +1,33 @@
-name: native-netty-plot
+name: archive/native-netty-plot
 on:
   push:
     paths:
-      - 'native-netty-plot/**'
-      - '.github/workflows/native-netty-plot.yml'
+      - 'archive/native-netty-plot/**'
+      - '.github/workflows/archive-native-netty-plot.yml'
   pull_request:
     paths:
-      - 'native-netty-plot/**'
-      - '.github/workflows/native-netty-plot.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/native-netty-plot/**'
+      - '.github/workflows/archive-native-netty-plot.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-netty-plot'
+    name: Run 'archive/native-netty-plot'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      matrix:
-        java-version: ['21', 'dev']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'native-netty-plot'
+      - name: Run 'archive/native-netty-plot'
         run: |
-          cd native-netty-plot
+          cd archive/native-netty-plot
           mvn --no-transfer-progress package
           java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image/com.oracle.substratevm/netty-plot -jar target/netty-plot-0.1-jar-with-dependencies.jar &
           pid=$!
