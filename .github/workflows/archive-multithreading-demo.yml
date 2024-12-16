@@ -1,43 +1,38 @@
-name: multithreading-demo
+name: archive/multithreading-demo
 on:
   push:
     paths:
-      - 'multithreading-demo/**'
-      - '.github/workflows/multithreading-demo.yml'
+      - 'archive/multithreading-demo/**'
+      - '.github/workflows/archive-multithreading-demo.yml'
   pull_request:
     paths:
-      - 'multithreading-demo/**'
-      - '.github/workflows/multithreading-demo.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/multithreading-demo/**'
+      - '.github/workflows/archive-multithreading-demo.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'multithreading-demo'
+    name: Run 'archive/multithreading-demo'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        java-version: ['22', 'latest-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
       - name: Run 'multithreading-demo-oversized'
         run: |
-          cd multithreading-demo/multithreading-demo-oversized
+          cd archive/multithreading-demo/multithreading-demo-oversized
           mvn --no-transfer-progress package
           java -jar target/multithreading-1.0-jar-with-dependencies.jar
           ./target/multithreading-image-oversized
       - name: Run 'multithreading-demo-improved'
         run: |
-          cd multithreading-demo/multithreading-demo-improved
+          cd archive/multithreading-demo/multithreading-demo-improved
           mvn --no-transfer-progress package
           java -jar target/multithreading-1.0-jar-with-dependencies.jar
           ./target/multithreading-image-improved
