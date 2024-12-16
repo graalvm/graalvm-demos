@@ -24,7 +24,7 @@ This is a multi-language application mixing JavaScript, Java, and R to demonstra
     git clone https://github.com/graalvm/graalvm-demos
     ```
     ```bash
-    cd graalvm-demos/functionGraphDemo
+    cd graalvm-demos/archive/functionGraphDemo
     ```
 
 3. Build the application by running `npm install`.
