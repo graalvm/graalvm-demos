@@ -1,13 +1,13 @@
-name: spring-r
+name: archive/spring-r
 on:
   push:
     paths:
-      - 'spring-r/**'
-      - '.github/workflows/spring-r.yml'
+      - 'archive/spring-r/**'
+      - '.github/workflows/archive-spring-r.yml'
   pull_request:
     paths:
-      - 'spring-r/**'
-      - '.github/workflows/spring-r.yml'
+      - 'archive/spring-r/**'
+      - '.github/workflows/archive-spring-r.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'spring-r'
+    name: Run 'archive/spring-r'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -27,9 +27,9 @@ jobs:
           components: 'R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
-      - name: Run 'spring-r'
+      - name: Run 'archive/spring-r'
         run: |
-          cd spring-r
+          cd archive/spring-r
           mvn --no-transfer-progress spring-boot:run -Dgraalvm.version=22.3.0 &
           sleep 60
           curl http://localhost:8080/load

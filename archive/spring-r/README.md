@@ -1,6 +1,6 @@
 # Spring Boot Using R Packages Demo
 
-This repository contains the code for a demo application for [GraalVM](graalvm.org).
+This repository contains a demo application referenced from the blog post [Enhance your Java Spring application with R data science](https://medium.com/graalvm/enhance-your-java-spring-application-with-r-data-science-b669a8c28bea).
 
 ### Prerequisites
 
