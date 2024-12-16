@@ -20,28 +20,28 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.1-graal
+    sdk install java 21.0.5-graal
     ```
 
-2. Download or clone the repository and navigate into the `native-image-configure-examples` directory:
+2. Download or clone the repository and navigate into the `class-initialization-examples` directory:
     ```bash
     git clone https://github.com/graalvm/graalvm-demos
     ```
     ```bash
-    cd graalvm-demos/native-image-configure-examples
+    cd graalvm-demos/archive/class-initialization-examples
     ```
 
 ## Build and Run Examples
 
 1. Change to one of the demo subdirectories, for example, `configure-at-runtime-example`:
     ```bash
-    cd graalvm-demos/native-image-configure-examples/configure-at-runtime-example
+    cd configure-at-runtime-example
     ```
 2. Build the project:
     ```bash
     mvn package
     ```
-3. Once the Maven build succeeds, a native executable called "runtime-example" will be generated in the `configure-at-runtime-example/target/` directory. Run it:
+3. Once the Maven build succeeds, a native executable called "runtime-example" will be generated in the _configure-at-runtime-example/target/_ directory. Run it:
     ```bash
     ./target/runtime-example
     ```
@@ -63,7 +63,4 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 Loading application configuration at executable build time can speed up application startup.
 
-### Related Documentation
-
-- [Build-Time Initialization](https://www.graalvm.org/latest/reference-manual/native-image/optimizations-and-performance/ClassInitialization/)
-- [Initialize Once, Start Fast: Application Initialization at Build Time](http://www.christianwimmer.at/Publications/Wimmer19a/Wimmer19a.pdf)
+Learn more about [Class Initialization in Native Image](https://www.graalvm.org/latest/reference-manual/native-image/optimizations-and-performance/ClassInitialization/) at the website, and from the blog post [Understanding Class Initialization in GraalVM Native Image Generation](https://medium.com/graalvm/understanding-class-initialization-in-graalvm-native-image-generation-d765b7e4d6ed).
