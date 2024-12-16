@@ -84,7 +84,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build a fully static and a mostly-static native executable.<br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Build a Statically Linked or Mostly-Statically Linked Native Executable</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/native-heapdump-examples/">native-heapdump-examples</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-heapdump-examples.yml"><img alt="native-heapdump-examples" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-heapdump-examples.yml/badge.svg"/></a></td>
+      <td align="left" width="30%"><a href="/native-image/create-heap-dumps/">native-image/create-heap-dumps</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-create-heap-dumps.yml"><img alt="native-image/create-heap-dumps" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-create-heap-dumps.yml/badge.svg"/></a></td>
       <td align="left" width="70%">Demonstrates different ways to generate a heap dump from a running native executable.<br><strong>Technologies: </strong> Native Image, VisualVM <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/create-heap-dump/">Create a Heap Dump from a Native Executable</a></td>
     </tr>  
     <tr>
