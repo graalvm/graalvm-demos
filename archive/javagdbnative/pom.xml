@@ -9,8 +9,6 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>javagdbnative</name>
-  <!-- FIXME change it to the project's website -->
-  <url>https://github.com/graalvm/graalvm-demos</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,7 +34,7 @@
           <plugin>
             <groupId>org.graalvm.buildtools</groupId>
             <artifactId>native-maven-plugin</artifactId>
-            <version>0.9.7</version> <!-- or newer version -->
+            <version>0.10.4</version> <!-- or newer version -->
             <executions>
               <execution>
                 <id>test-native</id>
@@ -57,8 +55,7 @@
               <imageName>javagdb</imageName>
               <mainClass>javagdb.App</mainClass>
               <buildArgs>
-              --no-fallback
-              --verbose
+                <buildArg>--verbose</buildArg>
                 <buildArg>-g</buildArg>
                 <buildArg>-O0</buildArg>
               </buildArgs>
@@ -67,5 +64,5 @@
         </plugins>
       </build>
     </profile>
-</profiles>
+  </profiles>
 </project>
