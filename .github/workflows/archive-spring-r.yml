@@ -8,8 +8,6 @@ on:
     paths:
       - 'archive/spring-r/**'
       - '.github/workflows/archive-spring-r.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
 permissions:
   contents: read
