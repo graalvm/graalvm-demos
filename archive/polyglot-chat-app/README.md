@@ -66,4 +66,4 @@ The Python code has to be shipped in a _resources_ directory that is kept next t
 
 ### Learn More 
 
-Learn more about GraalVM polyglot capabilities [here](https://www.graalvm.org/latest/reference-manual/polyglot-programming/).
+Learn more about GraalVM polyglot capabilities [here](https://www.graalvm.org/reference-manual/embed-languages/).
