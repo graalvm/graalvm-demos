@@ -87,9 +87,8 @@
                     <imageName>multithreading-image-improved</imageName>
                     <fallback>false</fallback>
                     <buildArgs>
-                        <buildArg>
-                        -H:+UnlockExperimentalVMOptions -H:+BuildReport --initialize-at-build-time
-                        </buildArg>
+                        <buildArg>-H:+UnlockExperimentalVMOptions -H:+BuildReport</buildArg>
+                        <buildArg>--initialize-at-build-time</buildArg>
                     </buildArgs>
                     <agent>
                         <enabled>true</enabled>
