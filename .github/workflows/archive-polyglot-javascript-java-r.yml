@@ -1,21 +1,19 @@
-name: polyglot-javascript-java-r
+name: archive/polyglot-javascript-java-r
 on:
   push:
     paths:
-      - 'polyglot-javascript-java-r/**'
-      - '.github/workflows/polyglot-javascript-java-r.yml'
+      - 'archive/polyglot-javascript-java-r/**'
+      - '.github/workflows/archive-polyglot-javascript-java-r.yml'
   pull_request:
     paths:
-      - 'polyglot-javascript-java-r/**'
-      - '.github/workflows/polyglot-javascript-java-r.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/polyglot-javascript-java-r/**'
+      - '.github/workflows/archive-polyglot-javascript-java-r.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'polyglot-javascript-java-r'
+    name: Run 'archive/polyglot-javascript-java-r'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -26,9 +24,9 @@ jobs:
           java-version: '17'
           components: 'nodejs,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'polyglot-javascript-java-r'
+      - name: Run 'archive/polyglot-javascript-java-r'
         run: |
-          cd polyglot-javascript-java-r
+          cd archive/polyglot-javascript-java-r
           npm install
           $GRAALVM_HOME/bin/node --jvm --polyglot server.js &
           sleep 10

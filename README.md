@@ -236,10 +236,6 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to debug a polyglot Java and JavaScript application using GraalVM Tools for Java in VS Code <br><strong>Technologies: </strong>Java, JavaScript, Maven, GraalVM Extension Pack</td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/polyglot-javascript-java-r/">polyglot-javascript-java-r</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-javascript-java-r.yml"><img alt="polyglot-javascript-java-r" src="https://github.com/graalvm/graalvm-demos/actions/workflows/polyglot-javascript-java-r.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates the polyglot capabilities of GraalVM and how to run a JavaScript-Java-R application <br><strong>Technologies: </strong>JavaScript, Node.js, Java, R <br><strong>Reference: </strong><a href="https://medium.com/graalvm/graalvm-ten-things-12d9111f307d#656f">Top 10 Things To Do With GraalVM</a></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/functionGraphDemo/">functionGraphDemo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/functionGraphDemo.yml"><img alt="functionGraphDemo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/functionGraphDemo.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to run a polyglot JavaScript-Java-R application on the GraalVM Node.js runtime <br><strong>Technologies: </strong>JavaScript, Node.js, Java, R</td>
     </tr>
