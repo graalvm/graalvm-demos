@@ -1,41 +1,36 @@
-name: native-image-configure-examples
+name: archive/class-initialization-examples
 on:
   push:
     paths:
-      - 'native-image-configure-examples/**'
-      - '.github/workflows/native-image-configure-examples.yml'
+      - 'archive/class-initialization-examples/**'
+      - '.github/workflows/archive-class-initialization-examples.yml'
   pull_request:
     paths:
-      - 'native-image-configure-examples/**'
-      - '.github/workflows/native-image-configure-examples.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/class-initialization-examples/**'
+      - '.github/workflows/archive-class-initialization-examples.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image-configure-examples'
+    name: Run 'archive/class-initialization-examples'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        java-version: ['21', 'latest-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
       - name: Run 'configure-at-runtime-example'
         run: |
-          cd native-image-configure-examples/configure-at-runtime-example
+          cd archive/class-initialization-examples/configure-at-runtime-example
           mvn --no-transfer-progress package
           ./target/runtime-example
       - name: Run 'configure-at-buildtime-example'
         run: |
-          cd native-image-configure-examples/configure-at-buildtime-example
+          cd archive/class-initialization-examples/configure-at-buildtime-example
           mvn --no-transfer-progress package
           ./target/buildtime-example
