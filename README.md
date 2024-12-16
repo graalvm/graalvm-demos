@@ -170,7 +170,7 @@ cd graalvm-demos
   </tbody>
 </table>
 
-### Helidon
+### Scala
 
 <table>
   <thead>
@@ -181,8 +181,8 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/js-java-async-helidon/">js-java-async-helidon</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/js-java-async-helidon.yml"><img alt="js-java-async-helidon" src="https://github.com/graalvm/graalvm-demos/actions/workflows/js-java-async-helidon.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">An HTTP web service that demonstrates how multiple JavaScript contexts can be executed in parallel to handle asynchronous operations with Helidon in Java <br><strong>Technologies: </strong>Native Image, Helidon, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/asynchronous-polyglot-programming-in-graalvm-javascript-and-java-2c62eb02acf0">Asynchronous Polyglot Programming in GraalVM Using Helidon and JavaScript</a></td>
+      <td align="left" width="30%"><a href="/scalac-native/">scalac-native</a></td>
+      <td align="left" width="70%">Demonstrates how to build a native executable of the Scala compiler. The resulting binary has no dependencies on the JDK. <br><strong>Technologies: </strong>Scala 2.12.x, Native Image <br><strong>Reference: </strong><a href="https://medium.com/graalvm/compiling-scala-faster-with-graalvm-86c5c0857fa3">Compiling Scala Faster with GraalVM</a></td>
     </tr>
   </tbody>
 </table>
