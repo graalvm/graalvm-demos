@@ -60,10 +60,6 @@ cd graalvm-demos
       <td align="left" width="70%">A web server application, using the Netty framework, to demonstrate the use of isolates with Native Image<br><strong>Technologies: </strong>Native Image, Maven, Netty<br><strong>Reference: </strong><a href="https://medium.com/graalvm/instant-netty-startup-using-graalvm-native-image-generation-ed6f14ff7692">Instant Netty Startup using GraalVM Native Image Generation</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/javagdbnative/">javagdbnative</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/javagdbnative.yml"><img alt="javagdbnative" src="https://github.com/graalvm/graalvm-demos/actions/workflows/javagdbnative.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates how to debug a Java application, built into a native executable in VS Code<br><strong>Technologies: </strong>Native Image, Maven, GraalVM Tools for Java<br><strong>Reference: </strong><a href="https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1">Native Image Debugging in VS Code</a></td>
-    </tr>
-    <tr>
       <td align="left" width="30%"><a href="/native-image/add-logging/">native-image/add-logging</a><br><a href="https://github.com/graalvm/graalvm-demos/blob/ni-logging-demo/.github/workflows/native-image-add-logging.yml"><img alt="add-logging" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-add-logging.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to initialize Loggers with Native Image at the executable build or run time<br><strong>Technologies: </strong> Native Image<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/add-logging-to-native-executable/">Add Logging to a Native Executable</a></td>
     </tr>

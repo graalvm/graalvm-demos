@@ -1,37 +1,32 @@
-name: javagdbnative
+name: archive/javagdbnative
 on:
   push:
     paths:
-      - 'javagdbnative/**'
-      - '.github/workflows/javagdbnative.yml'
+      - 'archive/javagdbnative/**'
+      - '.github/workflows/archive-javagdbnative.yml'
   pull_request:
     paths:
-      - 'javagdbnative/**'
-      - '.github/workflows/javagdbnative.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/javagdbnative/**'
+      - '.github/workflows/archive-javagdbnative.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'javagdbnative'
+    name: Run 'archive/javagdbnative'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        java-version: ['17', 'dev']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: ${{ matrix.java-version }}
+          java-version: '21'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'javagdbnative'
+      - name: Run 'archive/javagdbnative'
         run: |
-          cd javagdbnative
+          cd archive/javagdbnative
           mvn -Pnative -DskipTests --no-transfer-progress package
           ./target/javagdb
