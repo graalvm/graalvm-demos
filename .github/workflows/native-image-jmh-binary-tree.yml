@@ -1,13 +1,13 @@
-name: jmh/benchmark-binary-tree
+name: native-image/benchmark/jmh/binary-tree
 on:
   push:
     paths:
-      - 'jmh/benchmark-binary-tree/**'
-      - '.github/workflows/jmh-binary-tree.yml'
+      - 'native-image/benchmark/jmh/binary-tree/**'
+      - '.github/workflows/native-image-jmh-binary-tree.yml'
   pull_request:
     paths:
-      - 'jmh/benchmark-binary-tree/**'
-      - '.github/workflows/jmh-binary-tree.yml'
+      - 'native-image/benchmark/jmh/binary-tree/**'
+      - '.github/workflows/native-image-jmh-binary-tree.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,28 +15,31 @@ permissions:
   contents: read
 jobs:
   build:
-    name: GraalVM Binary Tree Benchmark
+    name: JMH Binary Tree Benchmark
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21.0.2'
+          java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and Test Java Code
         run: |
-          cd jmh/benchmark-binary-tree
-          # build the Java code
+          cd native-image/benchmark/jmh/binary-tree
+          # Build the Java code
           ./mvnw --no-transfer-progress clean package
-          # build the native exe
+          # Build the native executable
           ./mvnw --no-transfer-progress -Pnative -DskipNativeTests package
           # Could just replace with a check that the binary exists?
           ./target/benchmark-binary-tree
-          # build and run the instrumented native exe
+          # Build and run the instrumented native executable
           ./mvnw --no-transfer-progress -Pinstrumented -DskipNativeTests package
           ./target/benchmark-binary-tree-instr
-          # build and run the optimised native exe
+          # Build and run the optimized native executable
           ./mvnw --no-transfer-progress -Poptimised -DskipNativeTests package
           ./target/benchmark-binary-tree-opt
