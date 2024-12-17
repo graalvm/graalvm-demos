@@ -167,11 +167,6 @@ cd graalvm-demos
       <td align="left" width="30%"><a href="/native-image/containerize/">native-image/containerize</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml"><img alt="native-image/containerizee" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to compile a Spring Boot 3 application into a native executable using the Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/containerise-native-executable-and-run-in-docker-container/">Containerize a Native Executable and Run in a Container</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">Oracle GraalVM in OCI Cloud Shell</a></td>
     </tr>
-    <tr>
-      <td align="left" width="30%"><a href="/spring-r/">spring-r</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml"><img alt="spring-r" src="https://github.com/graalvm/graalvm-demos/actions/workflows/spring-r.yml/badge.svg" /></a></td>
-      <td align="left" width="70%">Demonstrates GraalVM's polyglot feature by loading an R script into a Java host application 
-      <br><strong>Technologies: </strong> Spring, FastR <br><strong>Reference: </strong><a href="https://medium.com/graalvm/enhance-your-java-spring-application-with-r-data-science-b669a8c28bea">Enhance your Java Spring application with R data science</a></td>
-    </tr>
   </tbody>
 </table>
 
