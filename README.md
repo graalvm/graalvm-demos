@@ -192,23 +192,6 @@ cd graalvm-demos
   </tbody>
 </table>
 
-### Scala
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/scalac-native/">scalac-native</a></td>
-      <td align="left" width="70%">Demonstrates how to build a native executable of the Scala compiler. The resulting binary has no dependencies on the JDK. <br><strong>Technologies: </strong>Scala 2.12.x, Native Image <br><strong>Reference: </strong><a href="https://medium.com/graalvm/compiling-scala-faster-with-graalvm-86c5c0857fa3">Compiling Scala Faster with GraalVM</a></td>
-    </tr>
-  </tbody>
-</table>
-
 ### Polyglot
 
 <table>
