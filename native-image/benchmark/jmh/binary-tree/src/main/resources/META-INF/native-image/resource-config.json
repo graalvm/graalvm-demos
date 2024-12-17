@@ -1,0 +1,12 @@
+{
+  "resources":{
+  "includes":[
+    {
+      "pattern":"\\QMETA-INF/BenchmarkList\\E"
+    }, 
+    {
+      "pattern":"\\Qjmh.properties\\E"
+    }
+  ]},
+  "bundles":[]
+}

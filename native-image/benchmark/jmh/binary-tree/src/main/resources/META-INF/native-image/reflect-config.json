@@ -1,0 +1,184 @@
+[
+{
+  "name":"bench.shootouts.BinaryTrees",
+  "fields":[{"name":"binaryTreesN"}]
+},
+{
+  "name":"bench.shootouts.jmh_generated.BinaryTrees_bench_jmhTest",
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"bench_Throughput","parameterTypes":["org.openjdk.jmh.runner.InfraControl","org.openjdk.jmh.infra.ThreadParams"] }
+  ]
+},
+{
+  "name":"java.io.Console",
+  "methods":[{"name":"charset","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Boolean",
+  "queriedMethods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Integer",
+  "queriedMethods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Object",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"java.lang.String",
+  "queriedMethods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.openjdk.jmh.infra.BenchmarkParamsL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.BenchmarkParamsL2",
+  "fields":[
+    {"name":"benchmark"}, 
+    {"name":"forks"}, 
+    {"name":"generatedTarget"}, 
+    {"name":"jvm"}, 
+    {"name":"jvmArgs"}, 
+    {"name":"measurement"}, 
+    {"name":"mode"}, 
+    {"name":"opsPerInvocation"}, 
+    {"name":"params"}, 
+    {"name":"synchIterations"}, 
+    {"name":"threadGroups"}, 
+    {"name":"threads"}, 
+    {"name":"timeUnit"}, 
+    {"name":"warmup"}, 
+    {"name":"warmupForks"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.infra.BenchmarkParamsL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.BlackholeL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.BlackholeL2",
+  "fields":[
+    {"name":"b1"}, 
+    {"name":"b2"}, 
+    {"name":"bool1"}, 
+    {"name":"bool2"}, 
+    {"name":"c1"}, 
+    {"name":"c2"}, 
+    {"name":"d1"}, 
+    {"name":"d2"}, 
+    {"name":"f1"}, 
+    {"name":"f2"}, 
+    {"name":"i1"}, 
+    {"name":"i2"}, 
+    {"name":"l1"}, 
+    {"name":"l2"}, 
+    {"name":"obj1"}, 
+    {"name":"s1"}, 
+    {"name":"s2"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.infra.BlackholeL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.ControlL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.ControlL2",
+  "fields":[
+    {"name":"startMeasurement"}, 
+    {"name":"stopMeasurement"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.infra.ControlL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.IterationParamsL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.IterationParamsL2",
+  "fields":[
+    {"name":"batchSize"}, 
+    {"name":"count"}, 
+    {"name":"timeValue"}, 
+    {"name":"type"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.infra.IterationParamsL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.ThreadParamsL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.infra.ThreadParamsL2",
+  "fields":[
+    {"name":"groupCount"}, 
+    {"name":"groupIdx"}, 
+    {"name":"groupThreadCount"}, 
+    {"name":"groupThreadIdx"}, 
+    {"name":"subgroupCount"}, 
+    {"name":"subgroupIdx"}, 
+    {"name":"subgroupThreadCount"}, 
+    {"name":"subgroupThreadIdx"}, 
+    {"name":"threadCount"}, 
+    {"name":"threadIdx"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.infra.ThreadParamsL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.runner.InfraControlL0",
+  "fields":[{"name":"markerBegin"}]
+},
+{
+  "name":"org.openjdk.jmh.runner.InfraControlL2",
+  "fields":[
+    {"name":"benchmarkParams"}, 
+    {"name":"isDone"}, 
+    {"name":"isFailing"}, 
+    {"name":"iterationParams"}, 
+    {"name":"lastIteration"}, 
+    {"name":"preSetup"}, 
+    {"name":"preTearDown"}, 
+    {"name":"shouldSynchIterations"}, 
+    {"name":"threads"}, 
+    {"name":"volatileSpoiler"}, 
+    {"name":"warmdownDone"}, 
+    {"name":"warmdownShouldWait"}, 
+    {"name":"warmdownVisited"}, 
+    {"name":"warmupDone"}, 
+    {"name":"warmupShouldWait"}, 
+    {"name":"warmupVisited"}
+  ]
+},
+{
+  "name":"org.openjdk.jmh.runner.InfraControlL4",
+  "fields":[{"name":"markerEnd"}]
+},
+{
+  "name":"org.openjdk.jmh.runner.options.TimeValue",
+  "queriedMethods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "fields":[{"name":"theUnsafe"}]
+}
+]
