@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.graalvm.nativeimage</groupId>
-    <artifactId>runtime-init</artifactId>
+    <artifactId>buildtime-time-init</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <native.maven.plugin.version>0.10.2</native.maven.plugin.version>
+        <native.maven.plugin.version>0.10.4</native.maven.plugin.version>
         <jackson.version>2.16.0</jackson.version>
     </properties>
 
@@ -52,7 +52,7 @@
                     </descriptorRefs>
                         <archive>
                         <manifest>
-                            <mainClass>example.runtime.ConfigureAtRunTime</mainClass>
+                            <mainClass>example.buildtime.ConfigureAtBuildTime</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -66,7 +66,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
@@ -82,10 +81,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>runtime-example</imageName>
-                    <buildArgs>
-                        --no-fallback
-                    </buildArgs>
+                    <skip>false</skip>
+                    <imageName>buildtime-example</imageName>
                 </configuration>
             </plugin>
         </plugins>
