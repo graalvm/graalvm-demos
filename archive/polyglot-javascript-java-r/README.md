@@ -1,6 +1,6 @@
-# Polyglot JavaScript Application mixing Java and R
+# Polyglot JavaScript Application Mixing Java and R
 
-This is a multi-language JavaScript application mixing Java and R to demonstrate GraalVM's polyglot capabilities. 
+This is a multi-language JavaScript application mixing Java and R to demonstrate GraalVM's polyglot capabilities.
 
 ### Prerequisites
 
@@ -52,3 +52,5 @@ Open the URL the application prints at the startup in Chrome browser, and start 
 
 This is a sample application that for brevity contains reasonably large snippets of code inside the strings.
 This is not the best approach for structuring polyglot apps, but the easiest to show in a single file.
+
+This demo application is referenced from the blog post [Top 10 Things To Do With GraalVM](https://medium.com/graalvm/graalvm-ten-things-12d9111f307d#656f).
