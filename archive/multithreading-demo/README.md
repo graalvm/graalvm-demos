@@ -5,7 +5,7 @@ Each thread loops through exactly the same array of integers and generates a str
 The program calculates the time taken to perform the task synchronously and asynchronously.
 
 Multithreading demo is comprised of two sub-projects, each built with Maven: **Multithreading Demo Oversized** and **Multithreading Demo Improved**.
-The _pom.xml_ file of each sub-project includes the [Native Image Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html), which instructs Maven to generate a native executable of a JAR file with all dependencies at the `mvn package` step.
+The _pom.xml_ file of each sub-project includes the [Maven plugin for Native Image building](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html), which instructs Maven to generate a native executable of a JAR file with all dependencies at the `mvn package` step.
 
 The plugin also generates a report using the [Native Image Build Reports](https://www.graalvm.org/latest/reference-manual/native-image/overview/Options/#build-output-and-build-report) feature in the _target_ directory with useful visualizations and comprehensive insights into different metrics of the native executable and the build process itself.
 
@@ -13,7 +13,7 @@ The plugin also generates a report using the [Native Image Build Reports](https:
 <plugin>
     <groupId>org.graalvm.buildtools</groupId>
     <artifactId>native-maven-plugin</artifactId>
-    <version>0.10.1</version>
+    <version>${org.graalvm.buildtools.version}</version>
     <extensions>true</extensions>
     <executions>
         <execution>
@@ -44,7 +44,7 @@ The plugin also generates a report using the [Native Image Build Reports](https:
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 22.0.1-graal
+    sdk install java 21.0.1-graal
     ```
 
 2. Download or clone the repository and navigate into the `multithreading-demo/multithreading-demo-oversized_` directory:
@@ -52,7 +52,7 @@ The plugin also generates a report using the [Native Image Build Reports](https:
     git clone https://github.com/graalvm/graalvm-demos
     ```
     ```bash
-    cd multithreading-demo/multithreading-demo-oversized
+    cd graalvm-demos/archive/multithreading-demo/multithreading-demo-oversized
     ```
 
 ## Multithreading Demo Oversized
@@ -89,6 +89,4 @@ Multithreading Demo Improved contains an enhanced version of the same program.
     ./target/multithreading-image-improved
     ```
 
-### Learn More
-
-Learn how you can optimize a Java application by applying Profile-guided optimization (PGO) and inspect a profile using [Native Image Build Reports](https://www.graalvm.org/jdk22/reference-manual/native-image/optimizations-and-performance/PGO/build-reports/).
+Continue reading about how you can inspect a profile and potentially optimize size of your native application using [Build Reports](https://www.graalvm.org/latest/reference-manual/native-image/guides/optimize-native-executable-size-using-build-report/).
