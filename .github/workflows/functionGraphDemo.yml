@@ -1,12 +1,12 @@
-name: functionGraphDemo
+name: archive/functionGraphDemo
 on:
   push:
     paths:
-      - 'functionGraphDemo/**'
+      - 'archive/functionGraphDemo/**'
       - '.github/workflows/functionGraphDemo.yml'
   pull_request:
     paths:
-      - 'functionGraphDemo/**'
+      - 'archive/functionGraphDemo/**'
       - '.github/workflows/functionGraphDemo.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -28,7 +28,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'functionGraphDemo'
         run: |
-          cd functionGraphDemo
+          cd archive/functionGraphDemo
           npm install
           $GRAALVM_HOME/bin/node --version
           $GRAALVM_HOME/bin/node --jvm --polyglot server.js &

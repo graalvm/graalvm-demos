@@ -1,12 +1,12 @@
-name: polyglot-chat-app
+name: archive/polyglot-chat-app
 on:
   push:
     paths:
-      - 'polyglot-chat-app/**'
+      - 'archive/polyglot-chat-app/**'
       - '.github/workflows/polyglot-chat-app.yml'
   pull_request:
     paths:
-      - 'polyglot-chat-app/**'
+      - 'archive/polyglot-chat-app/**'
       - '.github/workflows/polyglot-chat-app.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -28,7 +28,7 @@ jobs:
           cache: 'gradle'
       - name: Run 'polyglot-chat-app'
         run: |
-          cd polyglot-chat-app
+          cd archive/polyglot-chat-app
           ./gradlew build # pre-build application
           ./gradlew run &
           sleep 10

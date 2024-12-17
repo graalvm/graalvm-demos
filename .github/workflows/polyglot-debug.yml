@@ -1,12 +1,12 @@
-name: polyglot-debug
+name: archive/polyglot-debug
 on:
   push:
     paths:
-      - 'polyglot-debug/**'
+      - 'archive/polyglot-debug/**'
       - '.github/workflows/polyglot-debug.yml'
   pull_request:
     paths:
-      - 'polyglot-debug/**'
+      - 'archive/polyglot-debug/**'
       - '.github/workflows/polyglot-debug.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -28,6 +28,6 @@ jobs:
           cache: 'maven'
       - name: Run 'polyglot-debug'
         run: |
-          cd polyglot-debug
+          cd archive/polyglot-debug
           mvn --no-transfer-progress clean package
           mvn exec:exec
