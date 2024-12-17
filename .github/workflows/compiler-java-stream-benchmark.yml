@@ -1,13 +1,13 @@
-name: java-simple-stream-benchmark
+name: compiler/java-stream-benchmark
 on:
   push:
     paths:
-      - 'java-simple-stream-benchmark/**'
-      - '.github/workflows/java-simple-stream-benchmark.yml'
+      - 'compiler/java-stream-benchmark/**'
+      - '.github/workflows/compiler-java-stream-benchmark.yml'
   pull_request:
     paths:
-      - 'java-simple-stream-benchmark/**'
-      - '.github/workflows/java-simple-stream-benchmark.yml'
+      - 'compiler/java-stream-benchmark/**'
+      - '.github/workflows/compiler-java-stream-benchmark.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,12 +15,12 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'java-simple-stream-benchmark'
+    name: Run 'compiler/java-stream-benchmark'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', 'dev']
+        java-version: ['21', '23.0.1']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -28,8 +28,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'java-simple-stream-benchmark'
+      - name: Run 'compiler/java-stream-benchmark'
         run: |
-          cd java-simple-stream-benchmark
-          ./build.sh
+          cd compiler/java-stream-benchmark
           ./run.sh
