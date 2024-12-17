@@ -1,21 +1,19 @@
-name: js-java-async-helidon
+name: archive/js-java-async-helidon
 on:
   push:
     paths:
-      - 'js-java-async-helidon/**'
-      - '.github/workflows/js-java-async-helidon.yml'
+      - 'archive/js-java-async-helidon/**'
+      - '.github/workflows/archive-js-java-async-helidon.yml'
   pull_request:
     paths:
-      - 'js-java-async-helidon/**'
-      - '.github/workflows/js-java-async-helidon.yml'
-  schedule:
-    - cron: "0 0 1 * *" # run every month
+      - 'archive/js-java-async-helidon/**'
+      - '.github/workflows/archive-js-java-async-helidon.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   run:
-    name: Run 'js-java-async-helidon'
+    name: Run 'archive/js-java-async-helidon'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -26,9 +24,9 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
-      - name: Run 'js-java-async-helidon'
+      - name: Run 'archive/js-java-async-helidon'
         run: |
-          cd js-java-async-helidon
+          cd archive/js-java-async-helidon
           mvn --no-transfer-progress clean package
           mvn exec:exec &
           sleep 10
