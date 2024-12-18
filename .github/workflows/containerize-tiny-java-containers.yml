@@ -1,9 +1,9 @@
-name: tiny-java-containers
+name: native-image/containerize/tiny-java-containers
 on:
   push:
     paths:
-      - 'tiny-java-containers/**'
-      - '.github/workflows/tiny-java-containers.yml'
+      - 'native-image/containerize/tiny-java-containers/**'
+      - '.github/workflows/containerize-tiny-java-containers.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -11,20 +11,23 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'tiny-java-containers'
+    name: Run 'native-image/containerize/tiny-java-containers'
     runs-on: ubuntu-20.04 # Docker has changed its behavior on Ubuntu 22.04
     timeout-minutes: 20
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21'
+          java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'tiny-java-containers'
+      - name: Run 'native-image/containerize/tiny-java-containers'
         run: |
           sleep_period=5
-          cd tiny-java-containers
+          cd native-image/containerize/tiny-java-containers
           # Hello World
           #
           cd helloworld
