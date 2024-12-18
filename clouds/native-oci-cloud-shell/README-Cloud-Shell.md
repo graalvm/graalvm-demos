@@ -48,26 +48,26 @@ Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so
 
 ## Step 3: [OPTIONAL] Confirm software version and environment variables
 
-This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
+This step is optional - [Check software version and environment variables](../../_common/README-check-version-env-vars.md)
 
 ## Step 4: Set up your project, build and run as a JAR
 
 1. Git clone this example.
 
     ```shell
-    git init graalvmee-java-hello-world-maven
+    git init graalvm-native-oci-cloud-shell
 
-    cd graalvmee-java-hello-world-maven
+    cd graalvm-native-oci-cloud-shell
 
     git remote add origin https://github.com/graalvm/graalvm-demos.git
 
     git config core.sparsecheckout true
 
-    echo "java-hello-world-maven/*">>.git/info/sparse-checkout
+    echo "clouds/native-oci-cloud-shell/*">>.git/info/sparse-checkout
 
     git pull --depth=1 origin master
 
-    cd java-hello-world-maven
+    cd clouds/native-oci-cloud-shell
     ```
 
 2. Build a JAR file for the example app.
