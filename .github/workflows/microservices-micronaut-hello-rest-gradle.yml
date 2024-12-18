@@ -1,0 +1,29 @@
+name: microservices/micronaut-hello-rest-gradle
+on:
+  push:
+    paths:
+      - 'native-image/microservices/micronaut-hello-rest-gradle/**'
+      - '.github/workflows/microservices-micronaut-hello-rest-gradle.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'microservices/micronaut-hello-rest-gradle'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'gradle'
+          native-image-job-reports: 'true'
+      - name: Run 'microservices/micronaut-hello-rest-gradle'
+        run: |
+          cd native-image/microservices/micronaut-hello-rest-gradle
+          ./run.sh

@@ -1,0 +1,32 @@
+name: microservices/micronaut-hello-rest-maven
+on:
+  push:
+    paths:
+      - 'native-image/microservices/micronaut-hello-rest-maven/**'
+      - '.github/workflows/microservices-micronaut-hello-rest-maven.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'microservices/micronaut-hello-rest-maven'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['21', '24-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Run 'microservices/micronaut-hello-rest-maven'
+        run: |
+          cd native-image/microservices/micronaut-hello-rest-maven
+          ./run.sh
