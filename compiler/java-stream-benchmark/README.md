@@ -1,6 +1,6 @@
 # Java Stream Benchmark
 
-This repository contains the code for a simple Java Stream benchmark designed to run on the [GraalVM JDK](http://graalvm.org) and the [Oracle JDK](https://www.oracle.com/java/technologies/downloads/).
+This demo contains the code for a simple Java Stream benchmark designed to run on the [GraalVM JDK](http://graalvm.org) and the [Oracle JDK](https://www.oracle.com/java/technologies/downloads/).
 ## Preparation
 
 1. Download and install the GraalVM JDK using [SDKMAN!](https://sdkman.io/). For other installation options, visit the [Downloads page](https://www.graalvm.org/downloads/).
