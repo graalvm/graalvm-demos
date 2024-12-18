@@ -46,11 +46,7 @@ Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so
     The current managed java version is set to graalvmjdk-17.
     ```
 
-## Step 3: [OPTIONAL] Confirm software version and environment variables
-
-This step is optional - [Check software version and environment variables](../../_common/README-check-version-env-vars.md)
-
-## Step 4: Set up your project, build and run as a JAR
+## Step 3: Set up your project, build and run as a JAR
 
 1. Git clone this example.
 
@@ -70,13 +66,17 @@ This step is optional - [Check software version and environment variables](../..
     cd clouds/native-oci-cloud-shell
     ```
 
-2. Build a JAR file for the example app.
+2. [OPTIONAL] Confirm software version and environment variables.
+
+    [Check software version and environment variables](../../_common/README-check-version-env-vars.md)
+
+3. Build a JAR file for the example app.
 
     ```shell
-    mvn clean package
+    ./mvnw clean package
     ```
 
-3. Run the JAR:
+4. Run the JAR:
 
     ```shell
     java -jar target/my-app-1.0-SNAPSHOT.jar
@@ -88,7 +88,7 @@ This step is optional - [Check software version and environment variables](../..
     Hello World!
     ```
 
-## Step 5: Build and run a native executable
+## Step 4: Build and run a native executable
 
 Use GraalVM Native Image to produce a native executable.
 
@@ -105,7 +105,7 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
-    mvn clean -Pnative -DskipTests package
+    ./mvnw clean -Pnative -DskipTests package
     ```
 
 3. Run the native executable using:
@@ -132,7 +132,7 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
-    mvn clean -Pnative -DskipTests package
+    ./mvnw clean -Pnative -DskipTests package
     ```
 
 3. Run the native executable using:
