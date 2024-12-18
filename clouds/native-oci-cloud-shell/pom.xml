@@ -17,7 +17,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
-		<native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+		<native.maven.plugin.version>0.10.3</native.maven.plugin.version>
   </properties>
 
   <dependencies>
@@ -43,8 +43,7 @@
                   </manifest>
               </archive>
           </configuration>
-      </plugin>
-
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -78,13 +77,12 @@
             <configuration>
               <imageName>my-app</imageName>
               <verbose>true</verbose>
-              <!-- For Quick Build (22.1+) -->
               <!-- <quickBuild>true</quickBuild> -->
               <buildArgs>
                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
                 <!-- For mostly static native image (only on Linux AMD64 systems) -->
                 <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
-                <!-- To generate the Native Image build output JSON (22.3+) -->
+                <!-- To generate the Native Image build output JSON -->
                 <!-- <buildArg>-H:BuildOutputJSONFile=build.json</buildArg> -->
               </buildArgs>
             </configuration>
