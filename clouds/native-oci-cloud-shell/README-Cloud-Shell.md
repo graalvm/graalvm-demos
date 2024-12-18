@@ -10,7 +10,7 @@ Oracle GraalVM is available for use on Oracle Cloud Infrastructure (OCI) at no a
 
 ## What is Cloud Shell?
 
-[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a preauthenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
+[Cloud Shell](https://www.oracle.com/devops/cloud-shell/) is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with preinstalled developer tools and a pre-authenticated OCI CLI. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run utility commands.
 
 Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so you don’t have to install and configure a development machine to get started.
 
@@ -46,39 +46,37 @@ Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so
     The current managed java version is set to graalvmjdk-17.
     ```
 
-## Step 3: [OPTIONAL] Confirm software version and environment variables
-
-This step is optional - [Check software version and environment variables](../_common/README-check-version-env-vars.md)
-
-
-## Step 4: Set up your project, build and run as a JAR
+## Step 3: Set up your project, build and run as a JAR
 
 1. Git clone this example.
 
     ```shell
-    git init graalvmee-java-hello-world-maven
+    git init graalvm-native-oci-cloud-shell
 
-    cd graalvmee-java-hello-world-maven
+    cd graalvm-native-oci-cloud-shell
 
     git remote add origin https://github.com/graalvm/graalvm-demos.git
 
     git config core.sparsecheckout true
 
-    echo "java-hello-world-maven/*">>.git/info/sparse-checkout
+    echo "clouds/native-oci-cloud-shell/*">>.git/info/sparse-checkout
 
     git pull --depth=1 origin master
 
-    cd java-hello-world-maven
-
+    cd clouds/native-oci-cloud-shell
     ```
 
-2. Build a JAR file for the example app.
+2. [OPTIONAL] Confirm software version and environment variables.
+
+    [Check software version and environment variables](../../_common/README-check-version-env-vars.md)
+
+3. Build a JAR file for the example app.
 
     ```shell
-    mvn clean package
+    ./mvnw clean package
     ```
 
-3. Run the JAR using:
+4. Run the JAR:
 
     ```shell
     java -jar target/my-app-1.0-SNAPSHOT.jar
@@ -90,7 +88,7 @@ This step is optional - [Check software version and environment variables](../_c
     Hello World!
     ```
 
-## Step 5: Build and run a native executable
+## Step 4: Build and run a native executable
 
 Use GraalVM Native Image to produce a native executable.
 
@@ -107,7 +105,7 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
-    mvn clean -Pnative -DskipTests package
+    ./mvnw clean -Pnative -DskipTests package
     ```
 
 3. Run the native executable using:
@@ -134,7 +132,7 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
 2. Use the Native Image maven plugin to create a native executable:
 
     ```shell
-    mvn clean -Pnative -DskipTests package
+    ./mvnw clean -Pnative -DskipTests package
     ```
 
 3. Run the native executable using:
@@ -148,3 +146,5 @@ You will notice the `Quick Build` mode reduces the time required to generate a n
     ```text
     Hello World!
     ```
+
+Learn how to start using Oracle GraalVM with other OCI services at [docs.oracle.com](https://docs.oracle.com/en/graalvm/jdk/23/docs/getting-started/oci/).

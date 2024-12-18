@@ -47,9 +47,9 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    java version "17.0.9" 2023-10-17 LTS
-    Java(TM) SE Runtime Environment Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21)
-    Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21, mixed mode, sharing)
+    java version "17.0.13" 2024-10-15 LTS
+    Java(TM) SE Runtime Environment Oracle GraalVM 17.0.13+10.1 (build 17.0.13+10-LTS-jvmci-23.0-b49)
+    Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 17.0.13+10.1 (build 17.0.13+10-LTS-jvmci-23.0-b49, mixed mode, sharing)
     ```
 
 5. Confirm the `native-image` version:
@@ -61,9 +61,9 @@
     The output should be similar to (versions may vary):
 
     ```shell
-    native-image 17.0.9 2023-10-17
-    GraalVM Runtime Environment Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS-jvmci-23.0-b21)
-    Substrate VM Oracle GraalVM 17.0.9+11.1 (build 17.0.9+11-LTS, serial gc, compressed references)
+    native-image 17.0.13 2024-10-15
+    GraalVM Runtime Environment Oracle GraalVM 17.0.13+10.1 (build 17.0.13+10-LTS-jvmci-23.0-b49)
+    Substrate VM Oracle GraalVM 17.0.13+10.1 (build 17.0.13+10-LTS, serial gc, compressed references)
     ```
 
 6. Confirm the `Java` used for Maven builds:
@@ -76,7 +76,7 @@
 
     ```shell
     ...
-    Java version: 17.0.9, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm-java17
+    Java version: 17.0.13, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm-java17
     ...
     ```
 
