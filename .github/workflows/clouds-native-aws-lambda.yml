@@ -2,11 +2,11 @@ name: clouds/native-aws-lambda
 on:
   push:
     paths:
-      - 'clouds/native-aws-lambda/**'
+      - 'native-image/clouds/native-aws-lambda/**'
       - '.github/workflows/clouds-native-aws-lambda.yml'
   pull_request:
     paths:
-      - 'clouds/native-aws-lambda/**'
+      - 'native-image/clouds/native-aws-lambda/**'
       - '.github/workflows/clouds-native-aws-lambda.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -27,9 +27,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'clouds/native-aws-lambda java'
         run: |
-          cd clouds/native-aws-lambda
+          cd native-image/clouds/native-aws-lambda
           ./mvnw package
       - name: Run 'clouds/native-aws-lambda native image'
         run: |
-          cd clouds/native-aws-lambda
+          cd native-image/clouds/native-aws-lambda
           ./mvnw package -Dpackaging=docker-native

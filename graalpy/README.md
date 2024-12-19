@@ -1,1 +1,0 @@
-*GraalPy demos and guides are now available at https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/.*

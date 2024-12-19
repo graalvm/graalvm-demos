@@ -1,1 +1,0 @@
-*This demo was moved to https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/graalwasm-spring-boot-photon.*

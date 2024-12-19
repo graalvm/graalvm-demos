@@ -2,11 +2,11 @@ name: clouds/native-aws-fargate
 on:
   push:
     paths:
-      - 'clouds/native-aws-fargate/**'
+      - 'native-image/clouds/native-aws-fargate/**'
       - '.github/workflows/clouds-native-aws-fargate.yml'
   pull_request:
     paths:
-      - 'clouds/native-aws-fargate/**'
+      - 'native-image/clouds/native-aws-fargate/**'
       - '.github/workflows/clouds-native-aws-fargate.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -27,5 +27,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'clouds/native-aws-fargate'
         run: |
-          cd clouds/native-aws-fargate
+          cd native-image/clouds/native-aws-fargate
           ./mvnw package -Dpackaging=docker-native
