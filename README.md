@@ -32,7 +32,7 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to build native executables from a class file and a JAR file from the command line <br><strong>Technologies: </strong> Native Image <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/#build-a-native-executable-using-the-native-image-tool">Native Image Getting Started</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/java-hello-world-maven/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/java-hello-world-maven.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/clouds/native-oci-cloud-shell/">java-hello-world-maven</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-cloud-shell.yml"><img alt="java-hello-world-maven" src="https://github.com/graalvm/graalvm-demos/actions/workflows/clouds-native-oci-cloud-shell.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to generate a native executable using the Native Build Tools Maven plugin <br><strong>Technologies: </strong>Native Image, Native Build Tools Maven plugin<br><strong>Reference: </strong><a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/code-editor/">Oracle GraalVM in OCI Code Editor</a></td>
     </tr>
     <tr>
@@ -44,11 +44,11 @@ cd graalvm-demos
       <td align="left" width="70%">Demonstrates how to compile a CLI application into a native executable and then apply Profile-Guided Optimizations (PGO) for more performance gains<br><strong>Technologies: </strong>Native Image, PGO
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml"><img alt="streams" src="https://github.com/graalvm/graalvm-demos/actions/workflows/streams.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/archive/multithreading-demo/">multithreading-demo</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/archive-multithreading-demo.yml"><img alt="archive/multithreading-demo" src="https://github.com/graalvm/graalvm-demos/actions/workflows/archive-multithreading-demo.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to optimize a Java application that does synchronous and asynchronous threads execution<br><strong>Technologies: </strong>Native Image Build Reports, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://medium.com/graalvm/making-sense-of-native-image-contents-741a688dab4d">Making sense of Native Image contents</a></td>
     </tr>
     <tr>
-      <td align="left" width="30%"><a href="/javagdbnative/">javagdbnative</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/javagdbnative.yml"><img alt="javagdbnative" src="https://github.com/graalvm/graalvm-demos/actions/workflows/javagdbnative.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/archive/javagdbnative/">javagdbnative</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/archive-javagdbnative.yml"><img alt="archive/javagdbnative" src="https://github.com/graalvm/graalvm-demos/actions/workflows/archive-javagdbnative.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to debug a Java application, built into a native executable in VS Code<br><strong>Technologies: </strong>Native Image, Maven, GraalVM Tools for Java<br><strong>Reference: </strong><a href="https://medium.com/graalvm/native-image-debugging-in-vs-code-2d5dda1989c1">Native Image Debugging in VS Code</a></td>
     </tr>
     <tr>
@@ -145,23 +145,6 @@ cd graalvm-demos
     <tr>
       <td align="left" width="30%"><a href="/native-image/containerize/">native-image/containerize</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml"><img alt="native-image/containerizee" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to compile a Spring Boot 3 application into a native executable using the Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/containerise-native-executable-and-run-in-docker-container/">Containerize a Native Executable and Run in a Container</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">Oracle GraalVM in OCI Cloud Shell</a></td>
-    </tr>
-  </tbody>
-</table>
-
-### Scala
-
-<table>
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="left" width="30%"><a href="/scalac-native/">scalac-native</a></td>
-      <td align="left" width="70%">Demonstrates how to build a native executable of the Scala compiler. The resulting binary has no dependencies on the JDK. <br><strong>Technologies: </strong>Scala 2.12.x, Native Image <br><strong>Reference: </strong><a href="https://medium.com/graalvm/compiling-scala-faster-with-graalvm-86c5c0857fa3">Compiling Scala Faster with GraalVM</a></td>
     </tr>
   </tbody>
 </table>
