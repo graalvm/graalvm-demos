@@ -9,7 +9,7 @@ shared libraries, an executable has to be fully statically linked with all
 needed libraries and resources.
 
 To support static linking of `libc`, GraalVM Native Image supports using the
-"lightweight, fast, simple, free" [musl](https://musl.libc.org/) libc
+"lightweight, fast, simple, free" [musl](https://musl.libc.org/) `libc`
 implementation.
 
 You can watch a [Devoxx 2022](https://devoxx.be/) session that walks through
@@ -176,15 +176,13 @@ or
 ![](images/keyboard.jpg) `docker run --init --rm -p8000:8000 jwebserver:scratch.static-upx`
 
 Using `curl` or your favourite tool you can hit `http://localhost:8000` to fetch
-the index.html file.
+the _index.html_ file.
 
 ## Wrapping Up
 
 A fully functional, albeit minimal, Java "microservice" was compiled into a
 native Linux executable and packaged into Distroless, Alpine, and
 `scratch`-based container images thanks to GraalVM Native Image's support for
-various linking options including fully static linking with the `musl` libc.
+various linking options including fully static linking with `musl libc`.
 
-To learn more about linking options check out [Static and Mostly Static
-Images](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/)
-in the GraalVM docs.
+To learn more about linking options check out [Static and Mostly Static Images](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/) in the GraalVM docs.

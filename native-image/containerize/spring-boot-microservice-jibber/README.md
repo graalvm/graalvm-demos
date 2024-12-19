@@ -1,4 +1,4 @@
-# Containerize a Native Executable and Run in a Container
+# Containerize a Spring Boot 3 Native Microservice and Run in a Container
 
 You can find the steps to run this demo on [the website](https://www.graalvm.org/latest/reference-manual/native-image/guides/containerise-native-executable-and-run-in-docker-container/).
 

@@ -24,8 +24,8 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/tiny-java-containers/">tiny-java-containers</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/tiny-java-containers.yml"><img alt="tiny-java-containers" src="https://github.com/graalvm/graalvm-demos/actions/workflows/tiny-java-containers.yml/badge.svg" /></a>
-      <td align="left" width="70%">Demonstrates how to build very small Docker container images with GraalVM Native Image and various lightweight base images. <br><strong>Technologies: </strong> Native Image, musl libc<br><strong>Reference: </strong><a href="https://www.graalvm.org/22.0/reference-manual/native-image/StaticImages/">Static and Mostly Static Images</a></td>
+      <td align="left" width="30%"><a href="/native-image/containerize/tiny-java-containers/">tiny-java-containers</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/containerize-tiny-java-containers.yml.yml"><img alt="native-image/containerize/tiny-java-containers" src="https://github.com/graalvm/graalvm-demos/actions/workflows/containerize-tiny-java-containers.yml/badge.svg" /></a>
+      <td align="left" width="70%">Demonstrates how to build very small Docker container images with GraalVM Native Image and various lightweight base images. <br><strong>Technologies: </strong> Native Image, musl libc<br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/">Static and Mostly Static Images</a></td>
     </tr>
     <tr>
       <td align="left" width="30%"><a href="/native-image/hello-world/">native-image/hello-world</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml"><img alt="native-image/hello-world" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-hello-world.yml/badge.svg" /></a></td>
@@ -143,7 +143,7 @@ cd graalvm-demos
   </thead>
   <tbody>
     <tr>
-      <td align="left" width="30%"><a href="/native-image/containerize/">native-image/containerize</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml"><img alt="native-image/containerizee" src="https://github.com/graalvm/graalvm-demos/actions/workflows/native-image-containerize.yml/badge.svg" /></a></td>
+      <td align="left" width="30%"><a href="/native-image/containerize/spring-boot-microservice-jibber/">spring-boot-microservice-jibber</a><br><a href="https://github.com/graalvm/graalvm-demos/actions/workflows/containerize-spring-boot-jibber.yml"><img alt="native-image/containerize/spring-boot-microservice-jibber" src="https://github.com/graalvm/graalvm-demos/actions/workflows/containerize-spring-boot-jibber.yml/badge.svg" /></a></td>
       <td align="left" width="70%">Demonstrates how to compile a Spring Boot 3 application into a native executable using the Native Build Tools Maven plugin and a Maven profile <br> <strong>Technologies: </strong>Spring Boot, Native Image, Native Build Tools Maven plugin <br><strong>Reference: </strong><a href="https://www.graalvm.org/latest/reference-manual/native-image/guides/containerise-native-executable-and-run-in-docker-container/">Containerize a Native Executable and Run in a Container</a>, <a href="https://docs.oracle.com/en/graalvm/jdk/21/docs/getting-started/oci/cloud-shell/">Oracle GraalVM in OCI Cloud Shell</a></td>
     </tr>
   </tbody>
