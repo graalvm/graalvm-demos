@@ -31,12 +31,12 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
     ```
     You can see the app starts in few hundred milliseconds.
     
-3. To test the `HelloController` you created, either `curl http://localhost:8080/hello` or open it in a browser:
+3. To test the `HelloController` you created, either `curl http://localhost:8080/GraalVM` or open it in a browser:
     ```bash
-    curl http://localhost:8080/hello
+    curl http://localhost:8080/GraalVM
     ```
 
-    The response should be `Example Response`. 
+    The response should be `Hello GraalVM`. 
     Then stop the application:
     ```
     CTRL-C
@@ -45,14 +45,14 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
 ## Build and Run a Native Executable
 
 With no runtime reflection, Micronaut is extremely well suited to ahead-of-time (AOT) compilation with [GraalVM Native Image](https://www.graalvm.org/latest/reference-manual/native-image/).
-Mironaut provides support for GraalVM Native Image by default.
+Micronaut provides support for GraalVM Native Image by default.
 
-1. Compile this REST application ahead of time with Gradle:
+1. Compile this REST application ahead of time:
     ```bash
     ./mvnw package -Dpackaging=native-image
     ```
     
-    Compilation can take a few minutes, but more cores and more memory reduce the required time.
+    Compilation can take a few minutes. Compiling on machine with more cores and more memory will reduce the build time.
 
     The result is a standalone executable placed in the _target/_ directory named `MnHelloRest`.
 
@@ -60,10 +60,20 @@ Mironaut provides support for GraalVM Native Image by default.
     ```bash
     ./target/MnHelloRest
     ```
-    This ahead-of-time compiled application started much faster than when running on HorSpot!
+    This ahead-of-time compiled application started much faster than when running as a JAR!
 
     It is so fast because it does not have to parse bytecode for JDK and application classes, initialize the JIT compiler, allocate JIT code caches, JIT profile data caches, and so on.
-    The startup is negligible.
+
+3. To test the `HelloController` you created, either `curl http://localhost:8080/GraalVM` or open it in a browser:
+    ```bash
+    curl http://localhost:8080/GraalVM
+    ```
+
+    The response should be `Hello GraalVM`. 
+    Then stop the application:
+    ```
+    CTRL-C
+    ```
 
 ## Containerize and Run in Docker on Linux
 
@@ -104,9 +114,9 @@ One of the smallest base images you could use is Alpine Linux with `glibc`.
     docker run -p8080:8080 --rm hello
     ```
     ```bash
-    curl http://localhost:8080/hello
+    curl http://localhost:8080/GraalVM
     ```
-    It will return the same message "Example Response".
+    It will return the same message "Hello GraalVM".
 
 ### Wrapping Up
 
