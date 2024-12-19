@@ -1,4 +1,4 @@
-Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2018, 2024 Oracle and/or its affiliates.
 
 The Universal Permissive License (UPL), Version 1.0
 
@@ -11,9 +11,8 @@ Software as contributed to or provided by such licensor, or (ii) the Larger
 Works (as defined below), to deal in both
 
 (a) the Software, and
-
 (b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
-one is included with the Software each a "Larger Work" to which the Software
+one is included with the Software (each a "Larger Work" to which the Software
 is contributed by such licensors),
 
 without restriction, including without limitation the rights to copy, create
@@ -23,10 +22,9 @@ Software and the Larger Work(s), and to sublicense the foregoing rights on
 either these or other terms.
 
 This license is subject to the following condition:
-
-The above copyright notice and either this complete permission notice or at a
-minimum a reference to the UPL must be included in all copies or substantial
-portions of the Software.
+The above copyright notice and either this complete permission notice or at
+a minimum a reference to the UPL must be included in all copies or
+substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
