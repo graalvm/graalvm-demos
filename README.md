@@ -1,34 +1,7 @@
 # GraalVM Demos
 
 This repository contains a collection of example applications that highlight key features and best practices for working with GraalVM technologies.
-
-## Repository Structure
-
-The demos are organized into categories for easier navigation
-
-### Native Image
-
-Demos showcasing the capabilities of GraalVM Native Image, including performance optimization and configuration tips, such as:
-
-- _build_: Covers building native images, including configurations and setup steps for various use cases.
-- _benchmark_: Provides performance measurement demos for Native Image.
-- _containerize_: Focuses on containerizing native Java applications and following best practices.
-- _monitor_: Demonstrates how to monitor native applications using observability and diagnostics tools.
-- _microservices_: Provides examples of building microservices ahead of time using frameworks such as Micronaut and Spring Boot.
-- _optimize_: Includes Native Image optimization examples for different criteria (runtime and performance tuning, file size, build time, and more).
-
-### Compiler
-
-Demos designed to test and showcase the capabilities of the Graal Just-In-Time (JIT) compiler.
-These examples focus on evaluating the compiler's performance, including its optimizations for modern Java workloads.
-
-### Clouds
-
-Demos showcasing the building and deployment of native applications to Oracle Cloud Infrastructure (OCI), AWS, and Google Cloud.
-
-### Archive
-
-Contains legacy or blog-related demos, as well as examples involving polyglot capabilities.
+The demos are organized into categories for easier navigation.
 
 ## Get Started
 
@@ -40,7 +13,48 @@ git clone https://github.com/graalvm/graalvm-demos.git
 cd graalvm-demos
 ```
 
-You will find instructions for running a particular demo in the corresponding README.md file. Some demos may also redirect you to a specific guide on the [GraalVM website](https://www.graalvm.org/latest/guides/).
+You will find instructions for running a particular demo in the corresponding _README.md_ file. Some demos may also redirect you to a specific guide on the [GraalVM website](https://www.graalvm.org/latest/guides/).
+
+## Graal Languages Demos
+
+You can find demos, along with how-to guides for GraalJS, GraalPy, and GraalWasm, in separate repositories:
+- [https://github.com/graalvm/graal-languages-demos/tree/main/graaljs/](https://github.com/graalvm/graal-languages-demos/tree/main/graaljs/)
+- [https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/](https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/)
+- [https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/](https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/)
+
+## Native Image Demos
+
+Example applications showcasing the capabilities of GraalVM Native Image, including performance optimization and configuration tips.
+
+### Build
+Demos for building native images, including configurations and setup steps for various use cases.
+
+### Benchmark
+Performance measurement demos for Native Image.
+
+### Clouds
+Demos showcasing the building and deployment of native applications to Oracle Cloud Infrastructure (OCI), AWS, and Google Cloud.
+
+### Containerize
+Demos focusing on containerizing native Java applications and following best practices.
+
+### Monitor
+Demos showcasing how to monitor native applications using observability and diagnostics tools.
+
+### Microservices
+Demos for building microservices ahead of time using frameworks such as Micronaut and Spring Boot.
+
+### Optimize
+Demos optimizing native application for different criteria (runtime and performance tuning, file size, build time, and more).
+
+## Compiler Demos
+
+Demos designed to test and showcase the capabilities of the Graal Just-In-Time (JIT) compiler.
+These examples focus on evaluating the compiler's performance, including its optimizations for modern Java workloads.
+
+## Archived Demos
+
+Legacy or blog-related demos, as well as examples involving polyglot capabilities.
 
 ## Compatibility
 
