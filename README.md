@@ -29,28 +29,69 @@ Example applications showcasing the capabilities of GraalVM Native Image, includ
 ### Build
 Demos for building native images, including configurations and setup steps for various use cases.
 
+* hello-world -
+* build-java-modules -
+* build-shared-library -
+* build-static-images -
+* build-with-js-embedded -
+* list-files -
+* native-build-tools -
+
 ### Benchmark
 Performance measurement demos for Native Image.
+
+* jmh/binary-tree -
 
 ### Clouds
 Demos showcasing the building and deployment of native applications to Oracle Cloud Infrastructure (OCI), AWS, and Google Cloud.
 
+* native-aws-fargate -
+* native-aws-lambda -
+* native-google-cloud-run - 
+* native-oci-container-instances -
+* native-oci-generative-ai -
+
+### Configure
+
+* configure-with-tracing-agent -
+* include-metadata -
+* include-resources - 
+* use-system-properties -
+
 ### Containerize
 Demos focusing on containerizing native Java applications and following best practices.
+
+* spring-boot-microservice-jibber -
+* tiny-java-containers -
 
 ### Monitor
 Demos showcasing how to monitor native applications using observability and diagnostics tools.
 
+* add-jfr -
+* add-jmx -
+* add-logging -
+* create-heap-dump -
+* emit-build-report -
+
 ### Microservices
 Demos for building microservices ahead of time using frameworks such as Micronaut and Spring Boot.
 
+* micronaut-hello-rest-gradle -
+* micronaut-hello-rest-maven -
+
 ### Optimize
 Demos optimizing native application for different criteria (runtime and performance tuning, file size, build time, and more).
+
+* optimize-memory -
+* optimize-with-pgo -
+* specify-class-init -
 
 ## Compiler Demos
 
 Demos designed to test and showcase the capabilities of the Graal Just-In-Time (JIT) compiler.
 These examples focus on evaluating the compiler's performance, including its optimizations for modern Java workloads.
+
+* - java-stream-benchmark
 
 ## Archived Demos
 
