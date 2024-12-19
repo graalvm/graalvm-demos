@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * The Universal Permissive License (UPL), Version 1.0
@@ -38,22 +38,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.example;
 
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import io.micronaut.runtime.Micronaut;
 
-@Controller
-public class HelloController {
+public class Application {
 
-    @Get(produces = MediaType.TEXT_PLAIN)
-    public String index() {
-        return "Hello World";
-    }
-
-    @Get(value = "/{name}", produces = MediaType.TEXT_PLAIN)
-    public String index(String name) {
-        return "Hello " + name;
+    public static void main(String[] args) {
+        Micronaut.run(Application.class, args);
     }
 }
