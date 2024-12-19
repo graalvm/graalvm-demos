@@ -2,11 +2,11 @@ name: clouds/native-oci-container-instances
 on:
   push:
     paths:
-      - 'clouds/native-oci-container-instances/**'
+      - 'native-image/clouds/native-oci-container-instances/**'
       - '.github/workflows/clouds-native-oci-container-instances.yml'
   pull_request:
     paths:
-      - 'clouds/native-oci-container-instances/**'
+      - 'native-image/clouds/native-oci-container-instances/**'
       - '.github/workflows/clouds-native-oci-container-instances.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -27,5 +27,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'clouds/native-oci-container-instances'
         run: |
-          cd clouds/native-oci-container-instances
+          cd native-image/clouds/native-oci-container-instances
           ./mvnw package -Dpackaging=docker-native

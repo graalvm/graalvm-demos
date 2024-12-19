@@ -2,11 +2,11 @@ name: clouds/native-google-cloud-run
 on:
   push:
     paths:
-      - 'clouds/native-google-cloud-run/**'
+      - 'native-image/clouds/native-google-cloud-run/**'
       - '.github/workflows/clouds-native-google-cloud-run.yml'
   pull_request:
     paths:
-      - 'clouds/native-google-cloud-run/**'
+      - 'native-image/clouds/native-google-cloud-run/**'
       - '.github/workflows/clouds-native-google-cloud-run.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -27,5 +27,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'clouds/native-google-cloud-run'
         run: |
-          cd clouds/native-google-cloud-run
+          cd native-image/clouds/native-google-cloud-run
           ./mvnw package -Dpackaging=docker-native

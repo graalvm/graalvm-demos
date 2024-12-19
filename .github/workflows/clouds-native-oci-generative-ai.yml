@@ -2,11 +2,11 @@ name: clouds/native-oci-generative-ai
 on:
   push:
     paths:
-      - 'clouds/native-oci-generative-ai/**'
+      - 'native-image/clouds/native-oci-generative-ai/**'
       - '.github/workflows/clouds-native-oci-generative-ai.yml'
   pull_request:
     paths:
-      - 'clouds/native-oci-generative-ai/**'
+      - 'native-image/clouds/native-oci-generative-ai/**'
       - '.github/workflows/clouds-native-oci-generative-ai.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -27,5 +27,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'native-oci-generative-ai'
         run: |
-          cd clouds/native-oci-generative-ai
+          cd native-image/clouds/native-oci-generative-ai
           mvn --batch-mode clean package -Pnative
