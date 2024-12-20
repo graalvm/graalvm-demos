@@ -68,7 +68,7 @@ Oracle GraalVM for JDK 17 (with Native Image) is preinstalled in Cloud Shell, so
 
 2. [OPTIONAL] Confirm software version and environment variables.
 
-    [Check software version and environment variables](../../_common/README-check-version-env-vars.md)
+    [Check software version and environment variables](README-check-version-env-vars.md)
 
 3. Build a JAR file for the example app.
 
