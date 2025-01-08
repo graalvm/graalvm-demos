@@ -7,19 +7,10 @@ This repository contains a collection of example applications that highlight key
 To get started, clone this repository and navigate to the relevant demo directory:
 ```bash
 git clone https://github.com/graalvm/graalvm-demos.git
-``` 
-```bash
 cd graalvm-demos
 ```
 
 You will find instructions for running a particular demo in the corresponding _README.md_ file. Some demos redirect you to a specific guide on the [GraalVM website](https://www.graalvm.org/latest/guides/).
-
-## Graal Languages Demos
-
-You can find demos, along with how-to guides for GraalJS, GraalPy, and GraalWasm, in separate repositories:
-- [https://github.com/graalvm/graal-languages-demos/tree/main/graaljs/](https://github.com/graalvm/graal-languages-demos/tree/main/graaljs/)
-- [https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/](https://github.com/graalvm/graal-languages-demos/tree/main/graalpy/)
-- [https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/](https://github.com/graalvm/graal-languages-demos/tree/main/graalwasm/)
 
 ## Native Image Demos
 
@@ -96,6 +87,10 @@ Demos designed to test and showcase the capabilities of the Graal Just-In-Time (
 These examples focus on evaluating the compiler's performance, including its optimizations for modern Java workloads.
 
 * [java-stream-benchmark](compiler/java-stream-benchmark/) - A simple Java Stream benchmark to test the Graal JIT compiler performance against C2
+
+## Graal Languages Demos
+
+You can find demos and guides for [GraalJS](https://www.graalvm.org/javascript/), [GraalPy](https://www.graalvm.org/python/), [GraalWasm](https://www.graalvm.org/webassembly/), and other Graal Languages at [github.com/graalvm/graal-languages-demos/](https://github.com/graalvm/graal-languages-demos/).
 
 ## Archived Demos
 
