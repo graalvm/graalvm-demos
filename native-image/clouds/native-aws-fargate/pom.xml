@@ -20,7 +20,6 @@
     <micronaut.version>3.9.1</micronaut.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>example.micronaut.Application</exec.mainClass>
-    <graal.version>22.3.3</graal.version>
   </properties>
 
   <repositories>
