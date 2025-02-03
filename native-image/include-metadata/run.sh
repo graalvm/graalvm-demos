@@ -10,7 +10,7 @@ set -ex
 # With Tracing Agent
 ./mvnw clean
 ./mvnw -Pnative -DskipTests -DskipNativeBuild=true package exec:exec@java-agent
-./mvnw -Pnative -DskipTests package exec:exec@native
+./mvnw -Pnative -DskipTests package
 
 ## Run Gradle Project
 # Default Configuration
