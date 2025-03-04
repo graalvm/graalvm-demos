@@ -1,12 +1,12 @@
-name: native-image/containerize/spring-boot-microservice-jibber
+name: native-image/spring-boot-microservice-jibber
 on:
   push:
     paths:
-      - 'native-image/containerize/spring-boot-microservice-jibber/**'
+      - 'native-image/spring-boot-microservice-jibber/**'
       - '.github/workflows/containerize-spring-boot-jibber.yml'
   pull_request:
     paths:
-      - 'native-image/containerize/spring-boot-microservice-jibber/**'
+      - 'native-image/spring-boot-microservice-jibber/**'
       - '.github/workflows/containerize-spring-boot-jibber.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -15,7 +15,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/containerize/spring-boot-microservice-jibber'
+    name: Run 'native-image/spring-boot-microservice-jibber'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -30,9 +30,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
           native-image-job-reports: 'true'
-      - name: Run 'native-image/containerize/spring-boot-microservice-jibber'
+      - name: Run 'native-image/spring-boot-microservice-jibber'
         run: |
-          cd native-image/containerize/spring-boot-microservice-jibber
+          cd native-image/spring-boot-microservice-jibber
           mvn --no-transfer-progress package
           mvn --no-transfer-progress native:compile -Pnative
           ./target/benchmark-jibber &
