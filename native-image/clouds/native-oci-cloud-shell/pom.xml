@@ -80,10 +80,6 @@
               <!-- <quickBuild>true</quickBuild> -->
               <buildArgs>
                 <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-                <!-- For mostly static native image (only on Linux AMD64 systems) -->
-                <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
-                <!-- To generate the Native Image build output JSON -->
-                <!-- <buildArg>-H:BuildOutputJSONFile=build.json</buildArg> -->
               </buildArgs>
             </configuration>
           </plugin>

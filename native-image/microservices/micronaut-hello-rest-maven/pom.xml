@@ -119,8 +119,6 @@
           <quickBuild>true</quickBuild>
           <buildArgs combine.children="append">
             <buildArg>-H:+ReportExceptionStackTraces</buildArg>
-            <!-- For mostly static native image (only on Linux systems) -->
-            <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
           </buildArgs>
         </configuration>
       </plugin>

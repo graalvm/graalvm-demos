@@ -41,8 +41,8 @@ Demos illustrating how to compile applications with Native Image that use some d
 ### Containerize
 Demos focusing on containerizing native Java applications and following best practices.
 
-* [spring-boot-microservice-jibber](native-image/containerize/spring-boot-microservice-jibber/) - Demonstrates how to create a native executable for a Spring Boot web server, containerize it, and run
-* [tiny-java-containers](native-image/containerize/tiny-java-containers/) - Shows how a simple Java application and the `jdk.httpserver` module can be compiled to produce small container images
+* [spring-boot-microservice-jibber](native-image/spring-boot-microservice-jibber/) - Demonstrates how to create a native executable for a Spring Boot web server, containerize it, and run
+* [tiny-java-containers](native-image/tiny-java-containers/) - Shows how a simple Java application and the `jdk.httpserver` module can be compiled to produce small container images
 
 ### Monitor
 Demos showcasing how to monitor native applications using observability and diagnostics tools.

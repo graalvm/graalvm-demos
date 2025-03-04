@@ -1,8 +1,8 @@
-name: native-image/containerize/tiny-java-containers
+name: native-image/tiny-java-containers
 on:
   push:
     paths:
-      - 'native-image/containerize/tiny-java-containers/**'
+      - 'native-image/tiny-java-containers/**'
       - '.github/workflows/containerize-tiny-java-containers.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
@@ -11,8 +11,8 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/containerize/tiny-java-containers'
-    runs-on: ubuntu-20.04 # Docker has changed its behavior on Ubuntu 22.04
+    name: Run 'native-image/tiny-java-containers'
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
@@ -24,10 +24,10 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run 'native-image/containerize/tiny-java-containers'
+      - name: Run 'native-image/tiny-java-containers'
         run: |
           sleep_period=5
-          cd native-image/containerize/tiny-java-containers
+          cd native-image/tiny-java-containers
           # Hello World
           #
           cd helloworld
