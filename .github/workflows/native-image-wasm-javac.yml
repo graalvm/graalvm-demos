@@ -1,0 +1,48 @@
+name: native-image/wasm-javac
+on:
+  push:
+    paths:
+      - 'native-image/wasm-javac/**'
+      - '.github/workflows/native-image-wasm-javac.yml'
+  pull_request:
+    paths:
+      - 'native-image/wasm-javac/**'
+      - '.github/workflows/native-image-wasm-javac.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/wasm-javac'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['25-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up Binaryen
+        run: |
+          curl -sLO https://github.com/WebAssembly/binaryen/releases/download/version_122/binaryen-version_122-x86_64-linux.tar.gz
+          tar xzf binaryen-version_122-x86_64-linux.tar.gz
+          echo "$(pwd)/binaryen-version_122/bin" >> "$GITHUB_PATH"
+      - name: Run 'native-image/wasm-javac'
+        run: |
+          cd native-image/wasm-javac
+          ./mvnw --no-transfer-progress -Pnative package
+          wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o target/javac.js.wasm target/javac.js.wasm
+          ./mvnw --no-transfer-progress -Pjavacweb package
+          wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o web/javac.js.wasm web/javac.js.wasm
+          node target/javac.js HelloWasm.java
+          java HelloWasm
