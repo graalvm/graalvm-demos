@@ -38,26 +38,9 @@ public class PackageNamingUtil {
         }
     }
 
-    /**
-     * Converts a fully qualified name (package or class name) to a relative path.
-     * <p>
-     * For example: {@code java.lang.String} is converted to {@code java/lang/String}
-     */
-    public static Path qualifiedNameToPath(String qualifiedName) {
-        return Path.of(qualifiedName.replace('.', '/'));
+    public static String removeExtension(String fileName) {
+        int suffixIdx = fileName.lastIndexOf('.');
+        assert suffixIdx >= 0 : fileName;
+        return fileName.substring(0, suffixIdx);
     }
-
-    /**
-     * Joins together the given package name and the given suffix with a period.
-     * <p>
-     * If the package name is empty, only the suffix is returned.
-     */
-    public static String joinPackageName(String packageName, String suffix) {
-        if (packageName.isEmpty()) {
-            return suffix;
-        }
-
-        return packageName + "." + suffix;
-    }
-
 }

@@ -19,7 +19,6 @@ import org.graalvm.aotjs.api.JSObject;
 
 public class JavacMain {
     public static void main(String[] args) throws IOException {
-        JavacCompilerWrapper.init();
         String filePath = args[0];
         String source = readFile(filePath);
         Path path = Path.of(filePath);

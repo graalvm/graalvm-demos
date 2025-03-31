@@ -22,19 +22,18 @@ import java.lang.module.ModuleReader;
 import java.lang.module.ModuleReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import javax.tools.JavaFileManager;
-import javax.tools.StandardLocation;
+import javax.tools.StandardJavaFileManager;
 
-import com.example.JavaFileManagerImpl;
 import com.example.PackageNamingUtil;
 
 /**
@@ -48,17 +47,15 @@ import com.example.PackageNamingUtil;
  */
 public class PreLoadedFiles {
     public static final String SOURCE_PATH = "/sourcePath";
+    public static final String OUTPUT_PATH = "/outputPath";
     public static final String CLASS_PATH = "/classPath";
     public static final String JAVA_HOME = CLASS_PATH + "/jdk";
-    public static final String JDK_MODULES = JAVA_HOME + "/modules";
+    public static final String JDK_MODULES = JAVA_HOME + "/lib/modules";
 
     private static final Map<String, PreLoadedLocation> MODULE_LOCATIONS = new HashMap<>();
     private static final String[] PRELOADED_JDK_MODULES = {"java.base"};
 
-    /**
-     * Contains precomputed values for {@link JavaFileManager#listLocationsForModules}.
-     */
-    public static final Map<JavaFileManager.Location, Iterable<Set<JavaFileManager.Location>>> AVAILABLE_MODULES = new HashMap<>();
+    private static final byte[] CLASS_MAGIC = new byte[]{(byte) 0xCA, (byte) 0xFE, (byte) 0xBA, (byte) 0xBE};
 
     static {
         initModules();
@@ -76,17 +73,12 @@ public class PreLoadedFiles {
         try {
             ModuleFinder mf = ModuleFinder.ofSystem();
 
-            Set<JavaFileManager.Location> systemModules = new HashSet<>();
-
             for (String moduleName : PRELOADED_JDK_MODULES) {
                 Optional<ModuleReference> moduleReference = mf.find(moduleName);
                 assert moduleReference.isPresent() : "Cannot find module " + moduleName;
                 int numBytes = initModule(moduleName, moduleReference.get());
-                systemModules.add(new ModuleLocation(StandardLocation.SYSTEM_MODULES, moduleName));
                 System.out.printf("%s: %dB%n", moduleName, numBytes);
             }
-
-            AVAILABLE_MODULES.put(StandardLocation.SYSTEM_MODULES, Collections.singleton(systemModules));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -127,7 +119,7 @@ public class PreLoadedFiles {
                      * bodies erased to reduce the file size. For compilation, javac does not need
                      * the method bodies.
                      */
-                    if (resourceName.endsWith(".class") && bytes.length >= 4 && bytes[0] == (byte) 0xCA && bytes[1] == (byte) 0xFE && bytes[2] == (byte) 0xBA && bytes[3] == (byte) 0xBE) {
+                    if (resourceName.endsWith(".class") && bytes.length >= 4 && Arrays.equals(bytes, 0, CLASS_MAGIC.length, CLASS_MAGIC, 0, CLASS_MAGIC.length)) {
                         bytes = eraseMethodBodies(bytes);
                     }
 
@@ -168,11 +160,13 @@ public class PreLoadedFiles {
     }
 
     /**
-     * Initializes the virtual file system from preloaded data and returns a
-     * {@link JavaFileManagerImpl} constructed using the paths used to populate the filesystem.
+     * Initializes the virtual file system from preloaded data and returns a {@link JavaFileManager}
+     * constructed using the paths used to populate the filesystem.
      */
     @SuppressWarnings("hiding")
-    public static JavaFileManagerImpl initFileSystem() throws IOException {
+    public static JavaFileManager initFileSystem() throws IOException {
+        System.setProperty("java.home", PreLoadedFiles.JAVA_HOME);
+
         long start = System.nanoTime();
         System.err.println("Start loading preloaded class files");
         for (String moduleName : PRELOADED_JDK_MODULES) {
@@ -180,15 +174,23 @@ public class PreLoadedFiles {
             MODULE_LOCATIONS.get(moduleName).fillFileSystem(modulePath);
         }
 
-        Files.createDirectories(Path.of(CLASS_PATH));
-        Files.createDirectories(Path.of(SOURCE_PATH));
+        Files.createDirectories(Path.of(PreLoadedFiles.CLASS_PATH));
+        Files.createDirectories(Path.of(PreLoadedFiles.SOURCE_PATH));
+        Files.createDirectories(Path.of(PreLoadedFiles.OUTPUT_PATH));
         long elapsed = System.nanoTime() - start;
         System.err.printf("Finished loading preloaded class files in %dms%n", elapsed / 1_000_000);
 
-        Path sourcePath = Path.of(PreLoadedFiles.SOURCE_PATH);
-        Path classPath = Path.of(PreLoadedFiles.CLASS_PATH);
-        Path jdkModulePath = Path.of(PreLoadedFiles.JDK_MODULES);
+        StandardJavaFileManager standardFileManager = PreLoadedCompiler.getCompiler().getStandardFileManager(null, Locale.ROOT, null);
 
-        return new JavaFileManagerImpl(classPath, sourcePath, jdkModulePath);
+        boolean result = standardFileManager.handleOption("-cp", List.of(PreLoadedFiles.CLASS_PATH).iterator());
+        assert result : "Failed to apply -cp option";
+        result = standardFileManager.handleOption("-d", List.of(PreLoadedFiles.OUTPUT_PATH).iterator());
+        assert result : "Failed to apply -d option";
+        result = standardFileManager.handleOption("--source-path", List.of(PreLoadedFiles.SOURCE_PATH).iterator());
+        assert result : "Failed to apply --source-path option";
+        result = standardFileManager.handleOption("--system", List.of(PreLoadedFiles.JAVA_HOME).iterator());
+        assert result : "Failed to apply --system option";
+
+        return standardFileManager;
     }
 }

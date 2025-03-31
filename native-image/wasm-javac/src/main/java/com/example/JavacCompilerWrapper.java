@@ -7,15 +7,15 @@
 package com.example;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
+import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 
@@ -23,19 +23,9 @@ import com.example.preload.PreLoadedCompiler;
 import com.example.preload.PreLoadedFiles;
 
 public class JavacCompilerWrapper {
-    private static JavaFileManagerImpl fileManagerInstance = null;
+    private static JavaFileManager fileManagerInstance = null;
 
-    /**
-     * Initializes the filesystem.
-     * <p>
-     * This is usually done lazily, call this method if you want to control when this happens.
-     */
-    public static void init() {
-        System.setProperty("java.home", PreLoadedFiles.JAVA_HOME);
-        getFm();
-    }
-
-    public static JavaFileManagerImpl getFm() {
+    public static JavaFileManager getFm() {
         if (fileManagerInstance == null) {
             try {
                 fileManagerInstance = PreLoadedFiles.initFileSystem();
@@ -47,9 +37,26 @@ public class JavacCompilerWrapper {
         return fileManagerInstance;
     }
 
+    static void deleteDirectory(Path directoryToBeDeleted) throws IOException {
+        try (Stream<Path> paths = Files.list(directoryToBeDeleted)) {
+            paths.forEach(f -> {
+                try {
+                    if (Files.isDirectory(f)) {
+                        deleteDirectory(directoryToBeDeleted);
+                    }
+
+                    Files.delete(f);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
+
     public static Result compileFiles(List<String> options, FileContent[] files) throws IOException {
-        JavaFileManagerImpl fm = getFm();
-        fm.generatedClasses.clear();
+        JavaFileManager fm = getFm();
+        Path outputPath = Path.of(PreLoadedFiles.OUTPUT_PATH);
+        deleteDirectory(outputPath);
         List<JavaFileObject> inputs = new ArrayList<>();
 
         for (FileContent content : files) {
@@ -60,7 +67,7 @@ public class JavacCompilerWrapper {
             Path fileNamePath = sourceFile.getFileName();
             assert fileNamePath != null : "Could not get filename for source file path";
             String fileName = fileNamePath.toString();
-            String className = JavaFileManagerImpl.removeExtension(fileName);
+            String className = PackageNamingUtil.removeExtension(fileName);
 
             Path parent = sourceFile.getParent();
             if (parent != null) {
@@ -68,11 +75,10 @@ public class JavacCompilerWrapper {
             }
 
             Files.write(sourceFile, source);
-            JavaFileObject fileObject = fm.getJavaFileForInput(StandardLocation.SOURCE_PATH, className, JavaFileObject.Kind.SOURCE);
-            assert fileObject != null : "JavaFileManager.getJavaFileForInput returned null";
-            inputs.add(fileObject);
-
             System.err.println("Added file at " + sourceFile);
+            JavaFileObject fileObject = fm.getJavaFileForInput(StandardLocation.SOURCE_PATH, className, JavaFileObject.Kind.SOURCE);
+            assert fileObject != null : "JavaFileManager.getJavaFileForInput returned null for class name " + className;
+            inputs.add(fileObject);
         }
 
         System.err.println("Compiling with options: " + options);
@@ -84,15 +90,17 @@ public class JavacCompilerWrapper {
             return Result.failure(collector.diagnostics);
         }
 
-        List<FileContent> outputFile = new ArrayList<>(fm.generatedClasses.size());
+        List<FileContent> outputFiles = new ArrayList<>();
 
-        for (Map.Entry<String, JavaFileObject> entry : fm.generatedClasses.entrySet()) {
-            try (InputStream os = entry.getValue().openInputStream()) {
-                outputFile.add(new FileContent(entry.getKey() + entry.getValue().getKind().extension, os.readAllBytes()));
+        try (Stream<Path> s = Files.walk(outputPath)) {
+            for (Path f : s.toList()) {
+                if (Files.isRegularFile(f)) {
+                    outputFiles.add(new FileContent(outputPath.relativize(f).toString(), Files.readAllBytes(f)));
+                }
             }
         }
 
-        return Result.success(outputFile, collector.diagnostics);
+        return Result.success(outputFiles, collector.diagnostics);
     }
 
     public record FileContent(String name, byte[] content) {
