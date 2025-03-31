@@ -1330,6 +1330,36 @@ wasmImports.jsbody = {
 			return conversion.toProxy(conversion.createJavaBoolean(this));
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.asJavaObjectOrString___Object_Object' : (...args) => (function(obj){
+		try{
+			return conversion.isInternalJavaObject(obj) ? obj : toJavaString(obj.toString());
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.extractJavaScriptProxy___Object_Object' : (...args) => (function(self){
+		try{
+			return conversion.toProxy(self);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.extractJavaScriptString___String_Object' : (...args) => (function(s){
+		try{
+			return conversion.extractJavaScriptString(s);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.javaScriptToJava___Object_Object' : (...args) => (function(x){
+		try{
+			return conversion.javaScriptToJava(x);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.javaScriptUndefined___Object' : (...args) => (function(){
+		try{
+			return undefined;
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSConversion.unproxy___Object_Object' : (...args) => (function(proxy){
+		try{
+			const javaNative = proxy[runtime.symbol.javaNative]; return javaNative === undefined ? null : javaNative;
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
 	'_JSNumber.javaDouble___Double' : (...args) => (function(){
 		try{
 			return conversion.toProxy(conversion.createJavaDouble(this));
@@ -1385,6 +1415,11 @@ wasmImports.jsbody = {
 			return sym0 === sym1;
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
+	'_WebImageUtil.random___D' : (...args) => (function(){
+		try{
+			return Math.random();
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
 	'_WebMain.addEventListenerImpl___JSObject_String_EventHandler_V' : (...args) => (function(o,event,handler){
 		try{
 			o.addEventListener(event, (e) => handler(e));
@@ -1423,41 +1458,6 @@ wasmImports.jsbody = {
 	'_WebMain.sink___Object_V' : (...args) => (function(o){
 		try{
 			
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.asJavaObjectOrString___Object_Object' : (...args) => (function(obj){
-		try{
-			return conversion.isInternalJavaObject(obj) ? obj : toJavaString(obj.toString());
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.extractJavaScriptProxy___Object_Object' : (...args) => (function(self){
-		try{
-			return conversion.toProxy(self);
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.extractJavaScriptString___String_Object' : (...args) => (function(s){
-		try{
-			return conversion.extractJavaScriptString(s);
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.javaScriptToJava___Object_Object' : (...args) => (function(x){
-		try{
-			return conversion.javaScriptToJava(x);
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.javaScriptUndefined___Object' : (...args) => (function(){
-		try{
-			return undefined;
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_c.unproxy___Object_Object' : (...args) => (function(proxy){
-		try{
-			const javaNative = proxy[runtime.symbol.javaNative]; return javaNative === undefined ? null : javaNative;
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_h.an___D' : (...args) => (function(){
-		try{
-			return Math.random();
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
 }
