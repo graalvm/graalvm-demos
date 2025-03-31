@@ -17,6 +17,7 @@ import java.util.Objects;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
+import com.example.JavacCompilerWrapper;
 import com.example.JavacCompilerWrapper.FileContent;
 import com.example.preload.PreLoadedFiles;
 import org.graalvm.aotjs.api.JS;
@@ -34,12 +35,13 @@ public class WebMain {
     public static final JSObject INPUT = getElementById("source");
 
     public static void main(String[] args) {
-        JavacCompilerWrapper.init();
-
+        // Ensure file manager is initialized
+        JavacCompilerWrapper.getFm();
         try {
-            // TODO GR-62854 Here to ensure handleEvent is generated. Remove once objects passed to
-            // @JS methods automatically have their SAM registered.
+            // TODO GR-62854 Here to ensure handleEvent and run is generated. Remove once objects
+            // passed to @JS methods automatically have their SAM registered.
             sink(EventHandler.class.getDeclaredMethod("handleEvent", JSObject.class));
+            sink(Runnable.class.getDeclaredMethod("run"));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
@@ -201,7 +203,7 @@ public class WebMain {
         StringWriter stringWriter = new StringWriter();
         t.setLog(stringWriter);
         try {
-            t.handleOptions(new String[]{"-cp", PreLoadedFiles.CLASS_PATH, "-l", "-s", "-c", "-p", className});
+            t.handleOptions(new String[]{"-cp", PreLoadedFiles.OUTPUT_PATH, "-l", "-s", "-c", "-p", className});
         } catch (JavapTask.BadArgs e) {
             throw new RuntimeException(e);
         }
@@ -282,7 +284,13 @@ class Highlighter {
             // otherwise the underline will not be seen
             sb.append(' ');
         }
-        sb.append(c);
+
+        switch (c) {
+            case '<' -> sb.append("&lt;");
+            case '>' -> sb.append("&gt;");
+            default -> sb.append(c);
+        }
+
         position++;
     }
 
