@@ -13,9 +13,9 @@ import java.util.List;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
-import org.graalvm.aotjs.api.JS;
-import org.graalvm.aotjs.api.JSNumber;
-import org.graalvm.aotjs.api.JSObject;
+import org.graalvm.webimage.api.JS;
+import org.graalvm.webimage.api.JSNumber;
+import org.graalvm.webimage.api.JSObject;
 
 public class JavacMain {
     public static void main(String[] args) throws IOException {
