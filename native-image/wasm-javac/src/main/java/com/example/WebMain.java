@@ -20,10 +20,10 @@ import javax.tools.JavaFileObject;
 import com.example.JavacCompilerWrapper;
 import com.example.JavacCompilerWrapper.FileContent;
 import com.example.preload.PreLoadedFiles;
-import org.graalvm.aotjs.api.JS;
-import org.graalvm.aotjs.api.JSBoolean;
-import org.graalvm.aotjs.api.JSObject;
-import org.graalvm.aotjs.api.JSString;
+import org.graalvm.webimage.api.JS;
+import org.graalvm.webimage.api.JSBoolean;
+import org.graalvm.webimage.api.JSObject;
+import org.graalvm.webimage.api.JSString;
 
 import com.sun.tools.javap.JavapTask;
 
