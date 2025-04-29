@@ -23,10 +23,11 @@ Demos for building native images, including configurations and setup steps for v
 * [build-from-jar](native-image/build-from-jar/) - Shows how to create a JAR file without using Maven or Gradle, and build a native executable from that JAR
 * [build-java-modules](native-image/build-java-modules/) - Shows how to compile a modularized Java application into a native executable without using Maven or Gradle
 * [build-shared-library](native-image/build-shared-library/) - Shows how build a native shared library and then load it from a C application
-* [build-static-images](native-image/build-static-images/) - Shows how to create a fully static and a mostly-static native executable, unlike the default dynamic one 
+* [build-static-images](native-image/build-static-images/) - Shows how to create a fully static and a mostly-static native executable, unlike the default dynamic one
 * [build-with-js-embedded](native-image/build-with-js-embedded/) - Shows how to embedded JavaScript into a Java application, and then compile it ahead of time
 * [list-files](native-image/list-files/) - Shows how to create a native executable from the command line, and then apply Profile-Guided Optimization (PGO)
 * [native-build-tools](native-image/native-build-tools/) - Contains two Java projects, and shows how to create native executables from those applications using [Maven](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) and [Gradle](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html) plugins for GraalVM Native Image
+* [wasm-javac](native-image/wasm-javac/) - Illustrates how to use the new experimental WebAssembly backend in GraalVM to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-javac/).
 
 ### Configure
 Demos illustrating how to compile applications with Native Image that use some dynamic Java features including reflection, resource access, and so on.
@@ -48,7 +49,7 @@ Demos focusing on containerizing native Java applications and following best pra
 Demos showcasing how to monitor native applications using observability and diagnostics tools.
 
 * [add-jfr](native-image/add-jfr/) - Shows how to build a native executable with JDK Flight Recorder (JFR) events support
-* [add-jmx](native-image/add-jmx/) - Shows how to build, run, and interact with a native executable using Java Management Extensions (JMX) 
+* [add-jmx](native-image/add-jmx/) - Shows how to build, run, and interact with a native executable using Java Management Extensions (JMX)
 * [add-logging](native-image/add-logging/) - Demonstrates how add logging to a native executable by providing necessary logging configuration
 * [create-heap-dump](native-image/create-heap-dumps/) - Shows how to enable heap dump support and describes all possible ways how to create a heap dump from a native executable
 * [embed-sbom](native-image/embed-sbom/) - Demonstrates how to embed an SBOM in a native executable to identify its dependencies
