@@ -13,18 +13,18 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <graalvm.polyglot.version>24.1.1</graalvm.polyglot.version>
-		<native.maven.plugin.version>0.10.3</native.maven.plugin.version>
+		<native.maven.plugin.version>0.10.6</native.maven.plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.graalvm.polyglot</groupId>
-            <artifactId>polyglot</artifactId> 
+            <artifactId>polyglot</artifactId>
             <version>${graalvm.polyglot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.graalvm.polyglot</groupId>
-            <artifactId>js</artifactId> 
+            <artifactId>js</artifactId>
             <version>${graalvm.polyglot.version}</version>
             <type>pom</type>
         </dependency>
