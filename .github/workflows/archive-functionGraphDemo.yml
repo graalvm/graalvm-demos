@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'archive/functionGraphDemo/**'
-      - '.github/workflows/functionGraphDemo.yml'
+      - '.github/workflows/archive-functionGraphDemo.yml'
   pull_request:
     paths:
       - 'archive/functionGraphDemo/**'
-      - '.github/workflows/functionGraphDemo.yml'
+      - '.github/workflows/archive-functionGraphDemo.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:

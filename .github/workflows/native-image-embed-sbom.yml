@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '24-ea'
+          java-version: '25-ea'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'

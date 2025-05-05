@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        java-version: ['21', '24-ea']
+        java-version: ['21', '25-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -53,7 +53,7 @@ jobs:
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-base.mostly)
           sleep $sleep_period
           curl "http://localhost:8000"
-          docker stop $container_id          
+          docker stop $container_id
           #
           # Static
           #
@@ -88,7 +88,7 @@ jobs:
           docker stop $container_id
           #
           # jlink
-          # 
+          #
           ./build-jlink.sh
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java-base.jlink)
           sleep $sleep_period
@@ -97,9 +97,9 @@ jobs:
           #
           # JDK Build
           #
-          ./build-jvm.sh 
+          ./build-jvm.sh
           #
-          # Debian JDK 
+          # Debian JDK
           #
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:debian)
           sleep $sleep_period
@@ -114,7 +114,7 @@ jobs:
           docker stop $container_id
           #
           # Distroless Java
-          # 
+          #
           ./build-jlink.sh
           container_id=$(docker run -d --rm -p8000:8000 jwebserver:distroless-java)
           sleep $sleep_period
