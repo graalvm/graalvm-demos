@@ -11,7 +11,7 @@
         <h2.version>2.2.220</h2.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <native.maven.plugin.version>0.10.3</native.maven.plugin.version>
+        <native.maven.plugin.version>0.10.6</native.maven.plugin.version>
         <mainClass>org.graalvm.example.H2Example</mainClass>
         <imageName>h2example</imageName>
     </properties>
@@ -33,7 +33,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>0.10.3</version>
+                        <version>0.10.6</version>
                         <extensions>true</extensions>
                         <executions>
                             <execution>

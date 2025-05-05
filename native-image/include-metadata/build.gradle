@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     // 1. Native Image Gradle plugin
-    id 'org.graalvm.buildtools.native' version '0.10.3'
+    id 'org.graalvm.buildtools.native' version '0.10.6'
 }
 
 repositories {
