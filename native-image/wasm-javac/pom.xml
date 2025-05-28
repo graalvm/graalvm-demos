@@ -62,18 +62,6 @@
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <artifactId>someArtifactId</artifactId>
-            <groupId>someGroupId</groupId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>
-                ${java.home}/lib/svm/tools/svm-wasm/builder/svm-wasm-api.jar
-            </systemPath>
-        </dependency>
-    </dependencies>
-
     <profiles>
         <profile>
             <id>native</id>
