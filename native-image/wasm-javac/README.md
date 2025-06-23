@@ -6,8 +6,8 @@ This demo illustrates how to use the new experimental WebAssembly backend for Gr
 
 This demo requires:
 
-1. An [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds) of Oracle GraalVM for JDK 25 or later.
-    For example, using SDKMAN!: `sdk install java 25.ea.26-graal`
+1. An [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds) of Oracle GraalVM for JDK 26 or later.
+    For example, using SDKMAN!: `sdk install java 26.ea.3-graal`
 2. The [Binaryen toolchain](https://github.com/WebAssembly/binaryen) in version 119 or later and on the system path.
     For example, using Homebrew: `brew install binaryen`
 
