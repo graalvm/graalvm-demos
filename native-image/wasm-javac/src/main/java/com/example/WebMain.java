@@ -37,14 +37,6 @@ public class WebMain {
     public static void main(String[] args) {
         // Ensure file manager is initialized
         JavacCompilerWrapper.getFm();
-        try {
-            // TODO GR-62854 Here to ensure handleEvent and run is generated. Remove once objects
-            // passed to @JS methods automatically have their SAM registered.
-            sink(EventHandler.class.getDeclaredMethod("handleEvent", JSObject.class));
-            sink(Runnable.class.getDeclaredMethod("run"));
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
 
         addEventListener(COMPILE_BUTTON, "click", e -> compileCallback());
         addEventListener(INPUT, "keydown", e -> {
@@ -66,9 +58,6 @@ public class WebMain {
             }
         });
     }
-
-    @JS("")
-    private static native void sink(Object o);
 
     /**
      * Runs the given {@link Runnable} in {@code setTimeout} without delay.
