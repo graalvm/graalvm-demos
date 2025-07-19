@@ -1,6 +1,9 @@
 # Using Native Image `Preserve` Option
 
-[Reflection](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/reflect/package-summary.html) is a feature of the Java programming language that enables a running Java program to examine and modify attributes of its classes, interfaces, fields, and methods. GraalVM Native Image automatically supports some uses of reflection. Native Image uses static analysis to identify what classes, methods, and fields are needed by an application, but it may not detect some elements of your application that are accessed using the [Java Reflection API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html). You must declare any undetected reflection usage to the `native-image` tool, either as metadata (precomputed in code or as JSON configuration files) or using the `-H:Preserve` option (experimental in GraalVM for JDK 25).
+Reflection is a feature of the Java programming language that enables a running Java program to examine and modify attributes of its classes, interfaces, fields, and methods.
+GraalVM Native Image automatically supports some uses of reflection.
+Native Image uses static analysis to identify what classes, methods, and fields are needed by an application, but it may not detect some elements of your application that are accessed using the [Java Reflection API](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/reflect/package-summary.html).
+You must declare any undetected reflection usage to the `native-image` tool, either as metadata ([precomputed in code or as JSON configuration files](https://www.graalvm.org/latest/reference-manual/native-image/metadata/)) or using the `-H:Preserve` option (experimental in GraalVM for JDK 25).
 
 This guide demonstrates how to declare reflection configuration using the `-H:Preserve` option.
 
@@ -12,18 +15,16 @@ This guide demonstrates how to declare reflection configuration using the `-H:Pr
     sdk install java 25.ea.29-graal
     ```
 
-2. Download or clone this repository and navigate into the `native-image/preserve-package` directory:
+2. Download or clone this repository, and navigate into the `native-image/preserve-package` directory:
 
     ```shell
     git clone https://github.com/graalvm/graalvm-demos
     cd graalvm-demos/native-image/preserve-package
     ```
 
-## Example using Reflection on the JVM
+## Example Using Reflection on the JVM
 
-The `ReflectionExample` class uses command line argument values to
-reflectively create an instance of a class and invoke a method with a
-provided argument. The core code is:
+The `ReflectionExample` class uses command line argument values to reflectively create an instance of a class and invoke a method with a provided argument. The core code is:
 
 ```java
     Class<?> clazz = Class.forName(className);
@@ -36,11 +37,10 @@ This approach works on the JVM as long as the required classes and methods are a
 1. Compile the application and create a JAR file using Maven:
 
     ```shell
-    ./mvnw package 
+    ./mvnw package
     ```
 
-2. Run `ReflectionExample` (the JAR entry point) to invoke the
-   `StringReverser` action:
+2. Run `ReflectionExample` (the JAR entry point) to invoke the `StringReverser` action:
 
     ```shell
     $JAVA_HOME/bin/java -jar target/preserve-package-1.0-SNAPSHOT.jar \
@@ -68,16 +68,13 @@ This approach works on the JVM as long as the required classes and methods are a
 
 ## GraalVM Native Image
 
-You can compile the project with Native Image, specifying `ReflectionExample` as the main
-entry point.
-The [_pom.xml_](pom.xml) file uses the [GraalVM Native Build
-Tools](https://graalvm.github.io/native-build-tools/latest/index.html) plugin to compile the project with the `native-image` tool when you select the `native-default`
-profile.
+You can compile the project with Native Image, specifying `ReflectionExample` as the main entry point.
+The [_pom.xml_](pom.xml) file uses the [Native Build Tools Maven plugin](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) to compile the project with the `native-image` tool.
 
 1. Build a native executable using the `native-default` profile (see the [_pom.xml_](pom.xml) file):
 
     ```shell
-    ./mvnw package -Pnative-default  
+    ./mvnw package -Pnative-default
     ```
 
 2. Run the resulting `example-default` native executable:
@@ -102,18 +99,20 @@ profile.
 
 This error occurs because the `native-image` tool's static analysis did not determine that your application uses the `StringReverser` class, and did not include it in the native executable.
 
-## Native Image using `-H:Preserve`
+## Native Image Using `-H:Preserve`
 
 GraalVM for JDK 25 introduces the `-H:Preserve` option.
 
-This option lets you instruct the `native-image` tool to keep entire packages, modules, or all classes on the classpath 
+This option lets you instruct the `native-image` tool to keep entire packages, modules, or all classes on the classpath.
 
-<!-- (which can result in very large applications).   -->
+<!-- This can result in larger application size. -->
 
-In this example, both classes used via reflection are in the `org.graalvm.example.action` package. You can use `-H:Preserve=package` to keep all of the classes in that package in the native executable, even if static analysis cannot discover them.
+In this example, both classes used via reflection are in the `org.graalvm.example.action` package.
+You can use `-H:Preserve=package` to keep all of the classes in that package in the native executable, even if static analysis cannot discover them.
 
-Native Image command line arguments can be specified as `<buildArgs>` in the
-`native-maven-plugin` configuration. As the `-H:Preserve` option is experimental, you must also enable its use with `-H:+UnlockExperimentalVMOptions`. For the complete plugin configuration, see the [_pom.xml_](pom.xml) file:
+Native Image command line arguments can be specified as `<buildArgs>` in the `native-maven-plugin` configuration.
+Since the `-H:Preserve` option is experimental, you must also enable its use with `-H:+UnlockExperimentalVMOptions`.
+For the complete plugin configuration, see the [_pom.xml_](pom.xml) file:
 
 ```xml
     <configuration>
@@ -125,16 +124,13 @@ Native Image command line arguments can be specified as `<buildArgs>` in the
     </configuration>
 ```
 
-1. Build a native executable using the `native-preserve` profile, which adds
-`-H:Preserve=package=org.graalvm.example.action` when running the `native-image`
-   tool (see the [_pom.xml_](pom.xml) file):
+1. Build a native executable using the `native-preserve` profile, which adds `-H:Preserve=package=org.graalvm.example.action` when running the `native-image` tool:
 
     ```shell
-    ./mvnw package -Pnative-preserve   
+    ./mvnw package -Pnative-preserve
     ```
 
-2. Run the new `example-preserve` executable to confirm the previously missing
-   `StringReverser` class and its methods are now included:
+2. Run the new `example-preserve` executable to confirm the previously missing `StringReverser` class and its methods are now included:
 
     ```shell
     ./target/example-preserve \
@@ -165,5 +161,5 @@ As demonstrated, `-H:Preserve` provides an easy way to ensure that Native Image 
 ### Related Documentation
 
 * [Reachability Metadata: Reflection](https://www.graalvm.org/latest/reference-manual/native-image/metadata/)
-* [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent) 
-* [java.lang.reflect Javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html)
+* [Assisted Configuration with Tracing Agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent)
+* [Java Reflection API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/package-summary.html)

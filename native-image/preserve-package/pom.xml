@@ -8,7 +8,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>preserve</name>
-  
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
@@ -36,7 +36,7 @@
             </executions>
             <configuration>
               <mainClass>org.graalvm.example.ReflectionExample</mainClass>
-              <imageName>example-default</imageName> 
+              <imageName>example-default</imageName>
             </configuration>
           </plugin>
         </plugins>
@@ -62,7 +62,7 @@
             </executions>
             <configuration>
               <mainClass>org.graalvm.example.ReflectionExample</mainClass>
-              <imageName>example-preserve</imageName> 
+              <imageName>example-preserve</imageName>
               <buildArgs>
                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
                 <buildArg>-H:Preserve=package=org.graalvm.example.action</buildArg>
@@ -81,7 +81,6 @@
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.4.0</version>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.3.1</version>
