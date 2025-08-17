@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['21', '24-ea']
+        java-version: ['25', '26-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -38,11 +38,14 @@ jobs:
     name: Run mostly-static
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['25', '26-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '25-ea'
+          java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'

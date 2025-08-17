@@ -1,4 +1,4 @@
-# Binary Tree Benchmark 
+# Binary Tree Benchmark
 
 This demo shows how to run a Java Microbenchmark Harness (JMH) benchmark as a native executable.
 
@@ -20,7 +20,7 @@ This forking process is not possible with GraalVM Native Image and you should co
 
 1. Download and install the GraalVM JDK using [SDKMAN!](https://sdkman.io/). For other installation options, visit the [Downloads page](https://www.graalvm.org/downloads/).
     ```bash
-    sdk install java 21.0.5-graal
+    sdk install java 21.0.8-graal
     ```
 
 2. Download or clone the repository and navigate into the _/native-image/benchmark/jmh/binary-tree_ directory:
@@ -38,7 +38,7 @@ To build and run the benchmark on HotSpot, run the following Maven command:
 ./mvnw clean package exec:exec
 ```
 
-Note that within the _pom.xml_ file there are instructions to explicitly turn off the Graal JIT compiler using the option `-XX:-UseJVMCICompiler`. 
+Note that within the _pom.xml_ file there are instructions to explicitly turn off the Graal JIT compiler using the option `-XX:-UseJVMCICompiler`.
 This means that benchmark will run using the C2 JIT compiler.
 
 The application runs the benchmark and displays the results to the terminal.
@@ -58,7 +58,7 @@ This demo uses Oracle GraalVM Native Image, however, if you are using GraalVM Co
     ```shell
     ./mvnw package -Pnative
     ```
-2. Run the benchmark from a native executable: 
+2. Run the benchmark from a native executable:
     ```shell
     ./target/benchmark-binary-tree
     ```
@@ -70,12 +70,12 @@ This demo uses Oracle GraalVM Native Image, however, if you are using GraalVM Co
 
 ## Optimize the Benchmark for Throughput
 
-You can improve the performance of this benchmark by applying [Profile-Guided Optimization (PGO)](https://www.graalvm.org/reference-manual/native-image/optimizations-and-performance/PGO/). 
+You can improve the performance of this benchmark by applying [Profile-Guided Optimization (PGO)](https://www.graalvm.org/reference-manual/native-image/optimizations-and-performance/PGO/).
 
 > PGO is available with Oracle GraalVM Native Image.
 
 First, you will need to build an instrumented version of this native benchmark that contains extra code to trace the execution of the program and to profile it.
-Therefore, it will run slower than the previous version. 
+Therefore, it will run slower than the previous version.
 After execution finishes, a profile file, _default.iprof_, is generated in the root directory.
 This file contains profiling information about the application and will be used to build a more efficient native executable.
 

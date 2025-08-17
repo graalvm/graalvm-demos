@@ -3,16 +3,16 @@
 Reflection is a feature of the Java programming language that enables a running Java program to examine and modify attributes of its classes, interfaces, fields, and methods.
 GraalVM Native Image automatically supports some uses of reflection.
 Native Image uses static analysis to identify what classes, methods, and fields are needed by an application, but it may not detect some elements of your application that are accessed using the [Java Reflection API](https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/reflect/package-summary.html).
-You must declare any undetected reflection usage to the `native-image` tool, either as metadata ([precomputed in code or as JSON configuration files](https://www.graalvm.org/latest/reference-manual/native-image/metadata/)) or using the `-H:Preserve` option (experimental in GraalVM for JDK 25).
+You must declare any undetected reflection usage to the `native-image` tool, either as metadata ([precomputed in code or as JSON configuration files](https://www.graalvm.org/latest/reference-manual/native-image/metadata/)) or using the `-H:Preserve` option (experimental in GraalVM 25).
 
 This guide demonstrates how to declare reflection configuration using the `-H:Preserve` option.
 
 ## Preparation
 
-1. Download and install the latest GraalVM for JDK 25 (or the early access build before 2025-09-16) using [SDKMAN!](https://sdkman.io/).
+1. Download and install the latest GraalVM 25 (or the early access build before 2025-09-16) using [SDKMAN!](https://sdkman.io/).
 
     ```shell
-    sdk install java 25.ea.29-graal
+    sdk install java 25-graal
     ```
 
 2. Download or clone this repository, and navigate into the `native-image/preserve-package` directory:
@@ -101,7 +101,7 @@ This error occurs because the `native-image` tool's static analysis did not dete
 
 ## Native Image Using `-H:Preserve`
 
-GraalVM for JDK 25 introduces the `-H:Preserve` option.
+GraalVM 25 introduces the `-H:Preserve` option.
 
 This option lets you instruct the `native-image` tool to keep entire packages, modules, or all classes on the classpath.
 

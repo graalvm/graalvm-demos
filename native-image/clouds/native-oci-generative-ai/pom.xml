@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <mainClass>com.oracle.labs.GenerateTextExample</mainClass>
-    <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
+    <native-maven-plugin.version>0.11.0</native-maven-plugin.version>
   </properties>
 
   <build>

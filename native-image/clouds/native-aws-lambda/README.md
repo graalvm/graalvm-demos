@@ -1,6 +1,6 @@
 GraalVM on AWS Lambda Demo
 ====================
-This demo will walk you through the processes for deploying both Java 17 and Native Image applications onto the AWS Lambda platform. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to compare how the versions of the application compare based on speed and size.
+This demo will walk you through the processes for deploying both Java 21 and Native Image applications onto the AWS Lambda platform. In this demo, you will deploy a simple "Hello World" HTTP application and have the ability to compare how the versions of the application compare based on speed and size.
 
 Prerequisites
 ----------------------
@@ -40,7 +40,7 @@ public class HomeController {
 
 This code implements the actual RESTful "Hello World" functionality and is the code that snippet which is executed when a request is made to Lambda function. It produces the "Hello World" string when a GET request is made to the function's URL.
 
-Deploying as a Java 17 Application (.jar)
+Deploying as a Java 21 Application (.jar)
 ----------------------
 1. Navigate to the directory for this demo:
 ```sh
@@ -55,7 +55,7 @@ cd graalvm-demos/native-aws-lambda
 
 ![AWS dashboard](img/Create%20function.png)
 
-5.	Select “Author from scratch”, choose a name for your function, select “Java 17” as the runtime, and select “x86_64” as the architecture, then click the "Create function" button
+5.	Select “Author from scratch”, choose a name for your function, select “Java 21 as the runtime, and select “x86_64” as the architecture, then click the "Create function" button
 
 ![Create function](img/myFunction.png)
 

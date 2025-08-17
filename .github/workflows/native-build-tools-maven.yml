@@ -18,11 +18,14 @@ jobs:
     name: Run 'native-build-tools-maven'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      matrix:
+        java-version: ['25', '26-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '25-ea'
+          java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'native-build-tools-maven'

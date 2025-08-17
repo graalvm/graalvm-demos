@@ -7,9 +7,9 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
 
 1. Download and install GraalVM using [SDKMAN!](https://sdkman.io/):
     ```bash
-    sdk install java 21.0.5-graal
+    sdk install java 21.0.8-graal
     ```
-    > Note: A Java version between 17 and 21 is required to execute Gradle (see the Gradle Compatibility Matrix).
+    > Note: A Java version between 17 and 21 is required to execute Gradle (see the [Gradle Compatibility Matrix](https://docs.gradle.org/current/userguide/compatibility.html)).
 
 2. Download or clone GraalVM demos repository and navigate into the example directory:
     ```bash
@@ -31,13 +31,13 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
     java -jar build/libs/hello-0.1-all.jar
     ```
     You can see the app starts in few hundred milliseconds.
-    
+
 3. To test the `HelloController` you created, either `curl http://localhost:8080/hello` or open it in a browser:
     ```bash
     curl http://localhost:8080/hello
     ```
 
-    The response should be `Example Response`. 
+    The response should be `Example Response`.
     Then stop the application:
     ```
     CTRL-C
@@ -52,7 +52,7 @@ Mironaut provides support for GraalVM Native Image by default.
     ```bash
     ./gradlew nativeCompile
     ```
-    
+
     Compilation can take a few minutes, but more cores and more memory reduce the required time.
 
     The result is a standalone executable placed in the _build/native/nativeCompile/_ directory named `MnHelloRest`.
@@ -71,7 +71,7 @@ Mironaut provides support for GraalVM Native Image by default.
 If you are on Linux, you can easily create a Docker container image that includes the native Linux executable you have built.
 For Windows or macOS, the process is little different and is not covered here.
 
-Typically, the first question is what base image to use? 
+Typically, the first question is what base image to use?
 GraalVM Native Image supports both static and dynamically linked executables, with dynamic being the default.
 Your native executable is dynamically linked against `glibc`, you will need a base image that includes it.
 One of the smallest base images you could use is Alpine Linux with `glibc`.

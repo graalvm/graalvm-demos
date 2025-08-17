@@ -5,7 +5,7 @@ This demo contains the code for a simple Java Stream benchmark designed to run o
 
 1. Download and install the GraalVM JDK using [SDKMAN!](https://sdkman.io/). For other installation options, visit the [Downloads page](https://www.graalvm.org/downloads/).
     ```bash
-    sdk install java 23.0.1-graal
+    sdk install java 25-graal
     ```
 
 2. Download or clone the repository and navigate into the benchmark directory:
@@ -50,7 +50,7 @@ Read more in [this blog post](https://blogs.oracle.com/java/post/including-the-g
 
 1. Switch the JVM from GraalVM (Oracle GraalVM or Community Edition) to Oracle JDK 23 or higher. You can quickly do that with using [SDKMAN!](https://sdkman.io/):
     ```bash
-    sdk install java 23.0.1-oracle 
+    sdk install java 25-oracle
     ```
 
 2. Run this benchmark with the Graal JIT compiler enabled. For that, pass the `-XX:+UseGraalJIT` option to `java`:
@@ -58,6 +58,6 @@ Read more in [this blog post](https://blogs.oracle.com/java/post/including-the-g
     java -XX:+UnlockExperimentalVMOptions -XX:+UseGraalJIT -jar target/benchmarks.jar
     ```
 
-> To switch between JVMs in the same terminal window (without affecting the global setting), use the `sdk` tool. For example, to switch back to Oracle GraalVM for JDK 23, run: `sdk use java 23.0.1-graal`.
+> To switch between JVMs in the same terminal window (without affecting the global setting), use the `sdk` tool. For example, to switch back to Oracle GraalVM 25, run: `sdk use java 25-graal`.
 
 Learn more about the Graal JIT compiler from [its official documentation](https://www.graalvm.org/reference-manual/java/compiler/).
