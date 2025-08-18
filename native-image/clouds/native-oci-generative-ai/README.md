@@ -1,7 +1,7 @@
 # OCI Native Generative AI Example
 
 This example illustrates how to use the Generative AI service provided by Oracle Cloud Infrastructure (OCI).
-It uses a state-of-the-art, customizable large language model to generate text. 
+It uses a state-of-the-art, customizable large language model to generate text.
 
 The [source code](./src/main/java/com/oracle/labs/GenerateTextExample.java) is a self-contained demonstration of using a [`GenerativeAiInferenceClient`](https://docs.oracle.com/iaas/tools/java/latest/com/oracle/bmc/generativeaiinference/GenerativeAiInferenceClient.html) to generate text, based on a prompt.
 
@@ -11,7 +11,7 @@ The [_pom.xml_](pom.xml) file includes necessary dependents (such as the [OCI Ja
 
 ## Prerequisites
 * [GraalVM](https://www.graalvm.org/downloads/).
-* You must have access to access to Generative AI resources in your tenancy/compartment. 
+* You must have access to access to Generative AI resources in your tenancy/compartment.
 (For more information, see [Getting Access to Generative AI](https://docs.oracle.com/iaas/Content/generative-ai/iam-policies.htm).)
 
 ## Preparing Your Code
@@ -68,9 +68,9 @@ Great attention to detail, with the ability to spot trends and patterns within d
 Proficiency in data visualization tools such as Tableau, Power BI, or D3.js, or the ability to learn and master new tools quickly.
 An understanding of design principles and typography is a plus.
 
-We are looking for someone who is passionate about data and storytelling, and who has the ability to turn data into actionable insights through innovative visualization. If you have the relevant experience and skills, we want to hear from you! 
+We are looking for someone who is passionate about data and storytelling, and who has the ability to turn data into actionable insights through innovative visualization. If you have the relevant experience and skills, we want to hear from you!
 
-This is a great opportunity to join a dynamic and growing team and make a meaningful impact on our company's data-driven decisions. 
+This is a great opportunity to join a dynamic and growing team and make a meaningful impact on our company's data-driven decisions.
 
 We look forward to receiving your application! , likelihood=null, finishReason=null, tokenLikelihoods=null)], timeCreated=Thu May 09 16:51:49 BST 2024, prompt=null))
 ```
