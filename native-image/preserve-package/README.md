@@ -1,5 +1,12 @@
 # GraalVM Native Image: Using the `-H:Preserve` Option
 
+This demo shows how to use GraalVM Native Image’s experimental -H:Preserve
+option to ensure classes accessed via reflection are included in your native
+executable. You’ll learn how to identify missing classes, use build reports, and
+apply the new option for reliable runtime behavior.
+
+## Introduction
+
 Java reflection lets a running program inspect and invoke classes, fields, and
 methods at runtime. GraalVM Native Image supports many common cases
 automatically by performing static analysis to discover what must be included in
@@ -120,8 +127,9 @@ This happens because static analysis did not discover that `StringReverser` (and
 
 GraalVM 25 adds an experimental reporting option to help you find dynamic access
 before it breaks at runtime. With `-H:+ReportDynamicAccess`, in conjunction with
-`--emit=build-report`, the Native Image build report highlights reflective usage
-present in the image.
+`--emit=build-report`, the Native Image [build
+report](https://www.graalvm.org/latest/reference-manual/native-image/overview/build-report/)
+highlights reflective usage present in the image.
 
 The `native-default` profile already enables this feature:
 
