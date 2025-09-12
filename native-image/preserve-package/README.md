@@ -1,4 +1,4 @@
-# GraalVM Native Image: Using the -H:Preserve option
+# GraalVM Native Image: Using the `-H:Preserve` Option
 
 Java reflection lets a running program inspect and invoke classes, fields, and
 methods at runtime. GraalVM Native Image supports many common cases
@@ -16,21 +16,21 @@ shows how to use `-H:Preserve` to keep specific packages available at runtime.
 - Maven 3.9+
 - SDKMAN! (recommended for installing GraalVM)
 
-Install GraalVM 25 EA with SDKMAN!:
+Install GraalVM 25 with SDKMAN!:
 
 ```bash
 sdk install java 25-graal
 sdk use java 25-graal
 ```
 
-## Get the sources
+Clone the example repository:
 
 ```bash
 git clone https://github.com/graalvm/graalvm-demos
 cd graalvm-demos/native-image/preserve-package
 ```
 
-## What the example does
+## How the Example Works
 
 `ReflectionExample` uses command-line arguments to reflectively:
 - load a class by name,
@@ -53,13 +53,13 @@ This works on the JVM as long as those classes are on the classpath.
 
 ### Run on the JVM
 
-1) Build the JAR:
+1. Build the JAR:
 
 ```bash
 ./mvnw package
 ```
 
-2) Invoke `StringReverser`:
+2. Invoke `StringReverser`:
 
 ```bash
 java -jar target/preserve-package-1.0-SNAPSHOT.jar \
@@ -72,7 +72,7 @@ Expected output:
 olleh
 ```
 
-3) Invoke `StringCapitalizer`:
+3. Invoke `StringCapitalizer`:
 
 ```bash
 java -jar target/preserve-package-1.0-SNAPSHOT.jar \
@@ -85,19 +85,19 @@ Expected output:
 HELLO
 ```
 
-## Build a native image
+## Build a Native Image
 
 The project uses the Native Build Tools Maven plugin to drive `native-image`.
 The `native-default` profile produces an executable without additional
 reflection configuration.
 
-1) Build:
+1. Build:
 
 ```bash
 ./mvnw package -Pnative-default
 ```
 
-2) Run:
+2. Run:
 
 ```bash
 ./target/example-default \
@@ -116,7 +116,7 @@ Exception in thread "main" java.lang.ClassNotFoundException: org.graalvm.example
 This happens because static analysis did not discover that `StringReverser` (and
 `StringCapitalizer`) are used via reflection, so they were not included.
 
-## Identify dynamic access with the Build Report
+## Identify Dynamic Access With the Build Report
 
 GraalVM 25 adds an experimental reporting option to help you find dynamic access
 before it breaks at runtime. With `-H:+ReportDynamicAccess`, in conjunction with
@@ -133,11 +133,8 @@ The `native-default` profile already enables this feature:
 </buildArgs>
 ```
 
-After building, open the report:
+After building, open the report, `target/example-default-build-report.html`, and navigate to the “Dynamic Access” tab to review reflection usage in `ReflectionExample#main`.
 
-- `target/example-default-build-report.html`
-- See the “Dynamic Access” tab to review reflection usage in
-  `ReflectionExample#main`.
 
 The report highlights code that needs to be reviewed to ensure successful
 runtime execution of the application. In this application, the classes loaded
@@ -145,7 +142,7 @@ via `Class.forName(...)` need to be included in the executable.
 
 ![Native Image Build Report - Dynamic Access](build-report.jpeg)
 
-## Fix it with -H:Preserve (experimental)
+## Fix It With ‘-H:Preserve’ (Experimental)
 
 GraalVM 25 introduces the experimental `-H:Preserve` option to keep entire
 packages, modules, or all classes on the classpath.
@@ -162,13 +159,13 @@ package so `package=org.graalvm.example.action` can be added to the
 </buildArgs>
 ```
 
-1) Build with preserve:
+1. Build with preserve:
 
 ```bash
 ./mvnw package -Pnative-preserve
 ```
 
-2) Run `StringReverser`:
+2. Run `StringReverser`:
 
 ```bash
 ./target/example-preserve \
@@ -181,7 +178,7 @@ Expected output:
 olleh
 ```
 
-3) Run `StringCapitalizer`:
+3. Run `StringCapitalizer`:
 
 ```bash
 ./target/example-preserve \
@@ -209,7 +206,7 @@ As shown:
 - For fine-grained control or for libraries you don’t own, consider JSON
   reachability metadata as a complement or alternative.
 
-## Related documentation
+## Related Documentation
 
 - Reachability Metadata (Reflection):
   https://www.graalvm.org/latest/reference-manual/native-image/metadata/
