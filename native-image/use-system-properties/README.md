@@ -20,7 +20,7 @@ If, on the other hand, you run the executable with `app -Dfoo=bar`, it will disp
 
 You can read system properties at build time and incorporate them into the native executable, as shown in the following example.
 
-### Prerequisite 
+### Prerequisite
 
 Make sure you have installed a GraalVM JDK.
 The easiest way to get started is with [SDKMAN!](https://sdkman.io/jdks#graal).
@@ -45,21 +45,21 @@ For other installation options, visit the [Downloads section](https://www.graalv
             System.out.println("Getting value of static property with key: " + STATIC_PROPERTY_KEY);
             STATIC_PROPERTY = System.getProperty(STATIC_PROPERTY_KEY);
         }
-    
+
         public ReadProperties() {
             System.out.println("Getting value of instance property with key: " + INSTANCE_PROPERTY_KEY);
             instanceProperty = System.getProperty(INSTANCE_PROPERTY_KEY);
         }
-        
+
         public void print() {
             System.out.println("Value of instance property: " + instanceProperty);
-        } 
-        
+        }
+
         public static void main(String[] args) {
             System.out.println("Value of static property: " + STATIC_PROPERTY);
             ReadProperties rp = new ReadProperties();
             rp.print();
-        } 
+        }
     }
     ```
 

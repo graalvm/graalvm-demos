@@ -37,6 +37,11 @@
             <configuration>
               <mainClass>org.graalvm.example.ReflectionExample</mainClass>
               <imageName>example-default</imageName>
+              <buildArgs>
+                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                <buildArg>-H:+ReportDynamicAccess</buildArg>
+                <buildArg>--emit=build-report</buildArg>
+              </buildArgs>
             </configuration>
           </plugin>
         </plugins>
@@ -66,6 +71,8 @@
               <buildArgs>
                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
                 <buildArg>-H:Preserve=package=org.graalvm.example.action</buildArg>
+                <buildArg>-H:+ReportDynamicAccess</buildArg>
+                <buildArg>--emit=build-report</buildArg>
               </buildArgs>
             </configuration>
           </plugin>

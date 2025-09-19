@@ -10,7 +10,7 @@ It uses the Java application that counts files and their sizes in a specified di
     javac ListDir.java
     ```
 
-2. Generate a native executable from the class file: 
+2. Generate a native executable from the class file:
     ```bash
     native-image ListDir
     ```
@@ -39,7 +39,7 @@ With PGO you can collect the profiling data, and then feed it to the `native-ima
     ```bash
     ./listdir-instrumented ..
     ```
-    Profiles collected from this run are now stored in the `default.iprof` file. 
+    Profiles collected from this run are now stored in the `default.iprof` file.
 
 2. Use the profiles to build an optimized native executable, giving it a different name than in the previous runs:
     ```shell
