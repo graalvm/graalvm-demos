@@ -8,9 +8,9 @@
   <packaging>${packaging}</packaging>
 
   <parent>
-    <groupId>io.micronaut</groupId>
+    <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.9.2</version>
+    <version>4.9.3</version>
   </parent>
 
   <properties>

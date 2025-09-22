@@ -8,16 +8,16 @@
   <packaging>${packaging}</packaging>
 
   <parent>
-    <groupId>io.micronaut</groupId>
+    <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.9.2</version>
+    <version>4.9.3</version>
   </parent>
 
   <properties>
     <packaging>jar</packaging>
     <jdk.version>21</jdk.version>
     <release.version>21</release.version>
-    <micronaut.version>4.9.2</micronaut.version>
+    <micronaut.version>4.9.3</micronaut.version>
     <exec.mainClass>io.micronaut.function.aws.runtime.MicronautLambdaRuntime</exec.mainClass>
     <micronaut.runtime>lambda</micronaut.runtime>
   </properties>
