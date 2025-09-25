@@ -18,7 +18,7 @@
         <!-- Name of the benchmark Uber-JAR to generate -->
         <uberjar.name>benchmarks-binary-tree</uberjar.name>
         <!-- Version of the GraalVM Build tools to use -->
-        <native-buildtools.version>0.10.6</native-buildtools.version>
+        <native-buildtools.version>0.11.0</native-buildtools.version>
         <!-- Name of the output binary -->
         <binary-name>benchmark-binary-tree</binary-name>
         <!-- Main class -->

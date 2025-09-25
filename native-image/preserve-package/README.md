@@ -19,6 +19,7 @@ shows how to use `-H:Preserve` to keep specific packages available at runtime.
 
 ## Prerequisites
 
+
 - GraalVM 25
 - Maven 3.9+
 - SDKMAN! (recommended for installing GraalVM)
@@ -222,4 +223,4 @@ As shown:
   https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/#tracing-agent
 - Java Reflection API (JDK 25):
   https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/reflect/package-summary.html
-  - Native Image Build Report: https://www.graalvm.org/latest/reference-manual/native-image/overview/build-report/
+- Native Image Build Report: https://www.graalvm.org/latest/reference-manual/native-image/overview/build-report/
