@@ -20,7 +20,7 @@ In both examples we use the Jackson framework to parse a JSON file to determine 
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.5-graal
+    sdk install java 25-graal
     ```
 
 2. Download or clone the repository and navigate into the `class-initialization-examples` directory:

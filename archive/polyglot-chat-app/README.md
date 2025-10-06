@@ -11,13 +11,13 @@ The application uses the Gradle build tool.
 
 1. Download the latest GraalPy as described on [https://www.graalvm.org/python/](https://www.graalvm.org/python/). For example on Linux:
     ```bash
-    wget https://github.com/oracle/graalpython/releases/download/graal-23.1.1/graalpy-23.1.1-linux-amd64.tar.gz
-    tar xzf graalpy-23.1.1-linux-amd64.tar.gz
+    wget https://github.com/oracle/graalpython/releases/download/graal-25.0.0/graalpy-25.0.0-linux-amd64.tar.gz
+    tar xzf graalpy-25.0.0-linux-amd64.tar.gz
     ```
 
 2. Install the required packages for this demo into the _resources_ directory:
    ```bash
-   graalpy-23.1.1-linux-amd64/bin/graalpy -m venv src/main/resources/venv
+   graalpy-25.0.0-linux-amd64/bin/graalpy -m venv src/main/resources/venv
    src/main/resources/venv/bin/graalpy -m pip install nltk
    ```
 

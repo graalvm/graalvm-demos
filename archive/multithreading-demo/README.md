@@ -44,7 +44,7 @@ The plugin also generates a report using the [Native Image Build Reports](https:
 
 1. Download and install the latest GraalVM JDK using [SDKMAN!](https://sdkman.io/).
     ```bash
-    sdk install java 21.0.1-graal
+    sdk install java 25-graal
     ```
 
 2. Download or clone the repository and navigate into the `multithreading-demo/multithreading-demo-oversized_` directory:
