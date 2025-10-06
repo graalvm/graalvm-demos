@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/graalvm/jdk:23 AS build
+FROM container-registry.oracle.com/graalvm/jdk:25 AS build
 WORKDIR /build
 # Build a runtime image optimized for size
 RUN jlink \

@@ -26,8 +26,8 @@ application {
     mainClass = "com.example.Application"
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("21")
-    targetCompatibility = JavaVersion.toVersion("21")
+    sourceCompatibility = JavaVersion.toVersion("25")
+    targetCompatibility = JavaVersion.toVersion("25")
 }
 
 
@@ -63,5 +63,5 @@ graalvmNative {
 }
 
 tasks.named("dockerfileNative") {
-    jdkVersion = "21"
+    jdkVersion = "25"
 }

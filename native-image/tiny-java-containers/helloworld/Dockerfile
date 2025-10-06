@@ -1,6 +1,6 @@
 
 # Build in a container with Oracle GraalVM Native Image and MUSL
-FROM container-registry.oracle.com/graalvm/native-image:23-muslib AS nativebuild
+FROM container-registry.oracle.com/graalvm/native-image:25-muslib AS nativebuild
 WORKDIR /build
 # Install UPX 
 ARG UPX_VERSION=4.2.2

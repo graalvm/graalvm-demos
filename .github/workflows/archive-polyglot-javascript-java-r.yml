@@ -21,7 +21,7 @@ jobs:
       - uses: graalvm/setup-graalvm@v1
         with:
           version: '22.3.0' # locked to 22.3.0 due to R
-          java-version: '17'
+          java-version: '25'
           components: 'nodejs,R'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run 'archive/polyglot-javascript-java-r'
