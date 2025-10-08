@@ -64,6 +64,17 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <buildArgs>
+                        <!-- Enable Web Image -->
+                        <buildArg>--tool:svm-wasm</buildArg>
+                        <!-- Annotate Wasm module with debug info -->
+                        <buildArg>-g</buildArg>
+                        <!-- macOS-specific initialization policies -->
+                        <buildArg>--initialize-at-build-time=apple.security.AppleProvider</buildArg>
+                        <buildArg>--initialize-at-build-time=apple.security.AppleProvider$ProviderService</buildArg>
+                    </buildArgs>
+                </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
