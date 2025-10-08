@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '17'
+          java-version: '25'
           distribution: 'graalvm'
           components: 'espresso'
           github-token: ${{ secrets.GITHUB_TOKEN }}

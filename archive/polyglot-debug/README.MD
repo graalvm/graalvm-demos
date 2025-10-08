@@ -8,7 +8,7 @@ To debug guest language applications, pass the `--inspect` option to the command
 
 Download and install the GraalVM JDK using [SDKMAN!](https://sdkman.io/).
 ```bash
-sdk install java 21.0.1-graal
+sdk install java 25-graal
 ```
 For other installation options, visit the [Downloads page](https://www.graalvm.org/downloads/).
 

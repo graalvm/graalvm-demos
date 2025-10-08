@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/graalvm/native-image:23 AS nativebuild
+FROM container-registry.oracle.com/graalvm/native-image:25 AS nativebuild
 WORKDIR /build
 # Build a dynamically linked native executable optimizing for size with `-Os`
 RUN native-image -Os -m jdk.httpserver -o jwebserver.dynamic

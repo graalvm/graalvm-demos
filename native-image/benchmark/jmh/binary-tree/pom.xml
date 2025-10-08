@@ -13,8 +13,8 @@
         <!-- JMH version to use with this project -->
         <jmh.version>1.35</jmh.version>
         <!-- Java source/target to use for compilation -->
-        <java.version>21</java.version>
-        <javac.target>21</javac.target>
+        <java.version>25</java.version>
+        <javac.target>25</javac.target>
         <!-- Name of the benchmark Uber-JAR to generate -->
         <uberjar.name>benchmarks-binary-tree</uberjar.name>
         <!-- Version of the GraalVM Build tools to use -->
