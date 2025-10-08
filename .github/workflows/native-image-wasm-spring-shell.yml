@@ -1,0 +1,43 @@
+name: native-image/wasm-spring-shell
+on:
+  push:
+    paths:
+      - 'native-image/wasm-spring-shell/**'
+      - '.github/workflows/native-image-wasm-spring-shell.yml'
+  pull_request:
+    paths:
+      - 'native-image/wasm-spring-shell/**'
+      - '.github/workflows/native-image-wasm-spring-shell.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/wasm-spring-shell'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download GraalVM 25.1 EA builds
+        run: curl -sL -o $RUNNER_TEMP/graalvm-jdk-25e1-linux-amd64.tar.gz https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.0-ea.01/graalvm-jdk-25e1-25.0.0-ea.01_linux-x64_bin.tar.gz
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'jdkfile'
+          jdkFile: ${{ runner.temp }}/graalvm-jdk-25e1-linux-amd64.tar.gz
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up Binaryen
+        run: |
+          curl -sLO https://github.com/WebAssembly/binaryen/releases/download/version_122/binaryen-version_122-x86_64-linux.tar.gz
+          tar xzf binaryen-version_122-x86_64-linux.tar.gz
+          echo "$(pwd)/binaryen-version_122/bin" >> "$GITHUB_PATH"
+      - name: Run 'native-image/wasm-spring-shell'
+        run: |
+          cd native-image/wasm-spring-shell
+          ./mvnw --no-transfer-progress -Pnative native:compile
+          node target/wasm-spring-shell help
+          node target/wasm-spring-shell hello Jane
