@@ -13,3 +13,5 @@ out/
 .settings
 .classpath
 .factorypath
+app-layer-target
+base-layer-target
