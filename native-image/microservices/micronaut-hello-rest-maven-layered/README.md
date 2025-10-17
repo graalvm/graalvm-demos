@@ -1,28 +1,51 @@
-# Microanut Layered Native Image Demo
+# Micronaut Layered Native Image Demo
 
 This example shows how to build a simple [Micronaut](https://micronaut.io/) REST application using the [GraalVM Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md) feature.
 
+### Prerequisites
+- SDKMAN! (for installing Micronaut CLI)
+- Latest GraalVM 25.1 EA build (with Native Image support)
+
+> Native Image Layers is an experimental feature. For the best experience use the latest [GraalVM Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds/releases).
+
 ## Environment Setup
-Point your `JAVA_HOME` to a GraalVM distribution.
-Native Image Layers is an experimental feature, for best experience use the latest [GraalVM Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds/releases).
+Point your `JAVA_HOME` to the GraalVM distribution.
 ```bash
 export JAVA_HOME=/path/to/graalvm/ea/build
 ```
 
-## Create The Micronaut Application
-
-We'll start by generating a basic application using the Micronaut CLI.
-For more details see the [Micronaut guide](https://guides.micronaut.io/latest/creating-your-first-micronaut-app-maven-java.html).
-
-First we need to install the `mn` tool:
+Install `mn`, the Micronaut CLI tool:
 ```bash
 sdk install micronaut 4.9.4
 sdk use micronaut 4.9.4
 ```
 
-Now we ca generate the basic app:
+## Create the Micronaut Application
+
+We'll start by generating a basic application using the Micronaut CLI.
+For more details, see the [Micronaut guide](https://guides.micronaut.io/latest/creating-your-first-micronaut-app-maven-java.html).
+
 ```bash
 mn create-app example.micronaut.micronaut-hello-rest-maven-layered --build=maven --lang=java --features=graalvm
+```
+
+This creates a new Micronaut project with the following structure:
+```
+micronaut-hello-rest-maven-layered/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── example/micronaut/Application.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+└── mvnw (Maven wrapper)
+```
+
+For executing the subsequent commnds we must enter the project directory:
+```bash
+cd micronaut-hello-rest-maven-layered
 ```
 
 ### Add A Custom Controller
@@ -74,7 +97,7 @@ Using this profile we can now generate the executable:
 ./mvnw clean package -Dpackaging=native-image -Pstandalone
 ```
 
-This will generate an executable file that we can run
+This will generate an executable file that we can run:
 ```bash
 ./target/standalone-app
  __  __ _                                  _   
@@ -84,9 +107,12 @@ This will generate an executable file that we can run
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
 12:20:53.437 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 6ms. Server Running: http://localhost:8080
 ```
-and test our custom endpoint
+and test our custom endpoint:
 ```bash
 curl localhost:8080/hello
+```
+The expected output is:
+```
 Hello from GraalVM Native Image!
 ```
 
@@ -188,5 +214,8 @@ Then we can execute the layered application:
 and test it with:
 ```
 curl localhost:8080/hello
+```
+The expected output is:
+```
 Hello from GraalVM Native Image!
 ```
