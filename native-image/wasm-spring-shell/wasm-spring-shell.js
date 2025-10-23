@@ -287,47 +287,6 @@ class ConsoleWriter {
 var stdoutWriter = new ConsoleWriter(console.log);
 var stderrWriter = new ConsoleWriter(console.error);
 
-class OutputWriter {
-    constructor(domElement) {
-        this.line = "";
-        this.newline = "\n".charCodeAt(0);
-        this.closed = false;
-        this.domElement = domElement;
-    }
-
-    printChars(chars) {
-        let index = chars.lastIndexOf(this.newline);
-
-        if (index >= 0) {
-            this.line += charArrayToString(chars.slice(0, index));
-            this.writeLine();
-            chars = chars.slice(index + 1);
-        }
-
-        this.line += charArrayToString(chars);
-    }
-
-    writeLine() {
-        window.appendOutput(this.line);
-        this.line = "";
-    }
-
-    flush() {
-        // nothing to do
-    }
-
-    close() {
-        if (this.closed) {
-            return;
-        }
-        this.closed = true;
-
-        this.flush();
-    }
-}
-
-var stdoutWriter = new OutputWriter(document.getElementById("output"));
-
 
 /*
  * Copyright (c) 2025, 2025, Oracle and/or its affiliates. All rights reserved.
@@ -1354,6 +1313,20 @@ wasmImports.interop = {
 }
 ;
 wasmImports.jsbody = {
+	'_DemoInputProvider.getMessage___String' : (...args) => (function(){
+		try{
+			const length = globalThis.sharedI32[1];
+			const byteArray = new Uint8Array(length);
+			byteArray.set(new Uint8Array(globalThis.sharedBuffer, 8, length))
+			return new TextDecoder().decode(byteArray);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_DemoInputProvider.waitForMessage___V' : (...args) => (function(){
+		try{
+			Atomics.wait(globalThis.sharedI32, 0, 0);
+			Atomics.store(globalThis.sharedI32, 0, 0);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
 	'_JSBigInt.javaString___String' : (...args) => (function(){
 		try{
 			return conversion.toProxy(toJavaString(this.toString()));
@@ -1399,9 +1372,24 @@ wasmImports.jsbody = {
 			return conversion.toProxy(conversion.createJavaDouble(this));
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
+	'_JSObject.create___JSObject' : (...args) => (function(){
+		try{
+			return conversion.createAnonymousJavaScriptObject();
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSObject.extractFacadeClass___Class_Object' : (...args) => (function(cls){
+		try{
+			return conversion.tryExtractFacadeClass(this, cls);
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
 	'_JSObject.get___Object_Object' : (...args) => (function(key){
 		try{
 			return this[key];
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_JSObject.set___Object_Object_V' : (...args) => (function(key,newValue){
+		try{
+			this[key] = newValue;
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
 	'_JSObject.stringValue___String' : (...args) => (function(){
@@ -1442,6 +1430,11 @@ wasmImports.jsbody = {
 	'_WebImageUtil.random___D' : (...args) => (function(){
 		try{
 			return Math.random();
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
+	'_Worker.postMessage___JSObject_V' : (...args) => (function(message){
+		try{
+			postMessage(message);
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
 }
@@ -2819,47 +2812,6 @@ data.wasm = await wasmInstantiate(config, vmArgs);
 
 })();
 
-// (function() {
-// /*
-//  * Copyright (c) 2025, 2025, Oracle and/or its affiliates. All rights reserved.
-//  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
-//  *
-//  * This code is free software; you can redistribute it and/or modify it
-//  * under the terms of the GNU General Public License version 2 only, as
-//  * published by the Free Software Foundation.  Oracle designates this
-//  * particular file as subject to the "Classpath" exception as provided
-//  * by Oracle in the LICENSE file that accompanied this code.
-//  *
-//  * This code is distributed in the hope that it will be useful, but WITHOUT
-//  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-//  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-//  * version 2 for more details (a copy is included in the LICENSE file that
-//  * accompanied this code).
-//  *
-//  * You should have received a copy of the GNU General Public License version
-//  * 2 along with this work; if not, write to the Free Software Foundation,
-//  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
-//  *
-//  * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
-//  * or visit www.oracle.com if you need additional information or have any
-//  * questions.
-//  */
-
-// /**
-//  * Try to load commandline arguments for various JS runtimes.
-//  */
-// function load_cmd_args() {
-//     if (typeof process === "object" && "argv" in process) {
-//         // nodejs
-//         return process.argv.slice(2);
-//     } else if (typeof scriptArgs == "object") {
-//         // spidermonkey
-//         return scriptArgs;
-//     }
-
-//     return ['help'];
-// }
-
-// const config = new GraalVM.Config();
-// GraalVM.run(load_cmd_args(),config).catch(console.error);
-// })();
+(function() {
+globalThis["GraalVM"] = GraalVM;
+})();
