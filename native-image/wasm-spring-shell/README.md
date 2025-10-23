@@ -12,9 +12,9 @@ This demo requires:
 
 ## Run Spring Shell on Node
 
-1. Build the Wasm module with the `native` profile:
+1. Build the Wasm module with the `native` and `cli` profiles:
     ```bash
-    $ ./mvnw -Pnative package
+    $ ./mvnw -Pnative,cli package
     ```
     The demo uses the [Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html) for building native images with GraalVM and Maven.
     This command generates a Wasm file and a corresponding JavaScript binding in the `target` directory.
@@ -25,3 +25,20 @@ This demo requires:
     node target/wasm-spring-shell hello Jane
     ```
     This requires Node.js 22 or later.
+
+## Run Spring Shell in the Browser
+
+1. Build the Wasm module with the `native` and `web` profiles:
+    ```bash
+    ./mvnw -Pnative,web package
+    ```
+    This command generates a Wasm file and a corresponding JavaScript binding in the `web` directory.
+
+2. Run a local web server in the `web` directory:
+    ```bash
+    cd web
+    python server.py
+    ```
+    This will serve the `web` directory locally on port `8000`.
+
+3. Navigate to http://localhost:8000 to run the Spring Shell in the browser.

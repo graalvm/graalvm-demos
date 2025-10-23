@@ -38,6 +38,7 @@ jobs:
       - name: Run 'native-image/wasm-spring-shell'
         run: |
           cd native-image/wasm-spring-shell
-          ./mvnw --no-transfer-progress -Pnative native:compile
+          ./mvnw --no-transfer-progress -Pnative,cli package
           node target/wasm-spring-shell help
           node target/wasm-spring-shell hello Jane
+          ./mvnw --no-transfer-progress -Pnative,web package

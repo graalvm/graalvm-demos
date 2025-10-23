@@ -31,11 +31,15 @@
 		<spring-shell.version>3.4.1</spring-shell.version>
 	</properties>
 	<dependencies>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>webimage-preview</artifactId>
+            <version>25.0.1</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.shell</groupId>
 			<artifactId>spring-shell-starter</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -59,28 +63,88 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-                <configuration>
-                    <buildArgs>
-                        <!-- Enable Web Image -->
-                        <buildArg>--tool:svm-wasm</buildArg>
-                        <!-- Annotate Wasm module with debug info -->
-                        <buildArg>-g</buildArg>
-                        <!-- macOS-specific initialization policies -->
-                        <buildArg>--initialize-at-build-time=apple.security.AppleProvider</buildArg>
-                        <buildArg>--initialize-at-build-time=apple.security.AppleProvider$ProviderService</buildArg>
-                    </buildArgs>
-                </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <profiles>
+        <profile>
+            <id>cli</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <buildArgs>
+                                <!-- Enable Web Image -->
+                                <buildArg>--tool:svm-wasm</buildArg>
+                                <!-- Annotate Wasm module with debug info -->
+                                <buildArg>-g</buildArg>
+                                <!-- macOS-specific initialization policies -->
+                                <buildArg>--initialize-at-build-time=apple.security.AppleProvider</buildArg>
+                                <buildArg>--initialize-at-build-time=apple.security.AppleProvider$ProviderService</buildArg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClass>com.example.wasm_spring_shell.cli.WasmSpringShellApplication</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
+        <profile>
+            <id>web</id>
+            <properties>
+                <spring.profiles.active>web</spring.profiles.active>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <imageName>../web/wasm-spring-shell</imageName>
+                            <buildArgs>
+                                <!-- Enable Web Image -->
+                                <buildArg>--tool:svm-wasm</buildArg>
+                                <!-- Annotate Wasm module with debug info -->
+                                <buildArg>-g</buildArg>
+                                <!-- macOS-specific initialization policies -->
+                                <buildArg>--initialize-at-build-time=apple.security.AppleProvider</buildArg>
+                                <buildArg>--initialize-at-build-time=apple.security.AppleProvider$ProviderService</buildArg>
+                                <buildArg>-H:-AutoRunVM</buildArg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClass>com.example.wasm_spring_shell.web.Worker</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
