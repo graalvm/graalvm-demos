@@ -41,8 +41,6 @@ jobs:
         run: |
           cd native-image/wasm-javac
           ./mvnw --no-transfer-progress -Pnative package
-          wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o target/javac.js.wasm target/javac.js.wasm
           ./mvnw --no-transfer-progress -Pjavacweb package
-          wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o web/javac.js.wasm web/javac.js.wasm
           node --experimental-wasm-exnref target/javac.js HelloWasm.java
           java HelloWasm
