@@ -6,7 +6,7 @@ This demo illustrates how to use GraalVM Web Image to compile a Spring Shell app
 
 This demo requires:
 
-1. This [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds/releases/tag/jdk-25e1-25.0.0-ea.01) of Oracle GraalVM 25.1 or later.
+1. An [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds) of Oracle GraalVM 25e1 or later.
 2. The [Binaryen toolchain](https://github.com/WebAssembly/binaryen) in version 119 or later and on the system path.
     For example, using Homebrew: `brew install binaryen`
 
@@ -21,7 +21,7 @@ This demo requires:
 
 2. Run the Wasm module on Node:
     ```bash
-    node target/wasm-spring-shell help
-    node target/wasm-spring-shell hello Jane
+    node --experimental-wasm-exnref target/wasm-spring-shell help
+    node --experimental-wasm-exnref target/wasm-spring-shell hello Jane
     ```
-    This requires Node.js 22 or later.
+    This requires Node.js 22 or later. The `--experimental-wasm-exnref` option is no longer required with Node.js 25 or later.
