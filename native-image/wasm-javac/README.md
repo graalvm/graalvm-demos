@@ -6,8 +6,8 @@ This demo illustrates how to use the new experimental WebAssembly backend for Gr
 
 This demo requires:
 
-1. An [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds) of Oracle GraalVM for JDK 26 or later.
-    For example, using SDKMAN!: `sdk install java 26.ea.3-graal`
+1. An [Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds) of Oracle GraalVM for JDK 25 or later.
+    For example, using SDKMAN!: `sdk install java 25.0.1-graal`
 2. The [Binaryen toolchain](https://github.com/WebAssembly/binaryen) in version 119 or later and on the system path.
     For example, using Homebrew: `brew install binaryen`
 
@@ -22,10 +22,10 @@ This demo requires:
 
 2. Compile a Java file:
     ```bash
-    node target/javac.js HelloWasm.java
+    node --experimental-wasm-exnref target/javac.js HelloWasm.java
     ```
     The resulting `HelloWasm.class` file is placed next to `HelloWasm.java`.
-    This requires Node.js 22 or later.
+    This requires Node.js 22 or later. The `--experimental-wasm-exnref` option is no longer required with Node.js 25 or later.
 
 ## Run `javac` in the Browser
 

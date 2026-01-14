@@ -9,7 +9,7 @@ on:
       - 'native-image/wasm-javac/**'
       - '.github/workflows/native-image-wasm-javac.yml'
   schedule:
-    - cron: "0 0 1 * *" # run every month
+    - cron: "0 0 1 * *"  # run every month
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['25']
+        java-version: ['25', '25e1-ea']
     steps:
       - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1
@@ -44,5 +44,5 @@ jobs:
           wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o target/javac.js.wasm target/javac.js.wasm
           ./mvnw --no-transfer-progress -Pjavacweb package
           wasm-opt -Os --enable-exception-handling --enable-bulk-memory --enable-nontrapping-float-to-int --enable-reference-types --enable-gc -o web/javac.js.wasm web/javac.js.wasm
-          node target/javac.js HelloWasm.java
+          node --experimental-wasm-exnref target/javac.js HelloWasm.java
           java HelloWasm
