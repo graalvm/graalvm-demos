@@ -14,7 +14,7 @@ This demo requires:
 
 1. Build the Wasm module with the `native` profile:
     ```bash
-    $ ./mvnw -Pnative package
+    $ ./mvnw -Pnative native:compile
     ```
     The demo uses the [Native Build Tools](https://graalvm.github.io/native-build-tools/latest/index.html) for building native images with GraalVM and Maven.
     This command generates a Wasm file and a corresponding JavaScript binding in the `target` directory.
