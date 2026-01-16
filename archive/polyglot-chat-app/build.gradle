@@ -31,9 +31,9 @@ dependencies {
 
     implementation("jakarta.inject:jakarta.inject-api:2.0.1")
 
-    implementation("org.graalvm.sdk:graal-sdk:23.1.1")
-    implementation("org.graalvm.polyglot:python:23.1.1")
-    implementation("org.graalvm.sdk:nativeimage:23.1.1")
+    implementation("org.graalvm.sdk:graal-sdk:25.0.0")
+    implementation("org.graalvm.polyglot:python:25.0.0")
+    implementation("org.graalvm.sdk:nativeimage:25.0.0")
 }
 
 
@@ -41,8 +41,8 @@ application {
     mainClass.set("websocket.chat.Application")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("21")
-    targetCompatibility = JavaVersion.toVersion("21")
+    sourceCompatibility = JavaVersion.toVersion("25")
+    targetCompatibility = JavaVersion.toVersion("25")
 }
 
 
