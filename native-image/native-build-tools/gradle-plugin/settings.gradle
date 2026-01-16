@@ -5,5 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'fortune-parent'
-include('fortune')
+rootProject.name = 'fortune'
