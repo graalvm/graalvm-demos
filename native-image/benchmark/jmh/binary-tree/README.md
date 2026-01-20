@@ -20,7 +20,7 @@ This forking process is not possible with GraalVM Native Image and you should co
 
 1. Download and install the GraalVM JDK using [SDKMAN!](https://sdkman.io/). For other installation options, visit the [Downloads page](https://www.graalvm.org/downloads/).
     ```bash
-    sdk install java 21.0.8-graal
+    sdk install java 25-graal
     ```
 
 2. Download or clone the repository and navigate into the _/native-image/benchmark/jmh/binary-tree_ directory:

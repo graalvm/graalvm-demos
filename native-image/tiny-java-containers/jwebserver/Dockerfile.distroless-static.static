@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/graalvm/native-image:23-muslib AS nativebuild
+FROM container-registry.oracle.com/graalvm/native-image:25-muslib AS nativebuild
 WORKDIR /build
 # Build a statically linked native executable optimizing for size with `-Os`
 RUN native-image --static --libc=musl -Os -m jdk.httpserver -o jwebserver.static
