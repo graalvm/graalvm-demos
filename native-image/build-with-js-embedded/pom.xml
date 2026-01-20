@@ -12,8 +12,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
-        <graalvm.polyglot.version>25.0.0</graalvm.polyglot.version>
-		<native.maven.plugin.version>0.11.0</native.maven.plugin.version>
+        <graalvm.polyglot.version>25.0.1</graalvm.polyglot.version>
+		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
     </properties>
 
     <dependencies>
