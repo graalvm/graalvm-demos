@@ -8,8 +8,8 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
-    id 'org.graalvm.buildtools.native' version '0.11.0'
+    id 'io.micronaut.application' version '4.6.0'
+    id 'org.graalvm.buildtools.native' version '0.11.1'
 }
 
 repositories {
