@@ -1,0 +1,8 @@
+# base layer config that contains JDK modules used by Micronaut
+base-layer.nil
+digest-ignore
+module=java.base
+module=jdk.unsupported
+module=java.sql
+module=jdk.jfr
+package=sun.management.spi
