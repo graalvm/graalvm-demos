@@ -5,7 +5,7 @@ This is a HelloWorld Java example, referenced from [Getting Started with Native 
 ### Prerequisites
 
 - Linux x64
-- Latest GraalVM 25.1 EA build (with Native Image support)
+- Latest GraalVM 25.1 EA build (with Native Image Layers support)
 
 Native Image Layers is an experimental feature. For the best experience, use the latest [GraalVM Early Access Build](https://github.com/graalvm/oracle-graalvm-ea-builds/releases).
 
@@ -47,13 +47,15 @@ export JAVA_HOME=/path/to/graalvm/ea/build
     mkdir -p native-build
     native-image -H:LayerCreate=baselayer.nil,module=java.base -cp ./build -o libjavabaselayer -H:Path=./native-build
     ```
-    For more details consult the [Native Image Layers documentation](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md).
 
-This command creates:
+    This command creates:
 
-* _base-layer.nil_, which is a build-time dependency for the application build.
-* _libjavabaselayer.so_, which is a runtime dependency for the application layer.
+    * _base-layer.nil_, which is a build-time dependency for the application build.
+    * _libjavabaselayer.so_, which is a runtime dependency for the application layer.
+
     It will also create the `libjavabaselayer.so` shared library which is a run time dependency for the application layer.
+
+    For more details consult the [Native Image Layers documentation](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md).
 
 2. Create a native executable from a JAR file using the base layer:
     ```bash
