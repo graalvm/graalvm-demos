@@ -1,13 +1,9 @@
-name: native-image/hello-world/hello-world
+name: native-image/hello-world/hello-world-layered
 on:
   push:
     paths:
-      - 'native-image/hello-world/hello-world/**'
-      - '.github/workflows/native-image-hello-world.yml.yml'
-  pull_request:
-    paths:
-      - 'native-image/hello-world/hello-world/**'
-      - '.github/workflows/native-image-hello-world.yml.yml'
+      - 'native-image/hello-world/hello-world-layered/**'
+      - '.github/workflows/native-image-hello-world-layered.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
@@ -15,7 +11,7 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/hello-world/hello-world'
+    name: Run 'native-image/hello-world/hello-world-layered'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -29,7 +25,7 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - name: Run 'native-image/hello-world/hello-world'
+      - name: Run 'native-image/hello-world/hello-world-layered'
         run: |
-          cd native-image/hello-world/hello-world
+          cd native-image/hello-world/hello-world-layered
           ./run.sh
