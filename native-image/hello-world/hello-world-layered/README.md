@@ -29,9 +29,9 @@ export JAVA_HOME=/path/to/graalvm/ea/build
     ```
     It outputs the message "Hello, Native World!".
 
-## Run the Application from JAR
+## Run the Application from a JAR File
 
-1. Create a JAR for the application, running the follow command:
+1. Create a JAR for the application, running the following command:
     ```bash
     jar --create --file HelloWorld.jar --main-class com.example.HelloWorld -C build .
     ```
@@ -53,15 +53,13 @@ export JAVA_HOME=/path/to/graalvm/ea/build
     * _base-layer.nil_, which is a build-time dependency for the application build.
     * _libjavabaselayer.so_, which is a runtime dependency for the application layer.
 
-    It will also create the `libjavabaselayer.so` shared library which is a run time dependency for the application layer.
-
     For more details consult the [Native Image Layers documentation](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md).
 
 2. Create a native executable from a JAR file using the base layer:
     ```bash
     native-image -H:LayerUse=native-build/libjavabaselayer.nil -cp ./build -H:LinkerRPath="\$ORIGIN/native-build" -jar HelloWorld.jar
     ```
-    The executable called `./HelloWorld` will be created in the working directory.
+    The executable called `HelloWorld` will be created in the working directory.
 
 3. Execute it:
     ```bash
