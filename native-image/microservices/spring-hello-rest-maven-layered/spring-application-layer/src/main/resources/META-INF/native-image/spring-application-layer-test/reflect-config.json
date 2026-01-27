@@ -1,0 +1,37 @@
+[
+  {
+    "name": "org.apache.coyote.AbstractProtocol",
+    "methods": [
+      {
+        "name": "getProperty",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setProperty",
+        "parameterTypes": [
+          "java.lang.String",
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "getName",
+        "parameterTypes": []
+      },
+      {
+        "name": "getAddress",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "org.apache.coyote.http11.AbstractHttp11Protocol",
+    "methods": [
+      {
+        "name": "isSSLEnabled",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

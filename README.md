@@ -84,6 +84,7 @@ Demos for building microservices ahead of time using frameworks such as Micronau
 * [micronaut-hello-rest-gradle](native-image/microservices/micronaut-hello-rest-gradle) - Demonstrates how to build a native executable from a Micronaut application using [Grade plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
 * [micronaut-hello-rest-maven](native-image/microservices/micronaut-hello-rest-maven) - Demonstrates how to build a native executable from a Micronaut application using [Maven plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html)
 * [micronaut-hello-rest-maven-layered](native-image/microservices/micronaut-hello-rest-maven-layered) - Demonstrates how to build a simple Micronaut REST application using the [GraalVM Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md) feature
+* [spring-hello-rest-maven-layered](native-image/microservices/spring-hello-rest-maven-layered) - Demonstrates how to build a simple Spring REST application using the [GraalVM Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md) feature
 
 ## Compiler Demos
 
