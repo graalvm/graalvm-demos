@@ -1,0 +1,36 @@
+name: microservices/spring-hello-rest-maven-layered
+on:
+  push:
+    paths:
+      - 'native-image/microservices/spring-hello-rest-maven-layered/**'
+      - '.github/workflows/microservices-spring-hello-rest-maven-layered.yml'
+  pull_request:
+    paths:
+      - 'native-image/microservices/spring-hello-rest-maven-layered/**'
+      - '.github/workflows/microservices-spring-hello-rest-maven-layered.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'microservices/spring-hello-rest-maven-layered'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['25']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download GraalVM 25.1 EA builds
+        run: curl -sL -o $RUNNER_TEMP/graalvm-jdk-25e1-linux-amd64.tar.gz https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.0-ea.01/graalvm-jdk-25e1-25.0.0-ea.01_linux-x64_bin.tar.gz
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'jdkfile'
+          jdkFile: ${{ runner.temp }}/graalvm-jdk-25e1-linux-amd64.tar.gz
+      - name: Run 'microservices/spring-hello-rest-maven-layered'
+        run: |
+          cd native-image/microservices/spring-hello-rest-maven-layered
+          ./run.sh
