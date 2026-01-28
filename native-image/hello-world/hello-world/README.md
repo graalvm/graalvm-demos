@@ -16,9 +16,9 @@ This is a HelloWorld Java example, referenced from [Getting Started with Native 
     ```
     It outputs the message "Hello, Native World!".
 
-## Run the Application from JAR
+## Run the Application from a JAR File
 
-1. Create a JAR for the application, running the follow command:
+1. Create a JAR for the application, running the following command:
     ```bash
     jar --create --file HelloWorld.jar --main-class com.example.HelloWorld -C build .
     ```

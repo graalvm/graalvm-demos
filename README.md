@@ -19,7 +19,8 @@ Example applications showcasing the capabilities of GraalVM Native Image, includ
 ### Build
 Demos for building native images, including configurations and setup steps for various use cases.
 
-* [hello-world](native-image/hello-world/) - A HelloWorld example showing how to create a native executable from a class file
+* [hello-world](native-image/hello-world/hello-world) - A HelloWorld example showing how to create a native executable from a class file
+* [hello-world-layered](native-image/hello-world/hello-world-layered) - A HelloWorld example showing how to create a layered native executable from a class file
 * [build-from-jar](native-image/build-from-jar/) - Shows how to create a JAR file without using Maven or Gradle, and build a native executable from that JAR
 * [build-java-modules](native-image/build-java-modules/) - Shows how to compile a modularized Java application into a native executable without using Maven or Gradle
 * [build-shared-library](native-image/build-shared-library/) - Shows how build a native shared library and then load it from a C application
