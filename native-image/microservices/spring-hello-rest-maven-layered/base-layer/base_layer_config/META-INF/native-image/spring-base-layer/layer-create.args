@@ -1,0 +1,9 @@
+# base layer config that contains JDK modules used by Spring
+base-layer.nil
+digest-ignore
+module=java.base
+module=java.desktop
+module=java.net.http
+module=java.management
+module=java.sql
+module=jdk.unsupported
