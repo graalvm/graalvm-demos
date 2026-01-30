@@ -25,3 +25,5 @@ This demo requires:
     node --experimental-wasm-exnref target/wasm-spring-shell hello Jane
     ```
     This requires Node.js 22 or later. The `--experimental-wasm-exnref` option is no longer required with Node.js 25 or later.
+
+See the [project documentation](https://github.com/oracle/graal/tree/master/web-image).
