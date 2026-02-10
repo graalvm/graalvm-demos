@@ -117,9 +117,9 @@ The expected output is:
 Hello from GraalVM Native Image!
 ```
 
-### Layered Application with Micronaut in the base layer
+## Layered Application with Micronaut in the Base layer
 
-#### Configure the Base Layer
+### Configure the Base Layer
 
 Next, create a base layer that contains both `java.base` and the Micronaut framework.
 For this, add a second custom profile:
@@ -168,7 +168,7 @@ This will create the `base-layer.nil` which is a build time dependency for the a
 It will also create the `libmicronautbaselayer.so` shared library which is a run time dependency for the application layer.
 Note also that you use `install` instead of `package` to ensure that the base layer JAR is installed in the `.m2` cache as it will be needed by the application build later.
 
-#### Configure The Application Layer
+### Configure The Application Layer
 
 To configure the application layer, add an additional profile:
 ```xml
@@ -223,9 +223,9 @@ The expected output is:
 Hello from GraalVM Native Image!
 ```
 
-### Layered Application with Micronaut in the application layer
+## Layered Application with Micronaut in the application layer
 
-#### Configure the Base Layer
+### Configure the Base Layer
 
 Next, create a base layer that contains `java.base`.
 For this, use the following build in the _pom.xml_ file:
@@ -283,14 +283,14 @@ Now you can build the base layer:
 ```bash
 ../mvnw clean install
 ```
-This will create the `base-layer.nil` which is a build time dependency for the application build.
-It will also create the `libjavabaselayer.so` shared library which is a run time dependency for the application layer.
+This will create the `base-layer.nil` file which is a build time dependency for the application build.
+It will also create the `libjavabaselayer.so` shared library which is a run-time dependency for the application layer.
 Note also that you use `install` instead of `package` to ensure that the base layer JAR is installed in the `.m2` cache as it will be needed by the application build later.
 
-#### Configure The Application Layer
+### Configure The Application Layer
 
 The application layer configuration is the same as the previous example. The only difference is the shared library and the `base-layer.nil` file used.
 
-### Learn More
+## Learn More
 
 * [Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md)
