@@ -1,0 +1,36 @@
+{
+    "reflection": [
+        {
+            "type": "java.sql.Timestamp",
+            "condition": {
+                "typeReached": "java.sql.Timestamp"
+            },
+            "methods": [
+                {
+                    "name": "from",
+                    "parameterTypes": [
+                        "java.time.Instant"
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "java.sql.Date",
+            "condition": {
+                "typeReached": "java.sql.Date"
+            },
+            "methods": [
+                {
+                    "name": "toLocalDate",
+                    "parameterTypes": [ ]
+                },
+                {
+                    "name": "valueOf",
+                    "parameterTypes": [
+                        "java.time.LocalDate"
+                    ]
+                }
+            ]
+        }
+    ]
+}
