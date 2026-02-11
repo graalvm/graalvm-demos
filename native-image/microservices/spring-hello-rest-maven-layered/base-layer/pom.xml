@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>example.spring</groupId>
+    <artifactId>base-layer</artifactId>
+    <version>0.1</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
+        <packaging>jar</packaging>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${native.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>libjavabaselayer</imageName>
+                    <buildArgs>
+                        <buildArg>-cp ${project.basedir}/base_layer_config</buildArg>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

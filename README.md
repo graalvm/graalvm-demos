@@ -19,7 +19,8 @@ Example applications showcasing the capabilities of GraalVM Native Image, includ
 ### Build
 Demos for building native images, including configurations and setup steps for various use cases.
 
-* [hello-world](native-image/hello-world/) - A HelloWorld example showing how to create a native executable from a class file
+* [hello-world](native-image/hello-world/hello-world) - A HelloWorld example showing how to create a native executable from a class file
+* [hello-world-layered](native-image/hello-world/hello-world-layered) - A HelloWorld example showing how to create a layered native executable from a class file
 * [build-from-jar](native-image/build-from-jar/) - Shows how to create a JAR file without using Maven or Gradle, and build a native executable from that JAR
 * [build-java-modules](native-image/build-java-modules/) - Shows how to compile a modularized Java application into a native executable without using Maven or Gradle
 * [build-shared-library](native-image/build-shared-library/) - Shows how build a native shared library and then load it from a C application
@@ -27,9 +28,9 @@ Demos for building native images, including configurations and setup steps for v
 * [build-with-js-embedded](native-image/build-with-js-embedded/) - Shows how to embedded JavaScript into a Java application, and then compile it ahead of time
 * [list-files](native-image/list-files/) - Shows how to create a native executable from the command line, and then apply Profile-Guided Optimization (PGO)
 * [native-build-tools](native-image/native-build-tools/) - Contains two Java projects, and shows how to create native executables from those applications using [Maven](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) and [Gradle](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html) plugins for GraalVM Native Image
-* [wasm-javac](native-image/wasm-javac/) - Illustrates how to use the new experimental WebAssembly backend in GraalVM to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-javac/).
-* [wasm-spring-shell](native-image/wasm-spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser.
 * [preserve-package](native-image/preserve-package/) - Demonstrates how to use the `-H:Preserve` option to include all classes from a package in a native image, eliminating the need for JSON metadata configuration.
+* [wasm-javac](native-image/wasm-javac/) - Illustrates how to use the new experimental WebAssembly backend in Native Image to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-javac/).
+* [wasm-spring-shell](native-image/wasm-spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser.
 
 ### Configure
 Demos illustrating how to compile applications with Native Image that use some dynamic Java features including reflection, resource access, and so on.
@@ -84,6 +85,13 @@ Demos for building microservices ahead of time using frameworks such as Micronau
 * [micronaut-hello-rest-gradle](native-image/microservices/micronaut-hello-rest-gradle) - Demonstrates how to build a native executable from a Micronaut application using [Grade plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
 * [micronaut-hello-rest-maven](native-image/microservices/micronaut-hello-rest-maven) - Demonstrates how to build a native executable from a Micronaut application using [Maven plugin for Native Image](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html)
 * [micronaut-hello-rest-maven-layered](native-image/microservices/micronaut-hello-rest-maven-layered) - Demonstrates how to build a simple Micronaut REST application using the [GraalVM Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md) feature
+* [spring-hello-rest-maven-layered](native-image/microservices/spring-hello-rest-maven-layered) - Demonstrates how to build a simple Spring REST application using the [GraalVM Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md) feature
+
+### Web Image
+
+Demos illustrating how to use **Web Image**, GraalVM's new experimental feature to produce a WebAssembly module together with a JavaScript wrapper that can run in browsers or on Node.js.
+
+* [web-image](web-image/hello-wasm) - Demonstrates the experimental GraalVM Web Image feature by compiling a simple JVM application into a WebAssembly module with a JavaScript wrapper.
 
 ## Compiler Demos
 
