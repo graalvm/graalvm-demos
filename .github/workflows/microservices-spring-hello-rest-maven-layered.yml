@@ -20,16 +20,15 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['25']
+        java-version: ['25e1-ea']
     steps:
       - uses: actions/checkout@v4
-      - name: Download GraalVM 25.1 EA builds
-        run: curl -sL -o $RUNNER_TEMP/graalvm-jdk-25e1-linux-amd64.tar.gz https://github.com/graalvm/oracle-graalvm-ea-builds/releases/download/jdk-25e1-25.0.0-ea.01/graalvm-jdk-25e1-25.0.0-ea.01_linux-x64_bin.tar.gz
-      - uses: actions/setup-java@v4
+      - uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '25'
-          distribution: 'jdkfile'
-          jdkFile: ${{ runner.temp }}/graalvm-jdk-25e1-linux-amd64.tar.gz
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
       - name: Run 'microservices/spring-hello-rest-maven-layered'
         run: |
           cd native-image/microservices/spring-hello-rest-maven-layered
