@@ -7,7 +7,7 @@ on:
   pull_request:
     paths:
       - 'native-image/microservices/micronaut-hello-rest-maven-layered/**'
-      - '.github/workflows/microservices-micronaut-hello-rest-maven-layered.y
+      - '.github/workflows/microservices-micronaut-hello-rest-maven-layered.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
