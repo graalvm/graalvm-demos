@@ -1,6 +1,6 @@
 # Compile Spring Shell into a Wasm Module
 
-This demo illustrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-spring-shell/).
+This demo illustrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/spring-shell/).
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 # Compile `javac` into a Wasm Module
 
-This demo illustrates how to use the new experimental WebAssembly backend for GraalVM to compile the `javac` tool into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-javac/).
+This demo illustrates how to use the new experimental WebAssembly backend for GraalVM to compile the `javac` tool into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/javac/).
 
 ## Prerequisites
 
