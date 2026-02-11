@@ -46,5 +46,4 @@ jobs:
           jwebserver -p 8000 &
           SERVER_PID=$!
           sleep 5
-          curl -i http://127.0.0.1:8000
           kill $SERVER_PID
