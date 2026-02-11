@@ -87,7 +87,7 @@ Demos for building microservices ahead of time using frameworks such as Micronau
 
 ### Web Image
 
-Demos illustrating how to use **Web Image**: the new experimental WebAssembly backend in Native Image to produce a WebAssembly module together with a JavaScript wrapper that can run in browsers or Node.js.
+Demos illustrating how to use **Web Image**, GraalVM's new experimental feature to produce a WebAssembly module together with a JavaScript wrapper that can run in browsers or on Node.js.
 
 * [web-image](web-image/hello-wasm) - Demonstrates the experimental GraalVM Web Image feature by compiling a simple JVM application into a WebAssembly module with a JavaScript wrapper.
 
