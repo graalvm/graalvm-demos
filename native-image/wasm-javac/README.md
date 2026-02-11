@@ -1,0 +1,1 @@
+This demo has been moved to [`/web-image/javac/`](../../web-image/javac).

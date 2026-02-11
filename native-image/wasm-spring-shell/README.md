@@ -1,0 +1,1 @@
+This demo has been moved to [`/web-image/spring-shell`](../../web-image/spring-shell/).
