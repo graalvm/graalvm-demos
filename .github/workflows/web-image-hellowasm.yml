@@ -43,7 +43,3 @@ jobs:
           javac HelloWasm.java
           native-image --tool:svm-wasm HelloWasm
           node --experimental-wasm-exnref hellowasm.js
-          jwebserver -p 8000 &
-          SERVER_PID=$!
-          sleep 5
-          kill $SERVER_PID
