@@ -243,6 +243,62 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>micronaut-app-layer</id>
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>base-layer</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <directory>${project.basedir}/app-layer-target</directory>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.plugin.version}</version>
+            <configuration>
+              <imageName>layered-app</imageName>
+              <mainClass>example.micronaut.Application</mainClass>
+              <buildArgs>
+                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                <buildArg>-H:LayerUse=base-layer/base-layer-target/base-layer.nil</buildArg>
+                <buildArg>-H:LinkerRPath=$ORIGIN</buildArg>
+                <buildArg>-H:-UnlockExperimentalVMOptions</buildArg>
+              </buildArgs>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
+            <executions>
+              <execution>
+                <id>copy-base-layer</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>base-layer/base-layer-target</directory>
+                      <includes>
+                        <include>libjavabaselayer.so</include>
+                      </includes>
+                      <filtering>false</filtering>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 
 </project>

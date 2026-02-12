@@ -108,7 +108,7 @@ This will generate an executable file that you can run:
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
 12:20:53.437 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 6ms. Server Running: http://localhost:8080
 ```
-and test your custom endpoint:
+Test your custom endpoint:
 ```bash
 curl localhost:8080/hello
 ```
@@ -117,9 +117,9 @@ The expected output is:
 Hello from GraalVM Native Image!
 ```
 
-### Layered Application
+## Layered Application with Micronaut in the Base layer
 
-#### Configure the Base Layer
+### Configure the Base Layer
 
 Next, create a base layer that contains both `java.base` and the Micronaut framework.
 For this, add a second custom profile:
@@ -214,7 +214,7 @@ Then you can execute the layered application:
 |_|  |_|_|\___|_|  \___/|_| |_|\__,_|\__,_|\__|
 12:24:21.341 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 6ms. Server Running: http://localhost:8080
 ```
-and test it with:
+Test it with:
 ```
 curl localhost:8080/hello
 ```
@@ -223,6 +223,74 @@ The expected output is:
 Hello from GraalVM Native Image!
 ```
 
-### Learn More
+## Layered Application with Micronaut in the application layer
+
+### Configure the Base Layer
+
+Next, create a base layer that contains `java.base`.
+For this, use the following build in the _pom.xml_ file:
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.maven.plugin.version}</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>build</goal>
+                    </goals>
+                    <phase>package</phase>
+                </execution>
+            </executions>
+            <configuration>
+                <imageName>libjavabaselayer</imageName>
+                <buildArgs>
+                    <buildArg>-cp ${project.basedir}/base_layer_config</buildArg>
+                </buildArgs>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+```
+
+with the following _native-image.properties_ file in _base_layer_config/META-INF/native-image/base-layer_:
+```
+Args = -H:+UnlockExperimentalVMOptions \
+       -H:LayerCreate=@layer-create.args \
+       -H:-UnlockExperimentalVMOptions
+```
+
+Create the following _layer-create.args_ file in the same directory:
+```
+# base layer config that contains JDK modules used by Micronaut
+base-layer.nil
+digest-ignore
+module=java.base
+module=java.desktop
+module=java.net.http
+module=java.management
+module=java.sql
+module=jdk.unsupported
+```
+
+This is an alternate way to use the `-H:LayerCreate=` option. It is used to specify what should be included in the base layer: `java.base` and a few more other packages that a Micronaut application usually depends on.
+For more details, consult the [Native Image Layers documentation](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md).
+
+Now you can build the base layer:
+```bash
+../mvnw clean install
+```
+This will create the `base-layer.nil` file which is a build time dependency for the application build.
+It will also create the `libjavabaselayer.so` shared library which is a run-time dependency for the application layer.
+Note also that you use `install` instead of `package` to ensure that the base layer JAR is installed in the `.m2` cache as it will be needed by the application build later.
+
+### Configure The Application Layer
+
+The application layer configuration is the same as the previous example. The only difference is the shared library and the `base-layer.nil` file used.
+
+## Learn More
 
 * [Native Image Layers](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md)
