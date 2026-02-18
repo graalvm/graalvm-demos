@@ -29,8 +29,6 @@ Demos for building native images, including configurations and setup steps for v
 * [list-files](native-image/list-files/) - Shows how to create a native executable from the command line, and then apply Profile-Guided Optimization (PGO)
 * [native-build-tools](native-image/native-build-tools/) - Contains two Java projects, and shows how to create native executables from those applications using [Maven](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) and [Gradle](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html) plugins for GraalVM Native Image
 * [preserve-package](native-image/preserve-package/) - Demonstrates how to use the `-H:Preserve` option to include all classes from a package in a native image, eliminating the need for JSON metadata configuration.
-* [wasm-javac](native-image/wasm-javac/) - Illustrates how to use the new experimental WebAssembly backend in Native Image to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/native-image/wasm-javac/).
-* [wasm-spring-shell](native-image/wasm-spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser.
 
 ### Configure
 Demos illustrating how to compile applications with Native Image that use some dynamic Java features including reflection, resource access, and so on.
@@ -93,6 +91,8 @@ Demos illustrating how to use **Web Image**, GraalVM's new experimental feature 
 
 * [hello-wasm](web-image/hello-wasm) - Demonstrates the experimental GraalVM Web Image feature by compiling a simple JVM application into a WebAssembly module with a JavaScript wrapper.
 * [export-java-function](web-image/export-java-function) - Shows how you can call Java methods directly from JavaScript via WebAssembly using the `@JS` annotation.
+* [javac](web-image/javac/) - Illustrates how to use GraalVM Web Image to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/javac/).
+* [spring-shell](web-image/spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/spring-shell/).
 
 ## Compiler Demos
 

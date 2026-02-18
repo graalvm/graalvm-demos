@@ -136,7 +136,7 @@ For this, use the following build in the _pom.xml_ file:
             <executions>
                 <execution>
                     <goals>
-                        <goal>build</goal>
+                        <goal>compile-no-fork</goal>
                     </goals>
                     <phase>package</phase>
                 </execution>

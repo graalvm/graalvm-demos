@@ -1,13 +1,13 @@
-name: native-image/wasm-spring-shell
+name: web-image/javac
 on:
   push:
     paths:
-      - 'native-image/wasm-spring-shell/**'
-      - '.github/workflows/native-image-wasm-spring-shell.yml'
+      - 'web-image/javac/**'
+      - '.github/workflows/web-image-javac.yml'
   pull_request:
     paths:
-      - 'native-image/wasm-spring-shell/**'
-      - '.github/workflows/native-image-wasm-spring-shell.yml'
+      - 'web-image/javac/**'
+      - '.github/workflows/web-image-javac.yml'
   schedule:
     - cron: "0 0 1 * *"  # run every month
   workflow_dispatch:
@@ -15,21 +15,21 @@ permissions:
   contents: read
 jobs:
   run:
-    name: Run 'native-image/wasm-spring-shell'
+    name: Run 'web-image/javac'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       matrix:
-        java-version: ['25e1-ea']
+        java-version: ['25', '25e1-ea']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: graalvm/setup-graalvm@v1
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Set up Binaryen
@@ -37,9 +37,10 @@ jobs:
           curl -sLO https://github.com/WebAssembly/binaryen/releases/download/version_122/binaryen-version_122-x86_64-linux.tar.gz
           tar xzf binaryen-version_122-x86_64-linux.tar.gz
           echo "$(pwd)/binaryen-version_122/bin" >> "$GITHUB_PATH"
-      - name: Run 'native-image/wasm-spring-shell'
+      - name: Run 'web-image/javac'
         run: |
-          cd native-image/wasm-spring-shell
-          ./mvnw --no-transfer-progress -Pnative native:compile
-          node --experimental-wasm-exnref target/wasm-spring-shell help
-          node --experimental-wasm-exnref target/wasm-spring-shell hello Jane
+          cd web-image/javac
+          ./mvnw --no-transfer-progress -Pnative package
+          ./mvnw --no-transfer-progress -Pjavacweb package
+          node --experimental-wasm-exnref target/javac.js HelloWasm.java
+          java HelloWasm

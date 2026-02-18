@@ -3,17 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>example.spring</groupId>
+    <groupId>example.micronaut</groupId>
     <artifactId>base-layer</artifactId>
     <version>0.1</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
-        <packaging>jar</packaging>
     </properties>
     <build>
+        <directory>${project.basedir}/base-layer-target</directory>
         <plugins>
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
@@ -33,6 +33,24 @@
                         <buildArg>-cp ${project.basedir}/base_layer_config</buildArg>
                     </buildArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>${project.groupId}</groupId>
+                            <file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
+                            <artifactId>base-layer</artifactId>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
