@@ -90,6 +90,7 @@ Demos for building microservices ahead of time using frameworks such as Micronau
 Demos illustrating how to use **Web Image**, GraalVM's new experimental feature to produce a WebAssembly module together with a JavaScript wrapper that can run in browsers or on Node.js.
 
 * [hello-wasm](web-image/hello-wasm) - Demonstrates the experimental GraalVM Web Image feature by compiling a simple JVM application into a WebAssembly module with a JavaScript wrapper.
+* [export-java-function](web-image/export-java-function) - Shows how you can call Java methods directly from JavaScript via WebAssembly using the `@JS` annotation.
 * [javac](web-image/javac/) - Illustrates how to use GraalVM Web Image to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/javac/).
 * [spring-shell](web-image/spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/spring-shell/).
 

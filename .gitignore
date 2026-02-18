@@ -238,8 +238,6 @@ micronaut-webapp/docker-compose.yml
 /hello-graal/Hello
 /hello-graal/Hello.build_artifacts.txt
 /native-heapdump-examples/helloworld
-native-list-dir/listdir
-native-list-dir/listdir.build_artifacts.txt
 shared
 micronaut-hello-rest-gradle/hello/
 micronaut-webapp/loadTests/results-*
@@ -262,7 +260,6 @@ fastR-examples/*.*
 venv/
 espresso-jshell/espresso-jshell
 espresso-jshell/espresso-jshell.build_artifacts.txt
-native-list-dir/extlistdir
-native-list-dir/extlistdir.build_artifacts.txt
 *.pyc
 *.iprof
+web-image/export-java-function/*.js

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>GraalVM Web Image</h2>
+
+    <input type="number" id="num1" value="0">
+    <br><br>
+    <input type="number" id="num2" value="0">
+    <br><br>
+
+    <button id="addButton">Add</button>
+    <button id="clearButton">Clear</button>
+    <br><br>
+
+    <div id="output"></div>
+
+    <script src="adder.js"></script>
+    <script>
+    GraalVM.run([]).then(() => {
+        const addButton = document.getElementById("addButton");
+        const clearButton = document.getElementById("clearButton");
+        const output = document.getElementById("output");
+
+        addButton.addEventListener("click", () => {
+            const a = parseInt(document.getElementById("num1").value);
+            const b = parseInt(document.getElementById("num2").value);
+
+            // Call the Java add function via WebAssembly
+            const result = globalThis.adder(a, b);
+
+            output.innerText = `Result: ${result}`;
+        });
+
+        clearButton.addEventListener("click", () => {
+            document.getElementById("num1").value = 0;
+            document.getElementById("num2").value = 0;
+            output.innerText = "";
+        });
+    });
+    </script>
+</body>
+</html>
