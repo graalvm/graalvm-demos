@@ -29,4 +29,23 @@ jobs:
       - name: Run 'microservices/micronaut-hello-rest-maven'
         run: |
           cd native-image/microservices/micronaut-hello-rest-maven
+          # Test on Oracle GraalVM
           ./run.sh
+
+          # Docker: Build and Test a JAR
+          docker build --no-cache . -f Dockerfile.jvm -t micronaut:hello.jvm
+          container_id=$(docker run --rm -d -p8081:8080 micronaut:hello.jvm)
+          sleep 10
+          docker ps
+          curl "http://localhost:8081/"
+          docker kill $container_id
+          docker ps
+
+          #  Docker: Build and Test a native image
+          docker build --no-cache . -f Dockerfile -t micronaut:hello
+          container_id=$(docker run --rm -d -p8082:8080 micronaut:hello)
+          sleep 10
+          docker ps
+          curl "http://localhost:8082/"
+          docker kill $container_id
+          docker ps
