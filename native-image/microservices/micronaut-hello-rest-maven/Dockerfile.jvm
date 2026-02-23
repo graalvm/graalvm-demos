@@ -1,0 +1,12 @@
+# Builder
+FROM container-registry.oracle.com/graalvm/jdk:25 AS build
+WORKDIR /build
+COPY . .
+RUN chmod +x mvnw
+RUN ./mvnw --no-transfer-progress clean package
+
+# Runner: Distoless Java 25 (Debian)
+FROM gcr.io/distroless/java25-debian13
+COPY --from=build /build/target/MnHelloRest-0.1.jar MnHelloRest-0.1.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "MnHelloRest-0.1.jar"]

@@ -117,6 +117,7 @@
         <configuration>
           <verbose>true</verbose>
           <quickBuild>true</quickBuild>
+          <imageName>hello</imageName>
           <buildArgs combine.children="append">
             <buildArg>-H:+ReportExceptionStackTraces</buildArg>
           </buildArgs>
