@@ -7,9 +7,8 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
 
 1. Download and install GraalVM using [SDKMAN!](https://sdkman.io/):
     ```bash
-    sdk install java 21.0.8-graal
+    sdk install java 25-graal
     ```
-    > Note: A Java version between 17 and 21 is required to execute Gradle (see the [Gradle Compatibility Matrix](https://docs.gradle.org/current/userguide/compatibility.html)).
 
 2. Download or clone GraalVM demos repository and navigate into the example directory:
     ```bash
@@ -21,23 +20,23 @@ Along the way you will see the performance benefits that GraalVM Native Image pr
 
 ## Compile and Run from a JAR File
 
-1. Compile the application and build a fat JAR that includes all its dependencies:
+1. Compile the application:
     ```bash
-    ./gradlew assemble
+    ./gradlew build
     ```
 
-2. Run the application on HotSpot from a JAR file:
+2. Run the application on the JVM:
     ```bash
-    java -jar build/libs/hello-0.1-all.jar
+    ./gradlew run
     ```
     You can see the app starts in few hundred milliseconds.
 
-3. To test the `HelloController` you created, either `curl http://localhost:8080/hello` or open it in a browser:
+3. To test the application, either send a `curl` request from a new terminal window, or open it in a browser:
     ```bash
-    curl http://localhost:8080/hello
+    curl http://localhost:8080/GraalVM
     ```
 
-    The response should be `Example Response`.
+    The response should be `Hello GraalVM`.
     Then stop the application:
     ```
     CTRL-C
@@ -55,61 +54,140 @@ Mironaut provides support for GraalVM Native Image by default.
 
     Compilation can take a few minutes, but more cores and more memory reduce the required time.
 
-    The result is a standalone executable placed in the _build/native/nativeCompile/_ directory named `MnHelloRest`.
+    The result is a standalone executable placed in the _build/native/nativeCompile/_ directory named `hello`.
 
 2. Run the application from the native executable:
     ```bash
-    ./build/native/nativeCompile/MnHelloRest
+    ./build/native/nativeCompile/hello
     ```
-    This ahead-of-time compiled application started much faster than when running on HorSpot!
+    This ahead-of-time compiled application started much faster than when running on the JVM!
 
     It is so fast because it does not have to parse bytecode for JDK and application classes, initialize the JIT compiler, allocate JIT code caches, JIT profile data caches, and so on.
-    The startup is negligible.
 
-## Containerize and Run in Docker on Linux
-
-If you are on Linux, you can easily create a Docker container image that includes the native Linux executable you have built.
-For Windows or macOS, the process is little different and is not covered here.
-
-Typically, the first question is what base image to use?
-GraalVM Native Image supports both static and dynamically linked executables, with dynamic being the default.
-Your native executable is dynamically linked against `glibc`, you will need a base image that includes it.
-One of the smallest base images you could use is Alpine Linux with `glibc`.
-
-1. Create a `Dockerfile` with the following contents:
-    ```Dockerfile
-    FROM frolvlad/alpine-glibc:alpine-3.12
-    EXPOSE 8080
-    ADD build/native-image/application /app/example
-    ENTRYPOINT ["/app/example"]
+3. Test the application either with `curl` or open it in a browser:
+    ```bash
+    curl http://localhost:8080/GraalVM
+    ```
+    It returns the same message: "Hello GraalVM".
+    Then stop the application:
+    ```
+    CTRL-C
     ```
 
-    Simply copy the native executable into the container image and expose port 8080.
+## Containerize and Run in Docker
+
+You can run this application in containers using Docker.
+There are two ways to achieve this: using the default Micronaut container tasks or creating custom containers.
+
+### Default Containers
+
+The Micronaut Gradle plugin, `io.micronaut.application`, provides tasks to build container images for your application without requiring you to write a Dockerfile.
+
+* The first task is:
+    ```bash
+    ./gradlew dockerBuild
+    ```
+    This task builds an optimized container image that runs your application on the JVM.
+    **Docker pulls a Java runtime image base image compatible with your JDK version (Java 25 in this example).**
+    As a result, you get the `hello:latest` image (with the expected file size 323MB) that you can run with:
+    ```bash
+    docker run -p 8080:8080 hello:latest
+    ```
+
+* The second task is:
+    ```bash
+    ./gradlew dockerBuildNative
+    ```
+    This task builds a container image that runs a GraalVM Native Image executable instead of a JAR file.
+    The container includes: your compiled native executable, a minimal OS image, no JVM.
+    The image tag and name remain the same, and you can run it as before:
+
+    ```bash
+    docker run -p 8080:8080 hello:latest
+    ```
+    Startup is significantly faster compared to the JVM-based container.
+
+### Custom Containers
+
+If you need to use different base images than those provided by the Micronaut Gradle plugin, you can write a custom Dockerfile and control both the builder and runtime stages.
+
+For example, when using GraalVM Native Image, you can create either statically or dynamically linked executables. Dynamic linking is the default.
+
+To run a native executable dynamically linked against `glibc`, you need a base image that provides it.
+A good choice is a Google Distroless image such as **gcr.io/distroless/java-base-debian13**.
+
+Below is an example of deploying this application using a native executable in a custom container.
+
+1. Create a _Dockerfile.native_ with the following contents:
+    ```Dockerfile.native
+    # Builder
+    FROM container-registry.oracle.com/graalvm/native-image:25 AS nativebuild
+    WORKDIR /build
+    COPY . .
+    RUN ./gradlew nativeCompile
+
+    # Runner
+    FROM gcr.io/distroless/java-base-debian13
+    COPY --from=nativebuild /build/build/native/nativeCompile/hello /hello
+    EXPOSE 8080
+    ENTRYPOINT ["/hello"]
+    ```
+
+    This example demonstrates a multi-stage build.
+
+    First, the executable is built using the `graalvm/native-image:25` container image as the builder.
+    Then the executable is copied into a minimal runtime container, where port 8080 is exposed and the entrypoint is configured.
+
+    The runtime image is based on Debian and provides `glibc` and other required system libraries, without including a full JDK installation.
 
 2. Build a container image:
     ```bash
-    docker build . -t example
+    docker build . -f Dockerfile.native -t micronaut:hello
+    ```
+    Check the file size of the newly-created image:
+    ```bash
+    docker images | grep micronaut
+    ```
+    ```
+    REPOSITORY   TAG         IMAGE ID       CREATED             SIZE
+    micronaut    hello       6b7ba89420ae   31 minutes ago      102MB
     ```
 
-    The container image that was created is about 94MB, which makes sense because the Alpine with `glibc` base image is about 18MB and your application is about 71MB.
-    ```bash
-    docker images
-    ```
-    ```sh
-    REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
-    hello                   latest              f5ea290d8d08        2 seconds ago       94.2MB
-    ```
+    The container image that was created is about 100MB.
 
-3. You can run the container image and the application directly:
+3. Then run this container image with `docker`:
     ```bash
-    docker run -p8080:8080 --rm hello
+    docker run -p8080:8080 --rm micronaut:hello
     ```
-    ```bash
-    curl http://localhost:8080/hello
-    ```
-    It will return the same message "Example Response".
+    You can test the application using `curl` or open it in a browser (same as before).
+
+Additionally, an example Dockerfile named _Dockerfile.jvm_ is included for running this Micronaut application on the JVM in a custom container.
+You can build and compare both images:
+```bash
+docker build . -f Dockerfile.jvm -t micronaut:hello.jvm
+```
+```bash
+docker images | grep micronaut
+```
+```
+REPOSITORY   TAG         IMAGE ID       CREATED          SIZE
+micronaut    hello.jvm   f335f24cb16f   About a minute ago   245MB
+micronaut    hello       cf315cc746c4   7 minutes ago        102MB
+```
+The difference in image size is significant.
+This is because a native container does not include a full JVM; it contains only the application code and the minimal runtime required to execute it.
 
 ### Wrapping Up
 
 Micronaut makes it really easy to build modern Java applications and microservices.
 Its elimination of runtime reflection also makes it an ideal application framework to use with GraalVM Native Image for ahead-of-time compilation and containerization.
+
+To take this further, you can turn your application into a completely static or mostly statically linked native executable using Native Image.
+In this case, the application can run even in minimal or empty containers such as `scratch` or Alpine Linux.
+
+See the guide [Build a Statically Linked or Mostly-Statically Linked Native Executable](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/) to learn more.
+
+### Related Documentation
+
+- [Tiny Java Containers](../../tiny-java-containers/) demo shows how a simple Java application and a simple web server can be compiled to produce very small Docker container images using various lightweight base images.
+- [From JIT to Native: Efficient Java Containers with GraalVM and Spring Boot](https://github.com/graalvm/workshops/tree/main/native-image/spring-boot-webserver) workshop demonstrates how to build efficient, size-optimized native applications, and deploy them in various containers.

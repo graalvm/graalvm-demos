@@ -1,0 +1,11 @@
+# Builder
+FROM container-registry.oracle.com/graalvm/native-image:25 AS nativebuild
+WORKDIR /
+COPY . .
+RUN ./gradlew nativeCompile
+
+# Runner: Distroless Java Base (provides glibc and required runtime libraries)
+FROM gcr.io/distroless/java-base-debian13
+COPY --from=nativebuild /build/native/nativeCompile/hello /hello
+EXPOSE 8080
+ENTRYPOINT ["/hello"]

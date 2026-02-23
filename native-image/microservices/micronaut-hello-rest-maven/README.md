@@ -60,7 +60,7 @@ Micronaut provides support for GraalVM Native Image by default.
     ```bash
     ./target/hello
     ```
-    This ahead-of-time compiled application started much faster than when running as a JAR!
+    This ahead-of-time compiled application started much faster than when running on the JVM!
 
     It is so fast because it does not have to parse bytecode for JDK and application classes, initialize the JIT compiler, allocate JIT code caches, JIT profile data caches, and so on.
 
@@ -83,20 +83,20 @@ GraalVM Native Image supports both statically and dynamically linked executables
 To run a native executable that is dynamically linked against `glibc`, you need a base image that includes it.
 A good choice is a Google Distroless image, such as `java-base-debian13`.
 
-1. Create a `Dockerfile` with the following contents:
+1. Create a `Dockerfile.native` with the following contents:
     ```Dockerfile
     # Builder
     FROM container-registry.oracle.com/graalvm/native-image:25 AS nativebuild
-    WORKDIR /build
+    WORKDIR /
     COPY . .
     RUN chmod +x mvnw
     RUN ./mvnw --no-transfer-progress package -Dpackaging=native-image
 
     # Runner
     FROM gcr.io/distroless/java-base-debian13
-    COPY --from=nativebuild /build/target/hello /
+    COPY --from=nativebuild /target/hello /
     EXPOSE 8080
-    ENTRYPOINT ["/hello", "-b", "0.0.0.0", "-d", "/hello"]
+    ENTRYPOINT ["/hello"]
     ```
 
     This example demonstrates a multi-stage build.
@@ -106,7 +106,7 @@ A good choice is a Google Distroless image, such as `java-base-debian13`.
 
 2. Build a container image:
     ```bash
-    docker build . -f Dockerfile -t micronaut:hello
+    docker build . -f Dockerfile.native -t micronaut:hello
     ```
     Check the file size of the newly-created image:
     ```bash
@@ -119,10 +119,11 @@ A good choice is a Google Distroless image, such as `java-base-debian13`.
 
     The container image that was created is about 56.9MB.
 
-3. Now run the image with `docker`:
+3. Now run the container image with `docker`:
     ```bash
     docker run -p8080:8080 --rm micronaut:hello
     ```
+
 4. Finally, test the application using `curl` in the second terminal window or open it in a browser.
     ```bash
     curl http://localhost:8080/GraalVM
@@ -132,9 +133,9 @@ A good choice is a Google Distroless image, such as `java-base-debian13`.
 Additionally, you can find an example Dockerfile, _Dockerfile.jvm_, for packaging and running this Micronaut application from a JAR file.
 You can build the second container image and compare the sizes of both images:
 ```bash
-docker build --no-cache . -f Dockerfile.jvm -t micronaut:hello.jvm
+docker build . -f Dockerfile.jvm -t micronaut:hello.jvm
 ```
-```
+```bash
 docker images | grep micronaut
 
 REPOSITORY   TAG         IMAGE ID       CREATED          SIZE
@@ -142,6 +143,7 @@ micronaut    hello       b10fb62f7b3e   4 seconds ago    56.9MB
 micronaut    hello.jvm   7471e8f472f8   36 minutes ago   245MB
 ```
 The difference in image size is significant.
+This is because a native container does not include a full JVM; it contains only the application code and the minimal runtime required to execute it.
 
 ### Wrapping Up
 
@@ -151,6 +153,9 @@ Its elimination of runtime reflection also makes it an ideal application framewo
 To take this further, you can turn your application into a completely static or mostly statically linked native executable using Native Image.
 In this case, the application can run even in minimal or empty containers such as `scratch` or Alpine Linux.
 
+See the guide [Build a Statically Linked or Mostly-Statically Linked Native Executable](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-static-executables/) to learn more.
+
 ### Related Documentation
+
 - [Tiny Java Containers](../../tiny-java-containers/) demo shows how a simple Java application and a simple web server can be compiled to produce very small Docker container images using various lightweight base images.
 - [From JIT to Native: Efficient Java Containers with GraalVM and Spring Boot](https://github.com/graalvm/workshops/tree/main/native-image/spring-boot-webserver) workshop demonstrates how to build efficient, size-optimized native applications, and deploy them in various containers.
