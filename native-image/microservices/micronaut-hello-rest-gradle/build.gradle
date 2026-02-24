@@ -1,6 +1,6 @@
 plugins {
-    id("io.micronaut.application") version "4.6.1"
-    id("io.micronaut.aot") version "4.6.1"
+    id("io.micronaut.application") version "4.6.2"
+    id("io.micronaut.aot") version "4.6.2"
     id("com.diffplug.spotless") version "6.23.3"
 }
 
@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    implementation(platform("io.micronaut.platform:micronaut-platform:4.6.2"))
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
@@ -20,15 +21,15 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-client")
 }
 
-
 application {
-    mainClass = "com.example.Application"
-}
-java {
-    sourceCompatibility = JavaVersion.toVersion("25")
-    targetCompatibility = JavaVersion.toVersion("25")
+    mainClass = "com.example.Application"   // your main class
+    // applicationName is used for run tasks only
 }
 
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
+}
 
 graalvmNative.toolchainDetection = false
 
@@ -37,11 +38,9 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("example.micronaut.*")
+        annotations("com.example.*")  // fixed package
     }
     aot {
-        // Please review carefully the optimizations enabled below
-        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
         optimizeServiceLoading = false
         convertYamlToJava = false
         precomputeOperations = true
@@ -56,11 +55,32 @@ micronaut {
 graalvmNative {
     binaries {
         main {
-            imageName.set('MnHelloRest')
+            imageName.set("hello")
         }
     }
 }
 
 tasks.named("dockerfileNative") {
     jdkVersion = "25"
+}
+
+// Build a self-contained fat JAR for container deployment
+tasks.register("fatJar", Jar) {
+    group = "build"
+    archiveBaseName = "hello-all"
+    archiveVersion = "0.1"
+
+    manifest {
+        attributes(
+            "Main-Class": "com.example.Application"
+        )
+    }
+    from sourceSets.main.output
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath
+            .findAll { it.name.endsWith("jar") }
+            .collect { zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

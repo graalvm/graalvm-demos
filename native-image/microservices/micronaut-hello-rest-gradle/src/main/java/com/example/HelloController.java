@@ -6,13 +6,20 @@
 
 package com.example;
 
-import io.micronaut.http.annotation.*;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 
-@Controller("/hello")
+@Controller
 public class HelloController {
 
-    @Get(uri="/", produces="text/plain")
+    @Get(produces = MediaType.TEXT_PLAIN)
     public String index() {
-        return "Example Response";
+        return "Hello World";
+    }
+
+    @Get(value = "/{name}", produces = MediaType.TEXT_PLAIN)
+    public String index(String name) {
+        return "Hello " + name;
     }
 }

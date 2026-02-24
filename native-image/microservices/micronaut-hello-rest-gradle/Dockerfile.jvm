@@ -1,0 +1,11 @@
+# Builder
+FROM container-registry.oracle.com/graalvm/jdk:25 AS build
+WORKDIR /
+COPY . .
+RUN ./gradlew clean fatJar
+
+# Runner: Distoless Java 25 (Debian)
+FROM gcr.io/distroless/java25-debian13
+COPY --from=build /build/libs/hello-all-0.1.jar .
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "hello-all-0.1.jar"]
