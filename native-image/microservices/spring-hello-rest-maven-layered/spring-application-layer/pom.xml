@@ -12,30 +12,11 @@
     <artifactId>spring-hello-rest-maven-layered</artifactId>
     <version>0.1</version>
     <description>Layered native demo project for Spring Boot</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
     <properties>
         <java.version>25</java.version>
         <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>example.spring</groupId>
-            <artifactId>base-layer</artifactId>
-            <version>0.1</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -91,13 +72,6 @@
         </profile>
         <profile>
             <id>app-layer</id>
-            <dependencies>
-                    <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>base-layer</artifactId>
-                    <version>${project.version}</version>
-                    </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
