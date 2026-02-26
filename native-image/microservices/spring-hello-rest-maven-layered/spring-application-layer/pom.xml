@@ -91,13 +91,6 @@
         </profile>
         <profile>
             <id>app-layer</id>
-            <dependencies>
-                    <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>base-layer</artifactId>
-                    <version>${project.version}</version>
-                    </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>

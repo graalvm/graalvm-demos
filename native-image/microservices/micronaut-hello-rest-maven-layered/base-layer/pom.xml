@@ -34,24 +34,6 @@
                     </buildArgs>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>${project.groupId}</groupId>
-                            <file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
-                            <artifactId>base-layer</artifactId>
-                            <packaging>jar</packaging>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
