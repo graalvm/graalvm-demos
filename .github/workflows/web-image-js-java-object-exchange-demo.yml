@@ -1,0 +1,47 @@
+name: web-image-js-java-object-exchange
+on:
+  push:
+    paths:
+      - 'web-image/js-java-object-exchange/**'
+      - '.github/workflows/web-image-js-java-object-exchange-demo.yml'
+  pull_request:
+    paths:
+      - 'web-image/js-java-object-exchange/**'
+      - '.github/workflows/web-image-js-java-object-exchange-demo.yml'
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'web-image-js-java-object-exchange'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        java-version: ['25e1-ea']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 25
+      - name: Set up Binaryen
+        run: |
+          curl -sLO https://github.com/WebAssembly/binaryen/releases/download/version_122/binaryen-version_122-x86_64-linux.tar.gz
+          tar xzf binaryen-version_122-x86_64-linux.tar.gz
+          echo "$(pwd)/binaryen-version_122/bin" >> "$GITHUB_PATH"
+      - name: Run 'web-image/js-java-object-exchange'
+        run: |
+          cd web-image/js-java-object-exchange
+          javac PricingService.java
+          native-image --tool:svm-wasm -H:-AutoRunVM PricingService
+          node run-on-node.js | tee output.log
+          grep -q '"finalPrice":96' output.log
+          grep -q '"discountApplied":24' output.log

@@ -91,6 +91,7 @@ Demos illustrating how to use **Web Image**, GraalVM's new experimental feature 
 
 * [hello-wasm](web-image/hello-wasm) - Demonstrates the experimental GraalVM Web Image feature by compiling a simple JVM application into a WebAssembly module with a JavaScript wrapper.
 * [export-java-function](web-image/export-java-function) - Shows how you can call Java methods directly from JavaScript via WebAssembly using the `@JS` annotation.
+* [js-java-object-exchange](web-image/js-java-object-exchange) - Demonstrates how you can work with objects: JavaScript sends a request object, Java processes it, and returns a structured response object, via WebAssembly.
 * [javac](web-image/javac/) - Illustrates how to use GraalVM Web Image to compile `javac` into a Wasm module, which can then run either on the command line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/javac/).
 * [spring-shell](web-image/spring-shell/) - Demonstrates how to use GraalVM Web Image to compile a Spring Shell application into a Wasm module that can then run on the command-line or in the browser. [Check out the live demo here](https://graalvm.github.io/graalvm-demos/web-image/spring-shell/).
 
