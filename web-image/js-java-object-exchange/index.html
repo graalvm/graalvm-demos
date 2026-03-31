@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pricing Service Demo</title>
+<style>
+body { font-family: system-ui, sans-serif; margin: 40px; }
+input, button { padding: 6px 10px; margin: 4px; }
+pre { margin-top: 20px; padding: 16px; background: #f6f8fa; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<h2>Pricing Service Demo</h2>
+    <p>Calculate the price using Java and JavaScript via WebAssembly.</p>
+
+<input id="price" type="number" placeholder="Price" value="120">
+<label>
+    Premium:
+    <input id="premium" type="checkbox" checked>
+</label>
+<button id="run">Calculate Price</button>
+
+<pre id="output">Result will appear here.</pre>
+
+<script src="pricingservice.js"></script>
+
+<script>
+GraalVM.run([]).then(() => {
+    const button = document.getElementById("run");
+    const output = document.getElementById("output");
+
+    button.addEventListener("click", () => {
+        const priceInput = parseInt(document.getElementById("price").value, 10);
+        const premiumInput = document.getElementById("premium").checked;
+
+        const request = {
+            operation: "discount",
+            price: Number.isNaN(priceInput) ? 0 : priceInput,
+            user: {
+                premium: premiumInput
+            },
+        };
+
+        const result = globalThis.pricingService(request);
+        output.innerText = JSON.stringify(result, null, 2);
+    });
+});
+</script>
+
+</body>
+</html>
