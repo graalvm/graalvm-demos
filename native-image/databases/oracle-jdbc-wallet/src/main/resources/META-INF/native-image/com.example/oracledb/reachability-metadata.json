@@ -1,0 +1,123 @@
+{
+  "reflection": [
+    {
+      "type": "oracle.security.pki.OracleSSOKeyStoreSpi",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true,
+      "allDeclaredMethods": true,
+      "allPublicMethods": true
+    },
+    {
+      "type": "oracle.security.pki.OracleKeyStoreSpi",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true,
+      "allDeclaredMethods": true,
+      "allPublicMethods": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.BasicConstraintsExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.AuthorityInfoAccessExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.AuthorityKeyIDExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLCertificateIssuerExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLDistPointExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLHoldInstructionExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLInvalidityDateExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLNumberExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CRLReasonExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.CertificatePoliciesExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.DeltaCRLIndicatorExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.ExtKeyUsageExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.IssuerAltNameExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.IssuingDistPointExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.KeyUsageExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.NameConstraintsExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.NetscapeCertTypeExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.PolicyConstraintsExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.SubjectAltNameExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    },
+    {
+      "type": "oracle.security.pki.internal.cert.ext.SubjectKeyIDExtension",
+      "allDeclaredConstructors": true,
+      "allPublicConstructors": true
+    }
+  ],
+  "resources": [
+    {
+      "bundle": "oracle.security.pki.resources.OraclePKIMsg"
+    }
+  ]
+}
