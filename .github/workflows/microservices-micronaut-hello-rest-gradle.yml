@@ -25,42 +25,54 @@ jobs:
           native-image-job-reports: 'true'
       - name: Run 'microservices/micronaut-hello-rest-gradle'
         run: |
+          set -euo pipefail
           cd native-image/microservices/micronaut-hello-rest-gradle
-          # Test on Oracle GraalVM
+
+          wait_for_container() {
+            local port="$1"
+            local attempts=30
+
+            while (( attempts > 0 )); do
+              if response=$(curl --silent --show-error --fail "http://localhost:${port}/GraalVM"); then
+                [ "$response" = "Hello GraalVM" ]
+                return 0
+              fi
+              attempts=$((attempts - 1))
+              sleep 1
+            done
+
+            echo "Timed out waiting for container on port ${port}" >&2
+            return 1
+          }
+
+          run_container_check() {
+            local image="$1"
+            local port="$2"
+
+            container_id=$(docker run --rm -d -p"${port}":8080 "$image")
+            trap 'docker kill "$container_id" 2>/dev/null || true' EXIT
+            wait_for_container "$port"
+            docker kill "$container_id"
+            trap - EXIT
+          }
+
+          ./gradlew build
+
+          # JVM and native executable flows
           ./run.sh
 
           # Docker: Default Containers
           ./gradlew dockerBuild
-          container_id=$(docker run --rm -d -p8081:8080 hello:latest)
-          sleep 5
-          docker ps
-          curl "http://localhost:8081/"
-          docker kill $container_id
-          docker ps
+          run_container_check hello:latest 8081
 
           ./gradlew dockerBuildNative
-          container_id=$(docker run --rm -d -p8082:8080 hello:latest)
-          sleep 5
-          docker ps
-          curl "http://localhost:8082/"
-          docker kill $container_id
-          docker ps
+          run_container_check hello:latest 8082
 
           # Docker: Custom Containers
-          docker build --no-cache . -f Dockerfile.jvm -t micronaut:hello
-          container_id=$(docker run --rm -d -p8083:8080 micronaut:hello)
-          sleep 5
-          docker ps
-          curl "http://localhost:8083/"
-          docker kill $container_id
-          docker ps
+          docker build --no-cache . -f Dockerfile.jvm -t micronaut:hello.jvm
+          run_container_check micronaut:hello.jvm 8083
 
           docker build --no-cache . -f Dockerfile.native -t micronaut:hello
-          container_id=$(docker run --rm -d -p8084:8080 micronaut:hello)
-          sleep 5
-          docker ps
-          curl "http://localhost:8084/"
-          docker kill $container_id
-          docker ps
+          run_container_check micronaut:hello 8084
 
           docker images | grep micronaut
