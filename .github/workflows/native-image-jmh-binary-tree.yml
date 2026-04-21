@@ -31,8 +31,8 @@ jobs:
       - name: Build and Test Java Code
         run: |
           cd native-image/benchmark/jmh/binary-tree
-          # Build the Java code
-          ./mvnw --no-transfer-progress clean package
+          # Build and run the Java benchmark on HotSpot
+          ./mvnw --no-transfer-progress clean package exec:exec
           # Build the native executable
           ./mvnw --no-transfer-progress -Pnative -DskipNativeTests package
           # Could just replace with a check that the binary exists?
