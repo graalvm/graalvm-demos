@@ -2,6 +2,7 @@
 set -ex
 
 javac ListDir.java
+java ListDir ..
 native-image ListDir
 ./listdir ..
 
