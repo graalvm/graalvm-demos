@@ -4,19 +4,29 @@ set -x
 
 extract_sbom() {
   local image_path="$1"
+  local tool
 
-  if command -v native-image-utils >/dev/null 2>&1; then
-    native-image-utils extract-sbom --image-path="$image_path"
-  elif [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/native-image-utils" ]; then
-    "$JAVA_HOME/bin/native-image-utils" extract-sbom --image-path="$image_path"
-  elif command -v native-image-inspect >/dev/null 2>&1; then
-    native-image-inspect --sbom "$image_path"
-  elif [ -n "${JAVA_HOME:-}" ] && [ -x "$JAVA_HOME/bin/native-image-inspect" ]; then
-    "$JAVA_HOME/bin/native-image-inspect" --sbom "$image_path"
-  else
-    echo "No SBOM extraction tool found (expected native-image-utils or native-image-inspect)." >&2
-    exit 1
-  fi
+  for tool in \
+    native-image-utils \
+    "${JAVA_HOME:-}/bin/native-image-utils" \
+    native-image-inspect \
+    "${JAVA_HOME:-}/bin/native-image-inspect"
+  do
+    [ -x "$tool" ] || command -v "$tool" >/dev/null 2>&1 || continue
+
+    case "$(basename "$tool")" in
+      native-image-utils)
+        "$tool" extract-sbom --image-path="$image_path"
+        ;;
+      native-image-inspect)
+        "$tool" --sbom "$image_path"
+        ;;
+    esac
+    return 0
+  done
+
+  echo "No SBOM extraction tool found (expected native-image-utils or native-image-inspect)." >&2
+  exit 1
 }
 
 native-image -Ob -m jdk.httpserver -o jwebserver

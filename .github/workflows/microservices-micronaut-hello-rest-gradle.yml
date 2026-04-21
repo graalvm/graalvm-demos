@@ -28,20 +28,18 @@ jobs:
           set -euo pipefail
           cd native-image/microservices/micronaut-hello-rest-gradle
 
-          wait_for_container() {
-            local port="$1"
-            local attempts=30
+          wait_for_endpoint() {
+            local url="$1"
+            local pattern="$2"
 
-            while (( attempts > 0 )); do
-              if response=$(curl --silent --show-error --fail "http://localhost:${port}/GraalVM"); then
-                [ "$response" = "Hello GraalVM" ]
+            for _ in {1..30}; do
+              if response=$(curl --silent --show-error --fail "$url") && printf '%s\n' "$response" | grep -q "$pattern"; then
                 return 0
               fi
-              attempts=$((attempts - 1))
               sleep 1
             done
 
-            echo "Timed out waiting for container on port ${port}" >&2
+            echo "Timed out waiting for ${url}" >&2
             return 1
           }
 
@@ -51,7 +49,7 @@ jobs:
 
             container_id=$(docker run --rm -d -p"${port}":8080 "$image")
             trap 'docker kill "$container_id" 2>/dev/null || true' EXIT
-            wait_for_container "$port"
+            wait_for_endpoint "http://localhost:${port}/GraalVM" "^Hello GraalVM$"
             docker kill "$container_id"
             trap - EXIT
           }
