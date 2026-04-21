@@ -34,6 +34,8 @@ jobs:
           cd native-image/build-static-images
           javac EnvMap.java
           native-image --static --libc=musl EnvMap -o static-envmap
+          ./static-envmap PATH | grep -q '^PATH='
+          (ldd ./static-envmap 2>&1 || true) | grep -q 'not a dynamic executable'
   run-mostly-static:
     name: Run mostly-static
     runs-on: ubuntu-latest
@@ -54,3 +56,5 @@ jobs:
           cd native-image/build-static-images
           javac EnvMap.java
           native-image -Ob --static-nolibc EnvMap -o mostly-static-envmap
+          ./mostly-static-envmap PATH | grep -q '^PATH='
+          ldd ./mostly-static-envmap | grep -q 'libc\.so'
