@@ -5,3 +5,5 @@ set -ex
 ./gradlew clean run
 # Build and run a native executable (`nativeRun` compiles the application, invokes `nativeCompile`, and then runs the executable)
 ./gradlew nativeRun
+# Re-run the application from the compiled native executable
+./build/native/nativeCompile/fortune

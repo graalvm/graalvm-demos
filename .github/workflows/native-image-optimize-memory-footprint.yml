@@ -3,11 +3,11 @@ on:
   push:
     paths:
       - 'native-image/optimize-memory/**'
-      - '.github/workflows/native-image-optimize-memory.yml'
+      - '.github/workflows/native-image-optimize-memory-footprint.yml'
   pull_request:
     paths:
       - 'native-image/optimize-memory/**'
-      - '.github/workflows/native-image-optimize-memory.yml'
+      - '.github/workflows/native-image-optimize-memory-footprint.yml'
   schedule:
     - cron: "0 0 1 * *" # run every month
   workflow_dispatch:
