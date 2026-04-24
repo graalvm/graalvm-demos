@@ -1,0 +1,92 @@
+name: native-image/databases/oracle-jdbc-local
+
+on:
+  push:
+    paths:
+      - 'native-image/databases/oracle-jdbc-local/**'
+      - '.github/workflows/native-image-databases-oracle-jdbc-local.yml'
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    name: Run 'native-image/databases/oracle-jdbc-local'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      ORACLE_CONTAINER: oracle-free
+      ORACLE_PWD: oraclepwd
+      JDBC_URL: jdbc:oracle:thin:@//localhost:1521/FREEPDB1
+      JDBC_USER: appuser
+      JDBC_PASSWORD: apppassword
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '25'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+
+      - name: Start Oracle Database Free
+        run: |
+          docker pull container-registry.oracle.com/database/free:latest
+          docker run -d \
+            --name "$ORACLE_CONTAINER" \
+            -p 1521:1521 \
+            -e ORACLE_PWD="$ORACLE_PWD" \
+            container-registry.oracle.com/database/free:latest
+
+      - name: Wait for Oracle Database Free readiness
+        run: |
+          for attempt in $(seq 1 60); do
+            if docker logs "$ORACLE_CONTAINER" 2>&1 | grep -q 'DATABASE IS READY TO USE!'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          docker logs "$ORACLE_CONTAINER"
+          exit 1
+
+      - name: Create application user
+        run: |
+          docker exec "$ORACLE_CONTAINER" bash -lc "sqlplus -s system/$ORACLE_PWD@FREEPDB1 <<'SQL'
+          WHENEVER SQLERROR EXIT SQL.SQLCODE
+          CREATE USER appuser IDENTIFIED BY apppassword;
+          GRANT CONNECT TO appuser;
+          GRANT CREATE TABLE TO appuser;
+          GRANT UNLIMITED TABLESPACE TO appuser;
+          EXIT
+          SQL"
+
+      - name: Build and run JAR demo
+        working-directory: native-image/databases/oracle-jdbc-local
+        run: |
+          ./mvnw -q package
+          java -jar target/messages-store-1.0.0-SNAPSHOT.jar "Running on the JVM in CI" | tee jvm-run.log
+          grep -q 'Connected to Oracle Database.' jvm-run.log
+          grep -q 'demo_events row count:' jvm-run.log
+
+      - name: Build and run native demo
+        working-directory: native-image/databases/oracle-jdbc-local
+        run: |
+          ./mvnw -q native:compile
+          ./target/messages-store "Running as a native image in CI" | tee native-run.log
+          grep -q 'Connected to Oracle Database.' native-run.log
+          grep -q 'demo_events row count:' native-run.log
+
+      - name: Show Oracle container logs on failure
+        if: failure()
+        run: docker logs "$ORACLE_CONTAINER"
+
+      - name: Stop Oracle Database Free
+        if: always()
+        run: |
+          docker stop "$ORACLE_CONTAINER" || true
+          docker rm "$ORACLE_CONTAINER" || true
