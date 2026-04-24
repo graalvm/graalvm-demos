@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>oracle-ai-jdbc</artifactId>
+  <artifactId>messages-store</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>oracle-ai-jdbc</name>
   <description>Java Maven demo that writes data to Oracle Autonomous Database via JDBC and wallet authentication.</description>

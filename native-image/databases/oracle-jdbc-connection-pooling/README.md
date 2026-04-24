@@ -33,33 +33,46 @@ The setup steps below demonstrate the TCPS (non-wallet) configuration only.
 
 This demo was tested using a remote [Oracle Autonomous AI Database](https://www.oracle.com/autonomous-database).
 
-1. In the Oracle Cloud Console, open your database instance, navigate to **Database Connection** -> **Connection strings**, and find the connection strings. Note these values:
-   - hostname
-   - port
-   - service name
+1. In the Oracle Cloud Console, open your database instance and navigate to **Database Connection** -> **Connection strings**.
+   Under the **TLS-only** connection mode, choose the database service (for example, `low`, `medium`, or `high`) and obtain the JDBC connection string you want to use for `JDBC_URL`.
 
-2. Create or use a database user with permission to connect and create tables. Navigate to **Database actions** -> **SQL** and copy-paste the following SQL statement into the working window, replacing the user name and password with your values. Run it.
+   You can use either:
+
+   - a full TNS URL shown by the database:
+     ```
+     jdbc:oracle:thin:@(description=(address=(protocol=tcps)(port=<port>)(host=<your-adb-host>))(connect_data=(service_name=<your-service-name>))(security=(ssl_server_dn_match=yes)))
+     ```
+
+   - or an EZConnect URL constructed from the displayed host, port, and service name:
+     ```
+     jdbc:oracle:thin:@tcps://<host>:<port>/<service_name>
+     ```
+
+2. Check the network settings (DNS, listener, firewall and security rules).
+
+   > For Oracle Autonomous Database TLS-only access, either a private endpoint must be configured or an Access Control List (ACL) must allow your client IP.
+
+3. Create or use a database user with permission to connect and create tables. Navigate to **Database actions** -> **SQL** and copy-paste the following SQL statement into the working window, replacing the user name and password with your values. Run it.
    ```sql
-   CREATE USER appuser IDENTIFIED BY "apppassword";
+   CREATE USER appuser IDENTIFIED BY "Apppassw0rd_";
    GRANT CONNECT TO appuser;
    GRANT CREATE TABLE TO appuser;
    GRANT UNLIMITED TABLESPACE TO appuser;
    ```
 
-3. Set the environment variables. In the terminal where you will run the application, export `JDBC_URL` in the [EZConnect format](https://docs.oracle.com/en/database/oracle/oracle-database/26/jajdb/):
-   ```bash
-   export JDBC_URL="jdbc:oracle:thin:@tcps://<host>:<port>/<service_name>"
-   ```
-   You can also use the full connection string provided by OCI (TNS URL format). **Medium** service level is sufficient.
+4. Set the environment variables in the terminal where you will run the application.
 
-   Export database user credentials (not your OCI login):
-   ```bash
-   export JDBC_USER="<db-user>"
-   ```
-   ```bash
-   export JDBC_PASSWORD="<db-password>"
-   ```
-
+   - Export the JDBC connection string you selected in Step 1:
+      ```bash
+      export JDBC_URL="jdbc:oracle:thin:@<db_connection_string"
+      ```
+   - Export database user credentials (not your OCI login):
+      ```bash
+      export JDBC_USER="<db-user>"
+      ```
+      ```bash
+      export JDBC_PASSWORD="<db-password>"
+      ```
    > For this demo, do not use wallet-based settings such as `TNS_ADMIN` or `WALLET_LOCATION`.
    > If you previously used the wallet-based demo in the same shell, clear them first:
    > ```bash

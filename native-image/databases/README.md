@@ -1,7 +1,7 @@
 # Oracle JDBC Connectivity Demos for Native Image
 
 This directory contains a set of Oracle JDBC demos organized by **connection type** and by the additional Native Image configuration each setup may require.
-The complexity depends heavily on how the application connects to Oracle Database.
+The complexity depends on how the application connects to Oracle Database.
 
 > The **Oracle JDBC driver** connects directly to Oracle Database using Java sockets and its own implementation of the SQL*Net protocol over TCP/IP. Learn more in the [JDBC Developer's Guide](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/connection-and-security.html).
 
@@ -26,8 +26,11 @@ The complexity depends heavily on how the application connects to Oracle Databas
 
 ## Conclusions
 
-Most Native Image configurations are caused the connection type and security model:
+The configuration required to make a database application ready for Native Image AOT compilation depends on a connection type.
+In the simplest case, if the driver class is explicitly referenced, and the application does not rely on dynamic class loading, **Oracle JDBC driver works with GraalVM Native Image without any additional configuration**.
 
-- Plain TCP connections require minimal configuration
-- TLS (TCPS) introduces certificate and security handling
-- Wallet-based connections add Oracle Net and PKI dependencies
+Issues may appear if you:
+- Use connection pools (for example, Oracle UCP)
+- Introduce ORMs (for example, Hibernate)
+- Add schema management tools (for example, Flyway or Liquibase)
+- Load drivers dynamically

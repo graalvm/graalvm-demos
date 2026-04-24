@@ -14,7 +14,6 @@ This demo includes:
   * `oraclepki`
   * `osdt_core`
   * `osdt_cert`
-* `--enable-all-security-services` build argument within the plugin configuration
 * explicit registration of `OraclePKIProvider` in code
 * reachability metadata for Oracle wallet keystore and certificate parsing classes (see [reachability-metadata.json](src/main/resources/META-INF/native-image/com.example/oracledb/reachability-metadata.json)).
 
@@ -46,7 +45,7 @@ These pieces are required because wallet-based connections depend on Oracle PKI 
 
 5. Create or use a database user with permission to connect and create tables. Navigate to **Database actions** -> **SQL** and copy-paste the following SQL statement into the working window, replacing the user name and password with your values. Run it.
    ```sql
-   CREATE USER appuser IDENTIFIED BY "apppassword";
+   CREATE USER appuser IDENTIFIED BY "Apppassw0rd_";
    GRANT CONNECT TO appuser;
    GRANT CREATE TABLE TO appuser;
    GRANT UNLIMITED TABLESPACE TO appuser;

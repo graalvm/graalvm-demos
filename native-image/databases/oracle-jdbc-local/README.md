@@ -137,14 +137,6 @@ DROP TABLE demo_events;
 
 ### Summary
 
-The configuration required to make a database application ready for Native Image AOT compilation depends on a connection type.
-
 The **Oracle JDBC driver works with GraalVM Native Image without any additional configuration** in this demo.
 This works because the driver class (`oracle.jdbc.OracleDriver`) is explicitly referenced, and the application does not rely on dynamic class loading or reflection-heavy frameworks.
-Issues may appear if you:
-- Use connection pools (for example, Oracle UCP)
-- Introduce ORMs (for example, Hibernate)
-- Add schema management tools (for example, Flyway or Liquibase)
-- Load drivers dynamically
-
-For a remote connection to a production database such as Oracle Autonomous Database, or Oracle Database on-prem,  it will require extra steps for making this type of application "Native Image ready", which is demonstrated in separate projects in this repository.
+For a remote connection to a production database such as Oracle Autonomous Database, or Oracle Database on-prem, it will require extra steps for making this type of application "Native Image ready", which is demonstrated in separate projects in this repository.

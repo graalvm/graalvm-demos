@@ -43,10 +43,6 @@
         <configuration>
           <mainClass>${mainClass}</mainClass>
           <imageName>messages-store</imageName>
-          <buildArgs>
-            <!-- Required to include the security services in the the native executable -->
-            <buildArg>--enable-all-security-services</buildArg>
-          </buildArgs>
         </configuration>
       </plugin>
       <plugin>

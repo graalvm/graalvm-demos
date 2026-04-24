@@ -4,16 +4,13 @@ This demo shows a simple message store Java application that connects to a **rem
 
 > **TCPS** is the TLS-encrypted secure connection variant of the Oracle JDBC Thin network protocol, and is commonly used in production environments to protect credentials and application data in transit.
 
+Compared to running an Oracle Database locally or using [Oracle Database Free container image](../oracle-jdbc-local/), this demo moves to a real remote database environment where DNS resolution matters, firewalls and network matter.
+
 ## Notes on GraalVM Native Image Compatibility
 
-A **TLS-encrypted (TCPS) JDBC connection** introduces additional considerations for [GraalVM Native Image](https://www.graalvm.org/latest/reference-manual/native-image/) compared to a plain TCP connection.
-You may need to account for SSL/TLS support, truststore or certificate configuration, and access to security-related resources at runtime.
+A secure connection can introduce additional considerations for [GraalVM Native Image](https://www.graalvm.org/latest/reference-manual/native-image/) compared to a plain TCP connection, especially when custom truststore, certificate, or wallet-based settings are involved.
 
-Compared to running an Oracle Database locally or using [Oracle Database Free container image](../oracle-jdbc-local/), this demo moves to a real remote database environment where:
-
-- DNS resolution matters
-- firewalls and network matter
-- host, port, and service name must be provided correctly
+For this demo, no special Native Image configuration was required beyond the standard Oracle JDBC setup.
 
 ## Prerequisites
 
@@ -25,20 +22,20 @@ Compared to running an Oracle Database locally or using [Oracle Database Free co
 This demo was tested using a remote [Oracle Autonomous AI Database](https://www.oracle.com/autonomous-database) that accepts a **direct TCP/TLS-only JDBC connection without a wallet**.
 If your database requires a wallet or `TNS_ADMIN`, use the [Wallet demo](../oracle-jdbc-wallet/) instead.
 
-1. In the Oracle Cloud Console, open your database instance, navigate to **Database Connection** -> **Connection strings**, and find the connection strings for the **TLS-only** connection mode. Note these values:
-   - hostname
-   - port
-   - service name
+1. In the Oracle Cloud Console, open your database instance and navigate to **Database Connection** -> **Connection strings**.
+   Under the **TLS-only** connection mode, choose the database service (for example, `low`, `medium`, or `high`) and obtain the JDBC connection string you want to use for `JDBC_URL`.
 
-   You can connect using
-      - the TNS URL format:
-         ```
-         jdbc:oracle:thin:@(description=(address=(protocol=tcps)(port=<port>)(host=<your-adb-host>))(connect_data=(service_name=<your-service-name>))(security=(ssl_server_dn_match=yes)))
-         ```
-      - Or the EZConnect format, using a simple syntax:
-         ```
-         jdbc:oracle:thin:@tcps://<host>:<port>/<service_name>
-         ```
+   You can use either:
+
+   - a full TNS URL shown by the database:
+     ```
+     jdbc:oracle:thin:@(description=(address=(protocol=tcps)(port=<port>)(host=<your-adb-host>))(connect_data=(service_name=<your-service-name>))(security=(ssl_server_dn_match=yes)))
+     ```
+
+   - or an EZConnect URL constructed from the displayed host, port, and service name:
+     ```
+     jdbc:oracle:thin:@tcps://<host>:<port>/<service_name>
+     ```
 
 2. Check the network settings (DNS, listener, firewall and security rules).
 
@@ -46,26 +43,25 @@ If your database requires a wallet or `TNS_ADMIN`, use the [Wallet demo](../orac
 
 3. Create or use a database user with permission to connect and create tables. Navigate to **Database actions** -> **SQL** and copy-paste the following SQL statement into the working window, replacing the user name and password with your values. Run it.
    ```sql
-   CREATE USER appuser IDENTIFIED BY "apppassword";
+   CREATE USER appuser IDENTIFIED BY "Apppassw0rd_";
    GRANT CONNECT TO appuser;
    GRANT CREATE TABLE TO appuser;
    GRANT UNLIMITED TABLESPACE TO appuser;
    ```
 
-4. Set the environment variables. In the terminal where you will run the application, export `JDBC_URL` in the EZConnect format:
-   ```bash
-   export JDBC_URL="jdbc:oracle:thin:@tcps://<host>:<port>/<service_name>"
-   ```
-   You can also use the full connection string provided by OCI (TNS URL format). **Medium** service level is sufficient.
+4. Set the environment variables in the terminal where you will run the application.
 
-   Export database user credentials (not your OCI login):
-   ```bash
-   export JDBC_USER="<db-user>"
-   ```
-   ```bash
-   export JDBC_PASSWORD="<db-password>"
-   ```
-
+   - Export the JDBC connection string you selected in Step 1:
+      ```bash
+      export JDBC_URL="jdbc:oracle:thin:@<db_connection_string"
+      ```
+   - Export database user credentials (not your OCI login):
+      ```bash
+      export JDBC_USER="<db-user>"
+      ```
+      ```bash
+      export JDBC_PASSWORD="<db-password>"
+      ```
    > For this demo, do not use wallet-based settings such as `TNS_ADMIN` or `WALLET_LOCATION`.
    > If you previously used the wallet-based demo in the same shell, clear them first:
    > ```bash
@@ -84,8 +80,6 @@ If your database requires a wallet or `TNS_ADMIN`, use the [Wallet demo](../orac
     ./mvnw native:compile
     ```
     The executable `messages-store` will be created under _target/_.
-
-    In case of this demo, the build required the argument `--enable-all-security-services` passed within the plugin configuration in _pom.xml_.
 
 3. Run the application by passing some text as an argument (up to 200 characters):
     - from a JAR file:
@@ -115,7 +109,5 @@ Running the application as a native executable should provide faster startup tim
 
 ## Summary
 
-For this connection type, Native Image build may require additional security support depending on how TLS trust is configured in your environment.
-
-In case of this demo, the only required addition was `--enable-all-security-services` compared to the [local TCP connection demo](../oracle-jdbc-local/).
-This is needed because the connection uses TLS.
+In this demo, the JDBC driver connected successfully over TCPS without any extra Native Image options.
+More advanced setups, such as wallet-based connections or custom trust configuration, may still require additional security-related configuration.
