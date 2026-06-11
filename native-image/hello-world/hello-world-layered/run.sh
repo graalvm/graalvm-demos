@@ -11,6 +11,6 @@ java -jar HelloWorld.jar
 
 # Run from a native executable
 mkdir -p native-build
-native-image -H:LayerCreate=libjavabaselayer.nil,module=java.base -cp ./build -o libjavabaselayer -H:Path=./native-build
-native-image -H:LayerUse=native-build/libjavabaselayer.nil -cp ./build -H:LinkerRPath="\$ORIGIN/native-build" -jar HelloWorld.jar
+native-image -H:LayerCreate=libjavabaselayer.nil,module=java.base -o libjavabaselayer -H:Path=./native-build
+native-image -H:LayerUse=native-build/libjavabaselayer.nil -H:LinkerRPath="\$ORIGIN/native-build" -jar HelloWorld.jar
 ./HelloWorld
