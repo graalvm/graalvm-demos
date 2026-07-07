@@ -246,8 +246,12 @@ For this, use the following build in the _pom.xml_ file:
             </executions>
             <configuration>
                 <imageName>libjavabaselayer</imageName>
+                <classesDirectory>null</classesDirectory>
                 <buildArgs>
-                    <buildArg>-cp ${project.basedir}/base_layer_config</buildArg>
+                    <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                    <buildArg>-H:LayerCreate=base-layer.nil,digest-ignore,module=java.base,module=jdk.unsupported,module=java.sql,module=jdk.jfr,package=sun.management.spi</buildArg>
+                    <buildArg>-H:+UseSharedLayerGraphs</buildArg>
+                    <buildArg>-H:-UnlockExperimentalVMOptions</buildArg>
                 </buildArgs>
             </configuration>
         </plugin>
@@ -255,28 +259,7 @@ For this, use the following build in the _pom.xml_ file:
 </build>
 
 ```
-
-with the following _native-image.properties_ file in _base_layer_config/META-INF/native-image/base-layer_:
-```
-Args = -H:+UnlockExperimentalVMOptions \
-       -H:LayerCreate=@layer-create.args \
-       -H:-UnlockExperimentalVMOptions
-```
-
-Create the following _layer-create.args_ file in the same directory:
-```
-# base layer config that contains JDK modules used by Micronaut
-base-layer.nil
-digest-ignore
-module=java.base
-module=java.desktop
-module=java.net.http
-module=java.management
-module=java.sql
-module=jdk.unsupported
-```
-
-This is an alternate way to use the `-H:LayerCreate=` option. It is used to specify what should be included in the base layer: `java.base` and a few more other packages that a Micronaut application usually depends on.
+The `-H:LayerCreate=` option is used to specify what should be included in the base layer: `java.base` and a few more other packages that a Micronaut application usually depends on.
 For more details, consult the [Native Image Layers documentation](https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md).
 
 Now you can build the base layer:
@@ -286,6 +269,8 @@ Now you can build the base layer:
 This will create the `base-layer.nil` file which is a build time dependency for the application build.
 It will also create the `libjavabaselayer.so` shared library which is a run-time dependency for the application layer.
 Note also that you use `install` instead of `package` to ensure that the base layer JAR is installed in the `.m2` cache as it will be needed by the application build later.
+
+The `<classesDirectory>null</classesDirectory>` configuration excludes the main JAR from the image by specifying a directory that does not exist.
 
 ### Configure The Application Layer
 

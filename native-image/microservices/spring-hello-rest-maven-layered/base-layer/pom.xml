@@ -10,7 +10,8 @@
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
-        <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
+        <native.maven.plugin.version>1.1.3</native.maven.plugin.version>
+        <base.layer.configuration.directory>${project.basedir}/base-layer-config</base.layer.configuration.directory>
     </properties>
     <build>
         <plugins>
@@ -28,9 +29,13 @@
                 </executions>
                 <configuration>
                     <imageName>libjavabaselayer</imageName>
-                    <classpath>
-                        <path>${project.basedir}/base_layer_config</path>
-                    </classpath>
+                    <classesDirectory>null</classesDirectory>
+                    <buildArgs>
+                        <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                        <buildArg>-H:ConfigurationFileDirectories=${base.layer.configuration.directory}</buildArg>
+                        <buildArg>-H:LayerCreate=base-layer.nil,digest-ignore,module=java.base,module=java.desktop,module=java.net.http,module=java.management,module=java.sql,module=jdk.unsupported</buildArg>
+                        <buildArg>-H:-UnlockExperimentalVMOptions</buildArg>
+                    </buildArgs>
                 </configuration>
             </plugin>
         </plugins>

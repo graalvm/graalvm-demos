@@ -45,7 +45,7 @@ export JAVA_HOME=/path/to/graalvm/ea/build
 1. Create a base layer that contains `java.base`:
     ```bash
     mkdir -p native-build
-    native-image -H:LayerCreate=baselayer.nil,module=java.base -cp ./build -o libjavabaselayer -H:Path=./native-build
+    native-image -H:LayerCreate=baselayer.nil,module=java.base -o libjavabaselayer -H:Path=./native-build
     ```
 
     This command creates:
@@ -57,7 +57,7 @@ export JAVA_HOME=/path/to/graalvm/ea/build
 
 2. Create a native executable from a JAR file using the base layer:
     ```bash
-    native-image -H:LayerUse=native-build/libjavabaselayer.nil -cp ./build -H:LinkerRPath="\$ORIGIN/native-build" -jar HelloWorld.jar
+    native-image -H:LayerUse=native-build/libjavabaselayer.nil -H:LinkerRPath="\$ORIGIN/native-build" -jar HelloWorld.jar
     ```
     The executable called `HelloWorld` will be created in the working directory.
 
