@@ -29,6 +29,7 @@ Demos for building native images, including configurations and setup steps for v
 * [list-files](native-image/list-files/) - Shows how to create a native executable from the command line, and then apply Profile-Guided Optimization (PGO)
 * [native-build-tools](native-image/native-build-tools/) - Contains two Java projects, and shows how to create native executables from those applications using [Maven](https://graalvm.github.io/native-build-tools/latest/maven-plugin.html) and [Gradle](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html) plugins for GraalVM Native Image
 * [preserve-package](native-image/preserve-package/) - Demonstrates how to use the `-H:Preserve` option to include all classes from a package in a native image, eliminating the need for JSON metadata configuration.
+* [dynamic-class-loading](native-image/dynamic-class-loading/) - Demonstrates how a Micronaut native executable uses Byte Buddy to generate and load a new class at run time
 
 ### Configure
 Demos illustrating how to compile applications with Native Image that use some dynamic Java features including reflection, resource access, and so on.

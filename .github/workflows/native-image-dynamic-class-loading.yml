@@ -1,0 +1,40 @@
+name: native-image/dynamic-class-loading
+on:
+  push:
+    paths:
+      - 'native-image/dynamic-class-loading/**'
+      - '.github/workflows/native-image-dynamic-class-loading.yml'
+  pull_request:
+    paths:
+      - 'native-image/dynamic-class-loading/**'
+      - '.github/workflows/native-image-dynamic-class-loading.yml'
+  schedule:
+    - cron: "0 0 1 * *" # run every month
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    name: Run 'native-image/dynamic-class-loading'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 'latest-ea'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+      - name: Run 'native-image/dynamic-class-loading'
+        run: |
+          set -euo pipefail
+          cd native-image/dynamic-class-loading
+
+          mvn --no-transfer-progress clean -Pdynamic package
+
+          output=$(./target/micronaut-bytebuddy-dynamic conference)
+          echo "$output"
+          grep -Fq 'Generated class: demo.crema.generated.ConferencePlugin1' <<< "$output"
+          grep -Fq "hello from Alina at Devoxx London! Let's talk about what's latest and greatest in GraalVM :)" <<< "$output"
