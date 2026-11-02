@@ -6,7 +6,7 @@
   "author": "GraalVM team",
   "license": "Universal Permissive License (UPL)",
   "dependencies": {
-    "body-parser": "^2.3.0",
+    "body-parser": "^2.4.0",
     "express": "^5.2.1"
   }
 }
